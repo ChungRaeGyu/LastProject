@@ -7,7 +7,7 @@ public class BookCard : Card
 {
     public Text text;
 
-    private void Start() {
+    private void OnEnable() {
         text.text = cardSO.currentCount.ToString();
     }
 }

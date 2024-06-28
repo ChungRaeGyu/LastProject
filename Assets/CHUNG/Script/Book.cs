@@ -16,14 +16,8 @@ public class Book : MonoBehaviour
     {
         for(int i=0; i<cardSOs.Count; i++){
             GameObject obj = Instantiate(prefab, boardPanel.transform);
-            obj.GetComponent<Card>().cardSO = cardSOs[i];
+            obj.GetComponentInChildren<Card>().cardSO = cardSOs[i];
             bookCards.Add(obj);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
