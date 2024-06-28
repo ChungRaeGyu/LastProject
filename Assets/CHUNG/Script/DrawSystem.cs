@@ -18,25 +18,46 @@ public class DrawSystem : MonoBehaviour
             if(random<80)
             {
                 //노말카드
-                int randomNormal = Random.Range(0, normalCards.Count);
-                ObjSet(obj, randomNormal);
+                int randomCard = Random.Range(0, normalCards.Count);
+                ObjSet(obj, randomCard);
             }
             else if(random<95){
                 //희귀카드뽑기
-                int randomNormal = Random.Range(0, rarityCards.Count);
-                ObjSet(obj, randomNormal);
+                int randomCard = Random.Range(0, rarityCards.Count);
+                ObjSet(obj, randomCard);
             }
             else{
                 //영웅카드뽑기
-                int randomNormal = Random.Range(0, heroCards.Count);
-                ObjSet(obj, randomNormal);
+                int randomCard = Random.Range(0, heroCards.Count);
+                ObjSet(obj, randomCard);
             }
         }
     }
 
-    private void ObjSet(GameObject obj, int randomNormal)
+    private void ObjSet(GameObject obj, int randomCard)
     {
-        obj.GetComponent<Card>().cardSO = normalCards[randomNormal];
+        obj.GetComponent<Card>().cardSO = normalCards[randomCard];
         obj.SetActive(true);
+    }
+
+    //패널 닫기 
+    public void ClosePanel(){
+        SaveCardInBook();
+    }
+
+    //Book(도감)으로 넣어준다. 그리고 카드를 다 초기화 시켜주기
+    private void SaveCardInBook()
+    {            
+        //초기화
+        foreach(GameObject obj in drawObj){
+            Card card = obj.GetComponent<Card>();
+            Debug.Log(card.GetComponent<Card>().cardSO);
+            card.cardSO.currentCount++;
+            card.cardSO=null;
+            obj.SetActive(false);
+        }
+        foreach(GameObject obj in drawObj) {
+            Debug.Log(obj.GetComponent<Card>().cardSO);
+        }
     }
 }
