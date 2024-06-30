@@ -28,7 +28,7 @@ public class TurnAttack : MonoBehaviour
         //StartCoroutine(AttackButton());
     }
 
-    void UpdateHpBar(Image HpBar, MonsterStats monster)
+    void UpdateHpBar(Image HpBar, MonsterStats monster) // fillAmount hpbar
     {
         HpBar.fillAmount = (float)monster.curHealth / monster.maxHealth;
     }
@@ -38,24 +38,24 @@ public class TurnAttack : MonoBehaviour
         {
             if (playerTurn)
             {
-                player.Attack(monster);
-                UpdateHpBar(monsterHpBar, monster);
+                player.Attack(monster); // attack monster
+                UpdateHpBar(monsterHpBar, monster); // update monster hpbar
                 //yield return new WaitForSeconds(1f);
+                monster.Attack(player); // attack player
+                UpdateHpBar(playerHpBar, player); // update player hpbar
 
                 if (!monster.IsAlive())
                 {
-                    Debug.Log("몬스터가 짐");
+                    Debug.Log("몬스터의 패배");
                     battleOnGoing = false;
                 }
             }
             else
             {
-                monster.Attack(player);
-                UpdateHpBar(playerHpBar, player);
                 //yield return new WaitForSeconds(1f);
                 if (!player.IsAlive())
                 {
-                    Debug.Log("플레이어가 짐");
+                    Debug.Log("플레이어의 패배");
                     battleOnGoing = false;
                 }
             }

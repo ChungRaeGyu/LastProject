@@ -32,7 +32,7 @@ public class MonsterStats : MonoBehaviour // 해야할 것 1. 플레이어 공격 2. 몬스�
         target.curHealth -= this.attackPower;
         if(target.curHealth < 0) target.curHealth = 0;
 
-        Debug.Log($"{this.name} 공격함 {target.name} 이 {this.attackPower} 데미지.");
+        Debug.Log($"{this.name}가 공격함 {target.name} 가 {this.attackPower} 데미지 입힘.");
     }
     public bool IsAlive()
     {
