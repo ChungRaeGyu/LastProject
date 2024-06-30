@@ -20,6 +20,11 @@ public enum special_ability
     Ice, //빙결 게이지가 상승하지 않는다.
     None
 }
+public enum Rate{
+    Normal,
+    Rarity,
+    Hero
+}
 [CreateAssetMenu(fileName = "Card", menuName = "newCard", order = 0)]
 public class CardSO : ScriptableObject {
     public string cardName;
@@ -29,4 +34,6 @@ public class CardSO : ScriptableObject {
     public JOB job;
     public special_ability special_ability;
     public Sprite Image;
+    public Rate rate;
+    public int currentCount;
 }
