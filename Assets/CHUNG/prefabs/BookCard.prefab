@@ -88,13 +88,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5411553637401942950}
+  - component: {fileID: 3543020581420633275}
   m_Layer: 0
   m_Name: BookCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5411553637401942950
 RectTransform:
   m_ObjectHideFlags: 0
@@ -116,6 +117,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3543020581420633275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590028136775393431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afdc69e135649840a7b51a295e34795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardSO: {fileID: 11400000, guid: 01575f41112784b40a6843606456698d, type: 2}
+  text: {fileID: 4499784295600476930}
 --- !u!1 &4506253996775286396
 GameObject:
   m_ObjectHideFlags: 0

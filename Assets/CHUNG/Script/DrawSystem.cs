@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DrawSystem : MonoBehaviour
 {
+    //DrawSystem에 달려있습니다.
     public List<CardSO> normalCards; //보통;
     public List<CardSO> rarityCards; //희귀;
     public List<CardSO> heroCards;//영웅카드;
@@ -51,13 +52,9 @@ public class DrawSystem : MonoBehaviour
         //초기화
         foreach(GameObject obj in drawObj){
             Card card = obj.GetComponent<Card>();
-            Debug.Log(card.GetComponent<Card>().cardSO);
             card.cardSO.currentCount++;
             card.cardSO=null;
             obj.SetActive(false);
-        }
-        foreach(GameObject obj in drawObj) {
-            Debug.Log(obj.GetComponent<Card>().cardSO);
         }
     }
 }
