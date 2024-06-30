@@ -1913,13 +1913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f417fd4885b36940a7f6c1738541ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    health: 20
-    defense: 1
-    attackPower: 1
-    actionGauge: 0.05
-    maxGauge: 1
-    currentGauge: 0
+  stats: {fileID: 11400000, guid: b4a8f1c9a9412434588a5f5f0c87ae40, type: 2}
   gaugeSlider: {fileID: 107281909}
   healthSlider: {fileID: 168159764}
 --- !u!50 &828773857
@@ -2851,10 +2845,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1869999820}
   monster: {fileID: 828773856}
-  playerGaugeSlider: {fileID: 713430387}
-  monsterGaugeSlider: {fileID: 107281909}
-  playerHealthSlider: {fileID: 1825912230}
-  monsterHealthSlider: {fileID: 168159764}
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0
@@ -3145,13 +3135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f216fc83ff83924388c30d19078e3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    health: 100
-    defense: 5
-    attackPower: 5
-    actionGauge: 0.1
-    maxGauge: 1
-    currentGauge: 0
+  stats: {fileID: 11400000, guid: 2de1bc205a33d4745905f429593cbb65, type: 2}
   gaugeSlider: {fileID: 713430387}
   healthSlider: {fileID: 1825912230}
 --- !u!1 &2012393370

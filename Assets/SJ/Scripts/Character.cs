@@ -4,9 +4,12 @@ public abstract class Character : MonoBehaviour
 {
     public CharacterStats stats;
 
-    public Character(int health, int defense, int attackPower, float actionGauge)
+    private void Awake()
     {
-        stats = new CharacterStats(health, defense, attackPower, actionGauge);
+        if (stats == null)
+        {
+            Debug.Log("CharacterStats가 " + gameObject.name + "에 할당되지 않았다.");
+        }
     }
 
     public abstract void Attack(Character target);

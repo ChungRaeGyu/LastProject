@@ -1,23 +1,16 @@
-using System;
 using UnityEngine;
 
-[Serializable]
-public class CharacterStats
+[CreateAssetMenu(fileName = "NewCharacterStats", menuName = "Character/Stats", order = 0)]
+public class CharacterStats : ScriptableObject
 {
+    [Header("Base Stats")]
     public int health;
     public int defense;
     public int attackPower;
-    public float actionGauge; // 게이지 차는 속도
-    public float maxGauge = 100f; // 게이지의 최대치
-    public float currentGauge = 0f;
+    public float actionGauge;
+    public float maxGauge = 100f;
 
-    public CharacterStats(int health, int defense, int attackPower, float actionGauge)
-    {
-        this.health = health;
-        this.defense = defense;
-        this.attackPower = attackPower;
-        this.actionGauge = actionGauge;
-    }
+    [HideInInspector] public float currentGauge = 0f;
 
     public void TakeDamage(int damage)
     {
@@ -42,11 +35,6 @@ public class CharacterStats
     public bool IsGaugeFull()
     {
         return currentGauge >= maxGauge;
-    }
-
-    public float GetCurrentGauge()
-    {
-        return currentGauge;
     }
 
     public void ResetGauge()

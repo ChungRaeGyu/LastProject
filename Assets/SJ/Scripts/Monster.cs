@@ -8,13 +8,14 @@ public class Monster : Character
 
     private void Start()
     {
-        gaugeSlider.maxValue = stats.maxGauge;
-        healthSlider.maxValue = stats.health;
-    }
-
-    public Monster(int health, int defense, int attackPower, float actionGauge) : base(health, defense, attackPower, actionGauge)
-    {
-
+        if (gaugeSlider != null)
+        {
+            gaugeSlider.maxValue = stats.maxGauge;
+        }
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = stats.health;
+        }
     }
 
     public override void Attack(Character target)
@@ -27,7 +28,13 @@ public class Monster : Character
         base.Update();
 
         stats.UpdateGauge(Time.deltaTime);
-        gaugeSlider.value = stats.currentGauge;
-        healthSlider.value = stats.health;
+        if (gaugeSlider != null)
+        {
+            gaugeSlider.value = stats.currentGauge;
+        }
+        if (healthSlider != null)
+        {
+            healthSlider.value = stats.health;
+        }
     }
 }
