@@ -15,4 +15,12 @@ public abstract class Character : MonoBehaviour
     {
         stats.TakeDamage(damage);
     }
+
+    protected virtual void Update()
+    {
+        if (stats.IsDead())
+        {
+            Destroy(gameObject);
+        }
+    }
 }

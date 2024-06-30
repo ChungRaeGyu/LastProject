@@ -1,20 +1,33 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Character
 {
-    public GameObject arrowPrefab;
+    public Slider gaugeSlider;
+    public Slider healthSlider;
+
+    private void Start()
+    {
+        gaugeSlider.maxValue = stats.maxGauge;
+        healthSlider.maxValue = stats.health;
+    }
 
     public Player(int health, int defense, int attackPower, float actionGauge) : base(health, defense, attackPower, actionGauge)
     {
-        
+
     }
 
     public override void Attack(Character target)
     {
-        GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-        Arrow arrowScript = arrow.GetComponent<Arrow>();
-        arrowScript.Shoot(target, stats.attackPower);
-
         target.TakeDamage(stats.attackPower);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        stats.UpdateGauge(Time.deltaTime);
+        gaugeSlider.value = stats.currentGauge;
+        healthSlider.value = stats.health;
     }
 }
