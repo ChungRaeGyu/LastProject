@@ -214,8 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\uBAAC\uC2A4\uD130"
-  curHealth: 30
-  maxHealth: 30
+  curHealth: 50
+  maxHealth: 50
   defense: 0
   attackPower: 3
   curActionGauge: 2
@@ -1022,6 +1022,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHpBar: {fileID: 1159127412}
   monsterHpBar: {fileID: 1483420481}
+  playerGagueBar: {fileID: 359247581}
+  monsterGagueBar: {fileID: 1177242973}
   attackButton: {fileID: 798254518}
 --- !u!1 &1839499251
 GameObject:

@@ -11,18 +11,26 @@ public class TurnAttack : MonoBehaviour
 
     public Image playerHpBar;
     public Image monsterHpBar;
+
+    public Image playerGagueBar;
+    public Image monsterGagueBar;
+
     public Button attackButton;
 
-    private bool playerTurn = true;
+    private int playerAttackCount = 0;
     private bool battleOnGoing = true;
+
+
 
     void Start()
     {
         player = new MonsterStats("플레이어", 100, 100, 3, 10, 3, 3);
-        monster = new MonsterStats("몬스터", 30, 30, 0, 3, 2, 2);
+        monster = new MonsterStats("몬스터", 50, 50, 0, 3, 2, 2);
 
         UpdateHpBar(playerHpBar, player);
         UpdateHpBar(monsterHpBar, monster);
+
+        UpdateGaugeBar(monsterGagueBar, monster);
 
         attackButton.onClick.AddListener(AttackButton);
         //StartCoroutine(AttackButton());
@@ -32,17 +40,24 @@ public class TurnAttack : MonoBehaviour
     {
         HpBar.fillAmount = (float)monster.curHealth / monster.maxHealth;
     }
-    void AttackButton()
+
+    void UpdateGaugeBar(Image GaugeBar, MonsterStats monster)
+    {
+        GaugeBar.fillAmount = (float)playerAttackCount / 3;
+    }
+
+    void AttackButton()  //yield return new WaitForSeconds(1f); == BreakTime() add example
     {
         if (battleOnGoing)
         {
-            if (playerTurn)
+            if (playerAttackCount < 3)
             {
                 player.Attack(monster); // attack monster
                 UpdateHpBar(monsterHpBar, monster); // update monster hpbar
-                //yield return new WaitForSeconds(1f);
-                monster.Attack(player); // attack player
-                UpdateHpBar(playerHpBar, player); // update player hpbar
+
+                playerAttackCount++;
+
+                UpdateGaugeBar(monsterGagueBar, monster);
 
                 if (!monster.IsAlive())
                 {
@@ -50,17 +65,27 @@ public class TurnAttack : MonoBehaviour
                     battleOnGoing = false;
                 }
             }
-            else
+
+            if(playerAttackCount >= 3 && battleOnGoing)
             {
-                //yield return new WaitForSeconds(1f);
+                monster.Attack(player, true); // attack player twice damage
+                UpdateHpBar(playerHpBar, player); // update player hpbar
+
+                playerAttackCount = 0;
+
+                UpdateGaugeBar(monsterGagueBar, monster);
+
                 if (!player.IsAlive())
                 {
                     Debug.Log("플레이어의 패배");
                     battleOnGoing = false;
                 }
             }
-            
-            playerTurn = !playerTurn;
         }
+    }
+
+    private IEnumerator BreakTime()
+    {
+        yield return new WaitForSeconds(1f);
     }
 }
