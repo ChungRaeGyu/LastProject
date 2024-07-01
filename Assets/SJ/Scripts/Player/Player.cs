@@ -51,7 +51,7 @@ public class Player : PlayerCharacter
         }
     }
 
-    private void InitializeCost()
+    public void InitializeCost()
     {
         currentCost = maxCost;
         UpdateCostText();
