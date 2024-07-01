@@ -8,12 +8,10 @@ public class Monster : MonsterCharacter
     public Slider healthSlider;
     public Button turnEndButton;
 
-    private bool battleOnGoing = true;
+    public bool battleOnGoing { get; private set; } = true;
 
     private void Start()
     {
-        turnEndButton.onClick.AddListener(TurnEndButton);
-
         if (healthSlider != null)
         {
             healthSlider.maxValue = monsterStats.maxhealth;
@@ -21,33 +19,41 @@ public class Monster : MonsterCharacter
         }
     }
 
-    void TurnEndButton()
-    {
-        if (battleOnGoing)
-        {
-            AttackCharacter(monsterStats); // attack monster
-        }
 
-        GameManager.instance.player.InitializeCost();
-    }
 
-    public void AttackCharacter(MonsterStats target)
-    {
-        int damage = monsterStats.attackPower;
+    //void TurnEndButton()
+    //{
+    //    if (battleOnGoing)
+    //    {
+    //        GameManager.instance.player.TakeDamage(monsterStats.attackPower); // attack monster
+    //    }
 
-            if (Random.value < 0.35f)
-            {
-                target.maxhealth -= damage;
-                damage *= 2;
-                Debug.Log($"{this.name} 가 크리티컬 데미지를 입혔다!");
-            }
+    //    GameManager.instance.player.InitializeCost();
+    //}
 
-            target.maxhealth -= damage;
-            Debug.Log($"{this.name} 가 데미지를 입혔다!");
-    }
+    //public void AttackCharacter(MonsterStats target)
+    //{
+    //    int damage = monsterStats.attackPower;
+
+    //        if (Random.value < 0.35f)
+    //        {
+    //            target.maxhealth -= damage;
+    //            damage *= 2;
+    //            Debug.Log($"{this.name} 가 크리티컬 데미지를 입혔다!");
+    //        }
+
+    //        target.maxhealth -= damage;
+    //        Debug.Log($"{this.name} 가 데미지를 입혔다!");
+    //}
     protected override void Update()
     {
         base.Update();
+
+        if (GameManager.instance.turnEnd && battleOnGoing)
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+            battleOnGoing = false;
+        }
 
         if (healthSlider != null)
         {

@@ -31,7 +31,7 @@ public class CardDrag : MonoBehaviour
     private void OnMouseDown()
     {
         // 이 카드의 코스트를 확인 후 플레이어의 코스트와 같거나 보다 높을때만 드래그 가능
-        if (player != null && cardSO != null && player.currentCost >= cardSO.cost)
+        if (player != null && cardSO != null && player.currentCost >= cardSO.cost && !GameManager.instance.turnEnd)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);

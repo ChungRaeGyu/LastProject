@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public Monster[] monsters; // 몬스터 저장소
+    public bool turnEnd { get; private set; } = false;
 
     private void Awake()
     {
@@ -28,6 +29,19 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < monsterObjects.Length; i++)
         {
             monsters[i] = monsterObjects[i].GetComponent<Monster>();
+        }
+    }
+
+    public void TurnEndToggle()
+    {
+        turnEnd = !turnEnd;
+    }
+
+    private void Update()
+    {
+        if (!turnEnd)
+        {
+            
         }
     }
 }
