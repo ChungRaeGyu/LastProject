@@ -21,11 +21,6 @@ public class Player : Character
         }
     }
 
-    public override void Attack(Character target)
-    {
-        // 플레이어의 공격 동작 구현
-    }
-
     protected override void Update()
     {
         base.Update();

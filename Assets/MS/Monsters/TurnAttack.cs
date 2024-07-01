@@ -59,7 +59,7 @@ public class TurnAttack : MonoBehaviour
     {
         if (battleOnGoing)
         {
-             monster.Attack(player, true); // attack player twice damage
+             monster.Attack(player); // attack player twice damage
              UpdateHpBar(playerHpBar, player); // update player hpbar
 
              if (!player.IsAlive())

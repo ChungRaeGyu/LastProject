@@ -21,7 +21,6 @@ public class CardUse : MonoBehaviour
         {
             if (player.currentCost >= cardSO.cost)
             {
-                targetMonster.TakeDamage(cardSO.ability);
                 player.UseCost(cardSO.cost);
                 Destroy(gameObject);
             }

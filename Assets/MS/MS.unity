@@ -1151,7 +1151,6 @@ GameObject:
   - component: {fileID: 1864734267}
   - component: {fileID: 1864734270}
   - component: {fileID: 1864734269}
-  - component: {fileID: 1864734271}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -1218,26 +1217,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864734266}
   m_CullTransparentMesh: 1
---- !u!114 &1864734271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864734266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bd033256ece1c48bacab4b878e602a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackAnim: {fileID: 0}
-  name: "\uD50C\uB808\uC774\uC5B4"
-  curHealth: 100
-  maxHealth: 100
-  defense: 3
-  attackPower: 10
-  curActionGauge: 3
-  maxActionGauge: 3
 --- !u!1 &2029379637
 GameObject:
   m_ObjectHideFlags: 0

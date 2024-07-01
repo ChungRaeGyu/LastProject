@@ -2,20 +2,20 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    public MonsterInfo monster;
     public CharacterStats stats;
     protected int currenthealth;
 
     private void Awake()
     {
-        if (stats == null)
+        if (stats == null && monster == null)
         {
             Debug.Log("CharacterStats가 " + gameObject.name + "에 할당되지 않았다.");
         }
 
         currenthealth = stats.maxhealth;
+        currenthealth = monster.maxhealth;
     }
-
-    public abstract void Attack(Character target);
 
     public virtual void TakeDamage(int damage)
     {
