@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CardCollision : MonoBehaviour
 {
-    public static Monster currentMonster;
+    public Monster currentMonster { get; private set; }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

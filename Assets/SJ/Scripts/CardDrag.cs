@@ -6,11 +6,13 @@ public class CardDrag : MonoBehaviour
     private bool isDragging = false;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private CardSO cardSO;
     public Player player { get; private set; }
 
     private void Start()
     {
         player = GameManager.instance.player;
+        cardSO = GetComponent<CardUse>().cardSO;
 
         originalPosition = transform.position;
         originalRotation = transform.rotation;
@@ -28,7 +30,8 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (player != null && player.stats.IsGaugeFull())
+        // 이 카드의 코스트를 확인 후 플레이어의 코스트와 같거나 보다 높을때만 드래그 가능
+        if (player.currentCost >= cardSO.cost)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);

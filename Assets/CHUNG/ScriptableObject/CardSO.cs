@@ -16,8 +16,8 @@ public enum Kind{
 }
 public enum special_ability
 {
-    Fire, //지속딜
-    Ice, //빙결 게이지가 상승하지 않는다.
+    Fire, //지?�딜
+    Ice, //빙결 게이지가 ?�승?��? ?�는??
     None
 }
 public enum Rate{
@@ -29,7 +29,8 @@ public enum Rate{
 public class CardSO : ScriptableObject {
     public string cardName;
     public string description;
-    public float ability;
+    public int cost;
+    public int ability;
     public Kind kind;
     public JOB job;
     public special_ability special_ability;

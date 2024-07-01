@@ -1,40 +1,59 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : Character
 {
-    public Slider gaugeSlider;
     public Slider healthSlider;
+    public TextMeshProUGUI costText;
+    public int maxCost = 3;
+
+    public int currentCost { get; private set; }
 
     private void Start()
     {
-        if (gaugeSlider != null)
-        {
-            gaugeSlider.maxValue = stats.maxGauge;
-        }
         if (healthSlider != null)
         {
-            healthSlider.maxValue = stats.health;
+            healthSlider.maxValue = stats.maxhealth;
+            healthSlider.value = currenthealth;
         }
+
+        currentCost = maxCost;
+        UpdateCostText();
     }
 
     public override void Attack(Character target)
     {
-        target.TakeDamage(stats.attackPower);
+
     }
 
     protected override void Update()
     {
         base.Update();
 
-        stats.UpdateGauge(Time.deltaTime);
-        if (gaugeSlider != null)
-        {
-            gaugeSlider.value = stats.currentGauge;
-        }
         if (healthSlider != null)
         {
-            healthSlider.value = stats.health;
+            healthSlider.value = currenthealth;
+        }
+    }
+
+    public void UseCost(int amount)
+    {
+        currentCost = Mathf.Clamp(currentCost - amount, 0, maxCost);
+        UpdateCostText();
+    }
+
+    public void AddCost(int amount)
+    {
+        currentCost = Mathf.Clamp(currentCost + amount, 0, maxCost);
+        UpdateCostText();
+    }
+
+    private void UpdateCostText()
+    {
+        if (costText != null)
+        {
+            costText.text = $"{currentCost}/{maxCost}";
         }
     }
 }
