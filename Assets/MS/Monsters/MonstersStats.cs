@@ -32,7 +32,7 @@ public class MonsterStats : MonoBehaviour // 해야할 것 1. 플레이어 공격 2. 몬스�
     {
         attackAnim = GetComponent<AttackAnim>();
     }
-    private void Attack(MonsterStats target, bool isEnemy = false) // monster special damage
+    public void Attack(MonsterStats target, bool isEnemy = false) // monster special damage
     {
         int damage = this.attackPower;
 
