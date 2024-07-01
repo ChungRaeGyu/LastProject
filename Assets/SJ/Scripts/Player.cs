@@ -12,19 +12,18 @@ public class Player : Character
 
     private void Start()
     {
+        InitializeCost();
+
         if (healthSlider != null)
         {
             healthSlider.maxValue = stats.maxhealth;
             healthSlider.value = currenthealth;
         }
-
-        currentCost = maxCost;
-        UpdateCostText();
     }
 
     public override void Attack(Character target)
     {
-
+        // 플레이어의 공격 동작 구현
     }
 
     protected override void Update()
@@ -55,5 +54,11 @@ public class Player : Character
         {
             costText.text = $"{currentCost}/{maxCost}";
         }
+    }
+
+    private void InitializeCost()
+    {
+        currentCost = maxCost;
+        UpdateCostText();
     }
 }
