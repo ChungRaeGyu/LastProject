@@ -13,23 +13,22 @@ public class ObjectPool : MonoBehaviour
     public GameObject cardsPrefab;
     public GameObject bookCardsprefab;
 
-    [Header("AllCardSOs")]
-    public Book book;
+
     private void Awake() {
         Init();
     }
 
     private void Init(){
-        Debug.Log("bookCount" + book.cardSOs.Count);
+        Debug.Log("bookCount" + DataManager.Instance.cardSOs.Count);
         for (int i = 0; i < 10; i++)
         {
             GameObject obj = Instantiate(cardsPrefab, transform);
             obj.SetActive(false);
             cardsObj.Enqueue(obj);
         }
-        for(int i=0; i< book.cardSOs.Count*2;i++){
+        for(int i=0; i< DataManager.Instance.cardSOs.Count*2;i++){
             GameObject obj = Instantiate(bookCardsprefab, transform);
-            obj.SetActive(true);
+            obj.SetActive(false);
             bookCardObj.Enqueue(obj);
         }
     }

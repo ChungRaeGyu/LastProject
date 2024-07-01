@@ -9,12 +9,15 @@ public class Book : MonoBehaviour
 {   
     //BookManager-> BookCanvas -> BookPanel에 달려있다.
     List<Card> cardObj = new List<Card>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
-    [Header("CardSOs")]
-    public List<CardSO> cardSOs;
 
-
+    List<CardSO> cardSOs = new List<CardSO>();
+    private void Awake() {
+        cardSOs = DataManager.Instance.cardSOs;
+        Debug.Log("Start실행");
+    }
 
     void OnEnable(){
+        Debug.Log("cardSo" + cardSOs.Count);
         for (int i = 0; i < cardSOs.Count; i++)
         {
             GameObject obj = ObjectPool.bookCardObj.Dequeue();

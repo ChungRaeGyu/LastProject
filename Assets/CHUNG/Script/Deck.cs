@@ -12,6 +12,10 @@ public class Deck : MonoBehaviour
     public List<Card> deckList = new List<Card>(); //카드의 추가, 실물화, 섞기에서 사용
     
     List<Card> cardObj = new List<Card>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
+    
+    void Start(){
+        DataManager.Instance.deck = this;
+    }
     #region 로비
     public void AddCard(Card card){
         deckList.Add(card);

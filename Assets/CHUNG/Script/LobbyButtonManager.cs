@@ -4,19 +4,39 @@ using UnityEngine;
 
 public class LobbyButtonManager : MonoBehaviour
 {
-    [Header("OpenPanel")]
-    public GameObject BookPanel;
-    public GameObject DeckPanel;
+    [Header("OpenCanvas")]
+    [SerializeField] GameObject BookCanvas;
+    [SerializeField] GameObject DeckCanvas;
+    [SerializeField] GameObject DrawCanvas;
+    
+    private DrawSystem drawSystem;
 
-
-    public void ControlBookPanel(){
-        BookPanel.SetActive(!BookPanel.activeInHierarchy);
+    private void Start(){
+        drawSystem = DrawCanvas.GetComponentInParent<DrawSystem>();
+    }
+    public void ControlBookCanvas(){
+        BookCanvas.SetActive(!BookCanvas.activeInHierarchy);
+        DeckCanvas.SetActive(!DeckCanvas.activeInHierarchy);
     }
 
-    public void ControlDeckPanel(){
-        DeckPanel.SetActive(!DeckPanel.activeInHierarchy);
-    }
 
+    #region DrawSystem
+    public void ControlDrawCanvas(){
+        if(DrawCanvas.activeInHierarchy){
+            DrawCanvas.SetActive(false);
+            drawSystem.CloseCanvas();
+        }else{
+            DrawCanvas.SetActive(true);
+        }
+        
+    }
+    public void GaChaBtn(){
+        drawSystem.DrawingCardBtn();
+    }
+    public void OpenCardBtn(){
+        drawSystem.OpenCard();
+    }
+    #endregion
     public void AddDeckBtn(){
         
     }

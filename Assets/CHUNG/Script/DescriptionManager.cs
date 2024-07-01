@@ -14,7 +14,7 @@ public class DescriptionManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new GameObject("GameManager").AddComponent<DescriptionManager>();
+                _instance = new GameObject("DescriptionManager").AddComponent<DescriptionManager>();
             }
             return _instance;
         }
@@ -42,8 +42,6 @@ public class DescriptionManager : MonoBehaviour
     [Header("Deck")]
     public Deck deck;
 
-    [Header("Book")]
-    public Book book;
     StringBuilder stringBuilder = new StringBuilder();
 
     
