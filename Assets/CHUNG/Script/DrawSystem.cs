@@ -73,8 +73,8 @@ public class DrawSystem : MonoBehaviour
             Card card = obj.GetComponent<Card>();
             card.cardSO.currentCount++;
             card.cardSO=null;
-            obj.SetActive(false);
-            ObjectPool.cardsObj.Enqueue(obj);
+            card.gameObject.SetActive(false);
+            ObjectPool.cardsObj.Enqueue(card.gameObject);
         }
         drawObj.Clear();
         tempCardSO.Clear();
@@ -89,7 +89,6 @@ public class DrawSystem : MonoBehaviour
         for(int i=0;i<drawObj.Count;i++){
             drawObj[i].GetComponent<Card>().cardSO = tempCardSO[i];
             drawObj[i].GetComponent<Image>().sprite = tempCardSO[i].Image;
-            Debug.Log(tempCardSO[i]);
         }
     }
 

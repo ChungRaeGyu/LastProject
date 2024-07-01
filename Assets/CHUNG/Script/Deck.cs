@@ -13,9 +13,7 @@ public class Deck : MonoBehaviour
     
     List<Card> cardObj = new List<Card>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
     
-    void Start(){
-        DataManager.Instance.deck = this;
-    }
+
     #region 로비
     public void AddCard(Card card){
         deckList.Add(card);
@@ -25,6 +23,7 @@ public class Deck : MonoBehaviour
     public void RemoveCard(){
         if(deckList.Count==0)return;
         int endCard = deckList.Count-1;
+        deckList[endCard].GetComponent<Card>().cardSO.currentCount++;
         deckList.RemoveAt(endCard);
         UpdateDeck();
     }

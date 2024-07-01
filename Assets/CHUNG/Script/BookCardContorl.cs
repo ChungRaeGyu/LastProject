@@ -3,23 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BookCardControl : Card
+public class BookCardControl : MonoBehaviour
 {
     public Text text;
     public Button button;
+    public Card childCard;
     private void Awake() {
+
         button = GetComponent<Button>();
+        childCard = this.GetComponentInChildren<Card>();
+        
+    }
+    private void Start(){
+        DescriptionManager.Instance.bookCardControl = this;
     }
     public void OpenPanel(){
-        DescriptionManager.Instance.currentCard = this;
+        DescriptionManager.Instance.currentCard = childCard;
         DescriptionManager.Instance.OpenPanel();
     }
     private void OnEnable() {
-        text.text = cardSO.currentCount.ToString();
-        if(cardSO.currentCount <=0){
-            cardSO.currentCount = 0;
+        UpdateBook();
+    }
+
+    public void UpdateBook(){
+        text.text = childCard.cardSO.currentCount.ToString();
+        if (childCard.cardSO.currentCount <= 0)
+        {
+            childCard.cardSO.currentCount = 0;
             button.enabled = false;
-        }else{
+        }
+        else
+        {
             button.enabled = true;
         }
     }

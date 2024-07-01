@@ -15,6 +15,7 @@ public class DescriptionManager : MonoBehaviour
             if (_instance == null)
             {
                 _instance = new GameObject("DescriptionManager").AddComponent<DescriptionManager>();
+                Debug.Log("실행");
             }
             return _instance;
         }
@@ -36,14 +37,18 @@ public class DescriptionManager : MonoBehaviour
     [Header("descriptionPanel")]
     public GameObject descriptionPanel;
     public Text text;
-    public Card currentCard;
-    public Card cardObj;
 
     [Header("Deck")]
     public Deck deck;
 
-    StringBuilder stringBuilder = new StringBuilder();
+    [Header("intoScript")]
+    public BookCardControl bookCardControl;
+    public Card currentCard;
 
+    StringBuilder stringBuilder = new StringBuilder();
+    private void Start(){
+        Debug.Log("DescriptionManager 실행 :" );
+    }
     
     public void ClosePanel()
     {
@@ -55,11 +60,13 @@ public class DescriptionManager : MonoBehaviour
     {
         currentCard.cardSO.currentCount--;
         deck.AddCard(currentCard);
+        bookCardControl.UpdateBook();
+        ClosePanel();
+
     }
 
     public void OpenPanel()
     {
-        cardObj.cardSO = currentCard.cardSO;
         stringBuilder.AppendLine($"이름 : {currentCard.cardSO.name}");
         stringBuilder.AppendLine($"직업 : {currentCard.cardSO.job}");
         stringBuilder.AppendLine($"등급 : {currentCard.cardSO.rate}");
