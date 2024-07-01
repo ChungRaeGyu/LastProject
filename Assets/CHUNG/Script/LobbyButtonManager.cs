@@ -16,4 +16,8 @@ public class LobbyButtonManager : MonoBehaviour
     public void ControlDeckPanel(){
         DeckPanel.SetActive(!DeckPanel.activeInHierarchy);
     }
+
+    public void AddDeckBtn(){
+        
+    }
 }
