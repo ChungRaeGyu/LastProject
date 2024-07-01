@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,19 +12,44 @@ public class Deck : MonoBehaviour
     public List<Card> deckList = new List<Card>(); //카드의 추가, 실물화, 섞기에서 사용
     
     List<Card> cardObj = new List<Card>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
+    
+    void Start(){
+        DataManager.Instance.deck = this;
+    }
     #region 로비
     public void AddCard(Card card){
-        //TODO : 여러장씩 받아서 넣을 수 있게 만들기
-            deckList.Add(card);
-
+        deckList.Add(card);
+        UpdateDeck();
         Debug.Log("카드추가");
     }
+    public void RemoveCard(){
+        if(deckList.Count==0)return;
+        int endCard = deckList.Count-1;
+        deckList.RemoveAt(endCard);
+        UpdateDeck();
+    }
 
-    private void OnEnable(){
-        for(int i=0 ; i< deckList.Count;i++){
-            GameObject obj = ObjectPool.bookCardObj.Dequeue();
+    private void UpdateDeck(){
+        ClearDeck();
+        SetDeck();
+    }
+
+    private void OnEnable()
+    {
+        SetDeck();
+    }
+
+    private void OnDisable()
+    {
+        ClearDeck();
+    }
+
+    private void SetDeck(){
+        Debug.Log("Deck" + deckList.Count);
+        for (int i = 0; i < deckList.Count; i++)
+        {
+            GameObject obj = ObjectPool.cardsObj.Dequeue();
             Card tempCard = obj.GetComponent<Card>();
-            Debug.Log("에셋타입 : "+ PrefabUtility.GetPrefabAssetType(obj));
             cardObj.Add(tempCard);
             tempCard.cardSO = deckList[i].cardSO;
             obj.transform.SetParent(transform);
@@ -31,17 +57,16 @@ public class Deck : MonoBehaviour
         }
     }
 
-    private void OnDisable(){
-        foreach (Card tempCard in deckList)
+    private void ClearDeck(){
+        Debug.Log("Deck ClearDeck()");
+        foreach (Card tempcard in cardObj)
         {
-            tempCard.gameObject.SetActive(false);
-            
-        }
-        foreach(Card tempcard in cardObj){
-            ObjectPool.bookCardObj.Enqueue(tempcard.gameObject);
+            ObjectPool.cardsObj.Enqueue(tempcard.gameObject);
+            tempcard.gameObject.SetActive(false);
         }
         cardObj.Clear();
     }
+
 
     private void Suffle(){
         //게임 시작시 셔플하게 하기
