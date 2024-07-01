@@ -15,8 +15,6 @@ public abstract class Character : MonoBehaviour
         currenthealth = stats.maxhealth;
     }
 
-    public abstract void Attack(Character target);
-
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - stats.defense, 0);

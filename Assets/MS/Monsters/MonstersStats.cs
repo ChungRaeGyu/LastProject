@@ -36,7 +36,7 @@ public class MonsterStats : MonoBehaviour // 해야할 것 1. 플레이어 공격 2. 몬스�
     {
         int damage = this.attackPower;
 
-        attackAnim.MonsterAttackAnim();
+        //attackAnim.MonsterAttackAnim();
 
         if (isEnemy) // percent change 0.3% twice damage
         {
