@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DrawSystem : MonoBehaviour
 {
@@ -88,6 +88,7 @@ public class DrawSystem : MonoBehaviour
     public void OpenCard(){
         for(int i=0;i<drawObj.Count;i++){
             drawObj[i].GetComponent<Card>().cardSO = tempCardSO[i];
+            drawObj[i].GetComponent<Image>().sprite = tempCardSO[i].Image;
             Debug.Log(tempCardSO[i]);
         }
     }
