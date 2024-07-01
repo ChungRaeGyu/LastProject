@@ -16,8 +16,8 @@ public enum Kind{
 }
 public enum special_ability
 {
-    Fire, //지?�딜
-    Ice, //빙결 게이지가 ?�승?��? ?�는??
+    Fire,
+    Ice,
     None
 }
 public enum Rate{
