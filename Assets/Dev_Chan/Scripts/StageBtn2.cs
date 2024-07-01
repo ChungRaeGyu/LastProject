@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StageBtn : MonoBehaviour
+public class StageBtn2 : MonoBehaviour
 {
     public void Battle()
     {
@@ -12,9 +12,9 @@ public class StageBtn : MonoBehaviour
 
     public void Victory()
     {
-        Debug.Log(GameManager_chan.Instance.stageLevel);
-        GameManager_chan.Instance.clearCheck[GameManager_chan.Instance.stageLevel-1] = true; 
-        GameManager_chan.Instance.stageLevel += 1;
+        Debug.Log(GameManager_chan2.Instance.stageLevel);
+        GameManager_chan2.Instance.stageLevel += 1;
+
         SceneManager.LoadScene("StageBoardScene");
     }
 }

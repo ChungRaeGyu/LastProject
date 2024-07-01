@@ -11,7 +11,7 @@ public class Stage : MonoBehaviour
         string lastchar = gameObject.name.Substring(gameObject.name.Length - 1);
         int num = int.Parse(lastchar);
 
-        gameObject.GetComponent<Button>().enabled = GameManager_chan.Instance.clearCheck[num-1];
+        gameObject.GetComponent<Button>().enabled = GameManager_chan.Instance.clearCheck[num];
     }
 
     // Update is called once per frame
