@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public Player player;
-    public Monster monster;
+    public Monster[] monsters; // 몬스터 저장소
 
     private void Awake()
     {
@@ -20,6 +19,15 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        // 플레이어 할당
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        // 모든 몬스터 찾아서 할당
+        GameObject[] monsterObjects = GameObject.FindGameObjectsWithTag("Monster");
+        monsters = new Monster[monsterObjects.Length];
+        for (int i = 0; i < monsterObjects.Length; i++)
+        {
+            monsters[i] = monsterObjects[i].GetComponent<Monster>();
+        }
     }
 }
