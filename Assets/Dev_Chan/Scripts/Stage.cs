@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
+    public GameObject stageBtn;
+    public int num;
     // Start is called before the first frame update
     void Start()
     {
-        string lastchar = gameObject.name.Substring(gameObject.name.Length - 1);
-        int num = int.Parse(lastchar);
-
-        gameObject.GetComponent<Button>().enabled = GameManager_chan.Instance.clearCheck[num];
+        Debug.Log("num" + num);
+        //stageBtn.SetActive(GameManager_chan.Instance.clearCheck[num]);
     }
 
     // Update is called once per frame

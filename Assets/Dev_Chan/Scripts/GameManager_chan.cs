@@ -23,7 +23,7 @@ public class GameManager_chan : MonoBehaviour
     }
 
     public int stageLevel = 1;
-    public bool[] clearCheck = new bool[6];
+    public Vector3 nowPosition;
 
     public void Start()
     {

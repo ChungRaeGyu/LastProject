@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9162737327787037511, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_Pivot.x
@@ -526,7 +526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8839753547862266920, guid: 654ce8c445b46f142b97cfd779c34c47, type: 3}
       propertyPath: m_Name
-      value: Stage_Block (2)
+      value: Stage_Block (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -609,6 +609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageBtn: {fileID: 1377160779}
+  num: 3
 --- !u!1001 &430024409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -916,7 +918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9162737327787037511, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_Pivot.x
@@ -1285,6 +1287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageBtn: {fileID: 1696850414}
+  num: 1
 --- !u!1 &725262932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,7 +1423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9162737327787037511, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_Pivot.x
@@ -1564,7 +1568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9162737327787037511, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_Pivot.x
@@ -1671,6 +1675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbae82f7da229a45a022844bc6cdee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sm: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1 &1022686212 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8839753547862266920, guid: 654ce8c445b46f142b97cfd779c34c47, type: 3}
@@ -1726,7 +1732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8839753547862266920, guid: 654ce8c445b46f142b97cfd779c34c47, type: 3}
       propertyPath: m_Name
-      value: Stage_Block (3)
+      value: Stage_Block (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1753,6 +1759,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageBtn: {fileID: 1439472369}
+  num: 2
 --- !u!1001 &1263214374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1916,6 +1924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageBtn: {fileID: 1471348000}
+  num: 0
 --- !u!1 &1377160779 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
@@ -1938,6 +1948,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbae82f7da229a45a022844bc6cdee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sm: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1 &1471348000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
@@ -1960,6 +1972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageBtn: {fileID: 295691609}
+  num: 4
 --- !u!1001 &1517984883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2148,7 +2162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9162737327787037511, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_Pivot.x
@@ -2255,6 +2269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbae82f7da229a45a022844bc6cdee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sm: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1 &1606457096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,7 +2384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageLevel: 1
-  clearCheck: 000000000000
+  nowPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1696850414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8691424191623399621, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
@@ -2386,6 +2402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbae82f7da229a45a022844bc6cdee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sm: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1 &1717256555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,12 +2451,21 @@ MonoBehaviour:
   stage:
   - {fileID: 1022686212}
   - {fileID: 710807972}
-  - {fileID: 384622970}
   - {fileID: 727925344}
+  - {fileID: 384622970}
   - {fileID: 1503257783}
   - {fileID: 1890161903}
+  stageBtn:
+  - {fileID: 1471348000}
+  - {fileID: 1696850414}
+  - {fileID: 1439472369}
+  - {fileID: 1377160779}
+  - {fileID: 295691609}
+  - {fileID: 2070654959}
   clear: {fileID: 1580814835}
   player: {fileID: 119297586}
+  position: {x: 0, y: 0, z: 0}
+  stageLevel: 0
 --- !u!1 &1810746126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,6 +2586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageBtn: {fileID: 2070654959}
+  num: 5
 --- !u!1001 &2002426689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2638,6 +2667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbae82f7da229a45a022844bc6cdee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sm: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1001 &1597593929612341866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2851,6 +2882,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbae82f7da229a45a022844bc6cdee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sm: {fileID: 0}
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1001 &2017353187475984997
 PrefabInstance:
   m_ObjectHideFlags: 0
