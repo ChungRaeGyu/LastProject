@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : Character
+public class Player : PlayerCharacter
 {
     public Slider healthSlider;
     public TextMeshProUGUI costText;
@@ -16,7 +16,7 @@ public class Player : Character
 
         if (healthSlider != null)
         {
-            healthSlider.maxValue = stats.maxhealth;
+            healthSlider.maxValue = playerStats.maxhealth;
             healthSlider.value = currenthealth;
         }
     }

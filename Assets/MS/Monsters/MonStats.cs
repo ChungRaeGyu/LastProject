@@ -5,7 +5,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonsterStats : MonoBehaviour // ÇØ¾ßÇÒ °Í 1. ÇÃ·¹ÀÌ¾î °ø°Ý 2. ¸ó½ºÅÍ °ø°Ý
+public class MonStats : MonoBehaviour // ÇØ¾ßÇÒ °Í 1. ÇÃ·¹ÀÌ¾î °ø°Ý 2. ¸ó½ºÅÍ °ø°Ý
 {
     public AttackAnim attackAnim;
 
@@ -18,7 +18,7 @@ public class MonsterStats : MonoBehaviour // ÇØ¾ßÇÒ °Í 1. ÇÃ·¹ÀÌ¾î °ø°Ý 2. ¸ó½ºÅ
     public int curActionGauge;
     public int maxActionGauge;
 
-    public MonsterStats(string name, int curHealth, int maxHealth, int defense, int attackPower, int curActionGauge, int maxActionGauge)
+    public MonStats(string name, int curHealth, int maxHealth, int defense, int attackPower, int curActionGauge, int maxActionGauge)
     {
         this.name = name;
         this.curHealth = curHealth;
@@ -32,7 +32,7 @@ public class MonsterStats : MonoBehaviour // ÇØ¾ßÇÒ °Í 1. ÇÃ·¹ÀÌ¾î °ø°Ý 2. ¸ó½ºÅ
     {
         attackAnim = GetComponent<AttackAnim>();
     }
-    public void Attack(MonsterStats target, bool isEnemy = false) // monster special damage
+    public void Attack(MonStats target, bool isEnemy = false) // monster special damage
     {
         int damage = this.attackPower;
 
@@ -69,8 +69,8 @@ public class MonsterStats : MonoBehaviour // ÇØ¾ßÇÒ °Í 1. ÇÃ·¹ÀÌ¾î °ø°Ý 2. ¸ó½ºÅ
 
     //}
 
-    //public override void Attack(Character target)
+    //public override void Attack(PlayerCharacter target)
     //{
-    //    target.TakeDamage(stats.attackPower);
+    //    target.TakeDamage(playerStats.attackPower);
     //}
 }

@@ -1,25 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Character : MonoBehaviour
+public class MonsterCharacter : MonoBehaviour
 {
-    public MonsterInfo monster;
-    public CharacterStats stats;
+    public MonsterStats monsterStats;
     protected int currenthealth;
 
     private void Awake()
     {
-        if (stats == null && monster == null)
+        if (monsterStats == null)
         {
-            Debug.Log("CharacterStats가 " + gameObject.name + "에 할당되지 않았다.");
+            Debug.Log("MonsterStats가 " + gameObject.name + "에 할당되지 않았다.");
         }
 
-        currenthealth = stats.maxhealth;
-        currenthealth = monster.maxhealth;
+        currenthealth = monsterStats.maxhealth;
     }
 
     public virtual void TakeDamage(int damage)
     {
-        int actualDamage = Mathf.Max(damage - stats.defense, 0);
+        int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         currenthealth -= actualDamage;
     }
 

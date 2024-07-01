@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewMonsterStats", menuName = "Monster/Stats", order = 0)]
-public class MonsterInfo : ScriptableObject
+public class MonsterStats : ScriptableObject
 {
     [Header("Base Stats")]
     public string name;

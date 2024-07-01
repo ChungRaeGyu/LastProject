@@ -17,7 +17,7 @@ public class MonsterAttack : MonoBehaviour
         win
     }
 
-    private MonsterStats monsterStats;
+    private MonStats monsterStats;
     public State state;
     public bool isLive;
 

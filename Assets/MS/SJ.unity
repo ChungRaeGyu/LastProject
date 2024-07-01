@@ -805,6 +805,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSO: {fileID: 11400000, guid: e595411ba8f5ba14aa6b506ed7814930, type: 2}
+  nameLabel: {fileID: 0}
+  descriptionLabel: {fileID: 0}
+  costLabel: {fileID: 0}
+  abilityLabel: {fileID: 0}
 --- !u!1 &434391753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1522,6 @@ MonoBehaviour:
   monster: {fileID: 11400000, guid: b375c1e1f8db60f4591f8e0ce46399c0, type: 2}
   stats: {fileID: 11400000, guid: 2de1bc205a33d4745905f429593cbb65, type: 2}
   healthSlider: {fileID: 168159764}
-  turnEndButton: {fileID: 434391755}
 --- !u!1 &842743436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1654,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSO: {fileID: 11400000, guid: e595411ba8f5ba14aa6b506ed7814930, type: 2}
+  nameLabel: {fileID: 0}
+  descriptionLabel: {fileID: 0}
+  costLabel: {fileID: 0}
+  abilityLabel: {fileID: 0}
 --- !u!1 &1031822518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,7 +2173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  monster: {fileID: 0}
+  monsters: []
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0
@@ -3050,6 +3057,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSO: {fileID: 11400000, guid: e595411ba8f5ba14aa6b506ed7814930, type: 2}
+  nameLabel: {fileID: 0}
+  descriptionLabel: {fileID: 0}
+  costLabel: {fileID: 0}
+  abilityLabel: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

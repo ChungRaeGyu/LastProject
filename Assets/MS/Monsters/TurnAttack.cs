@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class TurnAttack : MonoBehaviour
 {
-    private MonsterStats player;
-    private MonsterStats monster;
+    private MonStats player;
+    private MonStats monster;
 
     public Image playerHpBar;
     public Image monsterHpBar;
@@ -24,8 +24,8 @@ public class TurnAttack : MonoBehaviour
 
     void Start()
     {
-        player = new MonsterStats("플레이어", 100, 100, 3, 10, 3, 3);
-        monster = new MonsterStats("몬스터", 50, 50, 0, 10, 2, 2);
+        player = new MonStats("플레이어", 100, 100, 3, 10, 3, 3);
+        monster = new MonStats("몬스터", 50, 50, 0, 10, 2, 2);
 
         UpdateHpBar(playerHpBar, player);
         UpdateHpBar(monsterHpBar, monster);
@@ -35,7 +35,7 @@ public class TurnAttack : MonoBehaviour
         //StartCoroutine(AttackButton());
     }
 
-    void UpdateHpBar(Image HpBar, MonsterStats monster) // fillAmount hpbar
+    void UpdateHpBar(Image HpBar, MonStats monster) // fillAmount hpbar
     {
         HpBar.fillAmount = (float)monster.curHealth / monster.maxHealth;
     }
