@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 6290732}
   - component: {fileID: 6290734}
   - component: {fileID: 6290733}
-  - component: {fileID: 6290735}
   m_Layer: 5
   m_Name: Slime
   m_TagString: Untagged
@@ -160,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 707.64, y: -35}
+  m_AnchoredPosition: {x: 700, y: -35}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6290733
@@ -201,25 +200,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6290731}
   m_CullTransparentMesh: 1
---- !u!114 &6290735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6290731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97bd033256ece1c48bacab4b878e602a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: "\uBAAC\uC2A4\uD130"
-  curHealth: 50
-  maxHealth: 50
-  defense: 0
-  attackPower: 3
-  curActionGauge: 2
-  maxActionGauge: 2
 --- !u!1 &359247579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,6 +1005,7 @@ MonoBehaviour:
   playerGagueBar: {fileID: 359247581}
   monsterGagueBar: {fileID: 1177242973}
   attackButton: {fileID: 798254518}
+  turnEndButton: {fileID: 2030421987}
 --- !u!1 &1839499251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97bd033256ece1c48bacab4b878e602a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnim: {fileID: 0}
   name: "\uD50C\uB808\uC774\uC5B4"
   curHealth: 100
   maxHealth: 100

@@ -16,8 +16,8 @@ public class TurnAttack : MonoBehaviour
     public Image monsterGagueBar;
 
     public Button attackButton;
+    public Button turnEndButton;
 
-    private int playerAttackCount = 0;
     private bool battleOnGoing = true;
 
 
@@ -25,14 +25,13 @@ public class TurnAttack : MonoBehaviour
     void Start()
     {
         player = new MonsterStats("플레이어", 100, 100, 3, 10, 3, 3);
-        monster = new MonsterStats("몬스터", 50, 50, 0, 3, 2, 2);
+        monster = new MonsterStats("몬스터", 50, 50, 0, 10, 2, 2);
 
         UpdateHpBar(playerHpBar, player);
         UpdateHpBar(monsterHpBar, monster);
 
-        UpdateGaugeBar(monsterGagueBar, monster);
-
         attackButton.onClick.AddListener(AttackButton);
+        turnEndButton.onClick.AddListener(TurnEndButton);
         //StartCoroutine(AttackButton());
     }
 
@@ -41,51 +40,38 @@ public class TurnAttack : MonoBehaviour
         HpBar.fillAmount = (float)monster.curHealth / monster.maxHealth;
     }
 
-    void UpdateGaugeBar(Image GaugeBar, MonsterStats monster)
-    {
-        GaugeBar.fillAmount = (float)playerAttackCount / 3;
-    }
 
     void AttackButton()  //yield return new WaitForSeconds(1f); == BreakTime() add example
     {
         if (battleOnGoing)
         {
-            if (playerAttackCount < 3)
+            player.Attack(monster); // attack monster
+            UpdateHpBar(monsterHpBar, monster); // update monster hpbar
+
+            if (!monster.IsAlive())
             {
-                player.Attack(monster); // attack monster
-                UpdateHpBar(monsterHpBar, monster); // update monster hpbar
-
-                playerAttackCount++;
-
-                UpdateGaugeBar(monsterGagueBar, monster);
-
-                if (!monster.IsAlive())
-                {
-                    Debug.Log("몬스터의 패배");
-                    battleOnGoing = false;
-                }
-            }
-
-            if(playerAttackCount >= 3 && battleOnGoing)
-            {
-                monster.Attack(player, true); // attack player twice damage
-                UpdateHpBar(playerHpBar, player); // update player hpbar
-
-                playerAttackCount = 0;
-
-                UpdateGaugeBar(monsterGagueBar, monster);
-
-                if (!player.IsAlive())
-                {
-                    Debug.Log("플레이어의 패배");
-                    battleOnGoing = false;
-                }
+                Debug.Log("몬스터의 패배");
+                battleOnGoing = false;
             }
         }
     }
-
-    private IEnumerator BreakTime()
+    void TurnEndButton()
     {
-        yield return new WaitForSeconds(1f);
+        if (battleOnGoing)
+        {
+             monster.Attack(player, true); // attack player twice damage
+             UpdateHpBar(playerHpBar, player); // update player hpbar
+
+             if (!player.IsAlive())
+             {
+                 Debug.Log("플레이어의 패배");
+                 battleOnGoing = false;
+             }
+        }
     }
+
+     private IEnumerator BreakTime()
+     {
+            yield return new WaitForSeconds(1f);
+     }
 }

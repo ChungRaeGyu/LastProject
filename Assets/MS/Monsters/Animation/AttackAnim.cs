@@ -1,18 +1,15 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackAnim : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+     public void MonsterAttackAnim()
+     {
+        transform.DOMoveX(660, 1).OnComplete(() =>
+        {
+            transform.DOMoveX(700, 1);
+        });
+     }
 }

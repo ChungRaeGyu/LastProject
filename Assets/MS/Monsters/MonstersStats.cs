@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class MonsterStats : MonoBehaviour // 해야할 것 1. 플레이어 공격 2. 몬스터 공격
 {
+    public AttackAnim attackAnim;
+
     [Header("Stats")]  // 3. 공격 시 hp바 까이고 게이지 0 시키고 턴마다 게이지 차는 것 4. 임시 공격카드 만들기 8짜리
     public string name;
     public int curHealth;
@@ -26,27 +28,36 @@ public class MonsterStats : MonoBehaviour // 해야할 것 1. 플레이어 공격 2. 몬스�
         this.curActionGauge = curActionGauge;
         this.maxActionGauge = maxActionGauge;
     }
-
-    public void Attack(MonsterStats target, bool isEnemy = false) // slime special damage
+    private void Start()
+    {
+        attackAnim = GetComponent<AttackAnim>();
+    }
+    private void Attack(MonsterStats target, bool isEnemy = false) // monster special damage
     {
         int damage = this.attackPower;
 
-        if(isEnemy && Random.value < 0.35f) // percent change 0.3% twice damage
+        attackAnim.MonsterAttackAnim();
+
+        if (isEnemy) // percent change 0.3% twice damage
         {
-            damage *= 2;
-            Debug.Log($"{this.name} 이 크리티컬 데미지를 입혔다!");
-        }
-        else
-        {
+            float randomValue = Random.value;
+
+            if(randomValue < 0.35f)
+            {
+                target.curHealth -= damage; // defalut attack
+                damage *= 2; // double attack
+                Debug.Log($"{this.name} 가 크리티컬 데미지를 입혔다!");
+            }
             target.curHealth -= damage; // defalut attack
+            Debug.Log($"{this.name} 가 데미지를 입혔다!");
         }
+        //target.curHealth -= damage; // defalut attack
 
-        if (target.curHealth < 0) // - block 
-        {
-            target.curHealth = 0;
-        }
-
-        Debug.Log($"{this.name}가 공격함 {target.name} 가 {this.attackPower} 데미지 입음.");
+        //if (target.curHealth < 0) // - block 
+        //{
+        //    target.curHealth = 0;
+        //}
+        // Debug.Log($"{this.name}가 공격함 {target.name} 가 {this.attackPower} 데미지 입음.");
     }
     public bool IsAlive()
     {
