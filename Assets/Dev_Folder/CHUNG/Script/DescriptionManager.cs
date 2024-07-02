@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,8 +53,8 @@ public class DescriptionManager : MonoBehaviour
 
     [Header("DeComposition")]
     [SerializeField] GameObject deCompositionPanel;
-    [SerializeField] Text cardSubject;
-    [SerializeField] Text pieceSubject;
+    [SerializeField] TextMeshProUGUI cardSubject;
+    [SerializeField] TextMeshProUGUI pieceSubject;
     int num=1;
     public void ClosePanel()
     {
