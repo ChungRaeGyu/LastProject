@@ -7,6 +7,12 @@ public class Hand : MonoBehaviour
     public List<GameObject> CardObject;
     public List<CardSO> hand = new List<CardSO>();
 
+    private void Start(){
+        Debug.Log("Start()");
+        for(int i=0; i<4;i++){
+            Addhand(DataManager.Instance.deck.Pop());
+        }
+    }
     public void Addhand(CardSO cardso){
         Debug.Log("Addhand");
         hand.Add(cardso);
@@ -24,6 +30,7 @@ public class Hand : MonoBehaviour
         for(int i=0; i<hand.Count;i++){
             CardObject[i].SetActive(true);
             CardObject[i].GetComponent<Card>().cardSO = hand[i];
+            CardObject[i].GetComponent<Card>().ImageSet();
         }
     }
 }

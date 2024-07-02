@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro.EditorUtilities;
 
 public class GameManager : MonoBehaviour
 {
@@ -80,6 +81,9 @@ public class GameManager : MonoBehaviour
             // 덱 생성 코드 추가
             if (deckPrefab != null)
             {
+                GameObject temp = deckPrefab;
+                temp.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Pop();
+                temp.GetComponentInChildren<SpriteRenderer>().sprite = temp.GetComponent<CardData>().cardSO.Image;
                 Instantiate(deckPrefab, transform.position, Quaternion.identity);
             }
 
