@@ -5,7 +5,10 @@ using UnityEngine;
 public class MonsterCharacter : MonoBehaviour
 {
     public MonsterStats monsterStats;
-    public int currenthealth ;
+    public int currenthealth;
+    public Animator animator;
+    private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
+    public static readonly int Attack = Animator.StringToHash("Attack");
 
     private void Awake()
     {
@@ -15,12 +18,19 @@ public class MonsterCharacter : MonoBehaviour
         }
 
         currenthealth = monsterStats.maxhealth;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         currenthealth -= actualDamage;
+
+        if (animator != null)
+        {
+            animator.SetTrigger(takeDamage);
+        }
 
         if (IsDead())
         {

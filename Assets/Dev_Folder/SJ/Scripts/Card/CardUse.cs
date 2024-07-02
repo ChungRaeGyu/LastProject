@@ -24,15 +24,22 @@ public class CardUse : MonoBehaviour
                 player.UseCost(cardSO.cost);
                 targetMonster.TakeDamage(cardSO.ability);
                 Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("플레이어 코스트가 부족합니다.");
+
+                PlayPlayerAttackAnimation();
             }
         }
         else
         {
             cardDrag.ResetPosition();
+        }
+    }
+
+    private void PlayPlayerAttackAnimation()
+    {
+        // 여기에 플레이어의 공격 애니메이션을 재생하는 코드를 추가합니다.
+        if (player != null && player.animator != null)
+        {
+            player.animator.SetTrigger("Attack"); // "Attack"는 플레이어 애니메이션 컨트롤러에 있는 트리거 이름입니다.
         }
     }
 }

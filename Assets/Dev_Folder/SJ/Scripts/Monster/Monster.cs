@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Monster : MonsterCharacter
 {
@@ -26,6 +27,11 @@ public class Monster : MonsterCharacter
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
         // 공격 후에 필요한 다른 동작
+        // 공격하는 애니메이션
+        if (animator != null)
+        {
+            animator.SetTrigger(Attack);
+        }
 
         // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();

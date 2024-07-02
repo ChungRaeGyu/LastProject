@@ -4,25 +4,27 @@ public abstract class PlayerCharacter : MonoBehaviour
 {
     public PlayerStats playerStats;
     protected int currenthealth;
+    public Animator animator;
+    private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
+    public static readonly int attack = Animator.StringToHash("Attack");
 
     private void Awake()
     {
-        if (playerStats == null)
-        {
-            Debug.Log("CharacterStats가 " + gameObject.name + "에 할당되지 않았다.");
-        }
-
         currenthealth = playerStats.maxhealth;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - playerStats.defense, 0);
         currenthealth -= actualDamage;
-    }
 
-    protected virtual void Update()
-    {
+        if (animator != null)
+        {
+            animator.SetTrigger(takeDamage);
+        }
+
         if (IsDead())
         {
             Die();

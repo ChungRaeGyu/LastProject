@@ -21,16 +21,6 @@ public class Player : PlayerCharacter
         }
     }
 
-    protected override void Update()
-    {
-        base.Update();
-
-        if (healthSlider != null)
-        {
-            healthSlider.value = currenthealth;
-        }
-    }
-
     public void UseCost(int amount)
     {
         currentCost = Mathf.Clamp(currentCost - amount, 0, maxCost);
@@ -41,6 +31,11 @@ public class Player : PlayerCharacter
     {
         currentCost = Mathf.Clamp(currentCost + amount, 0, maxCost);
         UpdateCostText();
+    }
+
+    public void Heal(int amount)
+    {
+        currenthealth += amount;
     }
 
     private void UpdateCostText()
@@ -55,5 +50,18 @@ public class Player : PlayerCharacter
     {
         currentCost = maxCost;
         UpdateCostText();
+    }
+
+    public void ResetHealthSlider()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.value = currenthealth;
+        }
+    }
+
+    private void Update()
+    {
+        ResetHealthSlider();
     }
 }
