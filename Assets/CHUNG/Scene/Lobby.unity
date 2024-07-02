@@ -760,7 +760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca8b43ecae535f40870878ba84f2ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deck: {fileID: 0}
+  deck: {fileID: 1088329752}
   cardSOs:
   - {fileID: 11400000, guid: 01575f41112784b40a6843606456698d, type: 2}
   - {fileID: 11400000, guid: ddf8c8ee6ca945747863d2b29f3bbaaf, type: 2}
@@ -2567,8 +2567,8 @@ MonoBehaviour:
   descriptionPanel: {fileID: 1202313861}
   text: {fileID: 147442415}
   currentCard: {fileID: 0}
-  cardObj: {fileID: 2062940685}
   deck: {fileID: 1088329752}
+  bookCardControl: {fileID: 0}
 --- !u!4 &1226786040
 Transform:
   m_ObjectHideFlags: 0

@@ -19,7 +19,6 @@ public class ObjectPool : MonoBehaviour
     }
 
     private void Init(){
-        Debug.Log("bookCount" + DataManager.Instance.cardSOs.Count);
         for (int i = 0; i < 10; i++)
         {
             GameObject obj = Instantiate(cardsPrefab, transform);
