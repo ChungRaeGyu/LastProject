@@ -24,17 +24,17 @@ public class SceneFader : MonoBehaviour
         }
     }
 
-    public static void FadeOutAndLoadScene(int num, Image image, float speed)
+    public static void FadeOutAndLoadScene(int sceneNum, Image image, float speed)
     {
         if (instance != null)
         {
             instance.fadeImage = image;
             instance.fadeSpeed = speed;
-            instance.StartCoroutine(instance.FadeOutAndLoad(num));
+            instance.StartCoroutine(instance.FadeOutAndLoad(sceneNum));
         }
     }
 
-    private IEnumerator FadeOutAndLoad(int num)
+    private IEnumerator FadeOutAndLoad(int sceneNum)
     {
         if (isFading)
             yield break;
@@ -48,7 +48,7 @@ public class SceneFader : MonoBehaviour
         }
 
         // 씬 로드
-        SceneManager.LoadScene(num);
+        SceneManager.LoadScene(sceneNum);
 
         // 씬 로드 후 기다리기
         yield return new WaitForSeconds(0.1f);
