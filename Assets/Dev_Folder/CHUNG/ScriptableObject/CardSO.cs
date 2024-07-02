@@ -23,7 +23,8 @@ public enum special_ability
 public enum Rate{
     Normal,
     Rarity,
-    Hero
+    Hero,
+    Count
 }
 [CreateAssetMenu(fileName = "Card", menuName = "newCard", order = 0)]
 public class CardSO : ScriptableObject {
@@ -35,6 +36,7 @@ public class CardSO : ScriptableObject {
     public JOB job;
     public special_ability special_ability;
     public Sprite Image;
+    public Sprite defaultImage;
     public Rate rate;
     public int currentCount;
 }
