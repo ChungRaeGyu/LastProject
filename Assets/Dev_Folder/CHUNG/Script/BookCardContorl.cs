@@ -14,10 +14,8 @@ public class BookCardControl : MonoBehaviour
         childCard = this.GetComponentInChildren<Card>();
         
     }
-    private void Start(){
-        DescriptionManager.Instance.bookCardControl = this;
-    }
     public void OpenPanel(){
+        DescriptionManager.Instance.bookCardControl = this;
         DescriptionManager.Instance.currentCard = childCard;
         DescriptionManager.Instance.OpenPanel();
     }

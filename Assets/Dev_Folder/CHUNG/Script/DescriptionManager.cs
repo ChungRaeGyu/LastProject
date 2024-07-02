@@ -34,22 +34,27 @@ public class DescriptionManager : MonoBehaviour
     }
     #endregion
 
+
     [Header("descriptionPanel")]
     public GameObject descriptionPanel;
     public Text text;
 
     [Header("Deck")]
-    public Deck deck;
+    public DeckControl deck;
 
     [Header("intoScript")]
     public BookCardControl bookCardControl;
     public Card currentCard;
 
+    [Header("CardObject")]
+    public Card cardobj;
     StringBuilder stringBuilder = new StringBuilder();
-    private void Start(){
-        Debug.Log("DescriptionManager 실행 :" );
-    }
-    
+
+    [Header("DeComposition")]
+    [SerializeField] GameObject deCompositionPanel;
+    [SerializeField] Text cardSubject;
+    [SerializeField] Text pieceSubject;
+    int num=1;
     public void ClosePanel()
     {
         descriptionPanel.SetActive(false);
@@ -58,16 +63,18 @@ public class DescriptionManager : MonoBehaviour
 
     public void AddDeck()
     {
+        if(DataManager.Instance.deckList.Count>=20)return;
         currentCard.cardSO.currentCount--;
         deck.AddCard(currentCard);
         bookCardControl.UpdateBook();
         ClosePanel();
-
     }
 
     public void OpenPanel()
     {
-        stringBuilder.AppendLine($"이름 : {currentCard.cardSO.name}");
+        cardobj.cardSO = currentCard.cardSO;
+        stringBuilder.Clear();
+        stringBuilder.AppendLine($"이름 : {currentCard.cardSO.cardName}");
         stringBuilder.AppendLine($"직업 : {currentCard.cardSO.job}");
         stringBuilder.AppendLine($"등급 : {currentCard.cardSO.rate}");
         stringBuilder.AppendLine($"설명 : {currentCard.cardSO.description}");
@@ -76,5 +83,30 @@ public class DescriptionManager : MonoBehaviour
 
         text.text = stringBuilder.ToString();
         descriptionPanel.SetActive(true);
+    }
+
+    public void DeCompositionPanelBtn(){
+        deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
+        num=1;
+    }
+
+    public void RightBtn(){
+        if(num>=currentCard.cardSO.currentCount)return;
+        num++;
+        cardSubject.text = num.ToString();
+    }
+    public void LeftBtn(){
+        if(num<=1)return;
+        num--;
+        cardSubject.text = num.ToString();
+    }
+    public void DeCompositionBtn(){
+        currentCard.cardSO.currentCount-=num;
+        DataManager.Instance.CardPiece[(int)currentCard.cardSO.rate]+=num;
+        if(currentCard.cardSO.currentCount==0){
+            DeCompositionPanelBtn();
+            ClosePanel();
+        }
+        num=1;
     }
 }
