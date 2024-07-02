@@ -27,7 +27,7 @@ public class StartSceneController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 PlayClickSound();
-                SceneFader.FadeOutAndLoadScene("LobbyScene", fadeImage, fadeSpeed);
+                SceneFader.FadeOutAndLoadScene(1, fadeImage, fadeSpeed);
             }
 #elif UNITY_ANDROID || UNITY_IOS // 안드로이드 또는 iOS
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
