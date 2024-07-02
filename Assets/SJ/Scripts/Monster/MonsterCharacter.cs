@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterCharacter : MonoBehaviour
 {
     public MonsterStats monsterStats;
-    protected int currenthealth;
+    public int currenthealth ;
 
     private void Awake()
     {
@@ -21,10 +21,7 @@ public class MonsterCharacter : MonoBehaviour
     {
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         currenthealth -= actualDamage;
-    }
 
-    protected virtual void Update()
-    {
         if (IsDead())
         {
             Die();

@@ -545,8 +545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f417fd4885b36940a7f6c1738541ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: b4a8f1c9a9412434588a5f5f0c87ae40, type: 2}
+  monsterStats: {fileID: 11400000, guid: b375c1e1f8db60f4591f8e0ce46399c0, type: 2}
   healthSlider: {fileID: 8952260458238037597}
+  turnEndButton: {fileID: 0}
 --- !u!61 &4135393731561959153
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,63 +1,46 @@
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
+using System.Collections;
 
 public class Monster : MonsterCharacter
 {
-    
     public Slider healthSlider;
-    public Button turnEndButton;
-
-    public bool battleOnGoing { get; private set; } = true;
-
+    public int Currenthealth => currenthealth;
     private void Start()
     {
         if (healthSlider != null)
         {
             healthSlider.maxValue = monsterStats.maxhealth;
-            healthSlider.value = currenthealth;
+            healthSlider.value = Currenthealth;
         }
     }
 
-
-
-    //void TurnEndButton()
-    //{
-    //    if (battleOnGoing)
-    //    {
-    //        GameManager.instance.player.TakeDamage(monsterStats.attackPower); // attack monster
-    //    }
-
-    //    GameManager.instance.player.InitializeCost();
-    //}
-
-    //public void AttackCharacter(MonsterStats target)
-    //{
-    //    int damage = monsterStats.attackPower;
-
-    //        if (Random.value < 0.35f)
-    //        {
-    //            target.maxhealth -= damage;
-    //            damage *= 2;
-    //            Debug.Log($"{this.name} 가 크리티컬 데미지를 입혔다!");
-    //        }
-
-    //        target.maxhealth -= damage;
-    //        Debug.Log($"{this.name} 가 데미지를 입혔다!");
-    //}
-    protected override void Update()
+    public void StartMonsterTurn()
     {
-        base.Update();
+        StartCoroutine(MonsterTurn());
+    }
 
-        if (GameManager.instance.turnEnd && battleOnGoing)
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            battleOnGoing = false;
-        }
+    public IEnumerator MonsterTurn()
+    {
+        GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
+        // 공격 후에 필요한 다른 동작
+
+        // 공격 후에 다음 턴을 위해 GameManager에 알림
+        GameManager.instance.EndMonsterTurn();
+    }
+
+    public void ResetHealthSlider()
+    {
         if (healthSlider != null)
         {
-            healthSlider.value = currenthealth;
+            healthSlider.value = Currenthealth;
         }
+    }
+
+    private void Update()
+    {
+        ResetHealthSlider();
     }
 }
