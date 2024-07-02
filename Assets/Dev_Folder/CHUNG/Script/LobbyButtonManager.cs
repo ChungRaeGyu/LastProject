@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyButtonManager : MonoBehaviour
 {
@@ -39,5 +40,8 @@ public class LobbyButtonManager : MonoBehaviour
     #endregion
     public void AddDeckBtn(){
         
+    }
+    public void GotoStageBoardBtn(){
+        SceneManager.LoadScene(2);
     }
 }

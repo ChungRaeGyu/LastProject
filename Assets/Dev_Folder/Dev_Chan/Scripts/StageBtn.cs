@@ -15,7 +15,7 @@ public class StageBtn : MonoBehaviour
     public void Battle()
     {
         GameManager_chan.Instance.nowPosition = pos;
-        SceneManager.LoadScene("BattleScene");
+        SceneManager.LoadScene(3);
     }
 
     public void Victory()
@@ -23,6 +23,6 @@ public class StageBtn : MonoBehaviour
         Debug.Log(GameManager_chan.Instance.stageLevel);
         //GameManager_chan.Instance.clearCheck[GameManager_chan.Instance.stageLevel] = true; 
         GameManager_chan.Instance.stageLevel += 1;
-        SceneManager.LoadScene("StageBoardScene");
+        SceneManager.LoadScene(1);
     }
 }
