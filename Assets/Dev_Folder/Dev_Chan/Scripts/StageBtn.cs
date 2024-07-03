@@ -23,6 +23,6 @@ public class StageBtn : MonoBehaviour
         Debug.Log(GameManager_chan.Instance.stageLevel);
         //GameManager_chan.Instance.clearCheck[GameManager_chan.Instance.stageLevel] = true; 
         GameManager_chan.Instance.stageLevel += 1;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

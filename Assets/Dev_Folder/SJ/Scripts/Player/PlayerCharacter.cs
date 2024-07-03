@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class PlayerCharacter : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public abstract class PlayerCharacter : MonoBehaviour
 
     protected virtual void Die()
     {
+        SceneManager.LoadScene(1);
         Destroy(gameObject);
     }
 }

@@ -78,11 +78,14 @@ public class GameManager : MonoBehaviour
             playerTurn = true; // 플레이어 턴 시작
             player.InitializeCost();
 
-            // 덱 생성 코드 추가
+            // 핸드 추가
             if (deckPrefab != null)
             {
+                if(DataManager.Instance.deck.Count != 0){
+                    
+                }
                 GameObject temp = deckPrefab;
-                temp.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Pop();
+                temp.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Count != 0?DataManager.Instance.deck.Pop():DataManager.Instance.cardSOs[0];
                 temp.GetComponentInChildren<SpriteRenderer>().sprite = temp.GetComponent<CardData>().cardSO.Image;
                 Instantiate(deckPrefab, transform.position, Quaternion.identity);
             }
@@ -111,7 +114,9 @@ public class GameManager : MonoBehaviour
 
     public void OnLobbyButtonClick()
     {
+        GameManager_chan.Instance.stageLevel += 1;
         SceneManager.LoadScene(2);
+
     }
 
     public void EndMonsterTurn()
