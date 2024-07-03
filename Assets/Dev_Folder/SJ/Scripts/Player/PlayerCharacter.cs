@@ -8,6 +8,7 @@ public abstract class PlayerCharacter : MonoBehaviour
     public Animator animator;
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int attack = Animator.StringToHash("Attack");
+    public GameObject damageTextPrefab;
 
     private void Awake()
     {
@@ -26,9 +27,25 @@ public abstract class PlayerCharacter : MonoBehaviour
             animator.SetTrigger(takeDamage);
         }
 
+        SpawnDamageText(actualDamage, transform.position);
+
         if (IsDead())
         {
             Die();
+        }
+    }
+
+    private void SpawnDamageText(int damageAmount, Vector3 position)
+    {
+        if (damageTextPrefab != null)
+        {
+            GameObject damageTextInstance = Instantiate(damageTextPrefab, position, Quaternion.identity);
+            DamageText damageText = damageTextInstance.GetComponent<DamageText>();
+            damageText.SetText(damageAmount.ToString());
+
+            // 위치를 화면 좌표로
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
+            damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
         }
     }
 
