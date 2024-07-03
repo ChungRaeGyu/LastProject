@@ -2,55 +2,59 @@ using UnityEngine;
 
 public class CardDrag : MonoBehaviour
 {
-    private Vector3 offset;
-    private bool isDragging = false;
-    private Vector3 originalPosition;
-    private Quaternion originalRotation;
-    private CardSO cardSO;
-    public Player player { get; private set; }
+    private Vector3 offset; // µå·¡±× ½Ã ¸¶¿ì½º¿Í Ä«µå »çÀÌÀÇ °Å¸®
+    private bool isDragging = false; // µå·¡±× ÁßÀÎÁö È®ÀÎÇÏ´Â º¯¼ö
+    private Vector3 originalPosition; // Ä«µåÀÇ ¿ø·¡ À§Ä¡
+    private Quaternion originalRotation; // Ä«µåÀÇ ¿ø·¡ È¸Àü
+    private CardSO cardSO; // Ä«µåÀÇ ScriptableObject µ¥ÀÌÅÍ
+    public Player player { get; private set; } // ÇÃ·¹ÀÌ¾î °´Ã¼
 
     private void Start()
     {
-        player = GameManager.instance.player;
-        cardSO = GetComponent<CardData>().cardSO;
-
-        originalPosition = transform.position;
-        originalRotation = transform.rotation;
+        player = GameManager.instance.player; // °ÔÀÓ ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î °´Ã¼ °¡Á®¿À±â
+        cardSO = GetComponent<CardData>().cardSO; // Ä«µåÀÇ ScriptableObject µ¥ÀÌÅÍ °¡Á®¿À±â
     }
 
     private void Update()
     {
         if (isDragging)
         {
+            // ¸¶¿ì½º Ä¿¼­ÀÇ È­¸é ÁÂÇ¥¸¦ ¿ùµå ÁÂÇ¥·Î º¯È¯
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-            transform.position = cursorWorldPoint + offset;
+            transform.position = cursorWorldPoint + offset; // ¸¶¿ì½º¿ÍÀÇ °Å¸® À¯ÁöÇÏ¸ç Ä«µå ÀÌµ¿
         }
     }
 
     private void OnMouseDown()
     {
-        // ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½Æ®ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        if (player != null && cardSO != null && player.currentCost >= cardSO.cost && GameManager.instance.playerTurn) // ï¿½Ú±ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ Ä«ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ÇÃ·¹ÀÌ¾î°¡ ÃæºÐÇÑ ÄÚ½ºÆ®¸¦ °¡Áö°í ÀÖ°í, ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀÏ ¶§¸¸ µå·¡±× °¡´É
+        if (player != null && cardSO != null && player.currentCost >= cardSO.cost && GameManager.instance.playerTurn)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 0, 0); // µå·¡±× ½ÃÀÛ ½Ã Ä«µåÀÇ È¸ÀüÀ» ÃÊ±âÈ­
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-            offset = transform.position - cursorWorldPoint;
-            isDragging = true;
+            offset = transform.position - cursorWorldPoint; // ¸¶¿ì½º¿Í Ä«µå »çÀÌÀÇ °Å¸® °è»ê
+            isDragging = true; // µå·¡±× ½ÃÀÛ
         }
     }
 
     private void OnMouseUp()
     {
-        isDragging = false;
-        // Ä«ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½Å³ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        GetComponent<CardUse>().TryUseCard();
+        isDragging = false; // µå·¡±× Á¾·á
+        GetComponent<CardUse>().TryUseCard(); // Ä«µå »ç¿ë ½Ãµµ
+        ResetPosition(); // µå·¡±× Á¾·á ÈÄ ¿ø·¡ À§Ä¡·Î µÇµ¹¸®±â
+    }
+
+    public void SetOriginalPosition(Vector3 position, Quaternion rotation)
+    {
+        originalPosition = position;
+        originalRotation = rotation;
     }
 
     public void ResetPosition()
     {
-        transform.position = originalPosition;
-        transform.rotation = originalRotation;
+        transform.position = originalPosition; // Ä«µå À§Ä¡ ÃÊ±âÈ­
+        transform.rotation = originalRotation; // Ä«µå È¸Àü ÃÊ±âÈ­
     }
 }

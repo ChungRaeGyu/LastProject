@@ -43,6 +43,8 @@ public class HandManager : MonoBehaviour
             PRS prs = CalculatePRS(0.5f, 0, 0);
             StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
             SetCardOrderInLayer(card, 0);
+            card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
+            card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
             return;
         }
 
@@ -54,6 +56,8 @@ public class HandManager : MonoBehaviour
             PRS prs = CalculatePRS(t, angle, Mathf.Abs(t - 0.5f) * 1.5f);
             StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
             SetCardOrderInLayer(card, i);
+            card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
+            card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
         }
     }
 

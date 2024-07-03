@@ -6,6 +6,7 @@ public class CardZoom : MonoBehaviour
     public Vector3 zoomOffset = new Vector3(0, 5, 10); // 확대된 카드의 위치 오프셋
     private Vector3 originalScale; // 원래 크기
     private Vector3 originalPosition; // 원래 위치
+    private Quaternion originalRotation; // 원래 회전
     private int originalOrder; // 원래의 Order in Layer
     private bool isZoomed = false; // 확대 상태 체크
 
@@ -14,7 +15,6 @@ public class CardZoom : MonoBehaviour
     private void Start()
     {
         originalScale = transform.localScale;
-        originalPosition = transform.position;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (spriteRenderer != null)
         {
@@ -53,6 +53,7 @@ public class CardZoom : MonoBehaviour
 
         transform.localScale = originalScale;
         transform.position = originalPosition;
+        transform.rotation = originalRotation;
 
         if (spriteRenderer != null)
         {
@@ -60,5 +61,17 @@ public class CardZoom : MonoBehaviour
         }
 
         isZoomed = false;
+    }
+
+    public void SetOriginalPosition(Vector3 position, Quaternion rotation)
+    {
+        originalPosition = position;
+        originalRotation = rotation;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = originalPosition; // 카드 위치 초기화
+        transform.rotation = originalRotation; // 카드 회전 초기화
     }
 }
