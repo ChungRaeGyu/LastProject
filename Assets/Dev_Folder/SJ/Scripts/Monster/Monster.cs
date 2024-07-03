@@ -5,15 +5,28 @@ using System.Collections.Generic;
 
 public class Monster : MonsterCharacter
 {
-    public Slider healthSlider;
+    public HpBar healthBarPrefab;
+    private HpBar healthBarInstance;
+
+    public Canvas canvas;
+
     public int Currenthealth => currenthealth;
     private void Start()
     {
-        if (healthSlider != null)
+        if (canvas != null && healthBarPrefab != null)
         {
-            healthSlider.maxValue = monsterStats.maxhealth;
-            healthSlider.value = Currenthealth;
+            // healthBarPrefab을 canvas의 자식으로 생성
+            healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
+
+            healthBarInstance.Initialized(monsterStats.maxhealth, Currenthealth, transform.GetChild(1));
         }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        healthBarInstance.ResetHealthSlider(Currenthealth);
     }
 
     public void StartMonsterTurn()
@@ -36,18 +49,5 @@ public class Monster : MonsterCharacter
 
         // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();
-    }
-
-    public void ResetHealthSlider()
-    {
-        if (healthSlider != null)
-        {
-            healthSlider.value = Currenthealth;
-        }
-    }
-
-    private void Update()
-    {
-        ResetHealthSlider();
     }
 }

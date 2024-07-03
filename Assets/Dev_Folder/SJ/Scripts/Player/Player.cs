@@ -4,23 +4,34 @@ using UnityEngine.UI;
 
 public class Player : PlayerCharacter
 {
-    public Slider healthSliderPrefab;
+    public HpBar healthBarPrefab;
     public TextMeshProUGUI costText;
     public int maxCost = 3;
 
     public int currentCost { get; private set; }
-    private Slider healthSlider;
+    private HpBar healthBarInstance;
+
+    public Canvas canvas;
 
     private void Start()
     {
         InitializeCost();
 
-        if (healthSliderPrefab != null)
+        if (canvas != null && healthBarPrefab != null)
         {
-            healthSlider = Instantiate(healthSliderPrefab);
-            healthSlider.maxValue = playerStats.maxhealth;
-            healthSlider.value = currenthealth;
+            // healthBarPrefab을 canvas의 자식으로 생성
+            healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
+
+            healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
         }
+
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        healthBarInstance.ResetHealthSlider(currenthealth);
     }
 
     public void UseCost(int amount)
@@ -52,18 +63,5 @@ public class Player : PlayerCharacter
     {
         currentCost = maxCost;
         UpdateCostText();
-    }
-
-    public void ResetHealthSlider()
-    {
-        if (healthSlider != null)
-        {
-            healthSlider.value = currenthealth;
-        }
-    }
-
-    private void Update()
-    {
-        ResetHealthSlider();
     }
 }
