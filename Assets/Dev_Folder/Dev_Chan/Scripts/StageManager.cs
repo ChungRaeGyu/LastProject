@@ -8,6 +8,8 @@ public class StageManager : MonoBehaviour
     public GameObject[] stageBtn = new GameObject[6];
     public GameObject clear;
     public GameObject player;
+    public GameObject background;
+    public GameObject eventScene;
 
     public Vector3 position;
     public int stageLevel;
@@ -68,5 +70,45 @@ public class StageManager : MonoBehaviour
             position.y = 3;
         if (position.y == 325)
             position.y = -1;
+    }
+
+    public void Event()
+    {
+        player.SetActive(false);
+        background.SetActive(false);
+        for (int i = 0; i < stage.Length; i++)
+        {
+            stage[i].SetActive(false);
+            stageBtn[i].SetActive(false);
+        }
+        eventScene.SetActive(true);
+    }
+
+    public void EventEnd()
+    {
+        
+        eventScene.SetActive(false);
+        player.SetActive(true);
+        background.SetActive(true);
+        for (int i = 0; i < stage.Length; i++)
+        {
+            stage[i].SetActive(true);
+        }
+        if (stageLevel == 2)
+        {
+            player.transform.position = new Vector3(position.x, position.y, 0);
+            stageBtn[1].SetActive(false);
+            stageBtn[2].SetActive(false);
+            stageBtn[3].SetActive(true);
+            stageBtn[4].SetActive(true);
+        }
+        if (stageLevel == 3)
+        {
+            player.transform.position = new Vector3(position.x, position.y, 0);
+            stageBtn[3].SetActive(false);
+            stageBtn[4].SetActive(false);
+            stageBtn[5].SetActive(true);
+        }
+        GameManager_chan.Instance.stageLevel += 1;
     }
 }
