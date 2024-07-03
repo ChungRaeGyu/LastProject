@@ -9,14 +9,6 @@ public class SmoothTextBlink : MonoBehaviour
     private float timer;
     private bool isFadingIn = true;
 
-    void Start()
-    {
-        if (textComponent == null)
-        {
-            textComponent = GetComponent<TMP_Text>();
-        }
-    }
-
     void Update()
     {
         timer += Time.deltaTime;
