@@ -6,12 +6,18 @@ public class CardUse : MonoBehaviour
     private CardDrag cardDrag;
     private CardCollision cardCollision;
     public CardSO cardSO { get; private set; }
+
     private void Start()
     {
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
         cardSO = GetComponent<CardData>().cardSO;
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
+
+        if (player == null)
+        {
+            Debug.Log("Player가 없음.");
+        }
     }
 
     public void TryUseCard()
@@ -36,10 +42,9 @@ public class CardUse : MonoBehaviour
 
     private void PlayPlayerAttackAnimation()
     {
-        // 여기에 플레이어의 공격 애니메이션을 재생하는 코드를 추가합니다.
         if (player != null && player.animator != null)
         {
-            player.animator.SetTrigger("Attack"); // "Attack"는 플레이어 애니메이션 컨트롤러에 있는 트리거 이름입니다.
+            player.animator.SetTrigger("Attack");
         }
     }
 }
