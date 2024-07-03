@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Button lobbyButton; // 로비로 가는 버튼
     public Button turnEndButton; // 턴 종료 버튼
     public HandManager handManager; // 손 패 매니저
+    public Vector3 cardSpawnPosition = new Vector3(-7.8f, -3.9f, 0f); // 카드 소환 위치
 
     private void Awake()
     {
@@ -109,7 +110,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("덱에서 카드를 드로우합니다.");
 
             // 새로운 카드 인스턴스 생성
-            GameObject newCard = Instantiate(deckPrefab, transform.position, Quaternion.identity);
+            GameObject newCard = Instantiate(deckPrefab, cardSpawnPosition, Quaternion.identity);
             Debug.Log("새 카드 인스턴스 생성 완료.");
 
             // 카드 데이터를 할당
@@ -128,7 +129,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("덱에 카드가 없습니다.");
 
-            // 카드가 없으므로 플레이어가 데미지를 입는 등 효과를 작성
+            // ex) 카드가 없으므로 플레이어가 데미지를 입는 등 효과를 작성
         }
     }
 
