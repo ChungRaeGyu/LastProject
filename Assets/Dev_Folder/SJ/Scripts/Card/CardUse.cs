@@ -31,6 +31,12 @@ public class CardUse : MonoBehaviour
                 targetMonster.TakeDamage(cardSO.ability);
                 Destroy(gameObject);
 
+                if (GameManager.instance.AllMonstersDead())
+                {
+                    GameManager.instance.TurnEndButton.gameObject.SetActive(false);
+                    GameManager.instance.lobbyButton.gameObject.SetActive(true);
+                }
+
                 PlayPlayerAttackAnimation();
             }
         }
