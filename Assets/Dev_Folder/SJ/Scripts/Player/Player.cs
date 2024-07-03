@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : PlayerCharacter
 {
     public HpBar healthBarPrefab;
-    public TextMeshProUGUI costText;
+    public TMP_Text costText;
     public int maxCost = 3;
 
     public int currentCost { get; private set; }

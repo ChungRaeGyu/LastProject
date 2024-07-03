@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using TMPro.EditorUtilities;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,11 +13,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject deckPrefab;
     public Button lobbyButton; // 로비로 가는 버튼
-    public Button TurnEndButton; // 로비로 가는 버튼
+    public Button turnEndButton; // 턴 종료 버튼
+    public HandManager handManager; // 손 패 매니저
 
     private void Awake()
     {
-        //인코딩 테스트
         if (instance == null)
         {
             instance = this;
@@ -46,15 +45,28 @@ public class GameManager : MonoBehaviour
             lobbyButton.gameObject.SetActive(false);
         }
 
-        if (TurnEndButton != null)
+        if (turnEndButton != null)
         {
-            TurnEndButton.gameObject.SetActive(true);
+            turnEndButton.gameObject.SetActive(true);
         }
+
+        // HandManager 할당
+        handManager = FindObjectOfType<HandManager>();
     }
 
     private void Start()
     {
+        DrawInitialHand(4); // 초기 핸드 드로우
+
         StartCoroutine(Battle());
+    }
+
+    private void DrawInitialHand(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            DrawCardFromDeck();
+        }
     }
 
     private IEnumerator Battle()
@@ -64,23 +76,11 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             Debug.Log("----- 플레이어 턴 시작 -----");
-
-            // 모든 몬스터의 턴이 끝나면 다음 라운드 준비
             playerTurn = true; // 플레이어 턴 시작
             player.InitializeCost();
 
-            // 핸드 추가
-            if (deckPrefab != null)
-            {
-                if (DataManager.Instance.deck.Count != 0)
-                {
-
-                }
-                GameObject temp = deckPrefab;
-                temp.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardSOs[0];
-                temp.GetComponentInChildren<SpriteRenderer>().sprite = temp.GetComponent<CardData>().cardSO.Image;
-                Instantiate(deckPrefab, transform.position, Quaternion.identity);
-            }
+            // 덱에서 카드 드로우
+            DrawCardFromDeck();
 
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
 
@@ -100,6 +100,38 @@ public class GameManager : MonoBehaviour
             turnCount++;
         }
     }
+
+    private void DrawCardFromDeck()
+    {
+        // 핸드 추가
+        if (deckPrefab != null && DataManager.Instance.deck.Count > 0)
+        {
+            Debug.Log("덱에서 카드를 드로우합니다.");
+
+            // 새로운 카드 인스턴스 생성
+            GameObject newCard = Instantiate(deckPrefab, transform.position, Quaternion.identity);
+            Debug.Log("새 카드 인스턴스 생성 완료.");
+
+            // 카드 데이터를 할당
+            newCard.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardSOs[0];
+            Debug.Log("카드 데이터 할당 완료.");
+
+            // 카드 이미지 설정
+            newCard.GetComponentInChildren<SpriteRenderer>().sprite = newCard.GetComponent<CardData>().cardSO.Image;
+            Debug.Log("카드 이미지 설정 완료.");
+
+            // HandManager에 카드 추가
+            handManager.AddCard(newCard.transform);
+            Debug.Log("HandManager에 카드 추가 완료.");
+        }
+        else
+        {
+            Debug.Log("덱에 카드가 없습니다.");
+
+            // 카드가 없으므로 플레이어가 데미지를 입는 등 효과를 작성
+        }
+    }
+
 
     public bool AllMonstersDead()
     {

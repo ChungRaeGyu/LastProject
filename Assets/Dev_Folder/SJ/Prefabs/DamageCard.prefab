@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 4706143108795772384}
   - component: {fileID: 7837090474739885423}
   m_Layer: 0
-  m_Name: Square
+  m_Name: CardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -782,6 +782,7 @@ GameObject:
   - component: {fileID: 1158826771431898227}
   - component: {fileID: 2334202679197351538}
   - component: {fileID: 11251121477109254}
+  - component: {fileID: 1724637656017509748}
   m_Layer: 0
   m_Name: DamageCard
   m_TagString: Untagged
@@ -907,4 +908,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e8b2fbdb6ecf04eb015497f2607aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
+--- !u!114 &1724637656017509748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244978662487641609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomScale: 2
+  zoomOffset: {x: 0, y: 0, z: 10}
