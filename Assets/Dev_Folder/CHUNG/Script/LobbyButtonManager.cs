@@ -42,6 +42,7 @@ public class LobbyButtonManager : MonoBehaviour
         
     }
     public void GotoStageBoardBtn(){
+        DataManager.Instance.SuffleAction();
         SceneManager.LoadScene(2);
     }
 }

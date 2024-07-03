@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    public DeckControl deck;
     public Hand hand;
 
     public void Draw(){

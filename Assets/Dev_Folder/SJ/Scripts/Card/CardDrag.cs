@@ -30,8 +30,8 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // ÀÌ Ä«µåÀÇ ÄÚ½ºÆ®¸¦ È®ÀÎ ÈÄ ÇÃ·¹ÀÌ¾îÀÇ ÄÚ½ºÆ®¿Í °°°Å³ª º¸´Ù ³ôÀ»¶§¸¸ µå·¡±× °¡´É
-        if (player != null && cardSO != null && player.currentCost >= cardSO.cost && GameManager.instance.playerTurn) // ÀÚ±â ÅÏÀÏ¶§¸¸ Ä«µå¸¦ ÁýÀ» ¼ö ÀÖÀ½
+        // ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½Æ®ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (player != null && cardSO != null && player.currentCost >= cardSO.cost && GameManager.instance.playerTurn) // ï¿½Ú±ï¿½ ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ Ä«ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
@@ -44,7 +44,7 @@ public class CardDrag : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false;
-        // Ä«µå¸¦ ¿ø·¡ À§Ä¡·Î µÇµ¹¸®°Å³ª Ä«µå »ç¿ë ½ºÅ©¸³Æ®¿¡ ÀÌº¥Æ®¸¦ Àü´Þ
+        // Ä«ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Çµï¿½ï¿½ï¿½ï¿½Å³ï¿½ Ä«ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         GetComponent<CardUse>().TryUseCard();
     }
 

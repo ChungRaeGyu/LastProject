@@ -4,29 +4,21 @@ using UnityEngine.UI;
 
 public class Player : PlayerCharacter
 {
-    public Slider healthSlider;
+    public Slider healthSliderPrefab;
     public TextMeshProUGUI costText;
     public int maxCost = 3;
 
     public int currentCost { get; private set; }
+    private Slider healthSlider;
 
     private void Start()
     {
         InitializeCost();
 
-        if (healthSlider != null)
+        if (healthSliderPrefab != null)
         {
+            healthSlider = Instantiate(healthSliderPrefab);
             healthSlider.maxValue = playerStats.maxhealth;
-            healthSlider.value = currenthealth;
-        }
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        if (healthSlider != null)
-        {
             healthSlider.value = currenthealth;
         }
     }
@@ -43,6 +35,11 @@ public class Player : PlayerCharacter
         UpdateCostText();
     }
 
+    public void Heal(int amount)
+    {
+        currenthealth += amount;
+    }
+
     private void UpdateCostText()
     {
         if (costText != null)
@@ -55,5 +52,18 @@ public class Player : PlayerCharacter
     {
         currentCost = maxCost;
         UpdateCostText();
+    }
+
+    public void ResetHealthSlider()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.value = currenthealth;
+        }
+    }
+
+    private void Update()
+    {
+        ResetHealthSlider();
     }
 }

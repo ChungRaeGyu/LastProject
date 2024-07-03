@@ -24,7 +24,7 @@ public class Card : MonoBehaviour
 
     }
 
-    private void ImageSet()
+    public void ImageSet()
     {
         transform.gameObject.name = cardSO.cardName;
         cardImage.sprite = cardSO.Image;

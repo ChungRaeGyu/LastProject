@@ -1,31 +1,51 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class PlayerCharacter : MonoBehaviour
 {
     public PlayerStats playerStats;
     protected int currenthealth;
+    public Animator animator;
+    private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
+    public static readonly int attack = Animator.StringToHash("Attack");
+    public GameObject damageTextPrefab;
 
     private void Awake()
     {
-        if (playerStats == null)
-        {
-            Debug.Log("CharacterStats가 " + gameObject.name + "에 할당되지 않았다.");
-        }
-
         currenthealth = playerStats.maxhealth;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - playerStats.defense, 0);
         currenthealth -= actualDamage;
-    }
 
-    protected virtual void Update()
-    {
+        if (animator != null)
+        {
+            animator.SetTrigger(takeDamage);
+        }
+
+        SpawnDamageText(actualDamage, transform.position);
+
         if (IsDead())
         {
             Die();
+        }
+    }
+
+    private void SpawnDamageText(int damageAmount, Vector3 position)
+    {
+        if (damageTextPrefab != null)
+        {
+            GameObject damageTextInstance = Instantiate(damageTextPrefab, position, Quaternion.identity);
+            DamageText damageText = damageTextInstance.GetComponent<DamageText>();
+            damageText.SetText(damageAmount.ToString());
+
+            // 위치를 화면 좌표로
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
+            damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
         }
     }
 
@@ -36,6 +56,7 @@ public abstract class PlayerCharacter : MonoBehaviour
 
     protected virtual void Die()
     {
+        SceneManager.LoadScene(1);
         Destroy(gameObject);
     }
 }

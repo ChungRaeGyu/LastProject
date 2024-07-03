@@ -14,6 +14,9 @@ public class HpBar : MonoBehaviour
 
     private void Update()
     {
-        transform.position = hpBarPos.position;
+        if (hpBarPos != null)
+            transform.position = hpBarPos.position;
+        else
+            Destroy(gameObject);
     }
 }
