@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class HpBar : MonoBehaviour
 {
     private Transform hpBarPos;
     public Slider healthSlider;
+    public TMP_Text healthText;
 
     public void Initialized(int maxhealth, int currenthealth, Transform transform)
     {
@@ -17,6 +21,8 @@ public class HpBar : MonoBehaviour
             healthSlider.maxValue = maxhealth;
             healthSlider.value = currenthealth;
         }
+
+        UpdatehealthText();
     }
 
     private void Update()
@@ -32,6 +38,14 @@ public class HpBar : MonoBehaviour
         if (healthSlider != null)
         {
             healthSlider.value = currenthealth;
+        }
+    }
+
+    public void UpdatehealthText()
+    {
+        if (healthText != null)
+        {
+            healthText.text = $"{healthSlider.value}/{healthSlider.maxValue}";
         }
     }
 }

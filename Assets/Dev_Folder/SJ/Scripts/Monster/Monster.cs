@@ -26,6 +26,7 @@ public class Monster : MonsterCharacter
         base.TakeDamage(damage);
 
         healthBarInstance.ResetHealthSlider(currenthealth);
+        healthBarInstance.UpdatehealthText();
     }
 
     public void StartMonsterTurn()
