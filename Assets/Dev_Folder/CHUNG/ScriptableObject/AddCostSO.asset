@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a71f6e8fe9159b043ab1d278cdc10b97, type: 3}
-  m_Name: magic_MeteorRain
+  m_Name: AddCostSO
   m_EditorClassIdentifier: 
-  cardName: "\uBBF8\uD2F0\uC5B4\uB808\uC778"
-  description: "\uBAA8\uB4E0 \uC801\uC5D0\uAC8C \uC6B4\uC11D\uC744 \uB5A8\uC5B4\uB728\uB824
-    \uACF5\uACA9\uD55C\uB2E4"
-  cost: 1
+  cardName: "\uC218\uC815"
+  description: "\uCF54\uC2A4\uD2B8\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  cost: 0
   ability: 1
-  kind: 1
-  job: 3
-  special_ability: 0
-  Image: {fileID: 0}
+  kind: 3
+  job: 0
+  special_ability: 2
+  Image: {fileID: 21300000, guid: deda70cd7690b584184216dce5f3b4b2, type: 3}
   defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
-  rate: 2
+  rate: 0
   currentCount: 0
