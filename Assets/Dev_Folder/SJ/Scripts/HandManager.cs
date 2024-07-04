@@ -13,6 +13,7 @@ public class HandManager : MonoBehaviour
     public float moveDuration = 0.5f; // 카드 이동 지속 시간
 
     public TMP_Text cardCountText; // 덱의 남은 카드 수를 표시할 텍스트 UI
+    public TMP_Text usedCardCountText; // 사용된 카드 개수를 표시할 텍스트 UI
 
     private List<Transform> cards = new List<Transform>();
 
@@ -22,6 +23,7 @@ public class HandManager : MonoBehaviour
         cards.Add(card);
         UpdateHandLayout();
         UpdateCardCountText();
+        UpdatUsedCardCountText();
     }
 
     // 카드 제거 시 호출할 메서드
@@ -30,6 +32,7 @@ public class HandManager : MonoBehaviour
         cards.Remove(card);
         UpdateHandLayout();
         UpdateCardCountText();
+        UpdatUsedCardCountText();
     }
 
     // 손패 배치 업데이트
@@ -113,6 +116,15 @@ public class HandManager : MonoBehaviour
         if (cardCountText != null && DataManager.Instance != null)
         {
             cardCountText.text = DataManager.Instance.deck.Count.ToString();
+        }
+    }
+
+    // 사용된 카드 수 텍스트 업데이트
+    private void UpdatUsedCardCountText()
+    {
+        if (usedCardCountText != null && DataManager.Instance != null)
+        {
+            usedCardCountText.text = DataManager.Instance.usedCards.Count.ToString();
         }
     }
 }

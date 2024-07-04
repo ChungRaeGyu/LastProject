@@ -37,12 +37,14 @@ public class CardUse : MonoBehaviour
                     handManager.RemoveCard(transform);
                 }
 
+                DataManager.Instance.AddUsedCard(cardSO);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
                 if (GameManager.instance.AllMonstersDead())
                 {
                     GameManager.instance.turnEndButton.gameObject.SetActive(false);
                     GameManager.instance.lobbyButton.gameObject.SetActive(true);
+                    GameManager.instance.rewardPanel.gameObject.SetActive(true);
                 }
 
                 PlayPlayerAttackAnimation();

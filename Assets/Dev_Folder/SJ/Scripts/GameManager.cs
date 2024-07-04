@@ -3,10 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
+using static UnityEditor.PlayerSettings;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    private const string PLAYER_TURN_TEXT = "턴 종료";
+    private const string ENEMY_TURN_TEXT = "적 턴";
 
     public GameObject playerPrefab;
     public GameObject monsterPrefab;
@@ -17,10 +21,12 @@ public class GameManager : MonoBehaviour
     public GameObject deckPrefab;
     public Button lobbyButton; // 로비로 가는 버튼
     public Button turnEndButton; // 턴 종료 버튼
+    public GameObject rewardPanel; // 보상 패널
     public HandManager handManager; // 손 패 매니저
     public Vector3 cardSpawnPosition = new Vector3(-7.8f, -4.1f, 0f); // 카드 소환 위치
     public Canvas healthBarCanvas; // 캔버스 참조
     public TMP_Text costText;
+    public TMP_Text TurnText;
 
     public Player player { get; private set; }
     private Monster[] monsters;
@@ -66,6 +72,11 @@ public class GameManager : MonoBehaviour
             turnEndButton.gameObject.SetActive(true);
         }
 
+        if (rewardPanel != null)
+        {
+            rewardPanel.gameObject.SetActive(false);
+        }
+
         // HandManager 할당
         handManager = FindObjectOfType<HandManager>();
     }
@@ -93,6 +104,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
+            TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
+
             player.InitializeCost();
 
             // 덱에서 카드 드로우
@@ -101,6 +114,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
+            TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
             // 모든 몬스터의 턴 순차적으로 진행
             for (int i = 0; i < monsters.Length; i++)
             {
@@ -146,16 +160,6 @@ public class GameManager : MonoBehaviour
 
             // ex) 카드가 없으므로 플레이어가 데미지를 입는 등 효과를 작성
         }
-    }
-
-    public Canvas GetHealthBarCanvas()
-    {
-        return healthBarCanvas;
-    }
-
-    public TMP_Text GetCostText()
-    {
-        return costText;
     }
 
     public bool AllMonstersDead()
