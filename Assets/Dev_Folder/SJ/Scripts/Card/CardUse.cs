@@ -68,7 +68,7 @@ public class CardUse : MonoBehaviour
 
                 if (GameManager.instance.AllMonstersDead())
                 {
-                    GameManager.instance.TurnEndButton.gameObject.SetActive(false);
+                    GameManager.instance.turnEndButton.gameObject.SetActive(false);
                     GameManager.instance.lobbyButton.gameObject.SetActive(true);
                     GameManager.instance.rewardPanel.gameObject.SetActive(true);
                 }

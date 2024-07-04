@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text TurnText;
 
     public Player player { get; private set; }
-    private Monster[] monsters;
+    public Monster[] monsters { get; private set; }
 
     private void Awake()
     {
