@@ -13,6 +13,8 @@ public enum Kind{
     Attack,
     RangeAttack,
     Heal,
+    AddCard,
+    AddCost
 }
 public enum special_ability
 {
@@ -39,4 +41,6 @@ public class CardSO : ScriptableObject {
     public Sprite defaultImage;
     public Rate rate;
     public int currentCount;
+    public GameObject effect;
+    public GameObject attackEffect;
 }
