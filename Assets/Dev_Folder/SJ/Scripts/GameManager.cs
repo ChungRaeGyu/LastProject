@@ -2,20 +2,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public Player player;
-    public Monster[] monsters; // 몬스터 저장소
+    public GameObject playerPrefab;
+    public GameObject monsterPrefab;
+    public Transform playerSpawnPoints;
+    public Transform[] monsterSpawnPoints;
     public bool playerTurn { get; private set; } = true;
 
     public GameObject deckPrefab;
     public Button lobbyButton; // 로비로 가는 버튼
     public Button turnEndButton; // 턴 종료 버튼
     public HandManager handManager; // 손 패 매니저
-    public Vector3 cardSpawnPosition = new Vector3(-7.8f, -3.9f, 0f); // 카드 소환 위치
+    public Vector3 cardSpawnPosition = new Vector3(-7.8f, -4.1f, 0f); // 카드 소환 위치
+    public Canvas healthBarCanvas; // 캔버스 참조
+    public TMP_Text costText;
+
+    public Player player { get; private set; }
+    private Monster[] monsters;
 
     private void Awake()
     {
@@ -29,15 +37,22 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 플레이어 할당
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
-        // 모든 몬스터 찾아서 할당
-        GameObject[] monsterObjects = GameObject.FindGameObjectsWithTag("Monster");
-        monsters = new Monster[monsterObjects.Length];
-        for (int i = 0; i < monsterObjects.Length; i++)
+        // 플레이어 생성
+        if (playerPrefab != null)
         {
-            monsters[i] = monsterObjects[i].GetComponent<Monster>();
+            GameObject playerObject = Instantiate(playerPrefab, playerSpawnPoints.position, Quaternion.identity);
+            player = playerObject.GetComponent<Player>();
+        }
+
+        // 몬스터 생성
+        if (monsterPrefab != null && monsterSpawnPoints.Length > 0)
+        {
+            monsters = new Monster[monsterSpawnPoints.Length];
+            for (int i = 0; i < monsterSpawnPoints.Length; i++)
+            {
+                GameObject monsterObject = Instantiate(monsterPrefab, monsterSpawnPoints[i].position, Quaternion.identity);
+                monsters[i] = monsterObject.GetComponent<Monster>();
+            }
         }
 
         // 로비 버튼 초기 비활성화
@@ -133,6 +148,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Canvas GetHealthBarCanvas()
+    {
+        return healthBarCanvas;
+    }
+
+    public TMP_Text GetCostText()
+    {
+        return costText;
+    }
 
     public bool AllMonstersDead()
     {

@@ -1,22 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 
 public class Monster : MonsterCharacter
 {
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
-    public Canvas canvas;
-
     private void Start()
     {
+        Canvas canvas = GameManager.instance.GetHealthBarCanvas();
         if (canvas != null && healthBarPrefab != null)
         {
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-
             healthBarInstance.Initialized(monsterStats.maxhealth, currenthealth, transform.GetChild(1));
         }
     }
@@ -25,8 +22,11 @@ public class Monster : MonsterCharacter
     {
         base.TakeDamage(damage);
 
-        healthBarInstance.ResetHealthSlider(currenthealth);
-        healthBarInstance.UpdatehealthText();
+        if (healthBarInstance != null)
+        {
+            healthBarInstance.ResetHealthSlider(currenthealth);
+            healthBarInstance.UpdatehealthText();
+        }
     }
 
     public void StartMonsterTurn()
@@ -40,7 +40,7 @@ public class Monster : MonsterCharacter
 
         if (animator != null)
         {
-            animator.SetTrigger(Attack);
+            animator.SetTrigger("Attack");
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
