@@ -1886,7 +1886,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca8b43ecae535f40870878ba84f2ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckList: []
+  deckList:
+  - {fileID: 11400000, guid: a861ebe9b5e1d804e9cd2332a34e480c, type: 2}
+  - {fileID: 11400000, guid: ddf8c8ee6ca945747863d2b29f3bbaaf, type: 2}
+  - {fileID: 11400000, guid: bbdbb2ba5c9778447a6d84a3f0a6f4c7, type: 2}
   cardSOs:
   - {fileID: 11400000, guid: 01575f41112784b40a6843606456698d, type: 2}
   - {fileID: 11400000, guid: ddf8c8ee6ca945747863d2b29f3bbaaf, type: 2}
@@ -3970,7 +3973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.06939697, y: 0}
+  m_AnchoredPosition: {x: 0.06933594, y: 0}
   m_SizeDelta: {x: -1196.7632, y: -385.5717}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202313863

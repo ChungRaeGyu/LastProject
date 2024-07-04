@@ -1,5 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CardUse : MonoBehaviour
 {
@@ -38,10 +42,12 @@ public class CardUse : MonoBehaviour
                 switch(cardSO.kind){
                     case Kind.Attack:
                         AttackMethod(targetMonster);
+                        PlayPlayerAttackAnimation();
                         //단일공격에 관한 메소드,
                         break;
                     case Kind.RangeAttack:
                         RangeAttackMethod();
+                        PlayPlayerAttackAnimation();
                         //범위공격에 관한 메소드
                         break;
                     case Kind.Heal:
@@ -54,20 +60,19 @@ public class CardUse : MonoBehaviour
                         AddCostMethod();
                         break;
                 }
-            //이러면 종류가 생길때 마다 swtich를 추가해주어야 한다., 관련메소드도 생성해야한다.
-            //관련 메소드만 생성해서 하고 싶은데
+                //이러면 종류가 생길때 마다 swtich를 추가해주어야 한다., 관련메소드도 생성해야한다.
+                //관련 메소드만 생성해서 하고 싶은데
 
-
-                
-                Destroy(gameObject);
+                //추후에 오브젝트 풀링해가지고 하면 될듯?
+                //gameObject.SetActive(false);
 
                 if (GameManager.instance.AllMonstersDead())
                 {
                     GameManager.instance.TurnEndButton.gameObject.SetActive(false);
                     GameManager.instance.lobbyButton.gameObject.SetActive(true);
                 }
-
-                PlayPlayerAttackAnimation();
+                StartCoroutine(DestroyGameObject());
+                
             }
         }
         else
@@ -76,8 +81,16 @@ public class CardUse : MonoBehaviour
         }
     }
 
+    IEnumerator DestroyGameObject()
+    {
+        //추후 삭제 예정
+        yield return new WaitForSecondsRealtime(4f);
+        Destroy(this.gameObject);
+    }
+    #region 특수카드 사용
     private void AddCostMethod()
     {
+        PlayerEffectMethod(player.transform.position);
         player.AddCost(cardSO.ability);
     }
 
@@ -89,32 +102,67 @@ public class CardUse : MonoBehaviour
             //GameManager.instance.DrawCardFromDeck();
         }
     }
-
-    private void EffectMethod()
-    {
-        
-    }
-    private void AttackMethod(Monster targetMonster)
-    {
-        EffectMethod();
-        targetMonster.TakeDamage(cardSO.ability);
-    }
-
     private void HealMethod()
     {
-        EffectMethod();
+        //여긴 이펙트 말고 카드가 여러장 날라오는 느낌으로 애니메이션 만들기
+        Vector2 pos = player.transform.position;
+        PlayerEffectMethod(pos);
         player.currenthealth += cardSO.ability;
     }
+    #endregion
+    #region 공격메서드
+    private void AttackMethod(Monster targetMonster)
+    {
+        //단일공격
+        Debug.Log("코루틴 실행");
+        StartCoroutine(MagicAttack(targetMonster));
+        Debug.Log("코루틴 종료");
+    }
+    IEnumerator MagicAttack(Monster targetMonster)
+    {
+        Debug.Log("코루틴 실행중 0.5초전");
 
+        PlayerEffectMethod(player.transform.position);
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("코루틴 실행중 0.5초후");
+
+        AttackEffectMethod(GetAttackEffectPos(targetMonster));
+        targetMonster.TakeDamage(cardSO.ability);
+
+    }
     private void RangeAttackMethod()
     {
         foreach (Monster monster in GameManager.instance.monsters)
         {
-            EffectMethod();
+            AttackEffectMethod(GetAttackEffectPos(monster));
             monster.TakeDamage(cardSO.ability);
         }
     }
+    #endregion
 
+    #region Effect
+    private static Vector2 GetAttackEffectPos(Monster targetMonster)
+    {
+        //할 
+        Vector2 pos = targetMonster.transform.position;
+        Vector2 newPosition = new Vector2(pos.x, pos.y);
+        return newPosition;
+    }
+
+    private void AttackEffectMethod(Vector2 position)
+    {
+        GameObject prefab = cardSO.attackEffect;
+        Instantiate(prefab, position, prefab.transform.rotation);
+        Debug.Log("이펙트 실행");
+    }
+
+    private void PlayerEffectMethod(Vector2 position)
+    {
+
+        GameObject prefab = cardSO.effect;
+        Instantiate(prefab, position, prefab.transform.rotation);
+    }
+    #endregion
     private void PlayPlayerAttackAnimation()
     {
         if (player != null && player.animator != null)
