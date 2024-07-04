@@ -29,7 +29,21 @@ public class CardUse : MonoBehaviour
             {
                 player.UseCost(cardSO.cost);
                 targetMonster.TakeDamage(cardSO.ability);
-                Destroy(gameObject);
+
+                // HandManager에서 카드 제거
+                HandManager handManager = GameManager.instance.handManager;
+                if (handManager != null)
+                {
+                    handManager.RemoveCard(transform);
+                }
+
+                Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+
+                if (GameManager.instance.AllMonstersDead())
+                {
+                    GameManager.instance.turnEndButton.gameObject.SetActive(false);
+                    GameManager.instance.lobbyButton.gameObject.SetActive(true);
+                }
 
                 PlayPlayerAttackAnimation();
             }

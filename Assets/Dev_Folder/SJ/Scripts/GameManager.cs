@@ -2,22 +2,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using TMPro.EditorUtilities;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public Player player;
-    public Monster[] monsters; // ëª¬ìŠ¤í„° ì €ì¥ì†Œ
+    public Monster[] monsters; // ¸ó½ºÅÍ ÀúÀå¼Ò
     public bool playerTurn { get; private set; } = true;
 
     public GameObject deckPrefab;
-    public Button lobbyButton; // ë¡œë¹„ë¡œ ê°€ëŠ” ë²„íŠ¼
+    public Button lobbyButton; // ·Îºñ·Î °¡´Â ¹öÆ°
+    public Button turnEndButton; // ÅÏ Á¾·á ¹öÆ°
+    public HandManager handManager; // ¼Õ ÆĞ ¸Å´ÏÀú
+    public Vector3 cardSpawnPosition = new Vector3(-7.8f, -3.9f, 0f); // Ä«µå ¼ÒÈ¯ À§Ä¡
 
     private void Awake()
     {
-        //ì¸ì½”ë”© í…ŒìŠ¤íŠ¸
         if (instance == null)
         {
             instance = this;
@@ -28,10 +29,10 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // í”Œë ˆì´ì–´ í• ë‹¹
+        // ÇÃ·¹ÀÌ¾î ÇÒ´ç
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        // ëª¨ë“  ëª¬ìŠ¤í„° ì°¾ì•„ì„œ í• ë‹¹
+        // ¸ğµç ¸ó½ºÅÍ Ã£¾Æ¼­ ÇÒ´ç
         GameObject[] monsterObjects = GameObject.FindGameObjectsWithTag("Monster");
         monsters = new Monster[monsterObjects.Length];
         for (int i = 0; i < monsterObjects.Length; i++)
@@ -39,16 +40,34 @@ public class GameManager : MonoBehaviour
             monsters[i] = monsterObjects[i].GetComponent<Monster>();
         }
 
-        // ë¡œë¹„ ë²„íŠ¼ ì´ˆê¸° ë¹„í™œì„±í™”
+        // ·Îºñ ¹öÆ° ÃÊ±â ºñÈ°¼ºÈ­
         if (lobbyButton != null)
         {
             lobbyButton.gameObject.SetActive(false);
         }
+
+        if (turnEndButton != null)
+        {
+            turnEndButton.gameObject.SetActive(true);
+        }
+
+        // HandManager ÇÒ´ç
+        handManager = FindObjectOfType<HandManager>();
     }
 
     private void Start()
     {
+        DrawInitialHand(4); // ÃÊ±â ÇÚµå µå·Î¿ì
+
         StartCoroutine(Battle());
+    }
+
+    private void DrawInitialHand(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            DrawCardFromDeck();
+        }
     }
 
     private IEnumerator Battle()
@@ -57,55 +76,69 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            Debug.Log("----- í”Œë ˆì´ì–´ í„´ ì‹œì‘ -----");
-            // í”Œë ˆì´ì–´ í„´ ì‹œì‘
-            playerTurn = true;
-            yield return new WaitUntil(() => !playerTurn); // í”Œë ˆì´ì–´ê°€ í„´ì„ ë§ˆì¹  ë•Œê¹Œì§€ ëŒ€ê¸°
-
-            Debug.Log("----- ëª¬ìŠ¤í„°ë“¤ì˜ í„´ ì‹œì‘ -----");
-            // ëª¨ë“  ëª¬ìŠ¤í„°ì˜ í„´ ìˆœì°¨ì ìœ¼ë¡œ ì§„í–‰
-            for (int i = 0; i < monsters.Length; i++)
-            {
-                if (monsters[i].Currenthealth > 0)
-                {
-                    Debug.Log($"----- {i + 1}ë²ˆì§¸ ëª¬ìŠ¤í„°ì˜ í„´ ì‹œì‘ -----");
-                    yield return StartCoroutine(monsters[i].MonsterTurn());
-                    yield return new WaitUntil(() => playerTurn); // í”Œë ˆì´ì–´ í„´ì´ ë˜ê¸° ì „ê¹Œì§€ ëŒ€ê¸°
-                }
-            }
-
-            Debug.Log("----- ëª¬ìŠ¤í„°ë“¤ì˜ í„´ ì¢…ë£Œ -----");
-            // ëª¨ë“  ëª¬ìŠ¤í„°ì˜ í„´ì´ ëë‚˜ë©´ ë‹¤ìŒ ë¼ìš´ë“œ ì¤€ë¹„
-            playerTurn = true; // í”Œë ˆì´ì–´ í„´ ì‹œì‘
+            Debug.Log("----- ÇÃ·¹ÀÌ¾î ÅÏ ½ÃÀÛ -----");
+            playerTurn = true; // ÇÃ·¹ÀÌ¾î ÅÏ ½ÃÀÛ
             player.InitializeCost();
 
-            // í•¸ë“œ ì¶”ê°€
-            if (deckPrefab != null)
-            {
-                if(DataManager.Instance.deck.Count != 0){
-                    
-                }
-                GameObject temp = deckPrefab;
-                temp.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Count != 0?DataManager.Instance.deck.Pop():DataManager.Instance.cardSOs[0];
-                temp.GetComponentInChildren<SpriteRenderer>().sprite = temp.GetComponent<CardData>().cardSO.Image;
-                Instantiate(deckPrefab, transform.position, Quaternion.identity);
-            }
+            // µ¦¿¡¼­ Ä«µå µå·Î¿ì
+            DrawCardFromDeck();
 
-            // ëª¨ë“  ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆì„ ë•Œ ë¡œë¹„ ë²„íŠ¼ í™œì„±í™”
-            if (AllMonstersDead() && lobbyButton != null)
+            yield return new WaitUntil(() => !playerTurn); // ÇÃ·¹ÀÌ¾î°¡ ÅÏÀ» ¸¶Ä¥ ¶§±îÁö ´ë±â
+
+            Debug.Log("----- ¸ó½ºÅÍµéÀÇ ÅÏ ½ÃÀÛ -----");
+            // ¸ğµç ¸ó½ºÅÍÀÇ ÅÏ ¼øÂ÷ÀûÀ¸·Î ÁøÇà
+            for (int i = 0; i < monsters.Length; i++)
             {
-                lobbyButton.gameObject.SetActive(true);
+                if (monsters[i].currenthealth > 0)
+                {
+                    Debug.Log($"----- {i + 1}¹øÂ° ¸ó½ºÅÍÀÇ ÅÏ ½ÃÀÛ -----");
+                    yield return StartCoroutine(monsters[i].MonsterTurn());
+                    yield return new WaitUntil(() => playerTurn); // ÇÃ·¹ÀÌ¾î ÅÏÀÌ µÇ±â Àü±îÁö ´ë±â
+                }
             }
+            Debug.Log("----- ¸ó½ºÅÍµéÀÇ ÅÏ Á¾·á -----");
 
             turnCount++;
         }
     }
 
-    private bool AllMonstersDead()
+    private void DrawCardFromDeck()
+    {
+        // ÇÚµå Ãß°¡
+        if (deckPrefab != null && DataManager.Instance.deck.Count > 0)
+        {
+            Debug.Log("µ¦¿¡¼­ Ä«µå¸¦ µå·Î¿ìÇÕ´Ï´Ù.");
+
+            // »õ·Î¿î Ä«µå ÀÎ½ºÅÏ½º »ı¼º
+            GameObject newCard = Instantiate(deckPrefab, cardSpawnPosition, Quaternion.identity);
+            Debug.Log("»õ Ä«µå ÀÎ½ºÅÏ½º »ı¼º ¿Ï·á.");
+
+            // Ä«µå µ¥ÀÌÅÍ¸¦ ÇÒ´ç
+            newCard.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardSOs[0];
+            Debug.Log("Ä«µå µ¥ÀÌÅÍ ÇÒ´ç ¿Ï·á.");
+
+            // Ä«µå ÀÌ¹ÌÁö ¼³Á¤
+            newCard.GetComponentInChildren<SpriteRenderer>().sprite = newCard.GetComponent<CardData>().cardSO.Image;
+            Debug.Log("Ä«µå ÀÌ¹ÌÁö ¼³Á¤ ¿Ï·á.");
+
+            // HandManager¿¡ Ä«µå Ãß°¡
+            handManager.AddCard(newCard.transform);
+            Debug.Log("HandManager¿¡ Ä«µå Ãß°¡ ¿Ï·á.");
+        }
+        else
+        {
+            Debug.Log("µ¦¿¡ Ä«µå°¡ ¾ø½À´Ï´Ù.");
+
+            // ex) Ä«µå°¡ ¾øÀ¸¹Ç·Î ÇÃ·¹ÀÌ¾î°¡ µ¥¹ÌÁö¸¦ ÀÔ´Â µî È¿°ú¸¦ ÀÛ¼º
+        }
+    }
+
+
+    public bool AllMonstersDead()
     {
         foreach (Monster monster in monsters)
         {
-            if (monster.Currenthealth > 0)
+            if (monster != null && monster.currenthealth > 0)
             {
                 return false;
             }
@@ -117,7 +150,6 @@ public class GameManager : MonoBehaviour
     {
         GameManager_chan.Instance.stageLevel += 1;
         SceneManager.LoadScene(2);
-
     }
 
     public void EndMonsterTurn()

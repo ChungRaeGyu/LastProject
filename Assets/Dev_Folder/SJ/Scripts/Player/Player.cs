@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : PlayerCharacter
 {
     public HpBar healthBarPrefab;
-    public TextMeshProUGUI costText;
+    public TMP_Text costText;
     public int maxCost = 3;
 
     public int currentCost { get; private set; }
@@ -24,7 +24,6 @@ public class Player : PlayerCharacter
 
             healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
         }
-
     }
 
     public override void TakeDamage(int damage)
@@ -32,6 +31,7 @@ public class Player : PlayerCharacter
         base.TakeDamage(damage);
 
         healthBarInstance.ResetHealthSlider(currenthealth);
+        healthBarInstance.UpdatehealthText();
     }
 
     public void UseCost(int amount)

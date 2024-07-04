@@ -1,8 +1,8 @@
 using System;
-using System.Numerics;
+using UnityEngine;
 
 [Serializable]
-public class PRS
+public class PRS // 위치, 회전, 크기
 {
     public Vector3 pos;
     public Quaternion rot;

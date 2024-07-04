@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager_chan : MonoBehaviour
 {
@@ -28,5 +29,10 @@ public class GameManager_chan : MonoBehaviour
     public void Start()
     {
 
+    }
+
+    public void OnLobbyButtonClear()
+    {
+        SceneManager.LoadScene(1);
     }
 }

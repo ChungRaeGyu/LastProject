@@ -10,7 +10,6 @@ public class Monster : MonsterCharacter
 
     public Canvas canvas;
 
-    public int Currenthealth => currenthealth;
     private void Start()
     {
         if (canvas != null && healthBarPrefab != null)
@@ -18,7 +17,7 @@ public class Monster : MonsterCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
 
-            healthBarInstance.Initialized(monsterStats.maxhealth, Currenthealth, transform.GetChild(1));
+            healthBarInstance.Initialized(monsterStats.maxhealth, currenthealth, transform.GetChild(1));
         }
     }
 
@@ -26,7 +25,8 @@ public class Monster : MonsterCharacter
     {
         base.TakeDamage(damage);
 
-        healthBarInstance.ResetHealthSlider(Currenthealth);
+        healthBarInstance.ResetHealthSlider(currenthealth);
+        healthBarInstance.UpdatehealthText();
     }
 
     public void StartMonsterTurn()
