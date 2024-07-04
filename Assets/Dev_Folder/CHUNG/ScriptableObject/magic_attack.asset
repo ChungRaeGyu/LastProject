@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71f6e8fe9159b043ab1d278cdc10b97, type: 3}
   m_Name: magic_attack
   m_EditorClassIdentifier: 
-  cardName: "\uB9C8\uBC95\uACF5\uACA9"
+  cardName: "\uC36C\uB354\uBCFC\uD2B8"
   description: "\uB9C8\uBC95\uC73C\uB85C \uACF5\uACA9\uD569\uB2C8\uB2E4."
   cost: 1
   ability: 3
   kind: 0
   job: 0
-  special_ability: 0
+  special_ability: 1
   Image: {fileID: 21300000, guid: 7c79e9bfccfa4c7479f5ffc755e774b1, type: 3}
   defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
-  rate: 1
-  currentCount: 0
+  rate: 0
+  currentCount: 8
+  effect: {fileID: 2864409469438613510, guid: 428d4de8dd07f1c409c9b9f3e5c6a11e, type: 3}
+  attackEffect: {fileID: 5615565269297228139, guid: 9e760490a73ec934fba7dc15e5b04c85, type: 3}
