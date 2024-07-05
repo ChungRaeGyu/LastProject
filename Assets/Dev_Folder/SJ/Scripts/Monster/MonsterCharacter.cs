@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class MonsterCharacter : MonoBehaviour
 {
     public MonsterStats monsterStats;
-    public int currenthealth;
+    public int currenthealth { get; private set; }
     public Animator animator;
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int Attack = Animator.StringToHash("Attack");

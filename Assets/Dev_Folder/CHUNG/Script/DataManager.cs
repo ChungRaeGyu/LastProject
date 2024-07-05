@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 public class DataManager : MonoBehaviour
 {
-    #region ì‹±ê¸€í†¤
+    #region ½Ì±ÛÅæ
     private static DataManager _instance;
     public static DataManager Instance
     {
@@ -35,18 +35,23 @@ public class DataManager : MonoBehaviour
     public List<CardSO> deckList = new List<CardSO>();
     public Stack<CardSO> deck = new Stack<CardSO>();
 
+    [Header("Used Cards")]
+    public List<CardSO> usedCards = new List<CardSO>(); // »ç¿ëµÈ Ä«µå ¸®½ºÆ®
+
     [Header("CardSOs")]
     public List<CardSO> cardSOs;
 
     [Header("CardPiece")]
     public int[] CardPiece = new int[(int)Rate.Count];
 
-    public void SuffleAction(){
+    public void SuffleAction()
+    {
         Suffle(deckList);
     }
+
     private void Suffle(List<CardSO> deckList)
     {
-        //ê²Œì„ ì‹œì‘ì‹œ ì…”í”Œí•˜ê²Œ í•˜ê¸°
+        //°ÔÀÓ ½ÃÀÛ½Ã ¼ÅÇÃÇÏ°Ô ÇÏ±â
         List<CardSO> temp = deckList.OrderBy(_ => Random.Range(0, deckList.Count)).ToList();
         foreach (CardSO tempCard in temp)
         {
@@ -56,24 +61,56 @@ public class DataManager : MonoBehaviour
 
     public CardSO PopCard()
     {
-        Debug.Log("ì¹´ë“œë°°ì¶œ");
+        if (deck.Count == 0)
+        {
+            ReshuffleUsedCards();
+        }
+        Debug.Log("Ä«µå¹èÃâ");
         return deck.Pop();
     }
 
-    public void DeckClear(){
-        //ìŠ¤í…Œì´ì§€ ì¢…ë£Œì‹œ ì‚¬ìš©
-        deck.Clear();
+    public void AddUsedCard(CardSO usedCard)
+    {
+        usedCards.Add(usedCard);
     }
 
-    public void AddCard(List<CardSO> newCards){
-        //ë³´ìƒíŒ¨ë„ì—ì„œ íšë“í•œ ì¹´ë“œ ë±ì— ë„£ê¸°
-        foreach(CardSO cardSO in newCards){
+    private void ReshuffleUsedCards()
+    {
+        if (usedCards.Count == 0)
+        {
+            Debug.Log("´Ù½Ã ¼¯À» Ä«µå°¡ ¾ø½À´Ï´Ù!");
+            return;
+        }
+
+        foreach (CardSO card in usedCards)
+        {
+            deck.Push(card);
+        }
+        usedCards.Clear();
+        Suffle(deck.ToList());
+        Debug.Log("»ç¿ëµÈ Ä«µå°¡ µ¦¿¡ ´Ù½Ã ¼¯¿´½À´Ï´Ù.");
+    }
+
+    public void DeckClear()
+    {
+        //½ºÅ×ÀÌÁö Á¾·á½Ã »ç¿ë
+        deck.Clear();
+        usedCards.Clear();
+    }
+
+    public void AddCard(List<CardSO> newCards)
+    {
+        //º¸»óÆĞ³Î¿¡¼­ È¹µæÇÑ Ä«µå µ¦¿¡ ³Ö±â
+        foreach (CardSO cardSO in newCards)
+        {
             deckList.Add(cardSO);
         }
     }
 
-    public void DeckCheck(){
-        foreach(CardSO card in deck){
+    public void DeckCheck()
+    {
+        foreach (CardSO card in deck)
+        {
             Debug.Log("Card : " + card.name);
             Debug.Log("Card Image : " + card.Image);
         }

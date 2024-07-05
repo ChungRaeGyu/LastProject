@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class StartSceneController : MonoBehaviour
 {
@@ -17,26 +18,17 @@ public class StartSceneController : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        StartCoroutine(WaitForInput());
     }
 
-    void Update()
+    IEnumerator WaitForInput()
     {
-        if (SceneManager.GetActiveScene().name == "StartScene")
-        {
-#if UNITY_EDITOR // 유니티 에디터
-            if (Input.GetMouseButtonDown(0))
-            {
-                PlayClickSound();
-                SceneFader.FadeOutAndLoadScene(1, fadeImage, fadeSpeed);
-            }
-#elif UNITY_ANDROID || UNITY_IOS // 안드로이드 또는 iOS
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                PlayClickSound();
-                SceneFader.FadeOutAndLoadScene("LobbyScene", fadeImage, fadeSpeed);
-            }
-#endif
-        }
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began));
+
+        PlayClickSound();
+        SceneFader.FadeOutAndLoadScene(1, fadeImage, fadeSpeed);
     }
 
     void PlayClickSound()

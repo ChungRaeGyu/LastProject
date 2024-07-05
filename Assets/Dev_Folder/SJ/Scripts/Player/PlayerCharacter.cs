@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public abstract class PlayerCharacter : MonoBehaviour
 {
     public PlayerStats playerStats;
-    protected int currenthealth;
+    public int currenthealth;
     public Animator animator;
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int attack = Animator.StringToHash("Attack");
