@@ -48,6 +48,7 @@ public class DataManager : MonoBehaviour
     {
         Suffle(deckList);
     }
+
     private void Suffle(List<CardSO> deckList)
     {
         //게임 시작시 셔플하게 하기
