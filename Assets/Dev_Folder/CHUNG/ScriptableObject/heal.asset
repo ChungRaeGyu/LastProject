@@ -9,19 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a71f6e8fe9159b043ab1d278cdc10b97, type: 3}
-  m_Name: heal
+  m_Script: {fileID: 11500000, guid: 14990e916115b1b458cb112e276ab1e3, type: 3}
+  m_Name: Heal
   m_EditorClassIdentifier: 
   cardName: "\uD68C\uBCF5\uCE74\uB4DC"
   description: "\uD68C\uBCF5\uD569\uB2C8\uB2E4"
-  cost: 0
+  cost: 1
   ability: 10
-  kind: 2
-  job: 0
-  special_ability: 0
-  Image: {fileID: 21300000, guid: 7c79e9bfccfa4c7479f5ffc755e774b1, type: 3}
+  effect: {fileID: 3018233352905704188, guid: 4cc8b7ae8fe113142ade2524b85851b7, type: 3}
+  Image: {fileID: 0}
   defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
   rate: 0
   currentCount: 0
-  effect: {fileID: 3018233352905704188, guid: 4cc8b7ae8fe113142ade2524b85851b7, type: 3}
-  attackEffect: {fileID: 0}
+  job: 0

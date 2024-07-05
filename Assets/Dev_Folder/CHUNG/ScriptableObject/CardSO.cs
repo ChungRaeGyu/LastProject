@@ -28,19 +28,21 @@ public enum Rate{
     Hero,
     Count
 }
-[CreateAssetMenu(fileName = "Card", menuName = "newCard", order = 0)]
+[CreateAssetMenu(fileName = "Card", menuName = "newCard/AttackCard", order = 0)]
 public class CardSO : ScriptableObject {
     public string cardName;
     public string description;
     public int cost;
     public int ability;
-    public Kind kind;
-    public JOB job;
-    public special_ability special_ability;
+    
     public Sprite Image;
     public Sprite defaultImage;
     public Rate rate;
     public int currentCount;
+    public JOB job;
     public GameObject effect;
+
     public GameObject attackEffect;
+    public Kind kind;
+    public special_ability special_ability;
 }
