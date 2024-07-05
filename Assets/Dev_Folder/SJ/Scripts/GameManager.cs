@@ -62,20 +62,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 로비 버튼 초기 비활성화
-        if (lobbyButton != null)
-        {
-            lobbyButton.gameObject.SetActive(false);
-        }
-
-        if (turnEndButton != null)
-        {
-            turnEndButton.gameObject.SetActive(true);
-        }
-
-        if (rewardPanel != null)
-        {
-            rewardPanel.gameObject.SetActive(false);
-        }
+        ButtonClear(false, true, false);
 
         // HandManager 할당
         handManager = FindObjectOfType<HandManager>();
@@ -172,6 +159,24 @@ public class GameManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void ButtonClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel)
+    {
+        if (lobbyButton != null)
+        {
+            lobbyButton.gameObject.SetActive(lobbyBtn);
+        }
+
+        if (turnEndButton != null)
+        {
+            turnEndButton.gameObject.SetActive(turnEndBtn);
+        }
+
+        if (rewardPanel != null)
+        {
+            rewardPanel.gameObject.SetActive(setRewardPanel);
+        }
     }
 
     public void OnLobbyButtonClick()

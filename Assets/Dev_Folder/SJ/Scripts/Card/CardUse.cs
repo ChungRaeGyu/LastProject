@@ -35,33 +35,7 @@ public class CardUse : MonoBehaviour
             {
                 player.UseCost(cardSO.cost);
 
-                //TODO : 공격의 종류 속성을 놔눠서 공격 하면 되겠다.
-                //모든 정보는 CardSO에 있다.
-                //CardSO를 공격의 종류 별로 나눈다.
-                // 
-                switch(cardSO.kind){
-                    case Kind.Attack:
-                        AttackMethod(targetMonster);
-                        PlayPlayerAttackAnimation();
-                        //단일공격에 관한 메소드,
-                        break;
-                    case Kind.RangeAttack:
-                        RangeAttackMethod();
-                        PlayPlayerAttackAnimation();
-                        //범위공격에 관한 메소드
-                        break;
-                    case Kind.Heal:
-                        HealMethod();
-                        break;
-                    case Kind.AddCard:
-                        AddCardMethod();
-                        break;
-                    case Kind.AddCost:
-                        AddCostMethod();
-                        break;
-                }
-                //이러면 종류가 생길때 마다 swtich를 추가해주어야 한다., 관련메소드도 생성해야한다.
-                //관련 메소드만 생성해서 하고 싶은데
+                targetMonster.TakeDamage(cardSO.ability);
 
                 // HandManager에서 카드 제거
                 HandManager handManager = GameManager.instance.handManager;
@@ -75,9 +49,7 @@ public class CardUse : MonoBehaviour
 
                 if (GameManager.instance.AllMonstersDead())
                 {
-                    GameManager.instance.turnEndButton.gameObject.SetActive(false);
-                    GameManager.instance.lobbyButton.gameObject.SetActive(true);
-                    GameManager.instance.rewardPanel.gameObject.SetActive(true);
+                    GameManager.instance.ButtonClear(true, false, true);
                 }
                 StartCoroutine(DestroyGameObject());
                 
