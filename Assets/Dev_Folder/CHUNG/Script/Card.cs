@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,10 @@ public class Card : MonoBehaviour
     Button button;
     public GameObject DrawBoard;
     public DrawSystem drawSystem;
+
+    public TextMeshProUGUI nameLabel;
+    public TextMeshProUGUI descriptionLabel;
+    public TextMeshProUGUI costLabel;
     // Start is called before the first frame update
     private void Awake(){
         cardImage= GetComponent<Image>();
@@ -28,6 +33,7 @@ public class Card : MonoBehaviour
     {
         transform.gameObject.name = cardSO.cardName;
         cardImage.sprite = cardSO.Image;
+        UpdateUI();
     }
 
     private void ButtonIsActive()
@@ -49,5 +55,12 @@ public class Card : MonoBehaviour
         if(drawSystem.tempCardSO.Count==0)return;
         cardSO = drawSystem.tempCardSO.Dequeue();
         ImageSet();
+    }
+
+    void UpdateUI()
+    {
+        nameLabel.text = cardSO.cardName;
+        descriptionLabel.text = cardSO.description;
+        costLabel.text = cardSO.cost.ToString();
     }
 }

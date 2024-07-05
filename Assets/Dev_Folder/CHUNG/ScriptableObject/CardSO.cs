@@ -11,6 +11,7 @@ public enum JOB{
 }
 public enum Kind{
     Attack,
+    MagicAttack,
     RangeAttack,
     Heal,
     AddCard,

@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public Player player { get; private set; }
     public Monster[] monsters { get; private set; }
 
+    public EffectManager effectManager;
     private void Awake()
     {
         if (instance == null)
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void DrawCardFromDeck()
+    public void DrawCardFromDeck()
     {
         // 핸드 추가
         if (deckPrefab != null && DataManager.Instance.deck.Count > 0)
