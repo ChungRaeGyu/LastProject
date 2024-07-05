@@ -63,6 +63,13 @@ public class CardUse : MonoBehaviour
                 //이러면 종류가 생길때 마다 swtich를 추가해주어야 한다., 관련메소드도 생성해야한다.
                 //관련 메소드만 생성해서 하고 싶은데
 
+                // HandManager에서 카드 제거
+                HandManager handManager = GameManager.instance.handManager;
+                if (handManager != null)
+                {
+                    handManager.RemoveCard(transform);
+                }
+
                 DataManager.Instance.AddUsedCard(cardSO);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
