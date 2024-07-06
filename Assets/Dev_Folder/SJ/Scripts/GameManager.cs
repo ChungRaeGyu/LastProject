@@ -124,36 +124,28 @@ public class GameManager : MonoBehaviour
     public IEnumerator DrawCardFromDeck()
     {
         // 핸드 추가
-        if (DataManager.Instance.deck.Count > 0)
-        {
-            /*
-            GameObject newCard = Instantiate(deckPrefab, cardSpawnPosition, Quaternion.identity);
-            Debug.Log("새 카드 인스턴스 생성 완료.");
 
-            // 카드 데이터를 할당
-            newCard.GetComponent<CardData>().CardObj = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardObjs[0];
-            Debug.Log("카드 데이터 할당 완료.");
+        /*
+        GameObject newCard = Instantiate(deckPrefab, cardSpawnPosition, Quaternion.identity);
+        Debug.Log("새 카드 인스턴스 생성 완료.");
 
-            // 카드 이미지 설정
-            newCard.GetComponentInChildren<SpriteRenderer>().sprite = newCard.GetComponent<CardData>().CardObj.image;
-            Debug.Log("카드 이미지 설정 완료.");
+        // 카드 데이터를 할당
+        newCard.GetComponent<CardData>().CardObj = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardObjs[0];
+        Debug.Log("카드 데이터 할당 완료.");
 
-            */
-            // 할 일 : 데이터매니저에서 댁에서 카드를 뽑아서 Instantiate한다.
-            CardBasic cardBasic = DataManager.Instance.PopCard();
-            GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPosition, Quaternion.identity);
-            newCard.GetComponent<CardData>().CardObj = cardBasic;
+        // 카드 이미지 설정
+        newCard.GetComponentInChildren<SpriteRenderer>().sprite = newCard.GetComponent<CardData>().CardObj.image;
+        Debug.Log("카드 이미지 설정 완료.");
 
-            // HandManager에 카드 추가
-            handManager.AddCard(newCard.transform);
-            Debug.Log("HandManager에 카드 추가 완료.");
-        }
-        else
-        {
-            Debug.Log("덱에 카드가 없습니다.");
+        */
+        // 할 일 : 데이터매니저에서 댁에서 카드를 뽑아서 Instantiate한다.
+        CardBasic cardBasic = DataManager.Instance.PopCard();
+        GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPosition, Quaternion.identity);
+        newCard.GetComponent<CardData>().CardObj = cardBasic;
 
-            // ex) 카드가 없으므로 플레이어가 데미지를 입는 등 효과를 작성
-        }
+        // HandManager에 카드 추가
+        handManager.AddCard(newCard.transform);
+        Debug.Log("HandManager에 카드 추가 완료.");
         yield return null;
     }
 

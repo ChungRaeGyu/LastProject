@@ -74,6 +74,10 @@ public class HandManager : MonoBehaviour
 
         while (elapsedTime < duration)
         {
+            if (card == null) // 카드가 파괴되었는지 확인
+            {
+                yield break; // 코루틴 종료
+            }
             card.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
             card.rotation = Quaternion.Lerp(initialRotation, targetRotation, elapsedTime / duration);
             elapsedTime += Time.deltaTime;

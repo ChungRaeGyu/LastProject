@@ -9,13 +9,13 @@ public class ThunderBolt : CardBasic
     [Header("CardData")]
     public GameObject attackEffect;
 
-
+    private CardData cardData;
     private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
     private CardCollision cardCollision;
     private void Start()
     {
-
+        cardData = GetComponent<CardData>();
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
@@ -36,7 +36,8 @@ public class ThunderBolt : CardBasic
             {
                 player.UseCost(cost);
 
-                CardUse(targetMonster);
+                //CardUse(targetMonster);
+                targetMonster.TakeDamage(cardData.CardObj.ability);
                 //currentCard.GetComponent<CardBasic>().CardUse(targetMonster, player);
 
 
@@ -82,6 +83,7 @@ public class ThunderBolt : CardBasic
                 }
 
                 DataManager.Instance.AddUsedCard(this);
+                GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
                 if (GameManager.instance.AllMonstersDead())
