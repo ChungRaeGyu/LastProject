@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -126,5 +127,24 @@ public class HandManager : MonoBehaviour
         {
             usedCardCountText.text = DataManager.Instance.usedCards.Count.ToString();
         }
+    }
+
+    public void MoveUnusedCardsToUsed()
+    {
+        List<Transform> cardsToMove = new List<Transform>(cards); // 리스트 복사
+        foreach (Transform card in cardsToMove)
+        {
+            CardData cardData = card.GetComponent<CardData>();
+            if (cardData != null)
+            {
+                DataManager.Instance.AddUsedCard(cardData.CardObj);
+                RemoveCard(card);
+                Destroy(card.gameObject); // 카드를 제거할 때 게임 오브젝트도 파괴
+            }
+        }
+
+        UpdateHandLayout();
+        UpdateCardCountText();
+        UpdatUsedCardCountText();
     }
 }

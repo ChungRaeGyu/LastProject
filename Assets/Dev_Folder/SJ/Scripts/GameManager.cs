@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     public Transform[] monsterSpawnPoints;
     public bool playerTurn { get; private set; } = true;
 
-    public GameObject deckPrefab;
     public Button lobbyButton; // 로비로 가는 버튼
     public Button turnEndButton; // 턴 종료 버튼
+    public Image fadeRewardPanel; // 보상 패널 열릴 때 어두워지게
     public GameObject rewardPanel; // 보상 패널
     public HandManager handManager; // 손 패 매니저
     public Vector3 cardSpawnPosition = new Vector3(-7.8f, -4.1f, 0f); // 카드 소환 위치
@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text costText;
     public TMP_Text TurnText;
 
+    public Button openCardSelectionButton; // 카드 선택 창 열기 버튼
+    public Transform cardOptionsParent; // 카드 옵션을 보여줄 부모 객체
+    public GameObject cardOptionPrefab; // 카드 옵션 프리팹
     public Player player { get; private set; }
     public Monster[] monsters { get; private set; }
 
@@ -61,22 +64,7 @@ public class GameManager : MonoBehaviour
                 monsters[i] = monsterObject.GetComponent<Monster>();
             }
         }
-
-        // 로비 버튼 초기 비활성화
-        if (lobbyButton != null)
-        {
-            lobbyButton.gameObject.SetActive(false);
-        }
-
-        if (turnEndButton != null)
-        {
-            turnEndButton.gameObject.SetActive(true);
-        }
-
-        if (rewardPanel != null)
-        {
-            rewardPanel.gameObject.SetActive(false);
-        }
+        UIClear(false, true, false, false, false);
 
         // HandManager 할당
         handManager = FindObjectOfType<HandManager>();
@@ -84,19 +72,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        DrawInitialHand(4); // 초기 핸드 드로우
 
         StartCoroutine(Battle());
     }
 
-    private void DrawInitialHand(int count)
+    private IEnumerator DrawInitialHand(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            DrawCardFromDeck();
+            yield return StartCoroutine(DrawCardFromDeck());
+            yield return new WaitForSeconds(0.2f); // 드로우 간 딜레이
         }
     }
-
     private IEnumerator Battle()
     {
         int turnCount = 0;
@@ -110,9 +97,11 @@ public class GameManager : MonoBehaviour
             player.InitializeCost();
 
             // 덱에서 카드 드로우
-            DrawCardFromDeck();
+            yield return StartCoroutine(DrawInitialHand(5));
 
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
+
+
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
             TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
@@ -132,24 +121,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DrawCardFromDeck()
+    public IEnumerator DrawCardFromDeck()
     {
         // 핸드 추가
-        if (deckPrefab != null && DataManager.Instance.deck.Count > 0)
+        if (DataManager.Instance.deck.Count > 0)
         {
-            Debug.Log("덱에서 카드를 드로우합니다.");
-
-            // 새로운 카드 인스턴스 생성
+            /*
             GameObject newCard = Instantiate(deckPrefab, cardSpawnPosition, Quaternion.identity);
             Debug.Log("새 카드 인스턴스 생성 완료.");
 
             // 카드 데이터를 할당
-            newCard.GetComponent<CardData>().cardSO = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardSOs[0];
+            newCard.GetComponent<CardData>().CardObj = DataManager.Instance.deck.Count != 0 ? DataManager.Instance.deck.Pop() : DataManager.Instance.cardObjs[0];
             Debug.Log("카드 데이터 할당 완료.");
 
             // 카드 이미지 설정
-            newCard.GetComponentInChildren<SpriteRenderer>().sprite = newCard.GetComponent<CardData>().cardSO.Image;
+            newCard.GetComponentInChildren<SpriteRenderer>().sprite = newCard.GetComponent<CardData>().CardObj.image;
             Debug.Log("카드 이미지 설정 완료.");
+
+            */
+            // 할 일 : 데이터매니저에서 댁에서 카드를 뽑아서 Instantiate한다.
+            CardBasic cardBasic = DataManager.Instance.PopCard();
+            GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPosition, Quaternion.identity);
+            newCard.GetComponent<CardData>().CardObj = cardBasic;
 
             // HandManager에 카드 추가
             handManager.AddCard(newCard.transform);
@@ -161,6 +154,7 @@ public class GameManager : MonoBehaviour
 
             // ex) 카드가 없으므로 플레이어가 데미지를 입는 등 효과를 작성
         }
+        yield return null;
     }
 
     public bool AllMonstersDead()
@@ -174,7 +168,34 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setOpenCardSelectionButton)
+    {
+        if (lobbyButton != null)
+        {
+            lobbyButton.gameObject.SetActive(lobbyBtn);
+        }
 
+        if (turnEndButton != null)
+        {
+            turnEndButton.gameObject.SetActive(turnEndBtn);
+        }
+
+        if (rewardPanel != null)
+        {
+            rewardPanel.gameObject.SetActive(setRewardPanel);
+        }
+
+        if (fadeRewardPanel != null)
+        {
+            fadeRewardPanel.gameObject.SetActive(setFadeRewardPanel);
+        }
+
+        if (openCardSelectionButton != null)
+        {
+            openCardSelectionButton.gameObject.SetActive(setOpenCardSelectionButton);
+
+        }
+    }
     public void OnLobbyButtonClick()
     {
         GameManager_chan.Instance.stageLevel += 1;
@@ -188,6 +209,7 @@ public class GameManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
     }
 }

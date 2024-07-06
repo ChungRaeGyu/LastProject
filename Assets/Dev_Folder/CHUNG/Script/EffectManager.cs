@@ -69,7 +69,8 @@ public class EffectManager : MonoBehaviour
         tempCardSO = cardSO;
         for (int i = 0; i < tempCardSO.ability; i++)
         {
-            GameManager.instance.DrawCardFromDeck();
+            //GameManager.instance.DrawCardFromDeck();
+            //코루틴을 일반 메소드처럼 썻을때 상황
         }
     }
     public void HealMethod(Player player,CardSO cardSO)
