@@ -7,7 +7,7 @@ public class Card : MonoBehaviour
     //카드를 뽑을때, 덱을 로딩할때, 도감을 로딩할 때, 핸드를 볼때
     // cardSO를 새로 설정해준다.
     [Header("PutInScript")]
-    public CardSO cardSO;
+    public CardBasic cardObj;
 
     Image cardImage;
 
@@ -31,8 +31,8 @@ public class Card : MonoBehaviour
 
     public void ImageSet()
     {
-        transform.gameObject.name = cardSO.cardName;
-        cardImage.sprite = cardSO.Image;
+        transform.gameObject.name = cardObj.cardName;
+        cardImage.sprite = cardObj.image;
         UpdateUI();
     }
 
@@ -41,8 +41,8 @@ public class Card : MonoBehaviour
         if (transform.root.TryGetComponent<DrawSystem>(out drawSystem))
         {
             button.enabled = true;
-            transform.gameObject.name = cardSO.cardName;
-            cardImage.sprite = cardSO.defaultImage;
+            transform.gameObject.name = cardObj.cardName;
+            cardImage.sprite = cardObj.defaultImage;
         }
         else
         {
@@ -52,15 +52,15 @@ public class Card : MonoBehaviour
     }
 
     public void OpenCard(){
-        if(drawSystem.tempCardSO.Count==0)return;
-        cardSO = drawSystem.tempCardSO.Dequeue();
+        if(drawSystem.tempCardBasic.Count==0)return;
+        cardObj = drawSystem.tempCardBasic.Dequeue();
         ImageSet();
     }
 
     void UpdateUI()
     {
-        nameLabel.text = cardSO.cardName;
-        descriptionLabel.text = cardSO.description;
-        costLabel.text = cardSO.cost.ToString();
+        nameLabel.text = cardObj.cardName;
+        descriptionLabel.text = cardObj.description;
+        costLabel.text = cardObj.cost.ToString();
     }
 }

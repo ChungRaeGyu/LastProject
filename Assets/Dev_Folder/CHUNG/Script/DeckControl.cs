@@ -14,15 +14,15 @@ public class DeckControl : MonoBehaviour
 
     #region 로비
     //Book to Deck
-    public void AddCard(CardSO cardSO){
-        DataManager.Instance.deckList.Add(cardSO);
+    public void AddCard(CardBasic cardObj){
+        DataManager.Instance.deckList.Add(cardObj);
         UpdateDeck();
         Debug.Log("카드추가");
     }
     public void RemoveCard(){
         if(DataManager.Instance.deckList.Count==0)return;
         int endCard = DataManager.Instance.deckList.Count-1;
-        DataManager.Instance.deckList[endCard].GetComponent<Card>().cardSO.currentCount++;
+        DataManager.Instance.deckList[endCard].GetComponent<Card>().cardObj.currentCount++;
         DataManager.Instance.deckList.RemoveAt(endCard);
         DescriptionManager.Instance.bookCardControl.UpdateBook();
         UpdateDeck();
@@ -50,7 +50,7 @@ public class DeckControl : MonoBehaviour
             GameObject obj = ObjectPool.cardsObj.Dequeue();
             Card tempCard = obj.GetComponent<Card>();
             cardObj.Add(tempCard);
-            tempCard.cardSO = DataManager.Instance.deckList[i];
+            tempCard.cardObj = DataManager.Instance.deckList[i];
             obj.transform.SetParent(transform);
             obj.SetActive(true);
         }

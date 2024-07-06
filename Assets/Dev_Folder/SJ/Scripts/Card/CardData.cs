@@ -3,7 +3,7 @@ using TMPro;
 
 public class CardData : MonoBehaviour
 {
-    public CardSO cardSO;
+    public CardBasic CardObj;
     public TMP_Text nameLabel;
     public TMP_Text descriptionLabel;
     public TMP_Text costLabel;
@@ -11,7 +11,7 @@ public class CardData : MonoBehaviour
 
     void Start()
     {
-        if (cardSO != null)
+        if (CardObj != null)
         {
             UpdateUI();
         }
@@ -20,9 +20,9 @@ public class CardData : MonoBehaviour
 
     void UpdateUI()
     {
-        nameLabel.text = cardSO.cardName;
-        descriptionLabel.text = cardSO.description;
-        costLabel.text = cardSO.cost.ToString();
-        abilityLabel.text = cardSO.ability.ToString();
+        nameLabel.text = CardObj.cardName;
+        descriptionLabel.text = CardObj.description;
+        costLabel.text = CardObj.cost.ToString();
+        abilityLabel.text = CardObj.ability.ToString();
     }
 }

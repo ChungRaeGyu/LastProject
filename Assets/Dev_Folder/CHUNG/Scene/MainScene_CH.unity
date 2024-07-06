@@ -2244,7 +2244,6 @@ MonoBehaviour:
   monsterSpawnPoints:
   - {fileID: 616671311}
   - {fileID: 1152618596}
-  deckPrefab: {fileID: 7244978662487641609, guid: be112dabdd6dcce4993c5769383dbeee, type: 3}
   lobbyButton: {fileID: 237735469}
   turnEndButton: {fileID: 299659978}
   rewardPanel: {fileID: 601170885}
@@ -2835,6 +2834,10 @@ PrefabInstance:
     - target: {fileID: 3001134012674615653, guid: a856a71efc4d0fd4495e4a5d663dc59e, type: 3}
       propertyPath: m_Name
       value: BaseFire001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3001134012674615653, guid: a856a71efc4d0fd4495e4a5d663dc59e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

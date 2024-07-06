@@ -6,13 +6,13 @@ public class CardDrag : MonoBehaviour
     private bool isDragging = false; // 드래그 중인지 확인하는 변수
     private Vector3 originalPosition; // 카드의 원래 위치
     private Quaternion originalRotation; // 카드의 원래 회전
-    private CardSO cardSO; // 카드의 ScriptableObject 데이터
+    private CardData cardSO; // 카드의 ScriptableObject 데이터
     public Player player { get; private set; } // 플레이어 객체
 
     private void Start()
     {
         player = GameManager.instance.player; // 게임 매니저에서 플레이어 객체 가져오기
-        cardSO = GetComponent<CardData>().cardSO; // 카드의 ScriptableObject 데이터 가져오기
+        cardSO = GetComponent<CardData>(); // 카드의 ScriptableObject 데이터 가져오기
     }
 
     private void Update()
@@ -29,7 +29,7 @@ public class CardDrag : MonoBehaviour
     private void OnMouseDown()
     {
         // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
-        if (player != null && cardSO != null && player.currentCost >= cardSO.cost && GameManager.instance.playerTurn)
+        if (player != null && cardSO != null && player.currentCost >= cardSO.CardObj.cost && GameManager.instance.playerTurn)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
@@ -42,7 +42,7 @@ public class CardDrag : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false; // 드래그 종료
-        GetComponent<CardUse>().TryUseCard(); // 카드 사용 시도
+        GetComponent<CardBasic>().TryUseCard(); // 카드 사용 시도
         ResetPosition(); // 드래그 종료 후 원래 위치로 되돌리기
     }
 

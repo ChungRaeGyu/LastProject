@@ -10,20 +10,20 @@ public class Book : MonoBehaviour
     //BookManager-> BookCanvas -> BookPanel에 달려있다.
     List<GameObject> cardObj = new List<GameObject>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
 
-    List<CardSO> cardSOs = new List<CardSO>();
+    List<CardBasic> cardBasicObj = new List<CardBasic>();
     private void Awake() {
-        cardSOs = DataManager.Instance.cardSOs;
+        cardBasicObj = DataManager.Instance.cardObjs;
     }
 
     void OnEnable(){
-        Debug.Log("Count : " + cardSOs.Count);
-        for (int i = 0; i < cardSOs.Count; i++)
+        Debug.Log("Count : " + cardBasicObj.Count);
+        for (int i = 0; i < cardBasicObj.Count; i++)
         {
             GameObject obj = ObjectPool.bookCardObj.Dequeue();
             Card tempCard = obj.GetComponentInChildren<Card>();
             cardObj.Add(obj);
             obj.transform.SetParent(transform);
-            tempCard.cardSO = cardSOs[i];
+            tempCard.cardObj = cardBasicObj[i];
             obj.SetActive(true);
         }
     }

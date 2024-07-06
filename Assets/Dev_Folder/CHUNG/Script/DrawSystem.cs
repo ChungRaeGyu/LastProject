@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class DrawSystem : MonoBehaviour
 {
     //DrawSystem에 달려있습니다.
-    List<CardSO> normalCards = new List<CardSO>(); //보통;
-    List<CardSO> rarityCards = new List<CardSO>(); //희귀;
-    List<CardSO> heroCards = new List<CardSO>();//영웅카드;
+    List<CardBasic> normalCards = new List<CardBasic>(); //보통;
+    List<CardBasic> rarityCards = new List<CardBasic>(); //희귀;
+    List<CardBasic> heroCards = new List<CardBasic>();//영웅카드;
 
     List<GameObject> drawObj = new List<GameObject>(); //뽑기 개수 만큼 넣어줄 것이다. , 화면에 오브젝트로 보여주기 위해 넣었다.
 
     public Button drawButton;
     //등급, 몇번째인지
-    public Queue<CardSO> tempCardSO = new Queue<CardSO>();
+    public Queue<CardBasic> tempCardBasic = new Queue<CardBasic>();
     [SerializeField] GameObject board;
     [SerializeField] int count;
     //나중에 switch를 없앨 방법을 생각해 보자
     private void Start(){
-        foreach(CardSO card in DataManager.Instance.cardSOs){
+        foreach(CardBasic card in DataManager.Instance.cardObjs){
             switch(card.rate){
                 case Rate.Normal: 
                     normalCards.Add(card);
@@ -43,17 +43,17 @@ public class DrawSystem : MonoBehaviour
             {
                 //노말카드
                 int randomCard = Random.Range(0, normalCards.Count);
-                tempCardSO.Enqueue(normalCards[randomCard]);
+                tempCardBasic.Enqueue(normalCards[randomCard]);
             }
             else if(random<95){
                 //희귀카드뽑기
                 int randomCard = Random.Range(0, rarityCards.Count);
-                tempCardSO.Enqueue(rarityCards[randomCard]);
+                tempCardBasic.Enqueue(rarityCards[randomCard]);
             }
             else{
                 //영웅카드뽑기
                 int randomCard = Random.Range(0, heroCards.Count);
-                tempCardSO.Enqueue(heroCards[randomCard]);
+                tempCardBasic.Enqueue(heroCards[randomCard]);
             }
         }
     }
@@ -73,12 +73,12 @@ public class DrawSystem : MonoBehaviour
         //초기화
         foreach(GameObject obj in drawObj){
             Card card = obj.GetComponent<Card>();
-            card.cardSO.currentCount++;
+            card.cardObj.currentCount++;
             card.gameObject.SetActive(false);
             ObjectPool.cardsObj.Enqueue(card.gameObject);
         }
         drawObj.Clear();
-        tempCardSO.Clear();
+        tempCardBasic.Clear();
     }
 
     //패널 닫기 
@@ -88,11 +88,11 @@ public class DrawSystem : MonoBehaviour
     }
 
     public void OpenCard(){
-        if(tempCardSO.Count==0)return;
+        if(tempCardBasic.Count==0)return;
         for(int i=0;i<drawObj.Count;i++){
-            CardSO temp = tempCardSO.Dequeue();
-            drawObj[i].GetComponent<Card>().cardSO = temp;
-            drawObj[i].GetComponent<Image>().sprite = temp.Image;
+            CardBasic temp = tempCardBasic.Dequeue();
+            drawObj[i].GetComponent<Card>().cardObj = temp;
+            drawObj[i].GetComponent<Image>().sprite = temp.image;
         }
     }
 

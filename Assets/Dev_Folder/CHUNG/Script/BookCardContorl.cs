@@ -24,10 +24,10 @@ public class BookCardControl : MonoBehaviour
     }
 
     public void UpdateBook(){
-        text.text = childCard.cardSO.currentCount.ToString();
-        if (childCard.cardSO.currentCount <= 0)
+        text.text = childCard.cardObj.currentCount.ToString();
+        if (childCard.cardObj.currentCount <= 0)
         {
-            childCard.cardSO.currentCount = 0;
+            childCard.cardObj.currentCount = 0;
             button.enabled = false;
         }
         else

@@ -3,32 +3,6 @@ using System.Collections.Generic;
 using Unity.Jobs;
 using UnityEngine;
 
-public enum JOB{
-    Normal,
-    Warrior,
-    Archor,
-    Magician
-}
-public enum Kind{
-    Attack,
-    MagicAttack,
-    RangeAttack,
-    Heal,
-    AddCard,
-    AddCost
-}
-public enum special_ability
-{
-    Fire,
-    Ice,
-    None
-}
-public enum Rate{
-    Normal,
-    Rarity,
-    Hero,
-    Count
-}
 [CreateAssetMenu(fileName = "Card", menuName = "newCard/AttackCard", order = 0)]
 public class CardSO : ScriptableObject {
     public string cardName;

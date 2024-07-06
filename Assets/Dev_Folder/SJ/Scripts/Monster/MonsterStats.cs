@@ -6,7 +6,7 @@ using UnityEngine;
 public class MonsterStats : ScriptableObject
 {
     [Header("Base Stats")]
-    public string name;
+    public string monsterName;
     public int maxhealth;
     public int attackPower;
     public int defense;

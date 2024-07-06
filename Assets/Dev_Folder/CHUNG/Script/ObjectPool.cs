@@ -25,7 +25,7 @@ public class ObjectPool : MonoBehaviour
             obj.SetActive(false);
             cardsObj.Enqueue(obj);
         }
-        for(int i=0; i< DataManager.Instance.cardSOs.Count*2;i++){
+        for(int i=0; i< DataManager.Instance.cardObjs.Count*2;i++){
             GameObject obj = Instantiate(bookCardsprefab, transform);
             obj.SetActive(false);
             bookCardObj.Enqueue(obj);
