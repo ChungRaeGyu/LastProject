@@ -73,14 +73,22 @@ public class HandManager : MonoBehaviour
 
         while (elapsedTime < duration)
         {
+            if (card == null) // 카드가 파괴되었는지 확인
+            {
+                yield break; // 코루틴 종료
+            }
+
             card.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
             card.rotation = Quaternion.Lerp(initialRotation, targetRotation, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        card.position = targetPosition;
-        card.rotation = targetRotation;
+        if (card != null) // 카드가 여전히 존재하는지 확인
+        {
+            card.position = targetPosition;
+            card.rotation = targetRotation;
+        }
     }
 
     // PRS 계산하기
@@ -111,7 +119,7 @@ public class HandManager : MonoBehaviour
     }
 
     // 덱에 남은 카드 수 텍스트 업데이트
-    private void UpdateCardCountText()
+    public void UpdateCardCountText()
     {
         if (cardCountText != null && DataManager.Instance != null)
         {
@@ -120,11 +128,30 @@ public class HandManager : MonoBehaviour
     }
 
     // 사용된 카드 수 텍스트 업데이트
-    private void UpdatUsedCardCountText()
+    public void UpdatUsedCardCountText()
     {
         if (usedCardCountText != null && DataManager.Instance != null)
         {
             usedCardCountText.text = DataManager.Instance.usedCards.Count.ToString();
         }
+    }
+
+    public void MoveUnusedCardsToUsed()
+    {
+        List<Transform> cardsToMove = new List<Transform>(cards); // 리스트 복사
+        foreach (Transform card in cardsToMove)
+        {
+            CardData cardData = card.GetComponent<CardData>();
+            if (cardData != null)
+            {
+                DataManager.Instance.AddUsedCard(cardData.cardSO);
+                RemoveCard(card);
+                Destroy(card.gameObject); // 카드를 제거할 때 게임 오브젝트도 파괴
+            }
+        }
+
+        UpdateHandLayout();
+        UpdateCardCountText();
+        UpdatUsedCardCountText();
     }
 }

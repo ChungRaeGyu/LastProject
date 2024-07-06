@@ -44,51 +44,48 @@ public class DataManager : MonoBehaviour
     [Header("CardPiece")]
     public int[] CardPiece = new int[(int)Rate.Count];
 
-    public void SuffleAction()
+    public void SuffleDeckList()
     {
         Suffle(deckList);
     }
 
+    public void SuffleUsedCards()
+    {
+        Suffle(usedCards);
+    }
+
     private void Suffle(List<CardSO> deckList)
     {
+        deck.Clear();
+
         //게임 시작시 셔플하게 하기
         List<CardSO> temp = deckList.OrderBy(_ => Random.Range(0, deckList.Count)).ToList();
         foreach (CardSO tempCard in temp)
         {
             deck.Push(tempCard);
         }
+
+        usedCards.Clear();
     }
 
     public CardSO PopCard()
     {
         if (deck.Count == 0)
         {
-            ReshuffleUsedCards();
+            Debug.Log("덱이 0이다.");
+
+            SuffleUsedCards();
         }
-        Debug.Log("카드배출");
+        else
+        {
+            Debug.Log($"{deck.Count}");
+        }
         return deck.Pop();
     }
 
     public void AddUsedCard(CardSO usedCard)
     {
         usedCards.Add(usedCard);
-    }
-
-    private void ReshuffleUsedCards()
-    {
-        if (usedCards.Count == 0)
-        {
-            Debug.Log("다시 섞을 카드가 없습니다!");
-            return;
-        }
-
-        foreach (CardSO card in usedCards)
-        {
-            deck.Push(card);
-        }
-        usedCards.Clear();
-        Suffle(deck.ToList());
-        Debug.Log("사용된 카드가 덱에 다시 섞였습니다.");
     }
 
     public void DeckClear()

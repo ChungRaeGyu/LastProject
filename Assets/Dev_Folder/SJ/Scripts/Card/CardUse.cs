@@ -37,22 +37,19 @@ public class CardUse : MonoBehaviour
 
                 targetMonster.TakeDamage(cardSO.ability);
 
-                // HandManager에서 카드 제거
-                HandManager handManager = GameManager.instance.handManager;
-                if (handManager != null)
-                {
-                    handManager.RemoveCard(transform);
-                }
-
                 DataManager.Instance.AddUsedCard(cardSO);
+
+                // HandManager에서 카드 제거
+                GameManager.instance.handManager.RemoveCard(transform);
+
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
                 if (GameManager.instance.AllMonstersDead())
                 {
-                    GameManager.instance.ButtonClear(true, false, true);
+                    GameManager.instance.UIClear(true, false, true, true, true);
                 }
                 StartCoroutine(DestroyGameObject());
-                
+
             }
         }
         else
@@ -76,7 +73,7 @@ public class CardUse : MonoBehaviour
 
     private void AddCardMethod()
     {
-        
+
         for (int i = 0; i < cardSO.ability; i++)
         {
             //GameManager.instance.DrawCardFromDeck();
