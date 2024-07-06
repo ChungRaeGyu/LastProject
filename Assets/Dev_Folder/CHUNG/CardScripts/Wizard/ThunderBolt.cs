@@ -76,13 +76,11 @@ public class ThunderBolt : CardBasic
                 //관련 메소드만 생성해서 하고 싶은데
 
                 // HandManager에서 카드 제거
-                HandManager handManager = GameManager.instance.handManager;
-                if (handManager != null)
-                {
-                    handManager.RemoveCard(transform);
-                }
 
-                DataManager.Instance.AddUsedCard(this);
+                //this와 cardData.CardObj의 차이
+                Debug.Log(cardData.CardObj);
+                DataManager.Instance.AddUsedCard(cardData.CardObj);
+
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 

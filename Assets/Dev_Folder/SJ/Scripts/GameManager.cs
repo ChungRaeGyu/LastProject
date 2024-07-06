@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
         */
         // 할 일 : 데이터매니저에서 댁에서 카드를 뽑아서 Instantiate한다.
         CardBasic cardBasic = DataManager.Instance.PopCard();
+        Debug.Log("cardBasic" + cardBasic);
         GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPosition, Quaternion.identity);
         newCard.GetComponent<CardData>().CardObj = cardBasic;
 
