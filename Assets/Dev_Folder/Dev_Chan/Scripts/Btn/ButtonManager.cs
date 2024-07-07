@@ -94,4 +94,20 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene(3);
     }
+
+    public void BattleScene()
+    {
+        GameObject.Instantiate(StageManager.Instance.battleScene);
+        //SceneManager.LoadScene(∞‘¿”æ¿);
+    }
+
+    public void EventScene()
+    {
+
+    }
+
+    public void Store()
+    {
+
+    }
 }
