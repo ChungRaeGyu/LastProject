@@ -7,17 +7,17 @@ public class EffectManager : MonoBehaviour
 {
 
     Player tempPlayer;
-    CardSO tempCardSO;
+    CardBasic tempCardInfo;
     public void AttackMethod(Monster targetMonster, Player player,CardSO cardSO)
     {
         PlayerEffectMethod(tempPlayer.transform.position);
         AttackEffectMethod(targetMonster.transform.position);
     }
 
-    public void MagicAttackMethod(Monster targetMonster, Player player, CardSO cardSO)
+    public void MagicAttackMethod(Monster targetMonster, Player player,CardBasic cardBasic)
     {
         tempPlayer = player;
-        tempCardSO = cardSO;
+        tempCardInfo = cardBasic;
         //단일공격
         Debug.Log("코루틴 실행");
         StartCoroutine(MagicAttack(targetMonster));
@@ -32,13 +32,13 @@ public class EffectManager : MonoBehaviour
         Debug.Log("코루틴 실행중 0.5초후");
 
         AttackEffectMethod(targetMonster.transform.position);
-        targetMonster.TakeDamage(tempCardSO.ability);
+        targetMonster.TakeDamage(tempCardInfo.ability);
 
     }
 
     private void AttackEffectMethod(Vector2 position)
     {
-        GameObject prefab = tempCardSO.attackEffect;
+        GameObject prefab = tempCardInfo.attackEffect;
         Instantiate(prefab, position, prefab.transform.rotation);
         Debug.Log("이펙트 실행");
     }
@@ -46,41 +46,41 @@ public class EffectManager : MonoBehaviour
     private void PlayerEffectMethod(Vector2 position)
     {
 
-        GameObject prefab = tempCardSO.effect;
+        GameObject prefab = tempCardInfo.effect;
         Instantiate(prefab, position, prefab.transform.rotation);
     }
-    public void RangeAttackMethod(CardSO cardSO)
+    public void RangeAttackMethod(CardBasic cardBasic)
     {
-        tempCardSO = cardSO;
+        tempCardInfo = cardBasic;
         foreach (Monster monster in GameManager.instance.monsters)
         {
-            monster.TakeDamage(tempCardSO.ability);
+            monster.TakeDamage(tempCardInfo.ability);
         }
     }
-    public void AddCostMethod(CardSO cardSO)
+    public void AddCostMethod(CardBasic cardBasic)
     {
-        tempCardSO = cardSO;
+        tempCardInfo = cardBasic;
         PlayerEffectMethod(tempPlayer.transform.position);
-        tempPlayer.AddCost(tempCardSO.ability);
+        tempPlayer.AddCost(tempCardInfo.ability);
     }
 
-    public void AddCardMethod(CardSO cardSO)
+    public void AddCardMethod(CardBasic cardBasic)
     {
-        tempCardSO = cardSO;
-        for (int i = 0; i < tempCardSO.ability; i++)
+        tempCardInfo = cardBasic;
+        for (int i = 0; i < tempCardInfo.ability; i++)
         {
             //GameManager.instance.DrawCardFromDeck();
             //코루틴을 일반 메소드처럼 썻을때 상황
         }
     }
-    public void HealMethod(Player player,CardSO cardSO)
+    public void HealMethod(Player player, CardBasic cardBasic)
     {
-        tempCardSO = cardSO;
+        tempCardInfo = cardBasic;
         tempPlayer = player;
         //여긴 이펙트 말고 카드가 여러장 날라오는 느낌으로 애니메이션 만들기
         Vector2 pos = tempPlayer.transform.position;
         PlayerEffectMethod(pos);
-        tempPlayer.currenthealth += tempCardSO.ability;
+        tempPlayer.currenthealth += tempCardInfo.ability;
     }
 
 
