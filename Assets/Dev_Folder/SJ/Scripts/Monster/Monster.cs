@@ -34,7 +34,7 @@ public class Monster : MonsterCharacter
         StartCoroutine(MonsterTurn());
     }
 
-    public IEnumerator MonsterTurn()
+    public virtual IEnumerator MonsterTurn()
     {
         GameManager.instance.player.TakeDamage(monsterStats.attackPower);
 
