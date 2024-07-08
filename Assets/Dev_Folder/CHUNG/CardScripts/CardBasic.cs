@@ -40,11 +40,12 @@ public class CardBasic : MonoBehaviour
     public int ability;
     public int currentCount;
     public Sprite image;
-    public Sprite defaultImage; //µÞ¸í
+    public Sprite defaultImage; //ï¿½Þ¸ï¿½
     public JOB job;
     public Rate rate;
     public GameObject effect;
     public bool dragLineCard;
+    public GameObject attackEffect;
     public virtual void CardUse(Monster targetMonster, Player player)
     {
         Debug.Log("CardBasic");

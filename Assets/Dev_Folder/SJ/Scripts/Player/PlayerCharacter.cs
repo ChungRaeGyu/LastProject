@@ -64,4 +64,9 @@ public abstract class PlayerCharacter : MonoBehaviour
         SceneManager.LoadScene(1);
         Destroy(gameObject);
     }
+
+    public virtual void Heal(int amount)
+    {
+        currenthealth += amount;
+    }
 }

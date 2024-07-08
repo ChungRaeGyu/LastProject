@@ -21,24 +21,13 @@ public class Player : PlayerCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
 
-            healthBarInstance.Initialized(playerStats.maxhealth, transform.GetChild(1));
+            healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
         }
     }
 
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-
-        if (healthBarInstance != null)
-        {
-            healthBarInstance.ResetHealthSlider(currenthealth);
-            healthBarInstance.UpdatehealthText();
-        }
-    }
-
-    public override void Heal(int amount)
-    {
-        base.Heal(amount);
 
         if (healthBarInstance != null)
         {
@@ -57,6 +46,16 @@ public class Player : PlayerCharacter
     {
         currentCost = Mathf.Clamp(currentCost + amount, 0, maxCost);
         UpdateCostText();
+    }
+
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+        if (healthBarInstance != null)
+        {
+            healthBarInstance.ResetHealthSlider(currenthealth);
+            healthBarInstance.UpdatehealthText();
+        }
     }
 
     private void UpdateCostText()

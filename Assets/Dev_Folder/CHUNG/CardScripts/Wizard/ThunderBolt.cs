@@ -7,7 +7,7 @@ public class ThunderBolt : CardBasic
     //이름
     //데이터 넣을꺼임
     [Header("CardData")]
-    public GameObject attackEffect;
+    
 
     private CardData cardData;
     private Player player; // Player 클래스 참조 추가
@@ -36,8 +36,7 @@ public class ThunderBolt : CardBasic
             {
                 player.UseCost(cost);
 
-                //CardUse(targetMonster);
-                targetMonster.TakeDamage(cardData.CardObj.ability);
+                CardUse(targetMonster);
                 //currentCard.GetComponent<CardBasic>().CardUse(targetMonster, player);
 
 
@@ -77,8 +76,6 @@ public class ThunderBolt : CardBasic
 
                 // HandManager에서 카드 제거
 
-                //this와 cardData.CardObj의 차이
-                Debug.Log(cardData.CardObj);
                 DataManager.Instance.AddUsedCard(cardData.CardObj);
 
                 GameManager.instance.handManager.RemoveCard(transform);
@@ -99,7 +96,8 @@ public class ThunderBolt : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        
+        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, player,this);
+        //TODO : 애니메이션 넣어주기
     }
 
     #region 특수카드 사용
