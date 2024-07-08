@@ -44,6 +44,7 @@ public class CardBasic : MonoBehaviour
     public JOB job;
     public Rate rate;
     public GameObject effect;
+    public bool dragLineCard;
     public virtual void CardUse(Monster targetMonster, Player player)
     {
         Debug.Log("CardBasic");

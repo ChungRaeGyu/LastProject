@@ -5,7 +5,7 @@ public class CardZoom : MonoBehaviour
 {
     public float zoomScale = 2.0f; // 확대 배율
     public Vector3 zoomOffset = new Vector3(0, 5, 10); // 확대된 카드의 위치 오프셋
-    public float zoomDuration = 0.5f; // 확대/축소 애니메이션 지속 시간
+    public float zoomDuration = 0.25f; // 축소 애니메이션 지속 시간
 
     private Vector3 originalScale; // 원래 크기
     private Vector3 originalPosition; // 원래 위치
@@ -53,7 +53,14 @@ public class CardZoom : MonoBehaviour
     {
         if (!isZoomed) return;
 
-        StartCoroutine(AnimateZoomOut());
+        transform.localScale = originalScale;
+        transform.position = originalPosition;
+        transform.rotation = originalRotation;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingOrder = originalOrder;
+        }
 
         isZoomed = false;
     }

@@ -2,12 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceSlime : Monster
+public class IceSlime : MonsterCharacter
 {
+    public HpBar healthBarPrefab;
+    private HpBar healthBarInstance;
     private System.Random random = new System.Random();
     private float dotDealCount = 0;
     private bool dotDealOnOff = false;
-    public override IEnumerator MonsterTurn()
+
+    private void Start()
+    {
+        Canvas canvas = GameManager.instance.healthBarCanvas;
+        if (canvas != null && healthBarPrefab != null)
+        {
+            // healthBarPrefab을 canvas의 자식으로 생성
+            healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
+            healthBarInstance.Initialized(monsterStats.maxhealth, transform.GetChild(1));
+        }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        if (healthBarInstance != null)
+        {
+            healthBarInstance.ResetHealthSlider(currenthealth);
+            healthBarInstance.UpdatehealthText();
+        }
+    }
+
+    public void StartMonsterTurn()
+    {
+        StartCoroutine(MonsterTurn());
+    }
+
+    public IEnumerator MonsterTurn()
     {
         if (dotDealCount <= 2 && !dotDealOnOff) // 시작하자마자 도트딜을 걸어버림
         {

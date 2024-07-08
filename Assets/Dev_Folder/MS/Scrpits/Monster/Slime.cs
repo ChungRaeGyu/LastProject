@@ -2,10 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : Monster
+public class Slime : MonsterCharacter
 {
+    public HpBar healthBarPrefab;
+    private HpBar healthBarInstance;
 
-    public override IEnumerator MonsterTurn()
+    private void Start()
+    {
+        Canvas canvas = GameManager.instance.healthBarCanvas;
+        if (canvas != null && healthBarPrefab != null)
+        {
+            // healthBarPrefab을 canvas의 자식으로 생성
+            healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
+            healthBarInstance.Initialized(monsterStats.maxhealth, transform.GetChild(1));
+        }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        if (healthBarInstance != null)
+        {
+            healthBarInstance.ResetHealthSlider(currenthealth);
+            healthBarInstance.UpdatehealthText();
+        }
+    }
+
+    public void StartMonsterTurn()
+    {
+        StartCoroutine(MonsterTurn());
+    }
+
+    public IEnumerator MonsterTurn()
     {
         GameManager.instance.player.TakeDamage(monsterStats.attackPower);
 

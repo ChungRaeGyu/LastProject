@@ -12,11 +12,10 @@ public class Heal : CardBasic
     private CardData cardData;
     private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
-    private CardCollision cardCollision;
+    private float useLimit = -2f;
     private void Start()
     {
         cardData = GetComponent<CardData>();
-        cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
 
@@ -28,28 +27,23 @@ public class Heal : CardBasic
 
     public override void TryUseCard()
     {
-        if (player != null)
+        if (player != null && transform.position.y > useLimit)
         {
-            //코스트가 충분할 때 
-            if (player.currentCost >= cost)
+            player.UseCost(cost);
+
+            //CardUse(targetMonster);
+            player.Heal(cardData.CardObj.ability);
+
+            //this와 cardData.CardObj의 차이
+            Debug.Log(cardData.CardObj);
+            DataManager.Instance.AddUsedCard(cardData.CardObj);
+
+            GameManager.instance.handManager.RemoveCard(transform);
+            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+
+            if (GameManager.instance.AllMonstersDead())
             {
-                player.UseCost(cost);
-
-                //CardUse(targetMonster);
-                player.Heal(cardData.CardObj.ability);
-
-                //this와 cardData.CardObj의 차이
-                Debug.Log(cardData.CardObj);
-                DataManager.Instance.AddUsedCard(cardData.CardObj);
-
-                GameManager.instance.handManager.RemoveCard(transform);
-                Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
-
-                if (GameManager.instance.AllMonstersDead())
-                {
-                    GameManager.instance.UIClear(true, false, true, true, true);
-                }
-
+                GameManager.instance.UIClear(true, false, true, true, true);
             }
         }
         else
@@ -60,7 +54,7 @@ public class Heal : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        
+
     }
 
     #region 특수카드 사용
