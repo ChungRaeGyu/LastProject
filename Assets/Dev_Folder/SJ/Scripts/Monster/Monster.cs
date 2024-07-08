@@ -6,15 +6,18 @@ public class Monster : MonsterCharacter
 {
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
+    private System.Random random = new System.Random();
 
     private void Start()
     {
         Canvas canvas = GameManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
+            int plusHp = random.Next(0, 5);
+
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth, currenthealth, transform.GetChild(1));
+            healthBarInstance.Initialized(monsterStats.maxhealth + plusHp, transform.GetChild(1));
         }
     }
 

@@ -9,13 +9,13 @@ public class IceSlime : Monster
     private bool dotDealOnOff = false;
     public override IEnumerator MonsterTurn()
     {
-        if (dotDealCount <= 2) // 시작하자마자 도트딜을 걸어버림
+        if (dotDealCount <= 2 && !dotDealOnOff) // 시작하자마자 도트딜을 걸어버림
         {
             dotDealCount++;
             GameManager.instance.player.TakeDamage(monsterStats.attackPower / 3); //.공격력의 3/1 도트데미지
-            if (dotDealCount >= 3)
+            if (dotDealCount >= 3) // 3턴동안만 건다
             {
-                dotDealCount = 0;
+                dotDealOnOff = true;
             }
         }
         else

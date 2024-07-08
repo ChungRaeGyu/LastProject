@@ -8,6 +8,7 @@ public class FireSlime : Monster
     private bool stronger;
     public override IEnumerator MonsterTurn()
     {
+
         if (random.Next(0, 100) < 15 && !stronger)
         {
             monsterStats.attackPower += 2;
@@ -17,6 +18,7 @@ public class FireSlime : Monster
         {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower);
         }
+
         if (animator != null)
         {
             animator.SetTrigger("Attack");
