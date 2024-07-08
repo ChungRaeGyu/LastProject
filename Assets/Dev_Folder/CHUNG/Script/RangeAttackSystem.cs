@@ -5,12 +5,23 @@ using UnityEngine;
 public class RangeAttackSystem : MonoBehaviour
 {
     float random;
-    private void OnEnable()
+
+    public void AttackAnim(CardBasic cardBasic)
     {
-        for(int i=0; i<10; i++)
+        for (int i = 0; i < 10; i++)
         {
-            random = Random.Range(-8, 0);
-            //Instantiate() cardso에서 이펙트를 불러와서 소환한다.
+            StartCoroutine(AttackMeteo(cardBasic));
+            
+            //TODO : 땅에 부딪혔을 때 터지는 이펙트도 넣어야겠다.
         }
+    }
+
+    IEnumerator AttackMeteo(CardBasic cardBasic)
+    {
+        float delay = Random.Range(0f, 1f);
+        yield return new WaitForSecondsRealtime(delay);
+        random = Random.Range(-8, 0);
+        Instantiate(cardBasic.attackEffect, new Vector2(random, transform.position.y), cardBasic.attackEffect.transform.rotation);
+
     }
 }

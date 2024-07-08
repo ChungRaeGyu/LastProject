@@ -99,6 +99,7 @@ public class ThunderBolt : CardBasic
     public void CardUse(Monster targetMonster)
     {
         GameManager.instance.effectManager.MagicAttackMethod(targetMonster, player,this);
+        //TODO : 애니메이션 넣어주기
     }
 
     #region 특수카드 사용

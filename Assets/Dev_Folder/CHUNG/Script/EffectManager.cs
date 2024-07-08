@@ -1,53 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EffectManager : MonoBehaviour
 {
+    //마법과 물리의 차이
+    //마법 : 캐스팅 후 스킬 실행
+    //물리 : 플레이어와 몬스터 이펙트 동시 실행
 
+    public RangeAttackSystem RangeAttack;
     Player tempPlayer;
     CardBasic tempCardInfo;
+
+    #region 물리공격
     public void AttackMethod(Monster targetMonster, Player player,CardSO cardSO)
     {
         PlayerEffectMethod(tempPlayer.transform.position);
         AttackEffectMethod(targetMonster.transform.position);
-    }
-
-    public void MagicAttackMethod(Monster targetMonster, Player player,CardBasic cardBasic)
-    {
-        tempPlayer = player;
-        tempCardInfo = cardBasic;
-        //단일공격
-        Debug.Log("코루틴 실행");
-        StartCoroutine(MagicAttack(targetMonster));
-        Debug.Log("코루틴 종료");
-    }
-    IEnumerator MagicAttack(Monster targetMonster)
-    {
-        Debug.Log("코루틴 실행중 0.5초전");
-
-        PlayerEffectMethod(tempPlayer.transform.position);
-        yield return new WaitForSeconds(1f);
-        Debug.Log("코루틴 실행중 0.5초후");
-
-        AttackEffectMethod(targetMonster.transform.position);
-        targetMonster.TakeDamage(tempCardInfo.ability);
-
-    }
-
-    private void AttackEffectMethod(Vector2 position)
-    {
-        GameObject prefab = tempCardInfo.attackEffect;
-        Instantiate(prefab, position, prefab.transform.rotation);
-        Debug.Log("이펙트 실행");
-    }
-
-    private void PlayerEffectMethod(Vector2 position)
-    {
-
-        GameObject prefab = tempCardInfo.effect;
-        Instantiate(prefab, position, prefab.transform.rotation);
     }
     public void RangeAttackMethod(CardBasic cardBasic)
     {
@@ -57,6 +28,46 @@ public class EffectManager : MonoBehaviour
             monster.TakeDamage(tempCardInfo.ability);
         }
     }
+    #endregion
+    #region 마법공격
+    public void MagicAttackMethod(Monster targetMonster, Player player,CardBasic cardBasic)
+    {
+        tempPlayer = player;
+        tempCardInfo = cardBasic;
+        //단일공격
+        Debug.Log("코루틴 실행");
+        StartCoroutine(MagicAttack(false,targetMonster));
+        Debug.Log("코루틴 종료");
+    }
+    public void MagicRangeAttackMethod(Player player,CardBasic cardBasic)
+    {
+        tempPlayer = player;
+        tempCardInfo = cardBasic;
+        StartCoroutine(MagicAttack(true));
+    }
+    IEnumerator MagicAttack(bool isRange,Monster targetMonster=null)
+    {
+        Debug.Log("코루틴 실행중 0.5초전");
+
+        PlayerEffectMethod(tempPlayer.transform.position);
+        yield return new WaitForSeconds(1f);
+        Debug.Log("코루틴 실행중 0.5초후");
+        if (isRange)
+        {
+            RangeAttack.AttackAnim(tempCardInfo);
+            foreach (Monster monster in GameManager.instance.monsters)
+            {
+                targetMonster.TakeDamage(tempCardInfo.ability);
+            }
+        }
+        else
+        {
+            AttackEffectMethod(targetMonster.transform.position);
+            targetMonster.TakeDamage(tempCardInfo.ability);
+        }
+    }
+    #endregion
+    #region 버프 및 기타 능력(Player에게만 이팩트 존재)
     public void AddCostMethod(CardBasic cardBasic)
     {
         tempCardInfo = cardBasic;
@@ -77,12 +88,26 @@ public class EffectManager : MonoBehaviour
     {
         tempCardInfo = cardBasic;
         tempPlayer = player;
-        //여긴 이펙트 말고 카드가 여러장 날라오는 느낌으로 애니메이션 만들기
         Vector2 pos = tempPlayer.transform.position;
         PlayerEffectMethod(pos);
         tempPlayer.currenthealth += tempCardInfo.ability;
     }
+    #endregion
 
+    #region 이펙트실행
+    private void AttackEffectMethod(Vector2 position)
+    {
+        GameObject prefab = tempCardInfo.attackEffect;
+        Instantiate(prefab, position, prefab.transform.rotation);
+        Debug.Log("이펙트 실행");
+    }
 
- 
+    private void PlayerEffectMethod(Vector2 position)
+    {
+
+        GameObject prefab = tempCardInfo.effect;
+        Instantiate(prefab, position, prefab.transform.rotation);
+    }
+    #endregion
+
 }
