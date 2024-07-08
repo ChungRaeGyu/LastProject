@@ -7,28 +7,52 @@ public class Stage : MonoBehaviour
     public GameObject battle;
     public GameObject eventStage;
     public GameObject store;
-    
+
+    public string stageName;
+    public Vector3 stagePosition;
+
     public void Start()
     {
         int randomNum = Random.Range(0, 100);
-        
-        if(randomNum < 6)
+        stagePosition = this.gameObject.transform.position;
+        if (randomNum < 6)
         {
+            stageName = "store";
             battle.SetActive(false);
             eventStage.SetActive(false);
             store.SetActive(true);
         }
         else if(randomNum >= 6 && randomNum <= 15)
         {
+            stageName = "event";
             battle.SetActive(false);
             eventStage.SetActive(true);
             store.SetActive(false);
         }
         else
         {
+            stageName = "battle";
             battle.SetActive(true);
             eventStage.SetActive(false);
             store.SetActive(false);
         }
+    }
+
+    public void BattleBtn()
+    {
+        DungeonManager.Instance.playerPosition = stagePosition;
+        DungeonManager.Instance.battleScene.SetActive(true);
+    }
+
+    public void EventBtn()
+    {
+        DungeonManager.Instance.playerPosition = stagePosition;
+        DungeonManager.Instance.eventScene.SetActive(true);
+    }
+
+    public void StoreBtn()
+    {
+        DungeonManager.Instance.playerPosition = stagePosition;
+        DungeonManager.Instance.storeScene.SetActive(true);
     }
 }

@@ -23,8 +23,7 @@ public class DungeonBoardManager : MonoBehaviour
         }
     }
 
-    public GameObject dungeonBoard;
-    public GameObject dungeon;
+
     public GameObject[] dungeonEntrance = new GameObject[5];
 
     public GameObject homeButton;
@@ -34,8 +33,8 @@ public class DungeonBoardManager : MonoBehaviour
 
     void Start()
     {
-        dungeonBoard.SetActive(true);
-        dungeon.SetActive(false);
+        DungeonManager.Instance.dungeonBoard.SetActive(true);
+        DungeonManager.Instance.dungeon.SetActive(false);
         backButton.SetActive(true);
         homeButton.SetActive(true);
 

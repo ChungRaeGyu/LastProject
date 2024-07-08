@@ -21,16 +21,14 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    public GameObject[] stage;
     public GameObject battleScene;
-
-    public int start;
-    public int boss;
-    public int warp1;
-    public int warp2;
-
+    public GameObject eventScene;
+    public GameObject storeScene;
+    
     public void Start()
     {
-        
+        battleScene.SetActive(false);
+        eventScene.SetActive(false);
+        storeScene.SetActive(false);
     }
 }
