@@ -86,9 +86,7 @@ public class ThunderBolt : CardBasic
 
                 if (GameManager.instance.AllMonstersDead())
                 {
-                    GameManager.instance.turnEndButton.gameObject.SetActive(false);
-                    GameManager.instance.lobbyButton.gameObject.SetActive(true);
-                    GameManager.instance.rewardPanel.gameObject.SetActive(true);
+                    GameManager.instance.UIClear(true, false, true, true, true);
                 }
 
             }

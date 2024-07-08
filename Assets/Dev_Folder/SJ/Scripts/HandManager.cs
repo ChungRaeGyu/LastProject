@@ -109,9 +109,22 @@ public class HandManager : MonoBehaviour
     private void SetCardOrderInLayer(Transform card, int order)
     {
         SpriteRenderer spriteRenderer = card.GetComponentInChildren<SpriteRenderer>();
+        TextMeshPro[] labels = card.GetComponentsInChildren<TextMeshPro>();
+
+        // SpriteRenderer의 sortingOrder 설정
         if (spriteRenderer != null)
         {
             spriteRenderer.sortingOrder = order;
+        }
+
+        // 각 TextMeshPro의 MeshRenderer sortingOrder 설정
+        foreach (TextMeshPro label in labels)
+        {
+            MeshRenderer meshRenderer = label.GetComponent<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                meshRenderer.sortingOrder = order;
+            }
         }
     }
 

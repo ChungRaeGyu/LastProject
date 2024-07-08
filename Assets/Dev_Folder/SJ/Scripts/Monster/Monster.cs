@@ -14,7 +14,7 @@ public class Monster : MonsterCharacter
         {
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth, currenthealth, transform.GetChild(1));
+            healthBarInstance.Initialized(monsterStats.maxhealth, transform.GetChild(1));
         }
     }
 

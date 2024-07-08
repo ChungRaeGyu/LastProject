@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class CardZoom : MonoBehaviour
 {
     public float zoomScale = 2.0f; // 확대 배율
     public Vector3 zoomOffset = new Vector3(0, 5, 10); // 확대된 카드의 위치 오프셋
+    public float zoomDuration = 0.5f; // 확대/축소 애니메이션 지속 시간
+
     private Vector3 originalScale; // 원래 크기
     private Vector3 originalPosition; // 원래 위치
     private Quaternion originalRotation; // 원래 회전
@@ -46,10 +49,28 @@ public class CardZoom : MonoBehaviour
 
         isZoomed = true;
     }
-
     private void ZoomOut()
     {
         if (!isZoomed) return;
+
+        StartCoroutine(AnimateZoomOut());
+
+        isZoomed = false;
+    }
+
+    private IEnumerator AnimateZoomOut()
+    {
+        float elapsedTime = 0f;
+        Vector3 startingScale = transform.localScale;
+        Vector3 startingPosition = transform.position;
+
+        while (elapsedTime < zoomDuration)
+        {
+            transform.localScale = Vector3.Lerp(startingScale, originalScale, elapsedTime / zoomDuration);
+            transform.position = Vector3.Lerp(startingPosition, originalPosition, elapsedTime / zoomDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
         transform.localScale = originalScale;
         transform.position = originalPosition;
@@ -59,8 +80,6 @@ public class CardZoom : MonoBehaviour
         {
             spriteRenderer.sortingOrder = originalOrder;
         }
-
-        isZoomed = false;
     }
 
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)

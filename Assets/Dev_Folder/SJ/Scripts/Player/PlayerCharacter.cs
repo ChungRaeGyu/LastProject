@@ -35,6 +35,11 @@ public abstract class PlayerCharacter : MonoBehaviour
         }
     }
 
+    public virtual void Heal(int amount)
+    {
+        currenthealth += amount;
+    }
+
     private void SpawnDamageText(int damageAmount, Vector3 position)
     {
         if (damageTextPrefab != null)

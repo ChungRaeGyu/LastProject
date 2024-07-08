@@ -715,6 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c75ef15b120f34d8b4f37ff8335be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardObj: {fileID: 0}
 --- !u!114 &3427370588333500419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,7 +758,7 @@ MonoBehaviour:
   description: "\uBC88\uAC1C\uB97C \uC0AC\uC6A9\uD574\uC11C \uB370\uBBF8\uC9C0\uB97C
     \uC90D\uB2C8\uB2E4."
   cost: 1
-  ability: 2
+  ability: 99
   currentCount: 0
   image: {fileID: 21300000, guid: 7c79e9bfccfa4c7479f5ffc755e774b1, type: 3}
   defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
