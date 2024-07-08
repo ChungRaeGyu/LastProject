@@ -9,13 +9,13 @@ public class Heal : CardBasic
     [Header("CardData")]
     
 
-    private CardData cardData;
+    private CardBasic cardBasic;
     private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
     private float useLimit = -2f;
     private void Start()
     {
-        cardData = GetComponent<CardData>();
+        cardBasic = GetComponent<CardBasic>();
         cardDrag = GetComponent<CardDrag>();
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
 
@@ -33,14 +33,14 @@ public class Heal : CardBasic
 
             CardUse();
                 
-            DataManager.Instance.AddUsedCard(cardData.CardObj);
+            DataManager.Instance.AddUsedCard(cardBasic.CardObj);
 
             GameManager.instance.handManager.RemoveCard(transform);
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
             if (GameManager.instance.AllMonstersDead())
             {
-                GameManager.instance.UIClear(true, false, true, true, true);
+                UIManager.Instance.UIClear(true, false, true, true, true);
             }
         }
         else

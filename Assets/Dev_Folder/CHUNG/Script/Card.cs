@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    //ì¹´ë“œë¥¼ ë½‘ì„ë•Œ, ë±ì„ ë¡œë”©í• ë•Œ, ë„ê°ì„ ë¡œë”©í•  ë•Œ, í•¸ë“œë¥¼ ë³¼ë•Œ
-    // cardSOë¥¼ ìƒˆë¡œ ì„¤ì •í•´ì¤€ë‹¤.
+    //Ä«µå¸¦ »ÌÀ»¶§, µ¦À» ·ÎµùÇÒ¶§, µµ°¨À» ·ÎµùÇÒ ¶§, ÇÚµå¸¦ º¼¶§
+    // cardSO¸¦ »õ·Î ¼³Á¤ÇØÁØ´Ù.
     [Header("PutInScript")]
     public CardBasic cardObj;
 
@@ -19,8 +19,9 @@ public class Card : MonoBehaviour
     public TextMeshProUGUI descriptionLabel;
     public TextMeshProUGUI costLabel;
     // Start is called before the first frame update
-    private void Awake(){
-        cardImage= GetComponent<Image>();
+    private void Awake()
+    {
+        cardImage = GetComponent<Image>();
         button = GetComponent<Button>();
     }
     private void OnEnable()
@@ -51,8 +52,9 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void OpenCard(){
-        if(drawSystem.tempCardBasic.Count==0)return;
+    public void OpenCard()
+    {
+        if (drawSystem.tempCardBasic.Count == 0) return;
         cardObj = drawSystem.tempCardBasic.Dequeue();
         ImageSet();
     }

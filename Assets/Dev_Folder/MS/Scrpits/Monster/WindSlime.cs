@@ -11,7 +11,7 @@ public class WindSlime : MonsterCharacter
 
     private void Start()
     {
-        Canvas canvas = GameManager.instance.healthBarCanvas;
+        Canvas canvas = UIManager.Instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
             // healthBarPrefab을 canvas의 자식으로 생성

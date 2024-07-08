@@ -63,6 +63,6 @@ public class MonsterCharacter : MonoBehaviour
 
     protected virtual void Die()
     {
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 }

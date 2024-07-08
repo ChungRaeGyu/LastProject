@@ -1,16 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    #region 싱글톤
+    private static UIManager _instance;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameObject("UIManager").AddComponent<UIManager>();
+            }
+            return _instance;
+        }
+    }
+    void Awake()
+    {
+        if (_instance != null)
+        {
+            if (_instance != this)
+                Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+    #endregion
+
     public GameObject rewardCardsPrefab;
     public Transform CardSelectPanelCanvas;
     public GameObject cardSelectPanel;
 
+    [Header("BUTTON")]
+    public Button lobbyButton; // 로비로 가는 버튼
+    public Button turnEndButton; // 턴 종료 버튼
+    public Button openCardSelectionButton; // 카드 선택 창 열기 버튼
+
+    [Header("Reward")]
+    public Image fadeRewardPanel; // 보상 패널 열릴 때 어두워지게
+    public GameObject rewardPanel; // 보상 패널
+
+    [Header("UI")]
+    public Canvas healthBarCanvas; // 캔버스 참조
+    public TMP_Text costText;
+    public TMP_Text TurnText;
+
     private void Start()
     {
         cardSelectPanel.SetActive(false);
+        UIClear(false, true, false, false, false);
     }
 
     public void SpawnRewardCards()
@@ -46,6 +91,35 @@ public class UIManager : MonoBehaviour
         }
 
         card.transform.localPosition = targetPosition;
+    }
+
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setOpenCardSelectionButton)
+    {
+        if (lobbyButton != null)
+        {
+            lobbyButton.gameObject.SetActive(lobbyBtn);
+        }
+
+        if (turnEndButton != null)
+        {
+            turnEndButton.gameObject.SetActive(turnEndBtn);
+        }
+
+        if (rewardPanel != null)
+        {
+            rewardPanel.gameObject.SetActive(setRewardPanel);
+        }
+
+        if (fadeRewardPanel != null)
+        {
+            fadeRewardPanel.gameObject.SetActive(setFadeRewardPanel);
+        }
+
+        if (openCardSelectionButton != null)
+        {
+            openCardSelectionButton.gameObject.SetActive(setOpenCardSelectionButton);
+
+        }
     }
 
     // 카드를 고르고 나면 cardSelectPanel을 꺼준다.
