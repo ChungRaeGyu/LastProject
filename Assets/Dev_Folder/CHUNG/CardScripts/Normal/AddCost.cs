@@ -98,7 +98,7 @@ public class AddCost : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.AddCostMethod(this);
+        GameManager.instance.effectManager.AddCostMethod(cardData.CardObj);
     }
 
     #region 특수카드 사용

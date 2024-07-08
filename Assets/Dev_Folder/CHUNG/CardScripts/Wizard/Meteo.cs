@@ -97,7 +97,7 @@ public class Meteo : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.MagicRangeAttackMethod(player,this);
+        GameManager.instance.effectManager.MagicRangeAttackMethod(player, cardData.CardObj);
         //TODO : 애니메이션 넣어주기
     }
 

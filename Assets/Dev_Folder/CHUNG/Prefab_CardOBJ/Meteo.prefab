@@ -530,7 +530,6 @@ MonoBehaviour:
   nameLabel: {fileID: 6995237013603073309}
   descriptionLabel: {fileID: 39193843252475201}
   costLabel: {fileID: 2524574492561362549}
-  abilityLabel: {fileID: 0}
 --- !u!114 &2130540226028590955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomScale: 2
   zoomOffset: {x: 0, y: 0, z: 10}
+  zoomDuration: 0.25
 --- !u!114 &7946637757292876027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,14 +585,15 @@ MonoBehaviour:
   cardName: "\uBA54\uD14C\uC624"
   description: "\uBAA8\uB4E0\uC801\uC5D0\uAC8C \uC6B4\uC11D\uC744 \uB5A8\uC5B4\uB728\uB9BD\uB2C8\uB2E4."
   cost: 1
-  ability: 1
+  ability: 100
   currentCount: 0
   image: {fileID: 21300000, guid: b490e9352a87da7418ed75dbbb03760e, type: 3}
   defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
   job: 0
   rate: 2
   effect: {fileID: 2388411697999515596, guid: 7fe9ac92f2adec1418d541cf9ab91d5a, type: 3}
-  attackEffect: {fileID: 3001134012674615653, guid: a856a71efc4d0fd4495e4a5d663dc59e, type: 3}
+  dragLineCard: 0
+  attackEffect: {fileID: 987496588193733592, guid: 802b73e4ea778684289ec876f887019a, type: 3}
 --- !u!1 &8303881621922961799
 GameObject:
   m_ObjectHideFlags: 0

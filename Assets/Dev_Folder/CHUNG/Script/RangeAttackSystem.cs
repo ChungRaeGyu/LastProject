@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class RangeAttackSystem : MonoBehaviour
 {
-    float random;
+    
 
     public void AttackAnim(CardBasic cardBasic)
     {
         for (int i = 0; i < 10; i++)
         {
-            StartCoroutine(AttackMeteo(cardBasic));
+            float delay = Random.Range(0f, 1f);
+            float random = Random.Range(-8, 0);
+            StartCoroutine(AttackMeteo(cardBasic, delay, random));
             
             //TODO : ¶¥¿¡ ºÎµúÇûÀ» ¶§ ÅÍÁö´Â ÀÌÆåÆ®µµ ³Ö¾î¾ß°Ú´Ù.
         }
     }
 
-    IEnumerator AttackMeteo(CardBasic cardBasic)
+    IEnumerator AttackMeteo(CardBasic cardBasic,float delay, float random)
     {
-        float delay = Random.Range(0f, 1f);
         yield return new WaitForSecondsRealtime(delay);
-        random = Random.Range(-8, 0);
-        Instantiate(cardBasic.attackEffect, new Vector2(random, transform.position.y), cardBasic.attackEffect.transform.rotation);
+        Debug.Log(random);
+        GameObject meteo = Instantiate(cardBasic.attackEffect, new Vector2(random, 0), cardBasic.attackEffect.transform.rotation);
+        StartCoroutine(GameManager.instance.effectManager.EndOfParticle(meteo));
+        meteo.SetActive(true);
 
     }
 }

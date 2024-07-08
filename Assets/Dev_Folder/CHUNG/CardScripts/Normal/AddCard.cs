@@ -98,7 +98,7 @@ public class AddCard : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.AddCardMethod(this);
+        GameManager.instance.effectManager.AddCardMethod(cardData.CardObj);
     }
 
     #region 특수카드 사용
