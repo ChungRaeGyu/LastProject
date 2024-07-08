@@ -8,32 +8,41 @@ using static UnityEditor.PlayerSettings;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    
     private const string PLAYER_TURN_TEXT = "턴 종료";
     private const string ENEMY_TURN_TEXT = "적 턴";
-
-    public GameObject playerPrefab;
-    public GameObject monsterPrefab;
-    public Transform playerSpawnPoints;
-    public Transform[] monsterSpawnPoints;
+    
     public bool playerTurn { get; private set; } = true;
 
+    [Header("CharacterPrefab")]
+    public GameObject playerPrefab;
+    public GameObject monsterPrefab;
+
+    [Header("CharacterSpawnPoint")]
+    public Transform playerSpawnPoints;
+    public Transform[] monsterSpawnPoints;
+
+    [Header("BUTTON")]
     public Button lobbyButton; // 로비로 가는 버튼
     public Button turnEndButton; // 턴 종료 버튼
+    public Button openCardSelectionButton; // 카드 선택 창 열기 버튼
+    [Header("Reward")]
     public Image fadeRewardPanel; // 보상 패널 열릴 때 어두워지게
     public GameObject rewardPanel; // 보상 패널
-    public HandManager handManager; // 손 패 매니저
+
+    [Header("UI")]
     public Vector3 cardSpawnPosition = new Vector3(-7.8f, -4.1f, 0f); // 카드 소환 위치
     public Canvas healthBarCanvas; // 캔버스 참조
     public TMP_Text costText;
     public TMP_Text TurnText;
 
-    public Button openCardSelectionButton; // 카드 선택 창 열기 버튼
+    [Header("???")]
     public Transform cardOptionsParent; // 카드 옵션을 보여줄 부모 객체
     public GameObject cardOptionPrefab; // 카드 옵션 프리팹
     public Player player { get; private set; }
     public Monster[] monsters { get; private set; }
-
+    [Header("Manager")]
+    public HandManager handManager; // 손 패 매니저
     public EffectManager effectManager;
     private void Awake()
     {

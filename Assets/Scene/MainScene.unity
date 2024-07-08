@@ -466,6 +466,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160596270}
   m_CullTransparentMesh: 1
+--- !u!1 &171670756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 171670758}
+  - component: {fileID: 171670757}
+  m_Layer: 0
+  m_Name: RangeAttackRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &171670757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171670756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c45db2f67f2ef544b967da008597701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &171670758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171670756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &237735467
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +910,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299659976}
   m_CullTransparentMesh: 1
+--- !u!1 &432568691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 432568693}
+  - component: {fileID: 432568692}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &432568692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432568691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b6cf87153babf42aa5b31de5ca6dba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeAttack: {fileID: 171670757}
+--- !u!4 &432568693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432568691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582998531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,17 +2004,17 @@ MonoBehaviour:
   - {fileID: 1152618596}
   lobbyButton: {fileID: 237735469}
   turnEndButton: {fileID: 299659978}
+  openCardSelectionButton: {fileID: 291278686}
   fadeRewardPanel: {fileID: 64322059}
   rewardPanel: {fileID: 601170885}
-  handManager: {fileID: 1587527351}
   cardSpawnPosition: {x: -7.8, y: -4.1, z: 0}
   healthBarCanvas: {fileID: 2097135472}
   costText: {fileID: 160596272}
   TurnText: {fileID: 127483076}
-  openCardSelectionButton: {fileID: 291278686}
   cardOptionsParent: {fileID: 0}
   cardOptionPrefab: {fileID: 0}
-  effectManager: {fileID: 0}
+  handManager: {fileID: 1587527351}
+  effectManager: {fileID: 432568692}
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0
@@ -3261,3 +3350,5 @@ SceneRoots:
   - {fileID: 1587527350}
   - {fileID: 2066840970}
   - {fileID: 1801712840}
+  - {fileID: 432568693}
+  - {fileID: 171670758}

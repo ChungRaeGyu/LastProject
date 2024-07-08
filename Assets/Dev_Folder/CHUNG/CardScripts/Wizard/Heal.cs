@@ -12,11 +12,10 @@ public class Heal : CardBasic
     private CardData cardData;
     private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
-    private CardCollision cardCollision;
+    private float useLimit = -2f;
     private void Start()
     {
         cardData = GetComponent<CardData>();
-        cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
 
@@ -28,66 +27,20 @@ public class Heal : CardBasic
 
     public override void TryUseCard()
     {
-        Monster targetMonster = cardCollision.currentMonster;
-        if (targetMonster != null && player != null)
-        {
+        if (player != null && transform.position.y > useLimit) { 
             //코스트가 충분할 때 
-            if (player.currentCost >= cost)
+            player.UseCost(cost);
+
+            CardUse();
+                
+            DataManager.Instance.AddUsedCard(cardData.CardObj);
+
+            GameManager.instance.handManager.RemoveCard(transform);
+            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+
+            if (GameManager.instance.AllMonstersDead())
             {
-                player.UseCost(cost);
-
-                CardUse(targetMonster);
-                //currentCard.GetComponent<CardBasic>().CardUse(targetMonster, player);
-
-
-                //TODO : 공격의 종류 속성을 놔눠서 공격 하면 되겠다.
-                //모든 정보는 CardSO에 있다.
-                //CardSO를 공격의 종류 별로 나눈다.
-                // 
-                /*
-                                switch (cardSO.kind){
-                                    case Kind.Attack:
-                                        GameManager.instance.effectManager.AttackMethod(targetMonster,player,cardSO);
-                                        PlayPlayerAttackAnimation();
-                                        //단일공격에 관한 메소드,
-                                        break;
-                                    case Kind.MagicAttack:
-                                        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, player, cardSO);
-                                        PlayPlayerAttackAnimation();
-                                        break;
-                                    case Kind.RangeAttack:
-                                        GameManager.instance.effectManager.RangeAttackMethod(cardSO);
-                                        PlayPlayerAttackAnimation();
-                                        //범위공격에 관한 메소드
-                                        break;
-                                    case Kind.Heal:
-                                        GameManager.instance.effectManager.HealMethod(player,cardSO);
-                                        break;
-                                    case Kind.AddCard:
-                                        GameManager.instance.effectManager.AddCardMethod(cardSO);
-                                        break;
-                                    case Kind.AddCost:
-                                        GameManager.instance.effectManager.AddCostMethod(cardSO);
-                                        break;
-                                }
-                                */
-                //이러면 종류가 생길때 마다 swtich를 추가해주어야 한다., 관련메소드도 생성해야한다.
-                //관련 메소드만 생성해서 하고 싶은데
-
-                // HandManager에서 카드 제거
-
-                DataManager.Instance.AddUsedCard(cardData.CardObj);
-
-                GameManager.instance.handManager.RemoveCard(transform);
-                Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
-
-                if (GameManager.instance.AllMonstersDead())
-                {
-                    GameManager.instance.turnEndButton.gameObject.SetActive(false);
-                    GameManager.instance.lobbyButton.gameObject.SetActive(true);
-                    GameManager.instance.rewardPanel.gameObject.SetActive(true);
-                }
-
+                GameManager.instance.UIClear(true, false, true, true, true);
             }
         }
         else
@@ -96,7 +49,7 @@ public class Heal : CardBasic
         }
     }
 
-    public void CardUse(Monster targetMonster)
+    public void CardUse(Monster targetMonster=null)
     {
         GameManager.instance.effectManager.HealMethod(player,this);
         player.Heal(ability);
