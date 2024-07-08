@@ -48,9 +48,14 @@ public class Player : PlayerCharacter
         UpdateCostText();
     }
 
-    public void Heal(int amount)
+    public override void Heal(int amount)
     {
-        currenthealth += amount;
+        base.Heal(amount);
+        if (healthBarInstance != null)
+        {
+            healthBarInstance.ResetHealthSlider(currenthealth);
+            healthBarInstance.UpdatehealthText();
+        }
     }
 
     private void UpdateCostText()

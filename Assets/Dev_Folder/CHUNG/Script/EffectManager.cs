@@ -90,7 +90,7 @@ public class EffectManager : MonoBehaviour
         tempPlayer = player;
         Vector2 pos = tempPlayer.transform.position;
         PlayerEffectMethod(pos);
-        tempPlayer.currenthealth += tempCardInfo.ability;
+        
     }
     #endregion
 

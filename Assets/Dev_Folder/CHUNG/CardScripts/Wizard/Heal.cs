@@ -99,6 +99,7 @@ public class Heal : CardBasic
     public void CardUse(Monster targetMonster)
     {
         GameManager.instance.effectManager.HealMethod(player,this);
+        player.Heal(ability);
         //TODO : 애니메이션 넣어주기
     }
 

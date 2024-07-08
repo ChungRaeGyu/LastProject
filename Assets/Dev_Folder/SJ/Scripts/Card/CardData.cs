@@ -7,7 +7,6 @@ public class CardData : MonoBehaviour
     public TMP_Text nameLabel;
     public TMP_Text descriptionLabel;
     public TMP_Text costLabel;
-    public TMP_Text abilityLabel;
 
     void Start()
     {
@@ -23,6 +22,5 @@ public class CardData : MonoBehaviour
         nameLabel.text = CardObj.cardName;
         descriptionLabel.text = CardObj.description;
         costLabel.text = CardObj.cost.ToString();
-        abilityLabel.text = CardObj.ability.ToString();
     }
 }
