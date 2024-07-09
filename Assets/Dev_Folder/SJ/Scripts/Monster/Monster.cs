@@ -50,4 +50,11 @@ public class Monster : MonsterCharacter
         // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();
     }
+
+    protected override void Die()
+    {
+        GameManager.instance.RemoveMonsterDead(this);
+
+        base.Die();
+    }
 }

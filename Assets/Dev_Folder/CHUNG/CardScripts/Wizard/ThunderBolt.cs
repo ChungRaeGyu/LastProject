@@ -78,13 +78,6 @@ public class ThunderBolt : CardBasic
 
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
-
-                if (GameManager.instance.AllMonstersDead())
-                {
-                    Debug.Log("몬스터가 다 죽었다.");
-                    UIManager.Instance.UIClear(true, false, true, true, true);
-                }
-                
             }
         }
         else

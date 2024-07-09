@@ -80,11 +80,7 @@ public class Meteo : CardBasic
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
-                if (GameManager.instance.AllMonstersDead())
-                {
-                    UIManager.Instance.UIClear(true, false, true, true, true);
-                }
-
+                GameManager.instance.CheckAllMonstersDead();
             }
         }
         else
