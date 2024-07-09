@@ -15,7 +15,7 @@ public class Player : PlayerCharacter
         InitializeCost();
 
         // GameManager를 통해 캔버스 참조
-        Canvas canvas = UIManager.Instance.healthBarCanvas;
+        Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
             // healthBarPrefab을 canvas의 자식으로 생성
@@ -60,7 +60,7 @@ public class Player : PlayerCharacter
 
     private void UpdateCostText()
     {
-        TMP_Text costText = UIManager.Instance.costText;
+        TMP_Text costText = UIManager.instance.costText;
         if (costText != null)
         {
             costText.text = $"{currentCost}/{maxCost}";

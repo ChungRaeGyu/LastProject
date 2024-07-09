@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
-            UIManager.Instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
+            UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
 
             player.InitializeCost();
 
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
-            UIManager.Instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
+            UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
             // 모든 몬스터의 턴 순차적으로 진행
             foreach (Monster monster in monsters)
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
     {
         if (AllMonstersDead())
         {
-            UIManager.Instance.UIClear(true, false, true, true, true);
+            UIManager.instance.UIClear(true, false, true, true, true);
         }
     }
 

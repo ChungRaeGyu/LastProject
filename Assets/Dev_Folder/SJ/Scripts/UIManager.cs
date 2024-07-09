@@ -7,29 +7,18 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     #region ΩÃ±€≈Ê
-    private static UIManager _instance;
-    public static UIManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new GameObject("UIManager").AddComponent<UIManager>();
-            }
-            return _instance;
-        }
-    }
+    public static UIManager instance;
+
     void Awake()
     {
-        if (_instance != null)
+        if (instance == null)
         {
-            if (_instance != this)
-                Destroy(gameObject);
+            instance = this;
         }
         else
         {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            Destroy(gameObject);
+            return;
         }
     }
     #endregion

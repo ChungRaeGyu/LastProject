@@ -11,7 +11,7 @@ public class RockSlime : MonsterCharacter
 
     private void Start()
     {
-        Canvas canvas = UIManager.Instance.healthBarCanvas;
+        Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
             // healthBarPrefab을 canvas의 자식으로 생성
