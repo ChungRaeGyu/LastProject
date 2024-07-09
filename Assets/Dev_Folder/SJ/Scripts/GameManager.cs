@@ -53,9 +53,6 @@ public class GameManager : MonoBehaviour
 
         // 몬스터 생성
         SpawnMonsters();
-
-        // HandManager 할당
-        handManager = FindObjectOfType<HandManager>();
     }
 
     private void Start()
