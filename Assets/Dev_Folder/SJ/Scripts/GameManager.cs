@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
         // 플레이어 생성
         if (playerPrefab != null)
         {
+
             GameObject playerObject = Instantiate(playerPrefab, playerSpawnPoints.position, Quaternion.identity);
             player = playerObject.GetComponent<Player>();
         }

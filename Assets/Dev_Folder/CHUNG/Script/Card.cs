@@ -29,13 +29,6 @@ public class Card : MonoBehaviour
 
     }
 
-    public void ImageSet()
-    {
-        transform.gameObject.name = cardObj.cardName;
-        cardImage.sprite = cardObj.image;
-        UpdateUI();
-    }
-
     private void ButtonIsActive()
     {
         if (transform.root.TryGetComponent<DrawSystem>(out drawSystem))
@@ -47,20 +40,14 @@ public class Card : MonoBehaviour
         else
         {
             button.enabled = false;
-            ImageSet();
         }
     }
 
+    /*
     public void OpenCard(){
         if(drawSystem.tempCardBasic.Count==0)return;
         cardObj = drawSystem.tempCardBasic.Dequeue();
         ImageSet();
     }
-
-    void UpdateUI()
-    {
-        nameLabel.text = cardObj.cardName;
-        descriptionLabel.text = cardObj.description;
-        costLabel.text = cardObj.cost.ToString();
-    }
+    */
 }

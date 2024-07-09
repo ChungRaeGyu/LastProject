@@ -19,7 +19,6 @@ public class AddCard : CardBasic
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
-
         if (player == null)
         {
             Debug.Log("Player가 없음.");
