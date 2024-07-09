@@ -23,12 +23,13 @@ public class PageTurnAnimation : MonoBehaviour
         while (t < duration)
         {
             t += Time.deltaTime;
+            
             int i = Mathf.RoundToInt((frames.Length - 1) * Mathf.Clamp01(t / duration));
                
             for (int j = 0; j < i; j++)
                 frames[j].SetActive(false);
             frames[i].SetActive(true);
-
+            
             yield return null;
         }
 

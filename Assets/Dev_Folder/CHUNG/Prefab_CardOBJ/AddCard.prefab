@@ -530,7 +530,6 @@ MonoBehaviour:
   nameLabel: {fileID: 4268525882649525790}
   descriptionLabel: {fileID: 5603579724410802303}
   costLabel: {fileID: 3532573542343110124}
-  abilityLabel: {fileID: 0}
 --- !u!114 &7043143891456373181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomScale: 2
   zoomOffset: {x: 0, y: 0, z: 10}
+  zoomDuration: 0.25
 --- !u!114 &4136579766349906452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +592,7 @@ MonoBehaviour:
   job: 0
   rate: 0
   effect: {fileID: 0}
+  dragLineCard: 0
   attackEffect: {fileID: 0}
 --- !u!1 &8430356697273979934
 GameObject:

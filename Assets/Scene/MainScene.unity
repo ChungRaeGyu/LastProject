@@ -504,7 +504,7 @@ Transform:
   m_GameObject: {fileID: 171670756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 5, z: 0}
+  m_LocalPosition: {x: 3.3, y: 2.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -940,6 +940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RangeAttack: {fileID: 171670757}
+  tempPlayer: {fileID: 0}
+  tempCardInfo: {fileID: 0}
 --- !u!4 &432568693
 Transform:
   m_ObjectHideFlags: 0

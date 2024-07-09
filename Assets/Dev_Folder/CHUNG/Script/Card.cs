@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    //Ä«µå¸¦ »ÌÀ»¶§, µ¦À» ·ÎµùÇÒ¶§, µµ°¨À» ·ÎµùÇÒ ¶§, ÇÚµå¸¦ º¼¶§
-    // cardSO¸¦ »õ·Î ¼³Á¤ÇØÁØ´Ù.
+    //ì¹´ë“œë¥¼ ë½‘ì„ë•Œ, ë±ì„ ë¡œë”©í• ë•Œ, ë„ê°ì„ ë¡œë”©í•  ë•Œ, í•¸ë“œë¥¼ ë³¼ë•Œ
+    // cardSOë¥¼ ìƒˆë¡œ ì„¤ì •í•´ì¤€ë‹¤.
     [Header("PutInScript")]
     public CardBasic cardObj;
 
@@ -19,22 +19,14 @@ public class Card : MonoBehaviour
     public TextMeshProUGUI descriptionLabel;
     public TextMeshProUGUI costLabel;
     // Start is called before the first frame update
-    private void Awake()
-    {
-        cardImage = GetComponent<Image>();
+    private void Awake(){
+        cardImage= GetComponent<Image>();
         button = GetComponent<Button>();
     }
     private void OnEnable()
     {
         ButtonIsActive();
 
-    }
-
-    public void ImageSet()
-    {
-        transform.gameObject.name = cardObj.cardName;
-        cardImage.sprite = cardObj.image;
-        UpdateUI();
     }
 
     private void ButtonIsActive()
@@ -48,21 +40,14 @@ public class Card : MonoBehaviour
         else
         {
             button.enabled = false;
-            ImageSet();
         }
     }
 
-    public void OpenCard()
-    {
-        if (drawSystem.tempCardBasic.Count == 0) return;
+    /*
+    public void OpenCard(){
+        if(drawSystem.tempCardBasic.Count==0)return;
         cardObj = drawSystem.tempCardBasic.Dequeue();
         ImageSet();
     }
-
-    void UpdateUI()
-    {
-        nameLabel.text = cardObj.cardName;
-        descriptionLabel.text = cardObj.description;
-        costLabel.text = cardObj.cost.ToString();
-    }
+    */
 }

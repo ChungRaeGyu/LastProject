@@ -11,8 +11,8 @@ public class EffectManager : MonoBehaviour
     //물리 : 플레이어와 몬스터 이펙트 동시 실행
 
     public RangeAttackSystem RangeAttack;
-    Player tempPlayer;
-    CardBasic tempCardInfo;
+    public Player tempPlayer;
+    public CardBasic tempCardInfo;
 
     #region 물리공격
     public void AttackMethod(Monster targetMonster, Player player,CardSO cardSO)
@@ -57,7 +57,7 @@ public class EffectManager : MonoBehaviour
             RangeAttack.AttackAnim(tempCardInfo);
             foreach (Monster monster in GameManager.instance.monsters)
             {
-                targetMonster.TakeDamage(tempCardInfo.ability);
+                monster.TakeDamage(tempCardInfo.ability);
             }
         }
         else
@@ -99,6 +99,7 @@ public class EffectManager : MonoBehaviour
     {
         GameObject prefab = tempCardInfo.attackEffect;
         Instantiate(prefab, position, prefab.transform.rotation);
+        StartCoroutine(EndOfParticle(prefab));
         Debug.Log("이펙트 실행");
     }
 
@@ -107,7 +108,17 @@ public class EffectManager : MonoBehaviour
 
         GameObject prefab = tempCardInfo.effect;
         Instantiate(prefab, position, prefab.transform.rotation);
+        StartCoroutine(EndOfParticle(prefab));
+
     }
     #endregion
 
+
+    public IEnumerator EndOfParticle(GameObject particle)
+    {
+        
+        yield return new WaitForSecondsRealtime(particle.GetComponent<ParticleSystem>().main.duration);
+
+        Destroy(particle);
+    }
 }
