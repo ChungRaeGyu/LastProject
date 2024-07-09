@@ -1,38 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ThunderBolt : CardBasic
 {
     //이름
-    //데이터 넣을꺼임
-    [Header("CardData")]
-    
 
-    private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
     private CardCollision cardCollision;
     private void Start()
     {
+        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
+
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
-        player = GameManager.instance.player; // Player 클래스 찾아서 할당
 
-        if (player == null)
-        {
-            Debug.Log("Player가 없음.");
-        }
     }
 
     public override void TryUseCard()
     {
         Monster targetMonster = cardCollision.currentMonster;
-        if (targetMonster != null && player != null)
+        if (targetMonster != null && GameManager.instance.player != null)
         {
             //코스트가 충분할 때 
-            if (player.currentCost >= cost)
+            if (GameManager.instance.player.currentCost >= cost)
             {
-                player.UseCost(cost);
+                GameManager.instance.player.UseCost(cost);
 
                 CardUse(targetMonster);
                 //currentCard.GetComponent<CardBasic>().CardUse(targetMonster, player);
@@ -88,7 +82,7 @@ public class ThunderBolt : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, player, cardData.CardObj);
+        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, GameManager.instance.player, CardObj);
         //TODO : 애니메이션 넣어주기
     }
 
@@ -97,9 +91,9 @@ public class ThunderBolt : CardBasic
     #endregion
     private void PlayPlayerAttackAnimation()
     {
-        if (player != null && player.animator != null)
+        if (GameManager.instance.player != null && GameManager.instance.player.animator != null)
         {
-            player.animator.SetTrigger("Attack");
+            GameManager.instance.player.animator.SetTrigger("Attack");
         }
     }
 

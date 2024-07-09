@@ -10,26 +10,19 @@ public class Heal : CardBasic
     
 
     private CardBasic cardBasic;
-    private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
     private float useLimit = -2f;
     private void Start()
     {
         cardBasic = GetComponent<CardBasic>();
         cardDrag = GetComponent<CardDrag>();
-        player = GameManager.instance.player; // Player 클래스 찾아서 할당
-
-        if (player == null)
-        {
-            Debug.Log("Player가 없음.");
-        }
     }
 
     public override void TryUseCard()
     {
-        if (player != null && transform.position.y > useLimit) { 
+        if (GameManager.instance.player != null && transform.position.y > useLimit) {
             //코스트가 충분할 때 
-            player.UseCost(cost);
+            GameManager.instance.player.UseCost(cost);
 
             CardUse();
                 
@@ -48,8 +41,8 @@ public class Heal : CardBasic
 
     public void CardUse(Monster targetMonster=null)
     {
-        GameManager.instance.effectManager.HealMethod(player, cardData.CardObj);
-        player.Heal(ability);
+        GameManager.instance.effectManager.HealMethod(GameManager.instance.player, CardObj);
+        GameManager.instance.player.Heal(ability);
         //TODO : 애니메이션 넣어주기
     }
 
@@ -58,9 +51,9 @@ public class Heal : CardBasic
     #endregion
     private void PlayPlayerAttackAnimation()
     {
-        if (player != null && player.animator != null)
+        if (GameManager.instance.player != null && GameManager.instance.player.animator != null)
         {
-            player.animator.SetTrigger("Attack");
+            GameManager.instance.player.animator.SetTrigger("Attack");
         }
     }
 

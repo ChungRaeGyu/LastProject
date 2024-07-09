@@ -40,7 +40,7 @@ public class DrawSystem : MonoBehaviour
                 //노말카드
                 int randomCard = Random.Range(0, normalCards.Count);
                 GameObject tempObj = Instantiate(normalCards[randomCard].gameObject, board.transform);
-                tempObj.GetComponent<SpriteRenderer>().sprite = normalCards[randomCard].defaultImage;
+                tempObj.GetComponentInChildren<SpriteRenderer>().sprite = normalCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(normalCards[randomCard]);
             }
             else if(random<95){
