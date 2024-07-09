@@ -16,6 +16,7 @@ public class StageBtn : MonoBehaviour
     {
         GameManager_chan.Instance.nowPosition = pos;
         SceneManager.LoadScene(3);
+        DataManager.Instance.SuffleDeckList();
     }
 
     public void Victory()

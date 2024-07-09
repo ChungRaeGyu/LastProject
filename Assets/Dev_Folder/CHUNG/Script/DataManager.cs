@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,10 +60,11 @@ public class DataManager : MonoBehaviour
         deck.Clear();
 
         //게임 시작시 셔플하게 하기
-        List<CardBasic> temp = deckList.OrderBy(_ => Random.Range(0, deckList.Count)).ToList();
+        List<CardBasic> temp = deckList.OrderBy(_ => UnityEngine.Random.Range(0, deckList.Count)).ToList();
         foreach (CardBasic tempCard in temp)
         {
             deck.Push(tempCard);
+            Debug.Log($"Card pushed: {tempCard.name}");
         }
 
         usedCards.Clear();
@@ -72,9 +74,14 @@ public class DataManager : MonoBehaviour
     {
         if (deck.Count == 0)
         {
-            Debug.Log("덱이 0이다.");
-
+            Debug.Log("덱이 비어있습니다. 사용된 카드를 셔플합니다.");
             SuffleUsedCards();
+
+            // 덱이 여전히 비어있다면 오류를 방지하기 위해 예외를 던집니다.
+            if (deck.Count == 0)
+            {
+                throw new InvalidOperationException("덱이 비어있습니다. 사용된 카드를 셔플한 후에도 덱이 비어있습니다.");
+            }
         }
         Debug.Log("카드배출");
         return deck.Pop();

@@ -12,7 +12,7 @@ public class HandManager : MonoBehaviour
     public float maxAngle = 10f; // 최대 회전 각도
     public float maxVerticalOffset = 0.5f; // 최대 수직 오프셋
     public float moveDuration = 0.5f; // 카드 이동 지속 시간
-    public bool setCardEnd;
+    public bool setCardEnd { get; private set; } // 손 패의 배치완료를 확인
 
     public TMP_Text cardCountText; // 덱의 남은 카드 수를 표시할 텍스트 UI
     public TMP_Text usedCardCountText; // 사용된 카드 개수를 표시할 텍스트 UI

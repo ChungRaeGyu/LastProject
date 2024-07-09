@@ -2074,10 +2074,14 @@ PrefabInstance:
       objectReference: {fileID: 1717256558}
     - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
@@ -2089,11 +2093,19 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Battle
       objectReference: {fileID: 0}
     - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StageBtn, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: StageBtn, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7701225723440734733, guid: 0e8882b8810af5b4282a39a21353414c, type: 3}
