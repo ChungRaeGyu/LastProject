@@ -12,6 +12,7 @@ public class HandManager : MonoBehaviour
     public float maxAngle = 10f; // 최대 회전 각도
     public float maxVerticalOffset = 0.5f; // 최대 수직 오프셋
     public float moveDuration = 0.5f; // 카드 이동 지속 시간
+    public bool setCardEnd;
 
     public TMP_Text cardCountText; // 덱의 남은 카드 수를 표시할 텍스트 UI
     public TMP_Text usedCardCountText; // 사용된 카드 개수를 표시할 텍스트 UI
@@ -39,6 +40,8 @@ public class HandManager : MonoBehaviour
     // 손패 배치 업데이트
     private void UpdateHandLayout()
     {
+        setCardEnd = false;
+
         int numCards = cards.Count;
 
         if (numCards == 1)
@@ -63,6 +66,8 @@ public class HandManager : MonoBehaviour
             card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
             card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
         }
+
+        setCardEnd = true;
     }
 
     // 카드 이동 코루틴
@@ -151,10 +156,10 @@ public class HandManager : MonoBehaviour
         List<Transform> cardsToMove = new List<Transform>(cards); // 리스트 복사
         foreach (Transform card in cardsToMove)
         {
-            CardData cardData = card.GetComponent<CardData>();
-            if (cardData != null)
+            CardBasic cardBasic = card.GetComponent<CardBasic>();
+            if (cardBasic != null)
             {
-                DataManager.Instance.AddUsedCard(cardData.CardObj);
+                DataManager.Instance.AddUsedCard(cardBasic.CardObj);
                 RemoveCard(card);
                 Destroy(card.gameObject); // 카드를 제거할 때 게임 오브젝트도 파괴
             }

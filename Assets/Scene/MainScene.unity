@@ -2000,21 +2000,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7819706550800687401, guid: 3007b38cf437b3f46b6a97f274a3fad3, type: 3}
   monsterPrefab: {fileID: 1251262228192278890, guid: 6b45474db263e20489302549de999e19, type: 3}
-  playerSpawnPoints: {fileID: 1262914818}
+  playerSpawnPoint: {fileID: 1262914818}
   monsterSpawnPoints:
   - {fileID: 616671311}
   - {fileID: 1152618596}
-  lobbyButton: {fileID: 237735469}
-  turnEndButton: {fileID: 299659978}
-  openCardSelectionButton: {fileID: 291278686}
-  fadeRewardPanel: {fileID: 64322059}
-  rewardPanel: {fileID: 601170885}
   cardSpawnPosition: {x: -7.8, y: -4.1, z: 0}
-  healthBarCanvas: {fileID: 2097135472}
-  costText: {fileID: 160596272}
-  TurnText: {fileID: 127483076}
-  cardOptionsParent: {fileID: 0}
-  cardOptionPrefab: {fileID: 0}
+  monsters: []
   handManager: {fileID: 1587527351}
   effectManager: {fileID: 432568692}
 --- !u!4 &1587527350
@@ -2050,6 +2041,7 @@ MonoBehaviour:
   maxAngle: 10
   maxVerticalOffset: 0.5
   moveDuration: 0.5
+  setCardEnd: 0
   cardCountText: {fileID: 1122283095}
   usedCardCountText: {fileID: 1655982177}
 --- !u!1 &1631390188
@@ -2662,6 +2654,14 @@ MonoBehaviour:
   rewardCardsPrefab: {fileID: 6951263451923166006, guid: bd340983e684f5a469db2f73569df88e, type: 3}
   CardSelectPanelCanvas: {fileID: 1837100163}
   cardSelectPanel: {fileID: 1837100162}
+  lobbyButton: {fileID: 237735469}
+  turnEndButton: {fileID: 299659978}
+  openCardSelectionButton: {fileID: 291278686}
+  fadeRewardPanel: {fileID: 64322059}
+  rewardPanel: {fileID: 601170885}
+  healthBarCanvas: {fileID: 2097135472}
+  costText: {fileID: 160596272}
+  TurnText: {fileID: 127483076}
 --- !u!4 &1801712840
 Transform:
   m_ObjectHideFlags: 0
@@ -3349,8 +3349,8 @@ SceneRoots:
   - {fileID: 1777175358}
   - {fileID: 830809575}
   - {fileID: 1782289790}
-  - {fileID: 1587527350}
   - {fileID: 2066840970}
+  - {fileID: 1587527350}
   - {fileID: 1801712840}
   - {fileID: 432568693}
   - {fileID: 171670758}

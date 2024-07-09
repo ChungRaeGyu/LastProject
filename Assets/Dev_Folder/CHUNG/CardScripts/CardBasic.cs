@@ -33,6 +33,9 @@ public enum Rate
 }
 public class CardBasic : MonoBehaviour
 {
+    [HideInInspector]
+    public CardBasic CardObj;
+
     [Header("BasicData")]
     public string cardName;
     public string description;

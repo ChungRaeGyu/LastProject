@@ -8,13 +8,13 @@ public class Meteo : CardBasic
     //데이터 넣을꺼임
     
 
-    private CardData cardData;
+    private CardBasic cardBasic;
     private Player player; // Player 클래스 참조 추가
     private CardDrag cardDrag;
     private CardCollision cardCollision;
     private void Start()
     {
-        cardData = GetComponent<CardData>();
+        cardBasic = GetComponent<CardBasic>();
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
         player = GameManager.instance.player; // Player 클래스 찾아서 할당
@@ -75,18 +75,12 @@ public class Meteo : CardBasic
 
                 // HandManager에서 카드 제거
 
-                DataManager.Instance.AddUsedCard(cardData.CardObj);
+                DataManager.Instance.AddUsedCard(cardBasic.CardObj);
 
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
-                if (GameManager.instance.AllMonstersDead())
-                {
-                    GameManager.instance.turnEndButton.gameObject.SetActive(false);
-                    GameManager.instance.lobbyButton.gameObject.SetActive(true);
-                    GameManager.instance.rewardPanel.gameObject.SetActive(true);
-                }
-
+                GameManager.instance.CheckAllMonstersDead();
             }
         }
         else
