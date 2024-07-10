@@ -9,12 +9,10 @@ public class Heal : CardBasic
     [Header("CardData")]
     
 
-    private CardBasic cardBasic;
     private CardDrag cardDrag;
 
     private void Start()
     {
-        cardBasic = GetComponent<CardBasic>();
         cardDrag = GetComponent<CardDrag>();
     }
 

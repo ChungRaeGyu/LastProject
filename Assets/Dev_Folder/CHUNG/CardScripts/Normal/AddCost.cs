@@ -10,14 +10,12 @@ public class AddCost : CardBasic
     [Header("CardData")]
 
 
-    private CardBasic cardBasic;
     private CardDrag cardDrag;
     private CardCollision cardCollision;
     private void Start()
     {
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
-        cardBasic = GetComponent<CardBasic>();
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
     }

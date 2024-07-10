@@ -9,14 +9,12 @@ public class Meteo : CardBasic
     //데이터 넣을꺼임
     
 
-    private CardBasic cardBasic;
     private CardDrag cardDrag;
     private CardCollision cardCollision;
     private void Start()
     {
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
-        cardBasic = GetComponent<CardBasic>();
         cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
 
