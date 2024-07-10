@@ -40,7 +40,7 @@ public class DrawSystem : MonoBehaviour
                 //노말카드
                 int randomCard = Random.Range(0, normalCards.Count);
                 GameObject tempObj = Instantiate(normalCards[randomCard].gameObject, board.transform);
-                tempObj.GetComponentInChildren<SpriteRenderer>().sprite = normalCards[randomCard].defaultImage;
+                tempObj.GetComponentInChildren<Image>().sprite = normalCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(normalCards[randomCard]);
             }
             else if(random<95){
@@ -79,7 +79,7 @@ public class DrawSystem : MonoBehaviour
         if(tempCardBasic.Count==0)return;
         foreach(CardBasic cardBasic in tempCardBasic)
         {
-            cardBasic.gameObject.GetComponent<SpriteRenderer>().sprite = cardBasic.image;
+            cardBasic.gameObject.GetComponent<Image>().sprite = cardBasic.image;
         }
     }
 

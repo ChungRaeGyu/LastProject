@@ -12,6 +12,10 @@ public class Demo : MonoBehaviour
     [SerializeField]
     Button previousButton;
     [SerializeField]
+    Button BookOpenButton;
+    [SerializeField]
+    Button GaChaOpenButton;
+    [SerializeField]
     Image bookImage;
     [SerializeField]
     Sprite bookTexture;
@@ -36,6 +40,8 @@ public class Demo : MonoBehaviour
 
         nextButton.onClick.AddListener(NextPage);
         previousButton.onClick.AddListener(PreviousPage);
+        BookOpenButton.onClick.AddListener(BookPage);
+        GaChaOpenButton.onClick.AddListener(GachaPage);
     }
 
     public void SetBook(bool value)
@@ -50,7 +56,34 @@ public class Demo : MonoBehaviour
         currentView = value;
         bookImage.sprite = currentView == View.Book ? bookTexture : notepadTexture;
     }
-
+    void GachaPage()
+    {
+        if (currentPage == 3) return;
+        if (currentPage > 3)
+        {
+            bookController.PreviousPage();
+        }
+        else
+        {
+            bookController.NextPage();
+        }
+        currentPage = 3;
+        StartCoroutine(UpdatePageDelayed());
+    }
+    void BookPage()
+    {
+        if (currentPage == 1) return;
+        if (currentPage > 1)
+        {
+            bookController.PreviousPage();
+        }
+        else
+        {
+            bookController.NextPage();
+        }
+        currentPage = 1;
+        StartCoroutine(UpdatePageDelayed());
+    }
     void NextPage()
     {
         bookController.NextPage();
