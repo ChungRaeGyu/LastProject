@@ -23,7 +23,7 @@ public class Demo : MonoBehaviour
     Sprite notepadTexture;
 
     public GameObject[] pages;
-
+    public BookAnimation bookAnim;
     int currentPage;
     View currentView;
 
@@ -39,6 +39,7 @@ public class Demo : MonoBehaviour
         UpdatePage();
 
         nextButton.onClick.AddListener(NextPage);
+        bookAnim.animator.SetBool("Open", false);
         previousButton.onClick.AddListener(PreviousPage);
         BookOpenButton.onClick.AddListener(BookPage);
         GaChaOpenButton.onClick.AddListener(GachaPage);
@@ -86,6 +87,14 @@ public class Demo : MonoBehaviour
     }
     void NextPage()
     {
+        if (currentPage == 0)
+        {
+            bookAnim.animator.SetBool("Open", true);
+        }
+        if (currentPage == 2)
+        {
+            bookAnim.animator.SetBool("Open", false);
+        }
         bookController.NextPage();
         currentPage = Mathf.Min(++currentPage, pages.Length - 1);
         StartCoroutine(UpdatePageDelayed());
@@ -93,6 +102,14 @@ public class Demo : MonoBehaviour
 
     void PreviousPage()
     {
+        if (currentPage == 1)
+        {
+            bookAnim.animator.SetBool("Open", false);
+        }
+        if (currentPage == 3)
+        {
+            bookAnim.animator.SetBool("Open", true);
+        }
         bookController.PreviousPage();
         currentPage = Mathf.Max(--currentPage, 0);
         StartCoroutine(UpdatePageDelayed());
@@ -108,7 +125,6 @@ public class Demo : MonoBehaviour
     {
         Array.ForEach(pages, c => { c.SetActive(false);});
         pages[currentPage].SetActive(true);
-        
         nextButton.gameObject.SetActive(currentPage < pages.Length - 1);
         previousButton.gameObject.SetActive(currentPage > 0);
     }

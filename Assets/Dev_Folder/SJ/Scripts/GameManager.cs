@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
     [Header("Manager")]
     public HandManager handManager; // 손 패 매니저
     public EffectManager effectManager;
+
+    
 
     private void Awake()
     {
@@ -171,4 +174,6 @@ public class GameManager : MonoBehaviour
         handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
     }
+
+ 
 }

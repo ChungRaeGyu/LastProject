@@ -15,6 +15,7 @@ public class DeckControl : MonoBehaviour
     #region 로비
     //Book to Deck
     public void AddCard(CardBasic cardObj){
+        //설명창에서 덱추가 버튼을 눌렀을 때
         DataManager.Instance.deckList.Add(cardObj);
         UpdateDeck();
         Debug.Log("카드추가");
@@ -65,9 +66,5 @@ public class DeckControl : MonoBehaviour
         }
         cardObj.Clear();
     }
-    #endregion
-    #region 인게임
-    //CardManager에 Draw()메소드 내부에 있음
-
     #endregion
 }

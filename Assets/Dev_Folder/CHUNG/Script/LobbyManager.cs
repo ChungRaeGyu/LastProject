@@ -5,9 +5,24 @@ using UnityEngine;
 
 public class LobbyManager : MonoBehaviour
 {
+
+    public static LobbyManager instance;
     // Start is called before the first frame update
     public List<GameObject> pages;
     public GameObject num;
+    public event Action OnCount;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
     void Start()
     {
         Init();
@@ -22,6 +37,12 @@ public class LobbyManager : MonoBehaviour
             GameObject temp = Instantiate(DataManager.Instance.cardObjs[i].gameObject, pages[j].transform);
             Instantiate(num, temp.transform);
         }
+    }
+
+    public void InvokeCount()
+    {
+        Debug.Log("Ω««‡GameManager");
+        OnCount?.Invoke();
     }
 
 }
