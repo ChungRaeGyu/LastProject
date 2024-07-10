@@ -11,7 +11,7 @@ public class Heal : CardBasic
 
     private CardBasic cardBasic;
     private CardDrag cardDrag;
-    private float useLimit = -2f;
+
     private void Start()
     {
         cardBasic = GetComponent<CardBasic>();
@@ -20,7 +20,7 @@ public class Heal : CardBasic
 
     public override bool TryUseCard()
     {
-        if (GameManager.instance.player != null && transform.position.y > useLimit)
+        if (GameManager.instance.player != null)
         {
             // 코스트가 충분할 때 
             GameManager.instance.player.UseCost(cost);
@@ -35,7 +35,7 @@ public class Heal : CardBasic
             GameManager.instance.CheckAllMonstersDead();
         }
 
-        return false; // 카드 사용이 실패한 경우 반환
+        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
 

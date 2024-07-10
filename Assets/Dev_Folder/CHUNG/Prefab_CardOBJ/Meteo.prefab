@@ -115,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &2453973401078748467
 BoxCollider2D:
@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 90, y: 90}
   m_EdgeRadius: 0
 --- !u!114 &2687062862506748210
 MonoBehaviour:
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c75ef15b120f34d8b4f37ff8335be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragLimitY: -340
 --- !u!114 &9107333178606898114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,5 +237,5 @@ MonoBehaviour:
   job: 0
   rate: 2
   effect: {fileID: 2388411697999515596, guid: 7fe9ac92f2adec1418d541cf9ab91d5a, type: 3}
-  dragLineCard: 0
+  dragLineCard: 1
   attackEffect: {fileID: 987496588193733592, guid: 802b73e4ea778684289ec876f887019a, type: 3}

@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public Transform playerSpawnPoint;
     public List<Transform> monsterSpawnPoints;
 
-    public Vector3 cardSpawnPosition = new Vector3(-7.8f, -4.1f, 0f); // 카드 소환 위치
+    public Transform cardSpawnPoint; // 카드 소환 위치
 
     public Player player { get; private set; }
     public List<Monster> monsters = new List<Monster>();
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
     {
         CardBasic cardBasic = DataManager.Instance.PopCard();
         Debug.Log("cardBasic" + cardBasic);
-        GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPosition, Quaternion.identity);
+        GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPoint.position, Quaternion.identity); // 카드 소환 위치 사용
         newCard.GetComponent<CardBasic>().CardObj = cardBasic;
 
         // HandManager에 카드 추가
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     private bool AllMonstersDead()
     {
         if (monsters.Count == 0)
-           return true;
+            return true;
 
         Debug.Log($"몬스터 수: {monsters.Count}");
         return false;

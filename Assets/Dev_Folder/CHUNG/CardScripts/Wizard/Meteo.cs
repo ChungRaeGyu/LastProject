@@ -43,7 +43,7 @@ public class Meteo : CardBasic
             }
         }
 
-        return false; // 카드 사용이 실패한 경우 반환
+        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(Monster targetMonster)

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +15,7 @@ public class HandManager : MonoBehaviour
 
     public TMP_Text cardCountText; // 덱의 남은 카드 수를 표시할 텍스트 UI
     public TMP_Text usedCardCountText; // 사용된 카드 개수를 표시할 텍스트 UI
+    public Canvas handCanvas; // HandCanvas 참조
 
     private List<Transform> cards = new List<Transform>();
 
@@ -23,6 +23,7 @@ public class HandManager : MonoBehaviour
     public void AddCard(Transform card)
     {
         cards.Add(card);
+        card.SetParent(handCanvas.transform, false); // HandCanvas의 자식으로 설정
         UpdateHandLayout();
         UpdateCardCountText();
         UpdatUsedCardCountText();
@@ -52,6 +53,7 @@ public class HandManager : MonoBehaviour
             SetCardOrderInLayer(card, 0);
             card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
             card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
+            setCardEnd = true;
             return;
         }
 
