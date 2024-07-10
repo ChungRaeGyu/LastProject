@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         CardBasic cardBasic = DataManager.Instance.PopCard();
         Debug.Log("cardBasic" + cardBasic);
         GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPosition, Quaternion.identity);
-        newCard.GetComponent<CardBasic>().CardObj = cardBasic;
+        newCard.GetComponent<CardBasic>().cardObj = cardBasic;
 
         // HandManager에 카드 추가
         handManager.AddCard(newCard.transform);

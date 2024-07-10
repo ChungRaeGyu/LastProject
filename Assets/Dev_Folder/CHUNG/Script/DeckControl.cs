@@ -9,15 +9,16 @@ public class DeckControl : MonoBehaviour
     //위치 : DeckManager->Canvas->DeckPanel
     //될 수 있으면 GetComponent와 Find를 쓰지 않아야함
     
-    List<Card> cardObj = new List<Card>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
-    
+    List<CardBasic> cardObj = new List<CardBasic>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
+    [SerializeField]GameObject prefab;
 
     #region 로비
     //Book to Deck
     public void AddCard(CardBasic cardObj){
         //설명창에서 덱추가 버튼을 눌렀을 때
+        //드래그해서 덱에 닿였을때 호출
         DataManager.Instance.deckList.Add(cardObj);
-        UpdateDeck();
+        AddObj();
         Debug.Log("카드추가");
     }
     public void RemoveCard(){
@@ -26,12 +27,7 @@ public class DeckControl : MonoBehaviour
         DataManager.Instance.deckList[endCard].GetComponent<Card>().cardObj.currentCount++;
         DataManager.Instance.deckList.RemoveAt(endCard);
         DescriptionManager.Instance.bookCardControl.UpdateBook();
-        UpdateDeck();
-    }
-
-    private void UpdateDeck(){
-        ClearDeck();
-        SetDeck();
+        //UpdateDeck();
     }
 
     private void OnEnable()
@@ -39,17 +35,13 @@ public class DeckControl : MonoBehaviour
         SetDeck();
     }
 
-    private void OnDisable()
-    {
-        ClearDeck();
-    }
-
     //DeckVisualization
     private void SetDeck(){
+        //덱 전부다 다시 생성 
         for (int i = 0; i < DataManager.Instance.deckList.Count; i++)
         {
-            GameObject obj = ObjectPool.cardsObj.Dequeue();
-            Card tempCard = obj.GetComponent<Card>();
+            GameObject obj = Instantiate(prefab, this.transform);
+            CardBasic tempCard = obj.GetComponent<CardBasic>();
             cardObj.Add(tempCard);
             tempCard.cardObj = DataManager.Instance.deckList[i];
             obj.transform.SetParent(transform);
@@ -57,6 +49,14 @@ public class DeckControl : MonoBehaviour
         }
     }
 
+    private void AddObj()
+    {
+       GameObject obj = Instantiate(prefab, this.transform);
+        CardBasic tempCard = obj.GetComponent<CardBasic>();
+        obj.transform.SetParent(transform);
+        obj.SetActive(true); 
+    }
+    /*
     private void ClearDeck(){
         Debug.Log("Deck ClearDeck()");
         foreach (Card tempcard in cardObj)
@@ -66,5 +66,6 @@ public class DeckControl : MonoBehaviour
         }
         cardObj.Clear();
     }
+    */
     #endregion
 }

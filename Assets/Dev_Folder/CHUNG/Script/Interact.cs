@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Interact : MonoBehaviour, IPointerEnterHandler
 {
+    public GameObject currentInteract;
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("Enter");
+        currentInteract = this.gameObject;
     }
 }

@@ -35,7 +35,7 @@ public class BasicAttack : CardBasic
 
                 CardUse(targetMonster);
 
-                DataManager.Instance.AddUsedCard(cardBasic.CardObj);
+                DataManager.Instance.AddUsedCard(cardBasic.cardObj);
 
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
