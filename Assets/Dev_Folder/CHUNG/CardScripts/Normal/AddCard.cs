@@ -34,7 +34,7 @@ public class AddCard : CardBasic
 
                 CardUse(targetMonster);
 
-                DataManager.Instance.AddUsedCard(cardBasic.cardObj);
+                DataManager.Instance.AddUsedCard(cardBasic.cardBasic);
 
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
@@ -48,7 +48,7 @@ public class AddCard : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.AddCardMethod(cardObj);
+        GameManager.instance.effectManager.AddCardMethod(base.cardBasic);
     }
 
     #region 특수카드 사용

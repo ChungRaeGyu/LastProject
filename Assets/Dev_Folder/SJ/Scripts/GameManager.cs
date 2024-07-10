@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         CardBasic cardBasic = DataManager.Instance.PopCard();
         Debug.Log("cardBasic" + cardBasic);
         GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPoint.position, Quaternion.identity); // 카드 소환 위치 사용
-        newCard.GetComponent<CardBasic>().CardObj = cardBasic;
+        newCard.GetComponent<CardBasic>().cardBasic = cardBasic;
 
         // HandManager에 카드 추가
         handManager.AddCard(newCard.transform);

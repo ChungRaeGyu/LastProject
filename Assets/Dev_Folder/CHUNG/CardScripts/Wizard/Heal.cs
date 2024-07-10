@@ -27,7 +27,7 @@ public class Heal : CardBasic
 
             CardUse();
 
-            DataManager.Instance.AddUsedCard(cardBasic.cardObj);
+            DataManager.Instance.AddUsedCard(cardBasic.cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
             Destroy(gameObject); // 카드를 사용했으므로 카드를 제거
@@ -41,7 +41,7 @@ public class Heal : CardBasic
 
     public void CardUse(Monster targetMonster=null)
     {
-        GameManager.instance.effectManager.HealMethod(GameManager.instance.player, cardObj);
+        GameManager.instance.effectManager.HealMethod(GameManager.instance.player, base.cardBasic);
         GameManager.instance.player.Heal(ability);
         //TODO : 애니메이션 넣어주기
     }

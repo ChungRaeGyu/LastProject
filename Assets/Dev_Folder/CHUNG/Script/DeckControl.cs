@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class DeckControl : MonoBehaviour
 {
-    //ìœ„ì¹˜ : DeckManager->Canvas->DeckPanel
-    //ë  ìˆ˜ ìˆìœ¼ë©´ GetComponentì™€ Findë¥¼ ì“°ì§€ ì•Šì•„ì•¼í•¨
+    //À§Ä¡ : DeckManager->Canvas->DeckPanel
+    //µÉ ¼ö ÀÖÀ¸¸é GetComponent¿Í Find¸¦ ¾²Áö ¾Ê¾Æ¾ßÇÔ
     
-    List<CardBasic> cardObj = new List<CardBasic>(); //Queueë¥¼ ë°›ì•„ì„œ ì„ì‹œ ì €ì¥í•´ ë†“ëŠ” ê³³ì´ë‹¤.
+    List<CardBasic> cardObj = new List<CardBasic>(); //Queue¸¦ ¹Ş¾Æ¼­ ÀÓ½Ã ÀúÀåÇØ ³õ´Â °÷ÀÌ´Ù.
     [SerializeField]GameObject prefab;
 
-    #region ë¡œë¹„
+    #region ·Îºñ
     //Book to Deck
     public void AddCard(CardBasic cardObj){
-        //ì„¤ëª…ì°½ì—ì„œ ë±ì¶”ê°€ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ
-        //ë“œë˜ê·¸í•´ì„œ ë±ì— ë‹¿ì˜€ì„ë•Œ í˜¸ì¶œ
+        //¼³¸íÃ¢¿¡¼­ µ¦Ãß°¡ ¹öÆ°À» ´­·¶À» ¶§
+        //µå·¡±×ÇØ¼­ µ¦¿¡ ´ê¿´À»¶§ È£Ãâ
         DataManager.Instance.deckList.Add(cardObj);
         AddObj();
-        Debug.Log("ì¹´ë“œì¶”ê°€");
+        Debug.Log("Ä«µåÃß°¡");
     }
     public void RemoveCard(){
         if(DataManager.Instance.deckList.Count==0)return;
@@ -37,13 +37,13 @@ public class DeckControl : MonoBehaviour
 
     //DeckVisualization
     private void SetDeck(){
-        //ë± ì „ë¶€ë‹¤ ë‹¤ì‹œ ìƒì„± 
+        //µ¦ ÀüºÎ´Ù ´Ù½Ã »ı¼º 
         for (int i = 0; i < DataManager.Instance.deckList.Count; i++)
         {
             GameObject obj = Instantiate(prefab, this.transform);
             CardBasic tempCard = obj.GetComponent<CardBasic>();
             cardObj.Add(tempCard);
-            tempCard.cardObj = DataManager.Instance.deckList[i];
+            tempCard.cardBasic = DataManager.Instance.deckList[i];
             obj.transform.SetParent(transform);
             obj.SetActive(true);
         }
