@@ -30,7 +30,7 @@ public class ThunderBolt : CardBasic
 
                 CardUse(targetMonster);
 
-                DataManager.Instance.AddUsedCard(CardObj);
+                DataManager.Instance.AddUsedCard(cardObj);
 
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
@@ -42,7 +42,7 @@ public class ThunderBolt : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, GameManager.instance.player, CardObj);
+        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, GameManager.instance.player, cardObj);
         //TODO : 애니메이션 넣어주기
     }
 

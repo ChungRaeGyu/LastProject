@@ -34,7 +34,7 @@ public class Meteo : CardBasic
 
                 CardUse(targetMonster);
 
-                DataManager.Instance.AddUsedCard(cardBasic.CardObj);
+                DataManager.Instance.AddUsedCard(cardBasic.cardObj);
 
                 GameManager.instance.handManager.RemoveCard(transform);
                 Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
@@ -48,7 +48,7 @@ public class Meteo : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.MagicRangeAttackMethod(GameManager.instance.player, CardObj);
+        GameManager.instance.effectManager.MagicRangeAttackMethod(GameManager.instance.player, cardObj);
         //TODO : 애니메이션 넣어주기
     }
 

@@ -161,7 +161,7 @@ public class HandManager : MonoBehaviour
             CardBasic cardBasic = card.GetComponent<CardBasic>();
             if (cardBasic != null)
             {
-                DataManager.Instance.AddUsedCard(cardBasic.CardObj);
+                DataManager.Instance.AddUsedCard(cardBasic.cardObj);
                 RemoveCard(card);
                 Destroy(card.gameObject); // 카드를 제거할 때 게임 오브젝트도 파괴
             }

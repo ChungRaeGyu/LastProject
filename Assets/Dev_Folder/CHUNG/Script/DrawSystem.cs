@@ -11,6 +11,8 @@ public class DrawSystem : MonoBehaviour
     List<CardBasic> heroCards = new List<CardBasic>();//영웅카드;
 
     Queue<CardBasic> tempCardBasic = new Queue<CardBasic>();
+    List<GameObject> tempCardObj = new List<GameObject> ();
+
     public Button drawButton;
     //등급, 몇번째인지
     [SerializeField] GameObject board;
@@ -35,38 +37,50 @@ public class DrawSystem : MonoBehaviour
         drawButton.enabled=false;
         for(int i=0; i< count; i++) { 
             int random = Random.Range(1,100);
+            Debug.Log($"{i}번째 {random}");
             if(random<80)
             {
                 //노말카드
                 int randomCard = Random.Range(0, normalCards.Count);
                 GameObject tempObj = Instantiate(normalCards[randomCard].gameObject, board.transform);
-                tempObj.GetComponentInChildren<SpriteRenderer>().sprite = normalCards[randomCard].defaultImage;
+                tempObj.GetComponentInChildren<Image>().sprite = normalCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(normalCards[randomCard]);
+                tempCardObj.Add(tempObj);
+
             }
             else if(random<95){
                 //희귀카드뽑기
                 int randomCard = Random.Range(0, rarityCards.Count);
-                Instantiate(rarityCards[randomCard].gameObject);
+                GameObject tempObj = Instantiate(rarityCards[randomCard].gameObject);
+                tempObj.GetComponentInChildren<Image>().sprite = rarityCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(rarityCards[randomCard]);
+                tempCardObj.Add(tempObj);
             }
             else{
                 //영웅카드뽑기
                 int randomCard = Random.Range(0, heroCards.Count);
-                Instantiate(heroCards[randomCard].gameObject);
+                GameObject tempObj= Instantiate(heroCards[randomCard].gameObject);
+                tempObj.GetComponentInChildren<Image>().sprite = heroCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(heroCards[randomCard]);
+                tempCardObj.Add(tempObj);
             }
         }
     }
     //Book(도감)으로 넣어준다. 그리고 카드를 다 초기화 시켜주기
     private void SaveCardInBook()
-    {            
+    {
+        Debug.Log($"Queue Count : {tempCardBasic.Count}");
+        Debug.Log($"List Count : {tempCardObj.Count}");
+
         //초기화
-        foreach(CardBasic cardBasic in tempCardBasic)
+        foreach (GameObject cardObj in tempCardObj)
         {
-            cardBasic.currentCount++;
-            Destroy(cardBasic.gameObject);
+            tempCardBasic.Dequeue().currentCount++;
+            Destroy(cardObj);
         }
+        LobbyManager.instance.InvokeCount();
         tempCardBasic.Clear();
+        tempCardObj.Clear();
     }
 
     //패널 닫기 
@@ -77,9 +91,9 @@ public class DrawSystem : MonoBehaviour
 
     public void OpenCard(){
         if(tempCardBasic.Count==0)return;
-        foreach(CardBasic cardBasic in tempCardBasic)
+        foreach(GameObject cardObj in tempCardObj)
         {
-            cardBasic.gameObject.GetComponent<SpriteRenderer>().sprite = cardBasic.image;
+            cardObj.GetComponentInChildren<Image>().sprite = cardObj.GetComponent<CardBasic>().image;
         }
     }
 

@@ -12,6 +12,8 @@ public class BookController : MonoBehaviour
     public PageTurnAnimation previousPageAnimation;
     public GraphicRaycaster[] graphicRaycasters;
 
+
+
     public void NextPage()
     {
         EnableRaycasters(false);
