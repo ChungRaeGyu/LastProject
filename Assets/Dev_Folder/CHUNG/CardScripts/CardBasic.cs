@@ -53,8 +53,8 @@ public class CardBasic : MonoBehaviour
     {
         Debug.Log("CardBasic");
     }
-    public virtual void TryUseCard()
+    public virtual bool TryUseCard()
     {
-
+        return false;
     }
 }

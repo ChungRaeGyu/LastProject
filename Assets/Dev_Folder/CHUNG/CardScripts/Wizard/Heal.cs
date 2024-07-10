@@ -18,26 +18,26 @@ public class Heal : CardBasic
         cardDrag = GetComponent<CardDrag>();
     }
 
-    public override void TryUseCard()
+    public override bool TryUseCard()
     {
-        if (GameManager.instance.player != null && transform.position.y > useLimit) {
-            //코스트가 충분할 때 
+        if (GameManager.instance.player != null && transform.position.y > useLimit)
+        {
+            // 코스트가 충분할 때 
             GameManager.instance.player.UseCost(cost);
 
             CardUse();
-                
+
             DataManager.Instance.AddUsedCard(cardBasic.CardObj);
 
             GameManager.instance.handManager.RemoveCard(transform);
-            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+            Destroy(gameObject); // 카드를 사용했으므로 카드를 제거
 
             GameManager.instance.CheckAllMonstersDead();
         }
-        else
-        {
-            cardDrag.ResetPosition();
-        }
+
+        return false; // 카드 사용이 실패한 경우 반환
     }
+
 
     public void CardUse(Monster targetMonster=null)
     {

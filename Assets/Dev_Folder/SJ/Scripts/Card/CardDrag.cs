@@ -8,6 +8,7 @@ public class CardDrag : MonoBehaviour
     private Vector3 originalPosition; // 카드의 원래 위치
     private Quaternion originalRotation; // 카드의 원래 회전
     private CardBasic cardBasic;
+    private bool tryUseCardCalled = false; // 사용 시도가 호출되었는지 여부를 저장하는 변수
 
     private void Start()
     {
@@ -43,10 +44,21 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
-        isDragging = false; // 드래그 종료
         GetComponent<CardBasic>().TryUseCard(); // 카드 사용 시도
-        ResetPosition(); // 드래그 종료 후 원래 위치로 되돌리기
+        
+        // 위 시도가 호출될 때까지 아래로 가지않게하기
+
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("들어왔다!");
+            GetComponent<CardBasic>().TryUseCard(); // 카드 사용 시도
+            isDragging = false;
+            ResetPosition();
+        }
     }
+
+    //isDragging = false; // 드래그 종료
+    //ResetPosition(); // 드래그 종료 후 원래 위치로 되돌리기
 
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)
     {
