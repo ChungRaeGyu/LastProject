@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 2832788313043729965}
   - component: {fileID: 765371266515191359}
   - component: {fileID: 4230445555799865020}
+  - component: {fileID: 3636337072441627182}
   - component: {fileID: 4634434947082303500}
-  - component: {fileID: 2675950396493861371}
   - component: {fileID: 8472182826931242114}
   m_Layer: 0
   m_Name: AddCard
@@ -186,6 +186,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c75ef15b120f34d8b4f37ff8335be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
+  dragLimitY: -340
+--- !u!114 &3636337072441627182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873129473516573618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomScale: 1.5
+  zoomDuration: 0.25
 --- !u!114 &4634434947082303500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,21 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14720fbe0a1bed84aa3e839edce9a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2675950396493861371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873129473516573618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomScale: 2
-  zoomOffset: {x: 0, y: 0, z: 10}
-  zoomDuration: 0.25
 --- !u!114 &8472182826931242114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7b278cbf80c1741a9a03863e039e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardObj: {fileID: 0}
+  cardBasic: {fileID: 0}
   cardName: "\uCE74\uB4DC\uD68D\uB4DD"
   description: "\uCE74\uB4DC\uB97C \uCD94\uAC00\uB85C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
   cost: 0

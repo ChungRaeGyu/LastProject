@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4759904231181997134}
   - component: {fileID: 6445134977172155029}
   - component: {fileID: 2157162351014193517}
+  - component: {fileID: 323401942279387412}
   - component: {fileID: 8352449707788295723}
-  - component: {fileID: 7942249845806957004}
   - component: {fileID: 1516393449248830274}
   m_Layer: 0
   m_Name: Heal
@@ -111,6 +111,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c75ef15b120f34d8b4f37ff8335be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
+  dragLimitY: -340
+--- !u!114 &323401942279387412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378047061485869098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomScale: 1.5
+  zoomDuration: 0.25
 --- !u!114 &8352449707788295723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,21 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14720fbe0a1bed84aa3e839edce9a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7942249845806957004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6378047061485869098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomScale: 2
-  zoomOffset: {x: 0, y: 0, z: 10}
-  zoomDuration: 0.25
 --- !u!114 &1516393449248830274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c961291b0c6d7704bb9fb48ddac84ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardObj: {fileID: 0}
+  cardBasic: {fileID: 0}
   cardName: "\uD790"
   description: "\uD50C\uB808\uC774\uC5B4\uC758 \uD53C\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   cost: 1

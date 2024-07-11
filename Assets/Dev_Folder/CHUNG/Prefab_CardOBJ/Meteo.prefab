@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 2453973401078748467}
   - component: {fileID: 2687062862506748210}
   - component: {fileID: 43858232652147257}
+  - component: {fileID: -8422195899710481067}
   - component: {fileID: 9107333178606898114}
-  - component: {fileID: 3439967647691254645}
   - component: {fileID: 7783122066741445201}
   m_Layer: 0
   m_Name: Meteo
@@ -186,7 +186,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c75ef15b120f34d8b4f37ff8335be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
   dragLimitY: -340
+--- !u!114 &-8422195899710481067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7405041661325243255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomScale: 1.5
+  zoomDuration: 0.25
 --- !u!114 &9107333178606898114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,21 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14720fbe0a1bed84aa3e839edce9a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3439967647691254645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7405041661325243255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomScale: 2
-  zoomOffset: {x: 0, y: 0, z: 10}
-  zoomDuration: 0.25
 --- !u!114 &7783122066741445201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0951abfa092b9b47a01c898a4bc7f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardObj: {fileID: 0}
+  cardBasic: {fileID: 0}
   cardName: "\uBA54\uD14C\uC624"
   description: "\uBAA8\uB4E0\uC801\uC5D0\uAC8C \uC6B4\uC11D\uC744 \uB5A8\uC5B4\uB728\uB9BD\uB2C8\uB2E4."
   cost: 1

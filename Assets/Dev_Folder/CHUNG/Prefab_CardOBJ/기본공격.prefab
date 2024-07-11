@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 2689055880266893063}
   - component: {fileID: 113154398867939705}
   - component: {fileID: 3144878309864993701}
+  - component: {fileID: 5006092552455994640}
   - component: {fileID: 638509791874259214}
-  - component: {fileID: 6899203458445114612}
   - component: {fileID: 466525330112612856}
   m_Layer: 0
   m_Name: "\uAE30\uBCF8\uACF5\uACA9"
@@ -186,7 +186,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c75ef15b120f34d8b4f37ff8335be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragging: 0
   dragLimitY: -340
+--- !u!114 &5006092552455994640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447918245922251516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomScale: 1.5
+  zoomDuration: 0.25
 --- !u!114 &638509791874259214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,21 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14720fbe0a1bed84aa3e839edce9a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6899203458445114612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6447918245922251516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zoomScale: 2
-  zoomOffset: {x: 0, y: 0, z: 10}
-  zoomDuration: 0.25
 --- !u!114 &466525330112612856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4862982a92c119d458aee8fcadf6da0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardObj: {fileID: 0}
+  cardBasic: {fileID: 0}
   cardName: "\uAE30\uBCF8\uACF5\uACA9"
   description: "\uB370\uBBF8\uC9C0\uB97C 1\uC90D\uB2C8\uB2E4."
   cost: 1

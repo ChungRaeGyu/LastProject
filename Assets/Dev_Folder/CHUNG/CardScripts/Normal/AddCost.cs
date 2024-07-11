@@ -23,7 +23,7 @@ public class AddCost : CardBasic
     public override bool TryUseCard()
     {
         Monster targetMonster = cardCollision.currentMonster;
-        if (targetMonster != null && GameManager.instance.player != null)
+        if (GameManager.instance.player != null)
         {
             //코스트가 충분할 때 
             if (GameManager.instance.player.currentCost >= cost)
