@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator DrawInitialHand(int count)
     {
+
         for (int i = 0; i < count; i++)
         {
             yield return StartCoroutine(DrawCardFromDeck());
@@ -135,8 +136,17 @@ public class GameManager : MonoBehaviour
     {
         if (AllMonstersDead())
         {
-            UIManager.instance.UIClear(true, false, true, true, true);
+            StartCoroutine(WaitAndClearUI());
         }
+    }
+
+    private IEnumerator WaitAndClearUI()
+    {
+        UIManager.instance.ResetUIPositions();
+        // Àá±ñ ±â´Ù¸²
+        yield return new WaitForSeconds(1.0f);
+
+        UIManager.instance.UIClear(true, false, true, true, true);
     }
 
     private bool AllMonstersDead()

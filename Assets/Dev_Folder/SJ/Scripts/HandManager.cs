@@ -18,6 +18,7 @@ public class HandManager : MonoBehaviour
     public Canvas handCanvas; // HandCanvas 참조
 
     private List<Transform> cards = new List<Transform>();
+    public Coroutine moveCard;
 
     // 카드 추가 시 호출할 메서드
     public void AddCard(Transform card)
@@ -49,7 +50,7 @@ public class HandManager : MonoBehaviour
         {
             Transform card = cards[0];
             PRS prs = CalculatePRS(0.5f, 0, 0);
-            StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
+            moveCard = StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
             SetCardOrderInLayer(card, 0);
             card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
             card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
@@ -63,7 +64,7 @@ public class HandManager : MonoBehaviour
             float t = (float)i / (numCards - 1); // 0에서 1 사이의 값을 가지는 t 계산
             float angle = Mathf.Lerp(maxAngle, -maxAngle, t); // 최소 각도에서 최대 각도까지 보간
             PRS prs = CalculatePRS(t, angle, Mathf.Abs(t - 0.5f) * 1.5f);
-            StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
+            moveCard = StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
             SetCardOrderInLayer(card, i);
             card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
             card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
@@ -75,16 +76,15 @@ public class HandManager : MonoBehaviour
     // 카드 이동 코루틴
     private IEnumerator MoveCard(Transform card, Vector3 targetPosition, Quaternion targetRotation, float duration)
     {
+        if (card == null) // 카드가 파괴되었는지 확인
+            yield break; // 코루틴 종료
+
         Vector3 initialPosition = card.position;
         Quaternion initialRotation = card.rotation;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
-            if (card == null) // 카드가 파괴되었는지 확인
-            {
-                yield break; // 코루틴 종료
-            }
             card.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
             card.rotation = Quaternion.Lerp(initialRotation, targetRotation, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
