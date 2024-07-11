@@ -11,6 +11,7 @@ public class DeckControl : MonoBehaviour
     
     List<CardBasic> cardObj = new List<CardBasic>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
     [SerializeField]GameObject prefab;
+    [SerializeField] GameObject Canvas;
 
     #region 로비
     //Book to Deck
@@ -30,7 +31,7 @@ public class DeckControl : MonoBehaviour
         //UpdateDeck();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         SetDeck();
     }
@@ -38,22 +39,20 @@ public class DeckControl : MonoBehaviour
     //DeckVisualization
     private void SetDeck(){
         //덱 전부다 다시 생성 
+        
         for (int i = 0; i < DataManager.Instance.deckList.Count; i++)
         {
-            GameObject obj = Instantiate(prefab, this.transform);
-            CardBasic tempCard = obj.GetComponent<CardBasic>();
-            cardObj.Add(tempCard);
-            tempCard.cardBasic = DataManager.Instance.deckList[i];
-            obj.transform.SetParent(transform);
+            GameObject obj = Instantiate(prefab, Canvas.transform);
+            obj.GetComponent<DeckListObj>().cardBasic = DataManager.Instance.deckList[i];
+            //이렇게 한다고 Obj의 CardBasic에 들어가지 않는다.
             obj.SetActive(true);
         }
     }
 
     private void AddObj()
     {
-       GameObject obj = Instantiate(prefab, this.transform);
+        GameObject obj = Instantiate(prefab, Canvas.transform);
         CardBasic tempCard = obj.GetComponent<CardBasic>();
-        obj.transform.SetParent(transform);
         obj.SetActive(true); 
     }
     /*
