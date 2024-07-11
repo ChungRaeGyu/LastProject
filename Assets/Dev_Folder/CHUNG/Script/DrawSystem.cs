@@ -51,7 +51,7 @@ public class DrawSystem : MonoBehaviour
             else if(random<95){
                 //희귀카드뽑기
                 int randomCard = Random.Range(0, rarityCards.Count);
-                GameObject tempObj = Instantiate(rarityCards[randomCard].gameObject);
+                GameObject tempObj = Instantiate(rarityCards[randomCard].gameObject, board.transform);
                 tempObj.GetComponentInChildren<Image>().sprite = rarityCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(rarityCards[randomCard]);
                 tempCardObj.Add(tempObj);
@@ -59,7 +59,7 @@ public class DrawSystem : MonoBehaviour
             else{
                 //영웅카드뽑기
                 int randomCard = Random.Range(0, heroCards.Count);
-                GameObject tempObj= Instantiate(heroCards[randomCard].gameObject);
+                GameObject tempObj= Instantiate(heroCards[randomCard].gameObject, board.transform);
                 tempObj.GetComponentInChildren<Image>().sprite = heroCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(heroCards[randomCard]);
                 tempCardObj.Add(tempObj);

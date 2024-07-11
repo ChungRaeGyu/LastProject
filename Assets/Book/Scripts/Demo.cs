@@ -59,20 +59,6 @@ public class Demo : MonoBehaviour
     }
     void GachaPage()
     {
-        if (currentPage == 3) return;
-        if (currentPage > 3)
-        {
-            bookController.PreviousPage();
-        }
-        else
-        {
-            bookController.NextPage();
-        }
-        currentPage = 3;
-        StartCoroutine(UpdatePageDelayed());
-    }
-    void BookPage()
-    {
         if (currentPage == 1) return;
         if (currentPage > 1)
         {
@@ -85,13 +71,27 @@ public class Demo : MonoBehaviour
         currentPage = 1;
         StartCoroutine(UpdatePageDelayed());
     }
+    void BookPage()
+    {
+        if (currentPage == 2) return;
+        if (currentPage > 2)
+        {
+            bookController.PreviousPage();
+        }
+        else
+        {
+            bookController.NextPage();
+        }
+        currentPage = 2;
+        StartCoroutine(UpdatePageDelayed());
+    }
     void NextPage()
     {
-        if (currentPage == 0)
+        if (currentPage == 1)
         {
             bookAnim.animator.SetBool("Open", true);
         }
-        if (currentPage == 2)
+        if (currentPage == 3)
         {
             bookAnim.animator.SetBool("Open", false);
         }
@@ -102,11 +102,11 @@ public class Demo : MonoBehaviour
 
     void PreviousPage()
     {
-        if (currentPage == 1)
+        if (currentPage == 2)
         {
             bookAnim.animator.SetBool("Open", false);
         }
-        if (currentPage == 3)
+        if (currentPage == 4)
         {
             bookAnim.animator.SetBool("Open", true);
         }

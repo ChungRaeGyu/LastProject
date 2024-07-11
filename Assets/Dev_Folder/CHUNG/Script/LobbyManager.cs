@@ -35,6 +35,7 @@ public class LobbyManager : MonoBehaviour
         {
             if (i!=0&&i % 9 == 0) j++;
             GameObject temp = Instantiate(DataManager.Instance.cardObjs[i].gameObject, pages[j].transform);
+            temp.GetComponent<CardBasic>().cardBasic = DataManager.Instance.cardObjs[i];
             Instantiate(num, temp.transform);
         }
     }
