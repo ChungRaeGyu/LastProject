@@ -9,37 +9,35 @@ public class BasicAttack : CardBasic
     //이름
     //데이터 넣을꺼임
     [Header("CardData")]
-    
+
 
     private CardDrag cardDrag;
-    private CardCollision cardCollision;
+    private BezierDragLine bezierDragLine;
     private void Start()
     {
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
-        cardCollision = GetComponent<CardCollision>();
-        cardDrag = GetComponent<CardDrag>();        
+        bezierDragLine = GetComponent<BezierDragLine>();
+        cardDrag = GetComponent<CardDrag>();
     }
 
     public override bool TryUseCard()
     {
-        Monster targetMonster = cardCollision.currentMonster;
+        Monster targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
         {
-            //코스트가 충분할 때 
-            if (GameManager.instance.player.currentCost >= cost)
-            {
-                GameManager.instance.player.UseCost(cost);
+            bezierDragLine.DestroyAimingImage();
 
-                CardUse(targetMonster);
+            GameManager.instance.player.UseCost(cost);
 
-                DataManager.Instance.AddUsedCard(cardBasic);
+            CardUse(targetMonster);
 
-                GameManager.instance.handManager.RemoveCard(transform);
-                Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+            DataManager.Instance.AddUsedCard(cardBasic);
 
-                GameManager.instance.CheckAllMonstersDead();
-            }
+            GameManager.instance.handManager.RemoveCard(transform);
+            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+
+            GameManager.instance.CheckAllMonstersDead();
         }
 
         return true; // 카드 사용이 실패한 경우 시도했음을 반환

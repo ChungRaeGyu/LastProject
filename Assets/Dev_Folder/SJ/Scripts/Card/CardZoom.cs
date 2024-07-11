@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardZoom : MonoBehaviour
 {
@@ -12,6 +11,8 @@ public class CardZoom : MonoBehaviour
     private int originalSiblingIndex; // 초기 순서 저장 변수
     private bool isZoomed = false; // 확대 상태 체크
 
+    private static CardZoom currentlyZoomedCard = null; // 현재 확대된 카드
+
     private void Start()
     {
         originalScale = transform.localScale;
@@ -20,27 +21,30 @@ public class CardZoom : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        ZoomIn();
-
-        if (isZoomed)
+        if (currentlyZoomedCard == null || currentlyZoomedCard == this)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            transform.SetAsLastSibling(); // 맨 위로 올리기
+            ZoomIn();
         }
     }
 
     private void OnMouseExit()
     {
-        ZoomOut();
+        if (currentlyZoomedCard == this)
+        {
+            ZoomOut();
+        }
     }
 
     public void ZoomIn()
     {
-        if (isZoomed) return;
+        if (isZoomed || (currentlyZoomedCard != null && currentlyZoomedCard != this)) return;
 
         transform.localScale = originalScale * zoomScale;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.SetAsLastSibling(); // 맨 위로 올리기
 
         isZoomed = true;
+        currentlyZoomedCard = this; // 현재 확대된 카드로 설정
     }
 
     public void ZoomOut()
@@ -52,6 +56,7 @@ public class CardZoom : MonoBehaviour
         transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
 
         isZoomed = false;
+        currentlyZoomedCard = null; // 현재 확대된 카드 해제
     }
 
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)

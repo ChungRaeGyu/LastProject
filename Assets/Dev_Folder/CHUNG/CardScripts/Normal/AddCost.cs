@@ -25,20 +25,16 @@ public class AddCost : CardBasic
         Monster targetMonster = cardCollision.currentMonster;
         if (GameManager.instance.player != null)
         {
-            //코스트가 충분할 때 
-            if (GameManager.instance.player.currentCost >= cost)
-            {
-                GameManager.instance.player.UseCost(cost);
+            GameManager.instance.player.UseCost(cost);
 
-                CardUse(targetMonster);
+            CardUse(targetMonster);
 
-                DataManager.Instance.AddUsedCard(cardBasic);
+            DataManager.Instance.AddUsedCard(cardBasic);
 
-                GameManager.instance.handManager.RemoveCard(transform);
-                Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+            GameManager.instance.handManager.RemoveCard(transform);
+            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
-                GameManager.instance.CheckAllMonstersDead();
-            }
+            GameManager.instance.CheckAllMonstersDead();
         }
 
         return true; // 카드 사용이 실패한 경우 시도했음을 반환

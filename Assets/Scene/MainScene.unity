@@ -546,7 +546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -200, y: 300}
+  m_AnchoredPosition: {x: -200, y: 250}
   m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &237735469
@@ -813,7 +813,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -130, y: 160}
+  m_AnchoredPosition: {x: 300, y: 160}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &299659978
@@ -1183,10 +1183,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2049345850}
   - {fileID: 299659977}
   - {fileID: 1829902783}
   - {fileID: 757447477}
-  - {fileID: 2049345850}
   - {fileID: 64322058}
   - {fileID: 601170886}
   - {fileID: 1837100163}
@@ -1342,7 +1342,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -40, y: 40}
+  m_AnchoredPosition: {x: 120, y: -160}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &757447478
@@ -2787,11 +2787,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fbe354567a95744bc57c6106e6873d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardCardsPrefab: {fileID: 6951263451923166006, guid: bd340983e684f5a469db2f73569df88e, type: 3}
+  rewardCardPrefabs:
+  - {fileID: 4873129473516573618, guid: 8ffed5ef5d0f63f43b8b0633578375ec, type: 3}
+  - {fileID: 8329617498044423017, guid: 8bd2c47c0f054834f95040f71452347b, type: 3}
+  - {fileID: 6378047061485869098, guid: 8b2bff841566bcf4c92619e84c1dea51, type: 3}
+  - {fileID: 7405041661325243255, guid: be8db2c4f8b45904e8b22df7492b6b60, type: 3}
+  - {fileID: 1824323866248838445, guid: 0526618fa6d5c96439b6e961dd465454, type: 3}
+  - {fileID: 6447918245922251516, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
   CardSelectPanelCanvas: {fileID: 1837100163}
   cardSelectPanel: {fileID: 1837100162}
-  lobbyButton: {fileID: 237735469}
+  costImage: {fileID: 2049345851}
   turnEndButton: {fileID: 299659978}
+  UnUsedCards: {fileID: 1829902785}
+  UsedCards: {fileID: 757447479}
+  lobbyButton: {fileID: 237735469}
   openCardSelectionButton: {fileID: 291278686}
   fadeRewardPanel: {fileID: 64322059}
   rewardPanel: {fileID: 601170885}
@@ -2849,7 +2858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 40, y: 40}
+  m_AnchoredPosition: {x: -160, y: -160}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1829902784
@@ -3128,7 +3137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -725, y: -331}
+  m_AnchoredPosition: {x: -1100, y: -330}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2049345851
@@ -3209,7 +3218,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67f42a9632c59fd4f937ab709ce0f869, type: 2}
+  - {fileID: 2100000, guid: 84f777c8711d8834489748f92ae4150f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3313,6 +3322,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151009913e589e6489d42d1e350a36d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  defaultLineColor: {r: 1, g: 1, b: 1, a: 1}
+  hitLineColor: {r: 1, g: 0, b: 0, a: 1}
+  aimingImagePrefab: {fileID: 0}
 --- !u!4 &2066840970
 Transform:
   m_ObjectHideFlags: 0
@@ -3340,10 +3355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07f1134012016a4fb87e6b9e8c98b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p0: {x: 0, y: 0, z: 0}
-  p1: {x: 0, y: 0, z: 0}
-  p2: {x: 0, y: 0, z: 0}
-  p3: {x: 0, y: 0, z: 0}
 --- !u!1 &2097135469
 GameObject:
   m_ObjectHideFlags: 0

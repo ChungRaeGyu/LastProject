@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class CardDrag : MonoBehaviour
 {
     private Vector3 offset; // 드래그 시 마우스와 카드 사이의 거리
-    public bool isDragging = false; // 드래그 중인지 확인하는 변수
+    private bool isDragging = false; // 드래그 중인지 확인하는 변수
     private Vector3 originalPosition; // 카드의 원래 위치
     private Quaternion originalRotation; // 카드의 원래 회전
     private Vector3 fixedPosition; // 카드의 고정 위치
@@ -17,6 +16,8 @@ public class CardDrag : MonoBehaviour
     public float dragLimitY = -340; // 드래그 제한 Y값, 기본적으로 -340
     private int originalSiblingIndex; // 초기 순서 저장 변수
     private CardZoom cardZoom;
+
+    private BezierDragLine dragLine; // BezierDragLine 스크립트 참조 변수
 
     private void Start()
     {
@@ -31,6 +32,9 @@ public class CardDrag : MonoBehaviour
         fixedRotation = Quaternion.identity; // 고정 회전 설정
 
         originalSiblingIndex = transform.GetSiblingIndex();
+
+        // BezierDragLine 스크립트 컴포넌트 가져오기
+        dragLine = GetComponent<BezierDragLine>();
     }
 
     private void Update()
@@ -50,19 +54,26 @@ public class CardDrag : MonoBehaviour
                 rectTransform.anchoredPosition = fixedPosition;
                 transform.rotation = fixedRotation;
                 cardZoom.ZoomIn();
+
+                // 드래그 라인 그리기 시작
+                dragLine.StartDrawing(transform.position);
             }
-        }
-        else if (isFixed && rectTransform.anchoredPosition.y <= dragLimitY)
-        {
-            // 고정 상태에서 anchoredPosition.y 값이 dragLimitY 이하로 내려오면 다시 드래그 가능
-            isFixed = false;
+            else if (isFixed && rectTransform.anchoredPosition.y <= dragLimitY)
+            {
+                // 고정 상태에서 anchoredPosition.y 값이 dragLimitY 이하로 내려오면 다시 드래그 가능
+                isFixed = false;
+                // 드래그 라인 그리기 중지
+                if (dragLine != null)
+                {
+                    Debug.Log("dragLine이 null이 아닙니다.");
+                    dragLine.StopDrawing();
+                }
+            }
         }
     }
 
     private void OnMouseDown()
     {
-        Debug.Log($"{this.enabled}");
-
         if (!GameManager.instance.handManager.setCardEnd) return;
 
         // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
@@ -78,11 +89,18 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
-        Debug.Log($"{this.enabled}");
+        if (dragLine != null)
+        {
+            dragLine.StopDrawing();
+        }
 
         if (rectTransform.anchoredPosition.y > dragLimitY && !cardBasic.dragLineCard)
         {
             cardBasic.TryUseCard(); // 카드 사용 시도
+        }
+        else
+        {
+            cardBasic.TryUseCard();
         }
 
         isDragging = false;
