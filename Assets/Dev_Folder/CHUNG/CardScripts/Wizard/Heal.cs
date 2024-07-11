@@ -7,7 +7,7 @@ public class Heal : CardBasic
     //이름
     //데이터 넣을꺼임
     [Header("CardData")]
-    
+
 
     private CardDrag cardDrag;
 
@@ -25,7 +25,7 @@ public class Heal : CardBasic
 
             CardUse();
 
-            DataManager.Instance.AddUsedCard(cardBasic.cardBasic);
+            DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
             Destroy(gameObject); // 카드를 사용했으므로 카드를 제거
@@ -39,7 +39,7 @@ public class Heal : CardBasic
 
     public void CardUse(Monster targetMonster=null)
     {
-        GameManager.instance.effectManager.HealMethod(GameManager.instance.player, base.cardBasic);
+        GameManager.instance.effectManager.HealMethod(GameManager.instance.player, cardBasic);
         GameManager.instance.player.Heal(ability);
         //TODO : 애니메이션 넣어주기
     }
