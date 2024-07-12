@@ -62,6 +62,7 @@ public class EffectManager : MonoBehaviour
             {
                 monster.TakeDamage(tempCardInfo.ability);
             }
+            Debug.Log($"메테오로 인한 {monsters.Count}");
         }
         else
         {
