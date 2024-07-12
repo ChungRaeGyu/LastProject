@@ -48,7 +48,7 @@ public class CardBasic : MonoBehaviour
     public Rate rate;
     public GameObject effect;
     public bool dragLineCard;
-    public GameObject attackEffect;
+    public GameObject attackEffect = null;
     public virtual void CardUse(Monster targetMonster, Player player)
     {
         Debug.Log("CardBasic");

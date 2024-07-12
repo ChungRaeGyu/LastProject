@@ -24,17 +24,23 @@ public class CardZoom : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (currentlyZoomedCard == null || currentlyZoomedCard == this)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            ZoomIn();
+            if (currentlyZoomedCard == null || currentlyZoomedCard == this)
+            {
+                ZoomIn();
+            }
         }
     }
 
     private void OnMouseExit()
     {
-        if (currentlyZoomedCard == this)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            ZoomOut();
+            if (currentlyZoomedCard == this)
+            {
+                ZoomOut();
+            }
         }
     }
 

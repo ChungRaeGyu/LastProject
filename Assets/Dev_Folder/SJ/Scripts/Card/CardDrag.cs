@@ -19,11 +19,11 @@ public class CardDrag : MonoBehaviour
     private CardZoom cardZoom;
 
     private BezierDragLine dragLine; // BezierDragLine 스크립트 참조 변수
+    private Coroutine clickCoroutine; // 클릭 코루틴을 저장할 변수
+    private GameObject draggedCardPrefab;
 
     private void Start()
     {
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         cardBasic = GetComponent<CardBasic>();
         cardZoom = GetComponent<CardZoom>();
 
@@ -48,6 +48,8 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
             transform.position = cursorWorldPoint + offset; // 마우스와의 거리 유지하며 카드 이동
             transform.SetAsLastSibling(); // 맨 위로 올리기
+
+            if (SceneManager.GetActiveScene().buildIndex != 3) return;
 
             // 드래그 중 카드의 anchoredPosition.y 값이 dragLimitY 이상일 때 고정 위치로 이동
             if (rectTransform.anchoredPosition.y > dragLimitY && cardBasic.dragLineCard)
@@ -92,64 +94,78 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
-            // 여기에 1초 이상 눌렀을 때만 실행되는 걸 추가
-            StartCoroutine(DragAfterDelay());
+            clickCoroutine = StartCoroutine(OnClickDetect());
         }
     }
 
-    private IEnumerator DragAfterDelay()
+    private IEnumerator OnClickDetect()
     {
-        float delayTime = 1f; // 1초 이상 눌렀을 때 드래그 시작
+        float clickTime = 1f; // 클릭 감지 시간 설정 (1초)
         float elapsedTime = 0f;
-        bool canDrag = false;
+        bool isLongClick = false;
 
-        while (elapsedTime < delayTime)
+        while (elapsedTime < clickTime)
         {
             elapsedTime += Time.deltaTime;
 
-            // 1초 이상 눌렀을 때 드래그 가능하도록 설정
-            if (elapsedTime >= delayTime)
+            // 1초 이상 눌렀을 때
+            if (elapsedTime >= clickTime)
             {
-                canDrag = true;
+                isLongClick = true;
                 break;
             }
 
             yield return null; // 한 프레임씩 대기
         }
 
-        if (canDrag)
+        if (isLongClick)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
+            // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
+
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
             offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
             isDragging = true; // 드래그 시작
+
+            // 코루틴이 끝난 후 null로 초기화
+            clickCoroutine = null;
+        }
+        else
+        {
+            // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
+            Debug.Log("살짝 눌렀다.");
+
+            // 코루틴이 끝난 후 null로 초기화
+            clickCoroutine = null;
         }
     }
 
     private void OnMouseUp()
     {
-        if (dragLine != null)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            dragLine.StopDrawing();
-        }
-
-        if (!cardBasic.dragLineCard)
-        {
-            if (rectTransform.anchoredPosition.y > dragLimitY)
+            if (dragLine != null)
             {
-                cardBasic.TryUseCard(); // 카드 사용 시도
+                dragLine.StopDrawing();
             }
-        }
-        else
-        {
-            cardBasic.TryUseCard();
-        }
 
-        isDragging = false;
-        ResetPosition();
-        transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
-        cardZoom.ZoomOut();
+            if (!cardBasic.dragLineCard)
+            {
+                if (rectTransform.anchoredPosition.y > dragLimitY)
+                {
+                    cardBasic.TryUseCard(); // 카드 사용 시도
+                }
+            }
+            else
+            {
+                cardBasic.TryUseCard();
+            }
+
+            isDragging = false;
+            ResetPosition();
+            transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
+            cardZoom.ZoomOut();
+        }
     }
 
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)
