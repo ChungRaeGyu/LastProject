@@ -23,7 +23,7 @@ public class BasicAttack : CardBasic
 
     public override bool TryUseCard()
     {
-        Monster targetMonster = bezierDragLine.detectedMonster;
+        MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
         {
             bezierDragLine.DestroyAimingImage();
@@ -43,7 +43,7 @@ public class BasicAttack : CardBasic
         return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
-    public void CardUse(Monster targetMonster)
+    public void CardUse(MonsterCharacter targetMonster)
     {
         targetMonster.TakeDamage(ability);
         PlayPlayerAttackAnimation();

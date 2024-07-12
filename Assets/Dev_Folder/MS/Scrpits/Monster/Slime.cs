@@ -38,7 +38,7 @@ public class Slime : MonsterCharacter
         StartCoroutine(MonsterTurn());
     }
 
-    public IEnumerator MonsterTurn()
+    public override IEnumerator MonsterTurn()
     {
         GameManager.instance.player.TakeDamage(monsterStats.attackPower);
 
@@ -47,11 +47,15 @@ public class Slime : MonsterCharacter
             animator.SetTrigger("Attack");
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(1f);
 
-        // 공격 후에 필요한 다른 동작
-
-        // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();
+    }
+
+    protected override void Die()
+    {
+        GameManager.instance.RemoveMonsterDead(this);
+
+        base.Die();
     }
 }

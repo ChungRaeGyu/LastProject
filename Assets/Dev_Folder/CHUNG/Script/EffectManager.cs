@@ -30,7 +30,7 @@ public class EffectManager : MonoBehaviour
     }
     #endregion
     #region 마법공격
-    public void MagicAttackMethod(Monster targetMonster, Player player,CardBasic cardBasic)
+    public void MagicAttackMethod(MonsterCharacter targetMonster, Player player,CardBasic cardBasic)
     {
         tempPlayer = player;
         tempCardInfo = cardBasic;
@@ -45,7 +45,7 @@ public class EffectManager : MonoBehaviour
         tempCardInfo = cardBasic;
         StartCoroutine(MagicAttack(true));
     }
-    IEnumerator MagicAttack(bool isRange,Monster targetMonster=null)
+    IEnumerator MagicAttack(bool isRange,MonsterCharacter targetMonster=null)
     {
         Debug.Log("코루틴 실행중 0.5초전");
 
@@ -55,7 +55,7 @@ public class EffectManager : MonoBehaviour
         if (isRange)
         {
             RangeAttack.AttackAnim(tempCardInfo);
-            foreach (Monster monster in GameManager.instance.monsters)
+            foreach (MonsterCharacter monster in GameManager.instance.monsters)
             {
                 monster.TakeDamage(tempCardInfo.ability);
             }

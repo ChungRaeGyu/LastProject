@@ -36,7 +36,7 @@ public class FireSlime : MonsterCharacter
         StartCoroutine(MonsterTurn());
     }
 
-    public IEnumerator MonsterTurn()
+    public override IEnumerator MonsterTurn()
     {
         if (random.Next(0, 100) < 15 && !stronger)
         {

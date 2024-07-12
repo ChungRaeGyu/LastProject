@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public Transform cardSpawnPoint; // 카드 소환 위치
 
     public Player player { get; private set; }
-    public List<Monster> monsters = new List<Monster>();
+    public List<MonsterCharacter> monsters = new List<MonsterCharacter>();
 
     [Header("Manager")]
     public HandManager handManager; // 손 패 매니저
@@ -67,8 +67,8 @@ public class GameManager : MonoBehaviour
             foreach (Transform spawnPoint in monsterSpawnPoints)
             {
                 GameObject monsterObject = Instantiate(monsterPrefab, spawnPoint.position, Quaternion.identity);
-                Monster monster = monsterObject.GetComponent<Monster>();
-                monsters.Add(monster);
+                MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
+                monsters.Add(monsterCharacter);
             }
         }
     }
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
             // 모든 몬스터의 턴 순차적으로 진행
-            foreach (Monster monster in monsters)
+            foreach (MonsterCharacter monster in monsters)
             {
                 if (monster.currenthealth > 0)
                 {
@@ -158,10 +158,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void RemoveMonsterDead(Monster monster)
+    public void RemoveMonsterDead(MonsterCharacter monster)
     {
         monsters.Remove(monster);
-
         CheckAllMonstersDead();
     }
 

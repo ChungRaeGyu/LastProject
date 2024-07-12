@@ -65,4 +65,9 @@ public class MonsterCharacter : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public virtual IEnumerator MonsterTurn()
+    {
+        yield return null;
+    }
 }

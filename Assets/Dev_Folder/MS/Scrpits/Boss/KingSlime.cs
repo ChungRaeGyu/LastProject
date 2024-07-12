@@ -39,7 +39,7 @@ public class KingSlime : MonsterCharacter
         StartCoroutine(MonsterTurn());
     }
 
-    public IEnumerator MonsterTurn()
+    public override IEnumerator MonsterTurn()
     {
         bossTurnCount++;
         Debug.Log("----- 보스의 " + bossTurnCount + "턴 째 -----");

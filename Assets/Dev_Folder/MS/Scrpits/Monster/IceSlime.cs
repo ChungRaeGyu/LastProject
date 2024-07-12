@@ -37,7 +37,7 @@ public class IceSlime : MonsterCharacter
         StartCoroutine(MonsterTurn());
     }
 
-    public IEnumerator MonsterTurn()
+    public override IEnumerator MonsterTurn()
     {
         if (dotDealCount <= 2 && !dotDealOnOff) // 시작하자마자 도트딜을 걸어버림
         {

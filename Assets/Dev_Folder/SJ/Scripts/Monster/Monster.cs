@@ -7,8 +7,6 @@ public class Monster : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
-    private PlayerStats playerStats;
-
     private System.Random random = new System.Random();
 
     private int counter = 0;  // 카운트 변수
@@ -43,7 +41,7 @@ public class Monster : MonsterCharacter
         StartCoroutine(MonsterTurn());
     }
 
-    public IEnumerator MonsterTurn()
+    public override IEnumerator MonsterTurn()
     {
         //counter++;
         //if(counter >= 2 && !counterOnOff) // 2턴에 시작

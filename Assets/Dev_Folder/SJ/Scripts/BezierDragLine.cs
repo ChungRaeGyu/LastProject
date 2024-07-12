@@ -15,7 +15,7 @@ public class BezierDragLine : MonoBehaviour
     public Color hitLineColor = Color.red; // 몬스터와 충돌 시 라인 색상
     public GameObject aimingImagePrefab; // 조준 이미지 프리팹
     public GameObject aimingImageInstance { get; private set; } // 현재 조준 이미지 오브젝트
-    public Monster detectedMonster{ get; private set; }
+    public MonsterCharacter detectedMonster{ get; private set; }
 
     void Start()
     {
@@ -73,7 +73,7 @@ public class BezierDragLine : MonoBehaviour
         if (hit.collider != null)
         {
             // 충돌한 객체가 몬스터인지 확인하고, 맞다면 해당 몬스터 저장
-            Monster monster = hit.collider.GetComponent<Monster>();
+            MonsterCharacter monster = hit.collider.GetComponent<MonsterCharacter>();
             if (monster != null)
             {
                 detectedMonster = monster;
