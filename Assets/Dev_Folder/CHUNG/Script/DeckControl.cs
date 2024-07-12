@@ -27,7 +27,7 @@ public class DeckControl : MonoBehaviour
         int endCard = DataManager.Instance.deckList.Count-1;
         DataManager.Instance.deckList[endCard].GetComponent<Card>().cardObj.currentCount++;
         DataManager.Instance.deckList.RemoveAt(endCard);
-        DescriptionManager.Instance.bookCardControl.UpdateBook();
+        LobbyManager.instance.InvokeCount();
         //UpdateDeck();
     }
 

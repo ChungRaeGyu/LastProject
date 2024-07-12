@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class CardDrag : MonoBehaviour
+public class CardDrag : MonoBehaviour,IPointerEnterHandler
 {
     private Vector3 offset; // 드래그 시 마우스와 카드 사이의 거리
     private bool isDragging = false; // 드래그 중인지 확인하는 변수
@@ -128,5 +129,11 @@ public class CardDrag : MonoBehaviour
     {
         transform.position = originalPosition; // 카드 위치 초기화
         transform.rotation = originalRotation; // 카드 회전 초기화
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("들어옴");
+        Instantiate(cardBasic.gameObject);
     }
 }

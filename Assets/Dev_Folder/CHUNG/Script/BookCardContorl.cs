@@ -14,25 +14,10 @@ public class BookCardControl : MonoBehaviour
         childCard = this.GetComponentInChildren<Card>();
         
     }
-    public void OpenPanel(){
-        DescriptionManager.Instance.bookCardControl = this;
-        DescriptionManager.Instance.currentCard = childCard;
-        DescriptionManager.Instance.OpenPanel();
-    }
-    private void OnEnable() {
-        UpdateBook();
-    }
 
-    public void UpdateBook(){
-        text.text = childCard.cardObj.currentCount.ToString();
-        if (childCard.cardObj.currentCount <= 0)
-        {
-            childCard.cardObj.currentCount = 0;
-            button.enabled = false;
-        }
-        else
-        {
-            button.enabled = true;
-        }
+    //버튼을 눌렀을 때 그 카드의 값을 받아서 가야해
+    public void OpenPanel(){
+        //DescriptionManager.Instance.currentCard = childCard;
+        
     }
 }
