@@ -21,6 +21,7 @@ public class EffectManager : MonoBehaviour
         //현재 안쓰는 중
         PlayerEffectMethod(tempPlayer.transform.position);
         AttackEffectMethod(targetMonster.transform.position);
+
     }
     public void RangeAttackMethod(CardBasic cardBasic)
     {
@@ -47,11 +48,8 @@ public class EffectManager : MonoBehaviour
     }
     IEnumerator MagicAttack(bool isRange,MonsterCharacter targetMonster=null)
     {
-        Debug.Log("코루틴 실행중 0.5초전");
-
         PlayerEffectMethod(tempPlayer.transform.position);
         yield return new WaitForSeconds(1f);
-        Debug.Log("코루틴 실행중 0.5초후");
 
         List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
 
