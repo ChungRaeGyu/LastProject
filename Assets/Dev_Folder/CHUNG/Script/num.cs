@@ -20,6 +20,6 @@ public class num : MonoBehaviour
     public void CountUpdate()
     {
         Debug.Log("CoutUpdate½ÇÇà");
-        text.text = cardBasic.currentCount.ToString();
+        text.text = cardBasic.cardBasic.currentCount.ToString();
     }
 }
