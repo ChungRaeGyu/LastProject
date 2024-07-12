@@ -36,10 +36,7 @@ public class MonsterCharacter : MonoBehaviour
 
         SpawnDamageText(actualDamage, transform.position);
 
-        if (IsDead())
-        {
-            Die();
-        }
+ 
     }
 
     private void SpawnDamageText(int damageAmount, Vector3 position)

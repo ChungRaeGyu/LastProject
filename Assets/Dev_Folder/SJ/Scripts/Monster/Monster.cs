@@ -14,6 +14,7 @@ public class Monster : MonsterCharacter
 
     private void Start()
     {
+        GameManager.instance.monsterDie += DieAction;
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
@@ -38,6 +39,9 @@ public class Monster : MonsterCharacter
 
     public void StartMonsterTurn()
     {
+        //지워도 되는 건가?
+        Debug.Log("StartMonsterTurn실행 : " + IsDead());
+
         StartCoroutine(MonsterTurn());
     }
 
@@ -76,5 +80,13 @@ public class Monster : MonsterCharacter
         GameManager.instance.RemoveMonsterDead(this);
 
         base.Die();
+    }
+    public void DieAction()
+    {
+        Debug.Log("DieAction");
+        if (IsDead())
+        {
+            Die();
+        }
     }
 }

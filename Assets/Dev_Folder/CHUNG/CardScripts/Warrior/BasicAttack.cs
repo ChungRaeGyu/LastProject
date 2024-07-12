@@ -46,6 +46,7 @@ public class BasicAttack : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         targetMonster.TakeDamage(ability);
+        GameManager.instance.MonsterDieAction();
         PlayPlayerAttackAnimation();
     }
 
