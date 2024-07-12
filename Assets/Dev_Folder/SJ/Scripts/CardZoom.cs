@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardZoom : MonoBehaviour
 {
@@ -15,23 +16,31 @@ public class CardZoom : MonoBehaviour
 
     private void Start()
     {
+        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
+
         originalScale = transform.localScale;
         originalSiblingIndex = transform.GetSiblingIndex();
     }
 
     private void OnMouseEnter()
     {
-        if (currentlyZoomedCard == null || currentlyZoomedCard == this)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            ZoomIn();
+            if (currentlyZoomedCard == null || currentlyZoomedCard == this)
+            {
+                ZoomIn();
+            }
         }
     }
 
     private void OnMouseExit()
     {
-        if (currentlyZoomedCard == this)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            ZoomOut();
+            if (currentlyZoomedCard == this)
+            {
+                ZoomOut();
+            }
         }
     }
 
