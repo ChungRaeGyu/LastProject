@@ -74,17 +74,25 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!GameManager.instance.handManager.setCardEnd) return;
-
-        // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
-        if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
-            Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
-            Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-            offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
-            isDragging = true; // 드래그 시작
+            if (!GameManager.instance.handManager.setCardEnd) return;
+
+            // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
+            if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
+                Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
+                Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
+                offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
+                isDragging = true; // 드래그 시작
+            }
         }
+        else
+        {
+            
+        }
+
     }
 
     private void OnMouseUp()
