@@ -7,14 +7,18 @@ public class Slime : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private System.Random random = new System.Random();
+
     private void Start()
     {
         Canvas canvas = GameManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
+            int hpUp = random.Next(0, 6);
+
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth, transform.GetChild(1));
+            healthBarInstance.Initialized(monsterStats.maxhealth + hpUp, transform.GetChild(1));
         }
     }
 

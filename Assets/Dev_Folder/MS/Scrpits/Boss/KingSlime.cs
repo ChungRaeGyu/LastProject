@@ -10,6 +10,7 @@ public class KingSlime : MonsterCharacter
     private bool bossHeal = false;
     private bool strongAttack = false;
     private System.Random random = new System.Random();
+    private CountPos countPos;
 
     private void Start()
     {
@@ -49,7 +50,7 @@ public class KingSlime : MonsterCharacter
             Debug.Log(this.name + "이" + 30 + "만큼 회복했다!");
         }
 
-        if (bossTurnCount <= 4) // 3턴동안 공격력 2배 공격
+        if (bossTurnCount <= 4 && !strongAttack) // 3턴동안 공격력 2배 공격
         {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
             strongAttack = true;
