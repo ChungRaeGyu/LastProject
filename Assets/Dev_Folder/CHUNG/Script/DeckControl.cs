@@ -18,8 +18,7 @@ public class DeckControl : MonoBehaviour
     public void AddCard(CardBasic cardObj){
         //설명창에서 덱추가 버튼을 눌렀을 때
         //드래그해서 덱에 닿였을때 호출
-        DataManager.Instance.deckList.Add(cardObj);
-        AddObj();
+        AddObj(cardObj);
         Debug.Log("카드추가");
     }
     public void RemoveCard(){
@@ -49,10 +48,11 @@ public class DeckControl : MonoBehaviour
         }
     }
 
-    private void AddObj()
+    public void AddObj(CardBasic cardBasic)
     {
+        DataManager.Instance.deckList.Add(cardBasic);
         GameObject obj = Instantiate(prefab, Canvas.transform);
-        CardBasic tempCard = obj.GetComponent<CardBasic>();
+        obj.GetComponent<DeckListObj>().cardBasic= cardBasic;
         obj.SetActive(true); 
     }
     /*

@@ -10,6 +10,10 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     public List<GameObject> pages;
     public GameObject num;
+    public DeckControl deckControl;
+    public GameObject deckContent;
+    public GameObject deckCanvas;
+    public GameObject currentCanvas;
     public event Action OnCount;
     private void Awake()
     {
