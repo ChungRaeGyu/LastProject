@@ -10,27 +10,22 @@ public class Meteo : CardBasic
 
 
     private CardDrag cardDrag;
-    public BezierDragLine bezierDragLine;
 
     private void Start()
     {
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
-        bezierDragLine = GetComponent<BezierDragLine>();
         cardDrag = GetComponent<CardDrag>();
 
     }
 
     public override bool TryUseCard()
     {
-        MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
-        if (targetMonster != null && GameManager.instance.player != null)
+        if (GameManager.instance.player != null)
         {
-            bezierDragLine.DestroyAimingImage();
-
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -43,7 +38,7 @@ public class Meteo : CardBasic
         return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
-    public void CardUse(MonsterCharacter targetMonster)
+    public void CardUse(MonsterCharacter targetMonster = null)
     {
         GameManager.instance.effectManager.MagicRangeAttackMethod(GameManager.instance.player, cardBasic);
         //TODO : 애니메이션 넣어주기

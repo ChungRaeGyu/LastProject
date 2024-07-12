@@ -36,7 +36,7 @@ public class MonsterCharacter : MonoBehaviour
 
         SpawnDamageText(actualDamage, transform.position);
 
- 
+        DieAction();
     }
 
     private void SpawnDamageText(int damageAmount, Vector3 position)
@@ -66,5 +66,14 @@ public class MonsterCharacter : MonoBehaviour
     public virtual IEnumerator MonsterTurn()
     {
         yield return null;
+    }
+
+    public void DieAction()
+    {
+        Debug.Log("DieAction");
+        if (IsDead())
+        {
+            Die();
+        }
     }
 }

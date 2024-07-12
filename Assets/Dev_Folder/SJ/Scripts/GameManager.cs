@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     public Transform cardSpawnPoint; // 카드 소환 위치
 
     public Player player { get; private set; }
-    public List<Monster> monsters = new List<Monster>();
-    public event Action monsterDie;
+    public List<MonsterCharacter> monsters = new List<MonsterCharacter>();
+
     [Header("Manager")]
     public HandManager handManager; // 손 패 매니저
     public EffectManager effectManager;
@@ -142,8 +142,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitAndClearUI()
     {
-        UIManager.instance.ResetUIPositions();
         // 잠깐 기다림
+        yield return new WaitForSeconds(1.0f);
+        UIManager.instance.ResetUIPositions();
+        handManager.HideAllCards();
+        // 또 잠깐 기다림
         yield return new WaitForSeconds(1.0f);
 
         UIManager.instance.UIClear(true, false, true, true, true);
@@ -180,10 +183,4 @@ public class GameManager : MonoBehaviour
         handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
     }
-
-    public void MonsterDieAction()
-    {
-        monsterDie?.Invoke();
-    }
-
 }

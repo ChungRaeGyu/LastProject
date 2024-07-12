@@ -22,7 +22,7 @@ public class CardDrag : MonoBehaviour
     private void Start()
     {
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-        cardBasic = GetComponent<CardBasic>(); // 카드의 ScriptableObject 데이터 가져오기
+        cardBasic = GetComponent<CardBasic>();
         cardZoom = GetComponent<CardZoom>();
 
         // RectTransform 컴포넌트 가져오기
@@ -104,6 +104,7 @@ public class CardDrag : MonoBehaviour
 
         if (rectTransform.anchoredPosition.y > dragLimitY && !cardBasic.dragLineCard)
         {
+            Debug.Log("드래그 안하는 카드를 사용함.");
             cardBasic.TryUseCard(); // 카드 사용 시도
         }
         else

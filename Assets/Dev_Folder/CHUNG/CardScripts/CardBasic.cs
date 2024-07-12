@@ -43,7 +43,7 @@ public class CardBasic : MonoBehaviour
     public int ability;
     public int currentCount;
     public Sprite image;
-    public Sprite defaultImage; //뒷면
+    public Sprite defaultImage; //?�면
     public JOB job;
     public Rate rate;
     public GameObject effect;
