@@ -8,9 +8,10 @@ public class ButtonManager : MonoBehaviour
     //던전으로 들어가는 버튼
     public void GoToDungeon()
     {
-        DungeonManager.Instance.dungeonBoard.SetActive(false);
-        DungeonManager.Instance.dungeon.SetActive(true);
-        switch(gameObject.name)
+        DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
+        DungeonBoardManager.Instance.dungeon.SetActive(true);
+        SaveManager.Instance.accessDungeon = true;
+        switch (gameObject.name)
         {
             case "01_Start_Dungeon":
                 for (int i = 0; i < 5; i++)
@@ -24,9 +25,11 @@ public class ButtonManager : MonoBehaviour
                         DungeonManager.Instance.dungeonNum[i].SetActive(false);
                     }
                 }
+                SaveManager.Instance.accessDungeonNum = 1;
+                Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 
-            case "02_Slime_Dungeon":
+            case "02_Dungeon":
                 for (int i = 0; i < 5; i++)
                 {
                     if (i == 1)
@@ -38,6 +41,8 @@ public class ButtonManager : MonoBehaviour
                         DungeonManager.Instance.dungeonNum[i].SetActive(false);
                     }
                 }
+                SaveManager.Instance.accessDungeonNum = 2;
+                Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;
 
             case "03_Dungeon":
@@ -52,6 +57,8 @@ public class ButtonManager : MonoBehaviour
                         DungeonManager.Instance.dungeonNum[i].SetActive(false);
                     }
                 }
+                SaveManager.Instance.accessDungeonNum = 3;
+                Debug.Log("3번째 던전에 입장하셨습니다.");
                 break;
 
             case "04_Dungeon":
@@ -66,6 +73,8 @@ public class ButtonManager : MonoBehaviour
                         DungeonManager.Instance.dungeonNum[i].SetActive(false);
                     }
                 }
+                SaveManager.Instance.accessDungeonNum = 4;
+                Debug.Log("4번째 던전에 입장하셨습니다.");
                 break;
 
             case "05_Dungeon":
@@ -80,6 +89,8 @@ public class ButtonManager : MonoBehaviour
                         DungeonManager.Instance.dungeonNum[i].SetActive(false);
                     }
                 }
+                SaveManager.Instance.accessDungeonNum = 5;
+                Debug.Log("5번째 던전에 입장하셨습니다.");
                 break;
         }
     }
@@ -87,13 +98,15 @@ public class ButtonManager : MonoBehaviour
     // 던전 보드로 돌아가는 버튼
     public void BoardBtn()
     {
-        DungeonManager.Instance.dungeonBoard.SetActive(true);
-        DungeonManager.Instance.dungeon.SetActive(false);
+        SaveManager.Instance.accessDungeon = false;
+        DungeonBoardManager.Instance.dungeonBoard.SetActive(true);
+        DungeonBoardManager.Instance.dungeon.SetActive(false);
     }
 
     //로비로 돌아가는 버튼
     public void HomeBtn()
     {
+        SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(1);
         //SceneManager.LoadScene("Lobby");
     }
@@ -111,12 +124,5 @@ public class ButtonManager : MonoBehaviour
         DungeonManager.Instance.eventScene.SetActive(false);
         DungeonManager.Instance.storeScene.SetActive(false);
         DungeonManager.Instance.bossScene.SetActive(false);
-    }
-
-    //보스 클리어 후 로비로 가는 버튼
-    public void BossClear()
-    {
-        SceneManager.LoadScene(1);
-        //SceneManager.LoadScene("Lobby");
     }
 }

@@ -41,20 +41,21 @@ public class Stage : MonoBehaviour
 
     public void BattleBtn()
     {
-        DungeonManager.Instance.playerPosition = stagePosition;
+        SaveManager.Instance.playerPosition = stagePosition;
+        //DungeonManager.Instance.battleScene.SetActive(true);
         SceneManager.LoadScene(3);
         DataManager.Instance.SuffleDeckList();
     }
 
     public void EventBtn()
     {
-        DungeonManager.Instance.playerPosition = stagePosition;
+        SaveManager.Instance.playerPosition = stagePosition;
         DungeonManager.Instance.eventScene.SetActive(true);
     }
 
     public void StoreBtn()
     {
-        DungeonManager.Instance.playerPosition = stagePosition;
+        SaveManager.Instance.playerPosition = stagePosition;
         DungeonManager.Instance.storeScene.SetActive(true);
     }
 }
