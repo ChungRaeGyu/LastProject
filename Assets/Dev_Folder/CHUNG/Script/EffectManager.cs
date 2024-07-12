@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -17,8 +18,10 @@ public class EffectManager : MonoBehaviour
     #region 물리공격
     public void AttackMethod(Monster targetMonster, Player player,CardSO cardSO)
     {
+        //현재 안쓰는 중
         PlayerEffectMethod(tempPlayer.transform.position);
         AttackEffectMethod(targetMonster.transform.position);
+        GameManager.instance.MonsterDieAction();
     }
     public void RangeAttackMethod(CardBasic cardBasic)
     {
@@ -27,6 +30,7 @@ public class EffectManager : MonoBehaviour
         {
             monster.TakeDamage(tempCardInfo.ability);
         }
+        GameManager.instance.MonsterDieAction();
     }
     #endregion
     #region 마법공격
@@ -35,9 +39,7 @@ public class EffectManager : MonoBehaviour
         tempPlayer = player;
         tempCardInfo = cardBasic;
         //단일공격
-        Debug.Log("코루틴 실행");
         StartCoroutine(MagicAttack(false,targetMonster));
-        Debug.Log("코루틴 종료");
     }
     public void MagicRangeAttackMethod(Player player,CardBasic cardBasic)
     {
@@ -54,7 +56,7 @@ public class EffectManager : MonoBehaviour
         Debug.Log("코루틴 실행중 0.5초후");
         if (isRange)
         {
-            RangeAttack.AttackAnim(tempCardInfo);
+            RangeAttack.AttackAnim(tempCardInfo);            
             foreach (Monster monster in GameManager.instance.monsters)
             {
                 monster.TakeDamage(tempCardInfo.ability);
@@ -65,6 +67,8 @@ public class EffectManager : MonoBehaviour
             AttackEffectMethod(targetMonster.transform.position);
             targetMonster.TakeDamage(tempCardInfo.ability);
         }
+
+        GameManager.instance.MonsterDieAction();
     }
     #endregion
     #region 버프 및 기타 능력(Player에게만 이팩트 존재)
@@ -98,17 +102,17 @@ public class EffectManager : MonoBehaviour
     private void AttackEffectMethod(Vector2 position)
     {
         GameObject prefab = tempCardInfo.attackEffect;
-        Instantiate(prefab, position, prefab.transform.rotation);
-        StartCoroutine(EndOfParticle(prefab));
-        Debug.Log("이펙트 실행");
+        GameObject tempPrefab = Instantiate(prefab, position, prefab.transform.rotation);
+        if (prefab.name == "lightingAttack") return;
+        StartCoroutine(EndOfParticle(tempPrefab));
     }
 
     private void PlayerEffectMethod(Vector2 position)
     {
 
         GameObject prefab = tempCardInfo.effect;
-        Instantiate(prefab, position, prefab.transform.rotation);
-        StartCoroutine(EndOfParticle(prefab));
+        GameObject tempPrefab = Instantiate(prefab, position, prefab.transform.rotation);
+        StartCoroutine(EndOfParticle(tempPrefab));
 
     }
     #endregion
@@ -116,9 +120,16 @@ public class EffectManager : MonoBehaviour
 
     public IEnumerator EndOfParticle(GameObject particle)
     {
-        
-        yield return new WaitForSecondsRealtime(particle.GetComponent<ParticleSystem>().main.duration);
-
-        Destroy(particle);
+        if (particle.TryGetComponent<ParticleSystem>(out var particleSystem)){
+            Debug.Log("Try"+particle.name);
+            yield return new WaitForSecondsRealtime(particleSystem.main.duration);
+        }else
+        {
+            Debug.Log("normal"+ particle.name);
+            particleSystem = particle.GetComponentInChildren<ParticleSystem>();
+            yield return new WaitForSecondsRealtime(particleSystem.main.duration);
+        }
+        //yield return new WaitForSecondsRealtime(particleSystem.main.duration);
+        DestroyImmediate(particle);
     }
 }

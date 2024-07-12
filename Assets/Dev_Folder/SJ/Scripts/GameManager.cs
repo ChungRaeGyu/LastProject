@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,11 +27,10 @@ public class GameManager : MonoBehaviour
 
     public Player player { get; private set; }
     public List<Monster> monsters = new List<Monster>();
-
+    public event Action monsterDie;
     [Header("Manager")]
     public HandManager handManager; // 손 패 매니저
     public EffectManager effectManager;
-
     private void Awake()
     {
         if (instance == null)
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
-
+            
             // 모든 몬스터의 턴 순차적으로 진행
             foreach (Monster monster in monsters)
             {
@@ -181,4 +181,10 @@ public class GameManager : MonoBehaviour
         handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
     }
+
+    public void MonsterDieAction()
+    {
+        monsterDie?.Invoke();
+    }
+
 }
