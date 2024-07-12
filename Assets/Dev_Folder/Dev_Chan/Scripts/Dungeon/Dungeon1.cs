@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dungeon1 : Dungeon
 {
     void Start()
     {
-        DungeonManager.Instance.playerPosition = stageNum[0].transform.position;
+        SaveManager.Instance.playerPosition = stageNum[0].transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        if (DungeonManager.Instance.playerPosition == stageNum[0].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[0].transform.position)
         {
             for (int i = 0; i<stageBtn.Length; i++)
             {
@@ -27,7 +28,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[1].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[1].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -41,7 +42,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[2].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[2].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -55,7 +56,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[3].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[3].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -69,7 +70,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[4].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[4].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -83,7 +84,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[5].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[5].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -97,7 +98,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[6].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[6].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -111,7 +112,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[7].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[7].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -125,7 +126,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[8].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[8].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -139,7 +140,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[9].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[9].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -153,7 +154,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[10].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[10].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -167,7 +168,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[11].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[11].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -181,7 +182,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[12].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[12].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -195,7 +196,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[13].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[13].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -209,7 +210,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[14].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[14].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -223,7 +224,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[15].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[15].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -237,11 +238,11 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[16].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[16].transform.position)
         {
             //Clear ÆÐ³Î
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[17].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[17].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -255,7 +256,7 @@ public class Dungeon1 : Dungeon
                 }
             }
         }
-        if (DungeonManager.Instance.playerPosition == stageNum[18].transform.position)
+        if (SaveManager.Instance.playerPosition == stageNum[18].transform.position)
         {
             for (int i = 0; i < stageBtn.Length; i++)
             {
@@ -273,11 +274,11 @@ public class Dungeon1 : Dungeon
 
     public void Warp1()
     {
-        DungeonManager.Instance.playerPosition = stageNum[13].transform.position;
+        SaveManager.Instance.playerPosition = stageNum[13].transform.position;
     }
 
     public void Warp2()
     {
-        DungeonManager.Instance.playerPosition = stageNum[9].transform.position;
+        SaveManager.Instance.playerPosition = stageNum[9].transform.position;
     }
 }
