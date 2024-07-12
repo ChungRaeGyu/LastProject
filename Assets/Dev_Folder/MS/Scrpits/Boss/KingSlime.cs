@@ -43,7 +43,7 @@ public class KingSlime : MonsterCharacter
     {
         bossTurnCount++;
         Debug.Log("----- 보스의 " + bossTurnCount + "턴 째 -----");
-        if (monsterStats.maxhealth < 50 && !bossHeal) // 피 50 이하로 떨어질 때 30 회복 '한 번'만 하기
+        if (monsterStats.maxhealth < monsterStats.maxhealth / 2 && !bossHeal) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
         {
             monsterStats.maxhealth += 30;
             bossHeal = true;
@@ -57,7 +57,7 @@ public class KingSlime : MonsterCharacter
             Debug.Log(this.name + "초반 공격" + monsterStats.attackPower * 2 + "데미지");
         }
 
-        else if (bossTurnCount % 10 == 0) // 10턴 뒤 확률로 공격력 2배 공격
+        else if (bossTurnCount % 10 == 0) // 10턴 뒤 공격력 3배 공격
         {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
             Debug.Log(this.name + "이 강한 공격을 했다!" + monsterStats.attackPower * 3 + "데미지");
