@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +23,7 @@ public class CardDrag : MonoBehaviour
     private void Start()
     {
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
+
         cardBasic = GetComponent<CardBasic>();
         cardZoom = GetComponent<CardZoom>();
 
@@ -90,9 +92,39 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
+            // 여기에 1초 이상 눌렀을 때만 실행되는 걸 추가
+            StartCoroutine(DragAfterDelay());
+        }
+    }
 
+    private IEnumerator DragAfterDelay()
+    {
+        float delayTime = 1f; // 1초 이상 눌렀을 때 드래그 시작
+        float elapsedTime = 0f;
+        bool canDrag = false;
+
+        while (elapsedTime < delayTime)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // 1초 이상 눌렀을 때 드래그 가능하도록 설정
+            if (elapsedTime >= delayTime)
+            {
+                canDrag = true;
+                break;
+            }
+
+            yield return null; // 한 프레임씩 대기
         }
 
+        if (canDrag)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
+            Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
+            Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
+            offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
+            isDragging = true; // 드래그 시작
+        }
     }
 
     private void OnMouseUp()
