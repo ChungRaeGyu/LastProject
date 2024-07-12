@@ -9,9 +9,6 @@ public class Monster : MonsterCharacter
 
     private System.Random random = new System.Random();
 
-    private int counter = 0;  // 카운트 변수
-    private bool counterOnOff = false;
-
     private void Start()
     {
         GameManager.instance.monsterDie += DieAction;

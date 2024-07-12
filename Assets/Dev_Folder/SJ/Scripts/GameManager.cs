@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public Transform cardSpawnPoint; // 카드 소환 위치
 
     public Player player { get; private set; }
-    public List<Monster> monsters = new List<Monster>();
+    public List<MonsterCharacter> monsters = new List<MonsterCharacter>();
     public event Action monsterDie;
     [Header("Manager")]
     public HandManager handManager; // 손 패 매니저
