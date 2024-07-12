@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Stage : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class Stage : MonoBehaviour
     public void BattleBtn()
     {
         DungeonManager.Instance.playerPosition = stagePosition;
-        DungeonManager.Instance.battleScene.SetActive(true);
+        SceneManager.LoadScene(3);
     }
 
     public void EventBtn()

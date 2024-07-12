@@ -45,19 +45,19 @@ public class Monster : MonsterCharacter
 
     public IEnumerator MonsterTurn()
     {
-        counter++;
-        if(counter >= 2 && !counterOnOff) // 2턴에 시작
-        {
-            Debug.Log(this.name + "디버프 를 걸었다! " + 3 + " 의 데미지를 입었다!");
-            counterOnOff = true; // 디버프 활성화
-            GameManager.instance.player.TakeDamage(playerStats.maxhealth - 3); // player쪽에 이미지 띄우기
-            if(counter >= 5 && !counterOnOff) // 2,3,4 턴 까지 도트 데미지
-            {
-                counterOnOff = false; // 디버프 비활성화
-                counter = 0; // 카운터 초기화 다시 0턴부터
-                Debug.Log(this.name + "디버프 끝! ");
-            }
-        }
+        //counter++;
+        //if(counter >= 2 && !counterOnOff) // 2턴에 시작
+        //{
+        //    Debug.Log(this.name + "디버프 를 걸었다! " + 3 + " 의 데미지를 입었다!");
+        //    counterOnOff = true; // 디버프 활성화
+        //    GameManager.instance.player.TakeDamage(playerStats.maxhealth - 3); // player쪽에 이미지 띄우기
+        //    if(counter >= 5 && !counterOnOff) // 2,3,4 턴 까지 도트 데미지
+        //    {
+        //        counterOnOff = false; // 디버프 비활성화
+        //        counter = 0; // 카운터 초기화 다시 0턴부터
+        //        Debug.Log(this.name + "디버프 끝! ");
+        //    }
+        //}
         GameManager.instance.player.TakeDamage(monsterStats.attackPower);
 
         if (animator != null)
