@@ -16,21 +16,20 @@ public class EffectManager : MonoBehaviour
     public CardBasic tempCardInfo;
 
     #region 물리공격
-    public void AttackMethod(Monster targetMonster, Player player,CardSO cardSO)
+    public void AttackMethod(MonsterCharacter targetMonster, Player player,CardSO cardSO)
     {
         //현재 안쓰는 중
         PlayerEffectMethod(tempPlayer.transform.position);
         AttackEffectMethod(targetMonster.transform.position);
-        GameManager.instance.MonsterDieAction();
+
     }
     public void RangeAttackMethod(CardBasic cardBasic)
     {
         tempCardInfo = cardBasic;
-        foreach (Monster monster in GameManager.instance.monsters)
+        foreach (MonsterCharacter monster in GameManager.instance.monsters)
         {
             monster.TakeDamage(tempCardInfo.ability);
         }
-        GameManager.instance.MonsterDieAction();
     }
     #endregion
     #region 마법공격
@@ -49,26 +48,25 @@ public class EffectManager : MonoBehaviour
     }
     IEnumerator MagicAttack(bool isRange,MonsterCharacter targetMonster=null)
     {
-        Debug.Log("코루틴 실행중 0.5초전");
-
         PlayerEffectMethod(tempPlayer.transform.position);
         yield return new WaitForSeconds(1f);
-        Debug.Log("코루틴 실행중 0.5초후");
+
+        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
+
         if (isRange)
         {
             RangeAttack.AttackAnim(tempCardInfo);
-            foreach (MonsterCharacter monster in GameManager.instance.monsters)
+            foreach (MonsterCharacter monster in monsters)
             {
                 monster.TakeDamage(tempCardInfo.ability);
             }
+            Debug.Log($"메테오로 인한 {monsters.Count}");
         }
         else
         {
             AttackEffectMethod(targetMonster.transform.position);
             targetMonster.TakeDamage(tempCardInfo.ability);
         }
-
-        GameManager.instance.MonsterDieAction();
     }
     #endregion
     #region 버프 및 기타 능력(Player에게만 이팩트 존재)

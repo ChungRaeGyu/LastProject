@@ -11,7 +11,6 @@ public class Monster : MonsterCharacter
 
     private void Start()
     {
-        GameManager.instance.monsterDie += DieAction;
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
@@ -78,12 +77,5 @@ public class Monster : MonsterCharacter
 
         base.Die();
     }
-    public void DieAction()
-    {
-        Debug.Log("DieAction");
-        if (IsDead())
-        {
-            Die();
-        }
-    }
+
 }

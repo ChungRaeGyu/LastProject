@@ -172,4 +172,12 @@ public class HandManager : MonoBehaviour
         UpdateCardCountText();
         UpdatUsedCardCountText();
     }
+
+    public void HideAllCards()
+    {
+        foreach (Transform card in cards)
+        {
+            StartCoroutine(MoveCard(card, card.position + Vector3.down * 10f, card.rotation, moveDuration));
+        }
+    }
 }

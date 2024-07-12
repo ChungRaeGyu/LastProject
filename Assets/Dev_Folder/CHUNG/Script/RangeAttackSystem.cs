@@ -21,7 +21,6 @@ public class RangeAttackSystem : MonoBehaviour
     IEnumerator AttackMeteo(CardBasic cardBasic,float delay, float random)
     {
         yield return new WaitForSecondsRealtime(delay);
-        Debug.Log(random);
         GameObject meteo = Instantiate(cardBasic.attackEffect, new Vector2(random, 0), cardBasic.attackEffect.transform.rotation);
         StartCoroutine(GameManager.instance.effectManager.EndOfParticle(meteo));
         meteo.SetActive(true);

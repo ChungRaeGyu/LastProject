@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CardZoom : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class CardZoom : MonoBehaviour
 
     private void Start()
     {
+        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
+
         originalScale = transform.localScale;
         originalSiblingIndex = transform.GetSiblingIndex();
     }

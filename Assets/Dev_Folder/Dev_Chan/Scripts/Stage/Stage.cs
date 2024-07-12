@@ -43,6 +43,7 @@ public class Stage : MonoBehaviour
     {
         DungeonManager.Instance.playerPosition = stagePosition;
         SceneManager.LoadScene(3);
+        DataManager.Instance.SuffleDeckList();
     }
 
     public void EventBtn()
