@@ -74,6 +74,7 @@ public class Demo : MonoBehaviour
     void BookPage()
     {
         if (currentPage == 2) return;
+        bookAnim.animator.SetBool("Open", true);
         if (currentPage > 2)
         {
             bookController.PreviousPage();

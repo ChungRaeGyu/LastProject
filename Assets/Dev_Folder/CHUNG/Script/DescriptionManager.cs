@@ -44,11 +44,10 @@ public class DescriptionManager : MonoBehaviour
     public DeckControl deck;
 
     [Header("intoScript")]
-    public BookCardControl bookCardControl;
-    public Card currentCard;
+    public CardBasic currentCard;
 
     [Header("CardObject")]
-    public Card cardobj;
+    public CardBasic cardobj;
     StringBuilder stringBuilder = new StringBuilder();
 
     [Header("DeComposition")]
@@ -64,35 +63,26 @@ public class DescriptionManager : MonoBehaviour
 
     public void AddDeck()
     {
-        if(DataManager.Instance.deckList.Count>=20)return;
-
-        currentCard.cardObj.currentCount--;
-        deck.AddCard(currentCard.cardObj);
-        bookCardControl.UpdateBook();
+        //덱추가 버튼
+        currentCard.currentCount--;
+        deck.AddCard(currentCard);
+        LobbyManager.instance.InvokeCount();
         ClosePanel();
     }
 
     public void OpenPanel()
     {
-        cardobj.cardObj = currentCard.cardObj;
-        stringBuilder.Clear();
-        stringBuilder.AppendLine($"이름 : {currentCard.cardObj.cardName}");
-        stringBuilder.AppendLine($"직업 : {currentCard.cardObj.job}");
-        stringBuilder.AppendLine($"등급 : {currentCard.cardObj.rate}");
-        stringBuilder.AppendLine($"설명 : {currentCard.cardObj.description}");
-        stringBuilder.AppendLine($"능력치 : {currentCard.cardObj.ability}");
-
-        text.text = stringBuilder.ToString();
         descriptionPanel.SetActive(true);
     }
 
     public void DeCompositionPanelBtn(){
+        //분해창 오픈
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
         num=1;
     }
 
     public void RightBtn(){
-        if(num>=currentCard.cardObj.currentCount)return;
+        if(num>=currentCard.currentCount)return;
         num++;
         cardSubject.text = num.ToString();
     }
@@ -102,9 +92,9 @@ public class DescriptionManager : MonoBehaviour
         cardSubject.text = num.ToString();
     }
     public void DeCompositionBtn(){
-        currentCard.cardObj.currentCount-=num;
-        DataManager.Instance.CardPiece[(int)currentCard.cardObj.rate]+=num;
-        if(currentCard.cardObj.currentCount==0){
+        currentCard.currentCount-=num;
+        DataManager.Instance.CardPiece[(int)currentCard.rate]+=num;
+        if(currentCard.currentCount==0){
             DeCompositionPanelBtn();
             ClosePanel();
         }

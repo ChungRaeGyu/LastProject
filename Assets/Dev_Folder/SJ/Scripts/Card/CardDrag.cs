@@ -1,11 +1,13 @@
 using System.Collections;
+using System.Data;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class CardDrag : MonoBehaviour
 {
     private Vector3 offset; // 드래그 시 마우스와 카드 사이의 거리
-    private bool isDragging = false; // 드래그 중인지 확인하는 변수
+    public bool isDragging = false; // 드래그 중인지 확인하는 변수
     private Vector3 originalPosition; // 카드의 원래 위치
     private Quaternion originalRotation; // 카드의 원래 회전
     private Vector3 fixedPosition; // 카드의 고정 위치
@@ -22,23 +24,25 @@ public class CardDrag : MonoBehaviour
     private Coroutine clickCoroutine; // 클릭 코루틴을 저장할 변수
     private GameObject draggedCardPrefab;
 
-    private void Start()
+    private void Awake()
     {
         cardBasic = GetComponent<CardBasic>();
         cardZoom = GetComponent<CardZoom>();
-
         // RectTransform 컴포넌트 가져오기
         rectTransform = GetComponent<RectTransform>();
-
-        fixedPosition = new Vector3(0, dragLimitY, 0);
-        fixedRotation = Quaternion.identity; // 고정 회전 설정
-
-        originalSiblingIndex = transform.GetSiblingIndex();
-
         // BezierDragLine 스크립트 컴포넌트 가져오기
         dragLine = GetComponent<BezierDragLine>();
+        originalSiblingIndex = transform.GetSiblingIndex();//Hierarchy에서의 순서
     }
-
+    private void Start()
+    {
+        fixedPosition = new Vector3(0, dragLimitY, 0);
+        fixedRotation = Quaternion.identity; // 고정 회전 설정  
+    }
+    public void Initialize(bool drag)
+    {
+        isDragging = drag;
+    }
     private void Update()
     {
         if (isDragging)
@@ -46,7 +50,7 @@ public class CardDrag : MonoBehaviour
             // 마우스 커서의 화면 좌표를 월드 좌표로 변환
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-            transform.position = cursorWorldPoint;
+            transform.position = cursorWorldPoint; // 마우스와의 거리 유지하며 카드 이동
             transform.SetAsLastSibling(); // 맨 위로 올리기
 
             if (SceneManager.GetActiveScene().buildIndex != 3) return;
@@ -120,12 +124,19 @@ public class CardDrag : MonoBehaviour
 
         if (isLongClick)
         {
-            // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
-
+            GameObject Canvas = transform.root.GetChild(1).gameObject;
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
-            Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-            offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
-            isDragging = true; // 드래그 시작
+            Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            cursorWorldPoint.z = 0;
+            draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint,Quaternion.identity, Canvas.transform);
+            draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
+            RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
+            tempRect.sizeDelta = new Vector2(100, 100);
+            // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
+            /*
+            
+            tempRect.localPosition = cursorWorldPoint;
+            */
 
             // 코루틴이 끝난 후 null로 초기화
             clickCoroutine = null;
@@ -166,6 +177,24 @@ public class CardDrag : MonoBehaviour
             transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
             cardZoom.ZoomOut();
         }
+        else
+        {
+            //TODO : 삭제하거나 덱에 위치했으면 덱 추가
+            if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
+            {
+                Debug.Log("Content에 넣음");
+                LobbyManager.instance.deckControl.AddObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
+            }
+            else
+            {
+                Debug.Log(LobbyManager.instance.currentCanvas + "currentCanvas");
+                Debug.Log(LobbyManager.instance.deckCanvas + "deckCanvas");
+
+            }
+            Destroy(draggedCardPrefab);
+        }
+
+
     }
 
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)

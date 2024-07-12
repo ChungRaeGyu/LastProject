@@ -10,7 +10,18 @@ public class DeckListObj : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(cardBasic!=null)
-        text.text = cardBasic.cardName;
+        Invoke("delaySetting", 0.1f);
+    }
+
+    private void delaySetting()
+    {
+        Debug.Log("ONENABLE");
+        if (cardBasic != null)
+            text.text = cardBasic.cardName;
+        else
+        {
+            Debug.Log("null" + cardBasic);
+
+        }
     }
 }

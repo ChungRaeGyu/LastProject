@@ -51,6 +51,7 @@ public class DataManager : MonoBehaviour
 
     public void SuffleDeckList()
     {
+
         Suffle(deckList);
     }
     public void SuffleUsedCards()

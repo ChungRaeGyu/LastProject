@@ -10,6 +10,16 @@ public class CardCollision : MonoBehaviour
         {
             currentMonster = other.GetComponent<Monster>();
         }
+        else if(other.gameObject.name=="Deck")
+        {
+            Debug.Log("콜리더 들어옴");
+            LobbyManager.instance.currentCanvas = other.GetComponent<GameObject>();
+        }
+        else
+        {
+            Debug.Log(other.gameObject.name + " 콜리더 ");
+
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -20,6 +30,15 @@ public class CardCollision : MonoBehaviour
             {
                 currentMonster = null;
             }
+        }
+        else if (other.gameObject.name == "Deck")
+        {
+            Debug.Log("콜리더 나옴");
+            LobbyManager.instance.currentCanvas = null;
+        }
+        else
+        {
+            Debug.Log(other.gameObject.name + " 콜리더 ");
         }
     }
 }
