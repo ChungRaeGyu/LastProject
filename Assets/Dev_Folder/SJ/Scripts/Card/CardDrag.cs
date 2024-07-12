@@ -90,7 +90,7 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
-            
+
         }
 
     }
@@ -102,10 +102,12 @@ public class CardDrag : MonoBehaviour
             dragLine.StopDrawing();
         }
 
-        if (rectTransform.anchoredPosition.y > dragLimitY && !cardBasic.dragLineCard)
+        if (!cardBasic.dragLineCard)
         {
-            Debug.Log("드래그 안하는 카드를 사용함.");
-            cardBasic.TryUseCard(); // 카드 사용 시도
+            if (rectTransform.anchoredPosition.y > dragLimitY)
+            {
+                cardBasic.TryUseCard(); // 카드 사용 시도
+            }
         }
         else
         {
