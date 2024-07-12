@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 public class DataManager : MonoBehaviour
 {
     #region 싱글톤
@@ -42,10 +43,11 @@ public class DataManager : MonoBehaviour
     [Header("GameObjects")]
     public List<CardBasic> cardObjs = new List<CardBasic>();
 
-
-
     [Header("CardPiece")]
     public int[] CardPiece = new int[(int)Rate.Count];
+
+    //플레이어의 스탯을 저장하는 변수들
+    public int currenthealth { get; set; }
 
     public void SuffleDeckList()
     {

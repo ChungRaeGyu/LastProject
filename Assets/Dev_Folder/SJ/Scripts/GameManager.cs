@@ -146,6 +146,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         UIManager.instance.ResetUIPositions();
         handManager.HideAllCards();
+        DataManager.Instance.currenthealth = player.currenthealth;
         // 또 잠깐 기다림
         yield return new WaitForSeconds(1.0f);
 

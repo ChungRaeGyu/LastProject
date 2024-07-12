@@ -12,14 +12,14 @@ public class HpBar : MonoBehaviour
     public Slider healthSlider;
     public TMP_Text healthText;
 
-    public void Initialized(int maxhealth, Transform transform)
+    public void Initialized(int maxhealth, int currentHealth, Transform transform)
     {
         hpBarPos = transform;
 
         if (healthSlider != null)
         {
             healthSlider.maxValue = maxhealth;
-            healthSlider.value = maxhealth;
+            healthSlider.value = currentHealth;
         }
 
         UpdatehealthText();

@@ -46,7 +46,7 @@ public class CardDrag : MonoBehaviour
             // 마우스 커서의 화면 좌표를 월드 좌표로 변환
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-            transform.position = cursorWorldPoint + offset; // 마우스와의 거리 유지하며 카드 이동
+            transform.position = cursorWorldPoint;
             transform.SetAsLastSibling(); // 맨 위로 올리기
 
             if (SceneManager.GetActiveScene().buildIndex != 3) return;

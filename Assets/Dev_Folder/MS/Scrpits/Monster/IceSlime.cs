@@ -17,7 +17,7 @@ public class IceSlime : MonsterCharacter
         {
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth, transform.GetChild(1));
+            healthBarInstance.Initialized(monsterStats.maxhealth, monsterStats.maxhealth, transform.GetChild(1));
         }
     }
 

@@ -224,6 +224,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
+
     private void MoveUIElementsToStartPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(-725, costImage.rectTransform.anchoredPosition.y), 0.5f));
