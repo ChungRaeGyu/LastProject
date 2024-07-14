@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Data;
 using UnityEngine;
@@ -182,14 +183,16 @@ public class CardDrag : MonoBehaviour
             //TODO : 삭제하거나 덱에 위치했으면 덱 추가
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
-                Debug.Log("Content에 넣음");
-                LobbyManager.instance.deckControl.AddObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
-            }
-            else
-            {
-                Debug.Log(LobbyManager.instance.currentCanvas + "currentCanvas");
-                Debug.Log(LobbyManager.instance.deckCanvas + "deckCanvas");
+                try
+                {
+                    LobbyManager.instance.deckControl.AddObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
+                }
+                catch (Exception err)
+                {
 
+                    Debug.Log("Message"+err.Message);
+                }
+                
             }
             Destroy(draggedCardPrefab);
         }
