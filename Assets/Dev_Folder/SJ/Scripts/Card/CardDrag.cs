@@ -4,6 +4,7 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CardDrag : MonoBehaviour
 {
@@ -130,6 +131,7 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             cursorWorldPoint.z = 0;
             draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint,Quaternion.identity, Canvas.transform);
+            draggedCardPrefab.GetComponentInChildren<Image>().raycastTarget = false;
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
             tempRect.sizeDelta = new Vector2(100, 100);
