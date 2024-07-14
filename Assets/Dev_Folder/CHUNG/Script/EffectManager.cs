@@ -49,7 +49,7 @@ public class EffectManager : MonoBehaviour
     IEnumerator MagicAttack(bool isRange,MonsterCharacter targetMonster=null)
     {
         PlayerEffectMethod(tempPlayer.transform.position);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0f);
 
         List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
 
@@ -72,9 +72,20 @@ public class EffectManager : MonoBehaviour
     #region 버프 및 기타 능력(Player에게만 이팩트 존재)
     public void AddCostMethod(CardBasic cardBasic)
     {
-        tempCardInfo = cardBasic;
+        if (tempPlayer == null)
+        {
+            Debug.LogError("AddCostMethod에서 tempPlayer가 null입니다.");
+            return;
+        }
+        if (cardBasic == null)
+        {
+            Debug.LogError("AddCostMethod에서 cardBasic이 null입니다.");
+            return;
+        }
+
+        //tempCardInfo = cardBasic;
         PlayerEffectMethod(tempPlayer.transform.position);
-        tempPlayer.AddCost(tempCardInfo.ability);
+        //tempPlayer.AddCost(tempCardInfo.ability);
     }
 
     public void AddCardMethod(CardBasic cardBasic)
@@ -107,6 +118,11 @@ public class EffectManager : MonoBehaviour
 
     private void PlayerEffectMethod(Vector2 position)
     {
+        if (tempCardInfo == null)
+        {
+            Debug.LogError("tempCardInfo is null in PlayerEffectMethod.");
+            return;
+        }
 
         GameObject prefab = tempCardInfo.effect;
         GameObject tempPrefab = Instantiate(prefab, position, prefab.transform.rotation);

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +9,13 @@ public abstract class PlayerCharacter : MonoBehaviour
     public Animator animator;
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int attack = Animator.StringToHash("Attack");
+    private static readonly int die = Animator.StringToHash("Die");
     public GameObject damageTextPrefab;
+    protected bool isDying = false; // 죽는 중인지 여부를 저장하는 변수
 
     private void Awake()
     {
         currenthealth = playerStats.maxhealth;
-
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -41,7 +43,7 @@ public abstract class PlayerCharacter : MonoBehaviour
 
         if (IsDead())
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -69,9 +71,22 @@ public abstract class PlayerCharacter : MonoBehaviour
         return currenthealth <= 0;
     }
 
-    protected virtual void Die()
+    protected virtual IEnumerator Die()
     {
-        SceneManager.LoadScene(1);
-        Destroy(gameObject);
+        if (isDying) yield break; // 이미 죽는 중이면 중복 실행을 막음
+        isDying = true;
+
+        if (animator != null)
+        {
+            animator.SetTrigger(die);
+        }
+
+        // 애니메이션이 끝날 때까지 대기
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        // 결과패널(패배)를 보여줌
+        UIManager.instance.ShowDefeatPanel();
+        UIManager.instance.ApplyDeathPenalty();
     }
+
 }

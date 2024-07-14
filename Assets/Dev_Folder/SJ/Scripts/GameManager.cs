@@ -73,9 +73,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator DrawInitialHand(int count)
+    public IEnumerator DrawInitialHand(int count)
     {
-
         for (int i = 0; i < count; i++)
         {
             yield return StartCoroutine(DrawCardFromDeck());
@@ -102,10 +101,11 @@ public class GameManager : MonoBehaviour
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
-            
+
             // 모든 몬스터의 턴 순차적으로 진행
-            foreach (MonsterCharacter monster in monsters)
+            for (int i = 0; i < monsters.Count; i++)
             {
+                MonsterCharacter monster = monsters[i];
                 if (monster.currenthealth > 0)
                 {
                     Debug.Log($"----- 몬스터의 턴 시작 -----");
@@ -142,12 +142,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitAndClearUI()
     {
-        // 잠깐 기다림
-        yield return new WaitForSeconds(1.0f);
         UIManager.instance.ResetUIPositions();
         handManager.HideAllCards();
         DataManager.Instance.currenthealth = player.currenthealth;
-        // 또 잠깐 기다림
+        // 잠깐 기다림
         yield return new WaitForSeconds(1.0f);
 
         UIManager.instance.UIClear(true, false, true, true, true);

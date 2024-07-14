@@ -26,6 +26,8 @@ public class ButtonManager : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 1;
+                // 플레이어 체력 초기화 (임시)
+                DataManager.Instance.currenthealth = 0;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 

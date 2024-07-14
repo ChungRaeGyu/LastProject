@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,27 +11,26 @@ public class AddCard : CardBasic
     [Header("CardData")]
 
     private CardDrag cardDrag;
-    private CardCollision cardCollision;
     private void Start()
     {
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
-        cardCollision = GetComponent<CardCollision>();
         cardDrag = GetComponent<CardDrag>();
     }
 
     public override bool TryUseCard()
     {
-        Monster targetMonster = cardCollision.currentMonster;
-        if (targetMonster != null && GameManager.instance.player != null)
+        if (GameManager.instance.player != null)
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
+
+            // 덱에서 카드 뽑기 시작
+            GameManager.instance.StartCoroutine(DrawCard());
+
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
             GameManager.instance.CheckAllMonstersDead();
@@ -39,7 +39,13 @@ public class AddCard : CardBasic
         return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
-    public void CardUse(Monster targetMonster)
+    private IEnumerator DrawCard()
+    {
+        // 덱에서 카드 뽑기
+        yield return GameManager.instance.StartCoroutine(GameManager.instance.DrawInitialHand(ability));
+    }
+
+    public void CardUse(Monster targetMonster = null)
     {
         GameManager.instance.effectManager.AddCardMethod(cardBasic);
     }

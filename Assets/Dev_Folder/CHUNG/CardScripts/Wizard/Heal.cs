@@ -20,7 +20,6 @@ public class Heal : CardBasic
     {
         if (GameManager.instance.player != null)
         {
-            // 코스트가 충분할 때 
             GameManager.instance.player.UseCost(cost);
 
             CardUse();
@@ -37,7 +36,7 @@ public class Heal : CardBasic
     }
 
 
-    public void CardUse(Monster targetMonster=null)
+    public void CardUse(Monster targetMonster = null)
     {
         GameManager.instance.effectManager.HealMethod(GameManager.instance.player, cardBasic);
         GameManager.instance.player.Heal(ability);

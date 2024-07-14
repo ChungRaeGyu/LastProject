@@ -3,6 +3,7 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CardDrag : MonoBehaviour
 {
@@ -33,6 +34,16 @@ public class CardDrag : MonoBehaviour
         // BezierDragLine 스크립트 컴포넌트 가져오기
         dragLine = GetComponent<BezierDragLine>();
         originalSiblingIndex = transform.GetSiblingIndex();//Hierarchy에서의 순서
+
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            // 하위 이미지의 RaycastTarget 속성 켜기
+            Image image = GetComponentInChildren<Image>();
+            if (image != null)
+            {
+                image.raycastTarget = true;
+            }
+        }
     }
     private void Start()
     {

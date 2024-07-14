@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -41,8 +42,13 @@ public class UIManager : MonoBehaviour
 
     [Header("UI")]
     public Canvas healthBarCanvas;
+    public Canvas conditionCanvas;
     public TMP_Text costText;
     public TMP_Text TurnText;
+
+    [Header("Defeat")]
+    public GameObject defeatPanel;
+    public Transform removeCardSpawnPoint; // 제거된 카드를 보여줄 위치값
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
     private Vector2 originalCostImagePosition;
@@ -224,8 +230,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
-
     private void MoveUIElementsToStartPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(-725, costImage.rectTransform.anchoredPosition.y), 0.5f));
@@ -240,5 +244,92 @@ public class UIManager : MonoBehaviour
         StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+    }
+
+    // 패배 시 호출될 메서드
+    public void ShowDefeatPanel()
+    {
+        if (defeatPanel != null)
+        {
+            defeatPanel.SetActive(true);
+        }
+
+        if (fadeRewardPanel != null)
+        {
+            fadeRewardPanel.gameObject.SetActive(true);
+        }
+    }
+
+    public void ApplyDeathPenalty()
+    {
+        // 덱 리스트에서 랜덤으로 카드를 제거합니다.
+        if (DataManager.Instance.deckList.Count > 0)
+        {
+            int randomIndex = Random.Range(0, DataManager.Instance.deckList.Count);
+            CardBasic removedCard = DataManager.Instance.deckList[randomIndex];
+            DataManager.Instance.deckList.RemoveAt(randomIndex);
+
+            // 제거된 카드를 화면에 보여주고 사라지는 효과를 구현합니다.
+            ShowRemovedCard(removedCard);
+        }
+        else
+        {
+            Debug.LogWarning("덱에 제거할 카드가 없습니다.");
+        }
+    }
+
+    private void ShowRemovedCard(CardBasic cardToRemove)
+    {
+        // 제거된 카드를 생성하고 부모를 removeCardSpawnPoint로 설정합니다.
+        GameObject removedCardObj = Instantiate(cardToRemove.gameObject, removeCardSpawnPoint);
+        removedCardObj.SetActive(true);
+
+        // 스케일 조정
+        removedCardObj.transform.localScale = new Vector3(4f, 6f, 1f); // 2배 크기로 설정
+
+        // 자식 오브젝트의 Image 컴포넌트 가져오기
+        Image cardImage = removedCardObj.GetComponentInChildren<Image>();
+        if (cardImage != null)
+        {
+            // 카드의 알파값을 조정하기 위해 코루틴 호출
+            StartCoroutine(FadeOutAndDestroy(cardImage));
+        }
+        else
+        {
+            Debug.LogWarning("자식 오브젝트에서 Image 컴포넌트를 찾을 수 없습니다.");
+        }
+    }
+
+
+    private IEnumerator FadeOutAndDestroy(Image cardImage)
+    {
+        float fadeDuration = 2.0f;
+        float fadeTimer = 0.0f;
+
+        Color originalColor = cardImage.color;
+
+        yield return new WaitForSeconds(1.0f); // 1초 지연
+
+        // 점점 투명해지는 효과
+        while (fadeTimer < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1.0f, 0.0f, fadeTimer / fadeDuration);
+            Color newColor = originalColor;
+            newColor.a = alpha;
+            cardImage.color = newColor;
+
+            fadeTimer += Time.deltaTime;
+            yield return null;
+        }
+
+        // 카드가 완전히 투명해진 후 제거
+        Destroy(cardImage.gameObject);
+    }
+
+
+    // 로비 씬으로 이동하는 메서드
+    public void GoToLobbyScene()
+    {
+        SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
     }
 }

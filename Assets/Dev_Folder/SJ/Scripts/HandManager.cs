@@ -38,38 +38,84 @@ public class HandManager : MonoBehaviour
         UpdatUsedCardCountText();
     }
 
-    // 손패 배치 업데이트
     private void UpdateHandLayout()
     {
+        // 손패 배치가 끝나지 않았음을 표시
         setCardEnd = false;
 
+        // 손패에 있는 카드의 수를 가져옴
         int numCards = cards.Count;
 
+        // 카드가 1장일 때의 배치 로직
         if (numCards == 1)
         {
-            Transform card = cards[0];
-            PRS prs = CalculatePRS(0.5f, 0, 0);
-            StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
-            SetCardOrderInLayer(card, 0);
-            card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
-            card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
-            setCardEnd = true;
-            return;
+            MoveAndSetupCard(cards[0], 0.5f, 0f, 0f, 0);
+            setCardEnd = true; // 손패 배치가 끝났음을 표시
+            return; // 메서드 종료
         }
 
+        // 카드가 2장일 때의 배치 로직
+        if (numCards == 2)
+        {
+            MoveAndSetupCard(cards[0], 0.4f, 3f, 0.5f, 0, 0.1f);
+            MoveAndSetupCard(cards[1], 0.6f, -3f, 0.5f, 1, 0.1f);
+            setCardEnd = true; // 손패 배치가 끝났음을 표시
+            return; // 메서드 종료
+        }
+
+        // 카드가 3장일 때의 배치 로직
+        if (numCards == 3)
+        {
+            MoveAndSetupCard(cards[0], 0.27f, 9f, 0.75f, 0, 0.2f);
+            MoveAndSetupCard(cards[1], 0.5f, 0f, 0f, 1);
+            MoveAndSetupCard(cards[2], 0.73f, -9f, 0.75f, 2, 0.2f);
+            setCardEnd = true; // 손패 배치가 끝났음을 표시
+            return; // 메서드 종료
+        }
+
+        // 카드가 4장일 때의 배치 로직
+        if (numCards == 4)
+        {
+            MoveAndSetupCard(cards[0], 0.15f, 8.5f, 1f, 0, 0.2f);
+            MoveAndSetupCard(cards[1], 0.38f, 4f, 0.5f, 1, 0.1f);
+            MoveAndSetupCard(cards[2], 0.62f, -4f, 0.5f, 2, 0.1f);
+            MoveAndSetupCard(cards[3], 0.85f, -8.5f, 1f, 3, 0.2f);
+            setCardEnd = true; // 손패 배치가 끝났음을 표시
+            return; // 메서드 종료
+        }
+
+        // 카드가 5장 이상일 때의 배치 로직
         for (int i = 0; i < numCards; i++)
         {
-            Transform card = cards[i];
-            float t = (float)i / (numCards - 1); // 0에서 1 사이의 값을 가지는 t 계산
-            float angle = Mathf.Lerp(maxAngle, -maxAngle, t); // 최소 각도에서 최대 각도까지 보간
-            PRS prs = CalculatePRS(t, angle, Mathf.Abs(t - 0.5f) * 1.5f);
-            StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration));
-            SetCardOrderInLayer(card, i);
-            card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot);
-            card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot);
+            float t = (float)i / (numCards - 1); // 0에서 1 사이의 값을 가지는 t 계산 (카드 위치 비율)
+            float angle = Mathf.Lerp(maxAngle, -maxAngle, t); // 최소 각도에서 최대 각도까지 보간하여 각도 계산
+            PRS prs = CalculatePRS(t, angle, Mathf.Abs(t - 0.5f) * 1.5f); // 카드의 위치와 회전 및 스케일 계산
+            if (Mathf.Abs(t - 0.5f) < 0.01f) // 중앙 카드 확인 (t가 0.5에 가까운 경우)
+            {
+                prs.pos.y -= 0.15f; // 중앙 카드의 y값을 내림
+            }
+            MoveAndSetupCard(cards[i], prs, i);
         }
 
+        // 손패 배치가 끝났음을 표시
         setCardEnd = true;
+    }
+
+    // 카드를 이동하고 설정하는 메서드
+    private void MoveAndSetupCard(Transform card, float t, float angle, float verticalOffsetFactor, int order, float yOffset = 0f)
+    {
+        PRS prs = CalculatePRS(t, angle, verticalOffsetFactor); // 카드의 위치와 회전 및 스케일 계산
+        prs.pos.y += yOffset; // y값을 올림
+        MoveAndSetupCard(card, prs, order); // 카드 이동 및 설정
+    }
+
+    // 오버로드된 카드를 이동하고 설정하는 메서드
+    private void MoveAndSetupCard(Transform card, PRS prs, int order)
+    {
+        StartCoroutine(MoveCard(card, prs.pos, prs.rot, moveDuration)); // 카드를 목표 위치로 이동
+        SetCardOrderInLayer(card, order); // 카드의 레이어 순서를 설정
+        card.GetComponent<CardDrag>().SetOriginalPosition(prs.pos, prs.rot); // 카드 드래그 컴포넌트에 원래 위치 설정
+        card.GetComponent<CardZoom>().SetOriginalPosition(prs.pos, prs.rot); // 카드 확대/축소 컴포넌트에 원래 위치 설정
     }
 
     // 카드 이동 코루틴
