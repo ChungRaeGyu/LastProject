@@ -13,7 +13,6 @@ public class Dungeon1 : Dungeon
     // Update is called once per frame
     void Update()
     {
-        
         if (SaveManager.Instance.playerPosition == stageNum[0].transform.position)
         {
             for (int i = 0; i<stageBtn.Length; i++)

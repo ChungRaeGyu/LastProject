@@ -17,7 +17,6 @@ public class Dungeon : MonoBehaviour
         {
             stageNum[i].SetActive(true);
         }
-        
         SaveManager.Instance.playerPosition = stageNum[0].transform.position;
     }
 

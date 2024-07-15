@@ -170,7 +170,6 @@ public class GameManager : MonoBehaviour
 
     public void OnLobbyButtonClick()
     {
-        //GameManager_chan.Instance.stageLevel += 1;
         SceneManager.LoadScene(2);
     }
 

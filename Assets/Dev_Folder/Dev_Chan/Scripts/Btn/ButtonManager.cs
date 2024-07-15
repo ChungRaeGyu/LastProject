@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    public Dungeon dungeon;
+
     //던전으로 들어가는 버튼
     public void GoToDungeon()
     {
@@ -124,5 +126,10 @@ public class ButtonManager : MonoBehaviour
         DungeonManager.Instance.eventScene.SetActive(false);
         DungeonManager.Instance.storeScene.SetActive(false);
         DungeonManager.Instance.bossScene.SetActive(false);
+    }
+    public void BattleClear()
+    {
+
+        SceneManager.LoadScene(2);
     }
 }
