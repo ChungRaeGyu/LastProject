@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     [Header("CharacterPrefab")]
     public GameObject playerPrefab;
-    public GameObject monsterPrefab;
+    public List<GameObject> monsterPrefab = new List<GameObject>();
 
     [Header("CharacterSpawnPoint")]
     public Transform playerSpawnPoint;
@@ -62,13 +62,16 @@ public class GameManager : MonoBehaviour
 
     private void SpawnMonsters()
     {
+        monsterPrefab = DataManager.Instance.Monsters;
         if (monsterPrefab != null && monsterSpawnPoints.Count > 0)
         {
+            int i=0;
             foreach (Transform spawnPoint in monsterSpawnPoints)
             {
-                GameObject monsterObject = Instantiate(monsterPrefab, spawnPoint.position, Quaternion.identity);
+                GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
                 MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
                 monsters.Add(monsterCharacter);
+                i++;
             }
         }
     }

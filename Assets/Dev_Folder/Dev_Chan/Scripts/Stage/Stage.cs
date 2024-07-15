@@ -11,7 +11,7 @@ public class Stage : MonoBehaviour
 
     public string stageName;
     public Vector3 stagePosition;
-
+    public List<GameObject> monsters = new List<GameObject>();
     public void Start()
     {
         int randomNum = Random.Range(0, 100);
@@ -43,6 +43,7 @@ public class Stage : MonoBehaviour
     {
         SaveManager.Instance.playerPosition = stagePosition;
         //DungeonManager.Instance.battleScene.SetActive(true);
+        DataManager.Instance.Monsters = monsters;
         SceneManager.LoadScene(3);
         DataManager.Instance.SuffleDeckList();
     }

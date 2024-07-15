@@ -46,6 +46,9 @@ public class DataManager : MonoBehaviour
     [Header("CardPiece")]
     public int[] CardPiece = new int[(int)Rate.Count];
 
+    [Header("current Battle Monsters")]
+    public List<GameObject> Monsters = new List<GameObject>();
+
     //플레이어의 스탯을 저장하는 변수들
     public int currenthealth { get; set; }
 

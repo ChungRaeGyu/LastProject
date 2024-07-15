@@ -2155,7 +2155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca8b43ecae535f40870878ba84f2ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckList: []
+  deckList:
+  - {fileID: 8472182826931242114, guid: 8ffed5ef5d0f63f43b8b0633578375ec, type: 3}
+  - {fileID: 4881558695155070221, guid: 8bd2c47c0f054834f95040f71452347b, type: 3}
+  - {fileID: 7783122066741445201, guid: be8db2c4f8b45904e8b22df7492b6b60, type: 3}
   usedCards: []
   cardObjs:
   - {fileID: 8472182826931242114, guid: 8ffed5ef5d0f63f43b8b0633578375ec, type: 3}
@@ -2165,6 +2168,7 @@ MonoBehaviour:
   - {fileID: 1262888803615949085, guid: 0526618fa6d5c96439b6e961dd465454, type: 3}
   - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
   CardPiece: 
+  Monsters: []
 --- !u!4 &594298872
 Transform:
   m_ObjectHideFlags: 0
