@@ -84,12 +84,13 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Battle()
     {
-        int turnCount = 0;
+        int turnCount = 1;
 
         while (true)
         {
             Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
+            UIManager.instance.UpdatePlayerTurnCount(turnCount);
             UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
 
             player.InitializeCost();
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
+            UIManager.instance.UpdateMonsterTurnCount(turnCount);
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
             // 모든 몬스터의 턴 순차적으로 진행

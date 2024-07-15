@@ -46,6 +46,10 @@ public class UIManager : MonoBehaviour
     public TMP_Text costText;
     public TMP_Text TurnText;
 
+    [Header("TurnCountText")]
+    public TMP_Text PlayerTurnCountText;
+    public TMP_Text MonsterTurnCountText;
+
     [Header("Defeat")]
     public GameObject defeatPanel;
     public Transform removeCardSpawnPoint; // 제거된 카드를 보여줄 위치값
@@ -74,6 +78,8 @@ public class UIManager : MonoBehaviour
         UIClear(false, true, false, false, false);
 
         MoveUIElementsToStartPositions();
+
+        UpdatePlayerTurnCount(1); // 초기에 1번째 턴 진행
     }
 
     private IEnumerator MoveUIElement(RectTransform rectTransform, Vector2 targetPosition, float duration)
@@ -333,6 +339,53 @@ public class UIManager : MonoBehaviour
         Destroy(cardImage.gameObject);
     }
 
+    public void UpdatePlayerTurnCount(int turnNumber)
+    {
+        StartCoroutine(AnimateTurnCount(PlayerTurnCountText, $"플레이어 {turnNumber}번째 턴"));
+    }
+
+    public void UpdateMonsterTurnCount(int turnNumber)
+    {
+        StartCoroutine(AnimateTurnCount(MonsterTurnCountText, $"몬스터 {turnNumber}번째 턴"));
+    }
+
+    private IEnumerator AnimateTurnCount(TMP_Text textElement, string textToShow)
+    {
+        float maxAlpha = 1.0f;
+        float animationDuration = 0.5f;
+        float pauseDuration = 0.5f;
+
+        textElement.gameObject.SetActive(true);
+
+        // Alpha 값을 0에서 maxAlpha로 증가
+        float elapsedTime = 0f;
+        while (elapsedTime < animationDuration)
+        {
+            float alpha = Mathf.Lerp(0f, maxAlpha, elapsedTime / animationDuration);
+            textElement.alpha = alpha;
+            textElement.text = textToShow;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 일정 시간 동안 대기
+        yield return new WaitForSeconds(pauseDuration);
+
+        // Alpha 값을 maxAlpha에서 0으로 감소
+        elapsedTime = 0f;
+        while (elapsedTime < animationDuration)
+        {
+            float alpha = Mathf.Lerp(maxAlpha, 0f, elapsedTime / animationDuration);
+            textElement.alpha = alpha;
+            textElement.text = textToShow;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        textElement.gameObject.SetActive(false);
+    }
 
     // 로비 씬으로 이동하는 메서드
     public void GoToLobbyScene()

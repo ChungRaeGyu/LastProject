@@ -189,6 +189,8 @@ MonoBehaviour:
   monsterStats: {fileID: 11400000, guid: fb2d3380330e8b7459cf5a05142279ff, type: 2}
   animator: {fileID: 0}
   damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
+  defenseconditionPrefab: {fileID: 2555176015284709196, guid: f59af806d5c622e4e9ecde624dc827db, type: 3}
+  conditionSpacing: 1
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &3079206633579136749
 BoxCollider2D:
@@ -272,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1637871972758353488}
   m_Layer: 0
-  m_Name: CountPos
+  m_Name: ConditionPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,7 +289,7 @@ Transform:
   m_GameObject: {fileID: 3295439016561492933}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.45, y: -0.7, z: 0}
+  m_LocalPosition: {x: -1, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

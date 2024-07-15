@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Player : PlayerCharacter
 {
     public HpBar healthBarPrefab;
-    public Condition conditionPrefab;
+    public Condition defenseconditionPrefab;
     public int maxCost = 3;
 
     public int currentCost { get; private set; }
@@ -26,16 +26,12 @@ public class Player : PlayerCharacter
 
         // GameManager를 통해 캔버스 참조
         Canvas healthBarcanvas = UIManager.instance.healthBarCanvas;
-        if (healthBarcanvas != null && healthBarPrefab != null)
-        {
-            // healthBarPrefab을 healthBarcanvas의 자식으로 생성
-            healthBarInstance = Instantiate(healthBarPrefab, healthBarcanvas.transform);
+        // healthBarPrefab을 healthBarcanvas의 자식으로 생성
+        healthBarInstance = Instantiate(healthBarPrefab, healthBarcanvas.transform);
+        healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
 
-            healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
-        }
-
-        // 예시로 초기 스택 값 1로 새로운 컨디션을 추가
-        AddCondition(UIManager.instance.conditionCanvas.transform, 1);
+        // 예시로 초기 스택 값 1로 새로운 컨0디션을 추가
+        AddCondition(UIManager.instance.conditionCanvas.transform, playerStats.defense);
     }
 
     public override void InitializeStats(int currenthealthData)
@@ -58,8 +54,8 @@ public class Player : PlayerCharacter
             healthBarInstance.UpdatehealthText();
         }
 
-        // 테스트용 - 디버프 추가
-        AddCondition(UIManager.instance.conditionCanvas.transform, 1);
+        //// 테스트용 - 디버프 추가
+        //AddCondition(UIManager.instance.conditionCanvas.transform, 1);
     }
 
     public void UseCost(int amount)
@@ -102,9 +98,9 @@ public class Player : PlayerCharacter
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
     public void AddCondition(Transform parent, int initialStackCount)
     {
-        if (conditionPrefab != null)
+        if (defenseconditionPrefab != null)
         {
-            Condition newCondition = Instantiate(conditionPrefab, parent);
+            Condition newCondition = Instantiate(defenseconditionPrefab, parent);
             conditionInstances.Add(newCondition);
             UpdateConditionPositions();
             newCondition.Initialized(initialStackCount, newCondition.transform); // 위치 초기화 후에 스택 값 설정
