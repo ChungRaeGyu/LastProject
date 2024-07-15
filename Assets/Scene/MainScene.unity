@@ -2013,7 +2013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1185493606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2328,7 +2328,7 @@ GameObject:
   - component: {fileID: 1260327106}
   - component: {fileID: 1260327105}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DefeatTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3426,6 +3426,7 @@ MonoBehaviour:
   TurnText: {fileID: 127483076}
   defeatPanel: {fileID: 1185493605}
   removeCardSpawnPoint: {fileID: 1996410944}
+  monstersKilledText: {fileID: 2044057391}
 --- !u!4 &1801712840
 Transform:
   m_ObjectHideFlags: 0
@@ -3844,7 +3845,7 @@ GameObject:
   - component: {fileID: 2044057392}
   - component: {fileID: 2044057391}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MonstersKilledCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

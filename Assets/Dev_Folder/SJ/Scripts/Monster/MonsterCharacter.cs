@@ -74,6 +74,7 @@ public class MonsterCharacter : MonoBehaviour
         if (IsDead())
         {
             Die();
+            DataManager.Instance.IncreaseMonstersKilledCount(); // DataManager에서 몬스터 카운트 증가
         }
     }
 }

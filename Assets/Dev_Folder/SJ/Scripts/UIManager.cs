@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     [Header("Defeat")]
     public GameObject defeatPanel;
     public Transform removeCardSpawnPoint; // 제거된 카드를 보여줄 위치값
+    public TMP_Text monstersKilledText; // 처치한 몬스터 수
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
     private Vector2 originalCostImagePosition;
@@ -252,6 +253,12 @@ public class UIManager : MonoBehaviour
         if (defeatPanel != null)
         {
             defeatPanel.SetActive(true);
+
+            // 처치한 몬스터 수를 표시하는 부분
+            if (monstersKilledText != null)
+            {
+                monstersKilledText.text = $"처치한 몬스터 수: {DataManager.Instance.monstersKilledCount}";
+            }
         }
 
         if (fadeRewardPanel != null)
