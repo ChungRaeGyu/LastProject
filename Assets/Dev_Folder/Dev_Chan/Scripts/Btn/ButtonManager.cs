@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public Dungeon dungeon;
 
     //던전으로 들어가는 버튼
     public void GoToDungeon()
@@ -28,6 +27,7 @@ public class ButtonManager : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 1;
+                SaveManager.Instance.playerPosition = Dungeon.Instance.stageNum[0].transform.position;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 

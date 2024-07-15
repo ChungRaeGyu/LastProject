@@ -5,6 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class Dungeon : MonoBehaviour
 {
+    public static Dungeon Instance = null;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
 
     public GameObject[] stageNum;
     public GameObject[] stageBtn;
@@ -17,7 +35,6 @@ public class Dungeon : MonoBehaviour
         {
             stageNum[i].SetActive(true);
         }
-        SaveManager.Instance.playerPosition = stageNum[0].transform.position;
     }
 
     // Update is called once per frame

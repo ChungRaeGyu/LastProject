@@ -7,7 +7,7 @@ public class Dungeon1 : Dungeon
 {
     void Start()
     {
-        SaveManager.Instance.playerPosition = stageNum[0].transform.position;
+       
     }
 
     // Update is called once per frame
