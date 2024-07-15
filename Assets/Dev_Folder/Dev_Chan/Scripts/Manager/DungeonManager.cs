@@ -23,9 +23,6 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    public GameObject dungeonBoard;
-    public GameObject dungeon;
-
     public GameObject[] dungeonNum = new GameObject[5];
 
     public GameObject homeButton;
@@ -37,16 +34,10 @@ public class DungeonManager : MonoBehaviour
     public GameObject storeScene;
     public GameObject bossScene;
 
-    public Vector3 playerPosition;
     public Vector3 stage01;
 
     private void Start()
-    {
-        backButton.SetActive(true);
-        homeButton.SetActive(true);
-        player.SetActive(true);
-
-        stage.SetActive(true);
+    { 
         battleScene.SetActive(false);
         eventScene.SetActive(false);
         storeScene.SetActive(false);
@@ -55,6 +46,24 @@ public class DungeonManager : MonoBehaviour
 
     private void Update()
     {
-        player.transform.position = playerPosition;
+        if (SaveManager.Instance.accessDungeon == true)
+        {
+            backButton.SetActive(true);
+            homeButton.SetActive(true);
+            player.SetActive(true);
+            int num = SaveManager.Instance.accessDungeonNum;
+            dungeonNum[num - 1].SetActive(true);
+
+            stage.SetActive(true);
+        }
+        if (SaveManager.Instance.accessDungeon == false)
+        {
+            backButton.SetActive(false);
+            homeButton.SetActive(false);
+            player.SetActive(false);
+
+            stage.SetActive(false);
+        }
+        player.transform.position = SaveManager.Instance.playerPosition;
     }
 }

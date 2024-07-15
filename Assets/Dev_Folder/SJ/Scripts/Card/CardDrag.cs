@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Data;
 using Unity.VisualScripting;
@@ -198,14 +199,20 @@ public class CardDrag : MonoBehaviour
             {
                 Debug.Log(LobbyManager.instance.currentCanvas + "currentCanvas");
                 Debug.Log(LobbyManager.instance.deckCanvas + "deckCanvas");
+                try
+                {
+                    LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
+                }
+                catch (Exception err)
+                {
+
+                    Debug.Log("Message" + err.Message);
+                }
 
             }
             Destroy(draggedCardPrefab);
         }
-
-
     }
-
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)
     {
         originalPosition = position;

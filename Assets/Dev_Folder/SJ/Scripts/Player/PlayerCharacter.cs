@@ -17,6 +17,16 @@ public abstract class PlayerCharacter : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    public virtual void InitializeStats(int currenthealthData)
+    {
+        currenthealth = currenthealthData;
+    }
+
+    public virtual int SavePlayerStats()
+    {
+        return currenthealth;
+    }
+
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - playerStats.defense, 0);

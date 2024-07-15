@@ -9,9 +9,6 @@ public class Monster : MonsterCharacter
 
     private System.Random random = new System.Random();
 
-    private int counter = 0;  // 카운트 변수
-    private bool counterOnOff = false;
-
     private void Start()
     {
         Canvas canvas = UIManager.instance.healthBarCanvas;
@@ -21,7 +18,7 @@ public class Monster : MonsterCharacter
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth + hpUp, transform.GetChild(1));
+            healthBarInstance.Initialized(monsterStats.maxhealth + hpUp, monsterStats.maxhealth + hpUp, transform.GetChild(1));
         }
     }
 

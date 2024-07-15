@@ -9,7 +9,6 @@ public class Interact : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("µé¾î¿È");
         LobbyManager.instance.currentCanvas = this.gameObject;
     }
 

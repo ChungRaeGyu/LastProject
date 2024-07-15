@@ -16,7 +16,7 @@ public class EffectManager : MonoBehaviour
     public CardBasic tempCardInfo;
 
     #region 물리공격
-    public void AttackMethod(MonsterCharacter targetMonster, Player player,CardSO cardSO)
+    public void AttackMethod(MonsterCharacter targetMonster, Player player,CardBasic cardSO)
     {
         //현재 안쓰는 중
         PlayerEffectMethod(tempPlayer.transform.position);

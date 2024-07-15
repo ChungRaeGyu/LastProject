@@ -14,6 +14,12 @@ public class Player : PlayerCharacter
     {
         InitializeCost();
 
+        if (DataManager.Instance.currenthealth != 0)
+        {
+            // 플레이어가 생성되면 DataManager에서 체력과 같은 Player 정보를 가져온다.
+            InitializeStats(DataManager.Instance.currenthealth);
+        }
+
         // GameManager를 통해 캔버스 참조
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
@@ -21,8 +27,18 @@ public class Player : PlayerCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
 
-            healthBarInstance.Initialized(playerStats.maxhealth, transform.GetChild(1));
+            healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
         }
+    }
+
+    public override void InitializeStats(int currenthealthData)
+    {
+        base.InitializeStats(currenthealthData);
+    }
+
+    public override int SavePlayerStats()
+    {
+        return base.SavePlayerStats();
     }
 
     public override void TakeDamage(int damage)
