@@ -54,24 +54,34 @@ public class DescriptionManager : MonoBehaviour
     [SerializeField] GameObject deCompositionPanel;
     [SerializeField] TextMeshProUGUI cardSubject;
     [SerializeField] TextMeshProUGUI pieceSubject;
+
+    GameObject tempCard;
     int num=1;
     public void ClosePanel()
     {
         descriptionPanel.SetActive(false);
         currentCard = null;
+        Destroy(tempCard);
     }
 
     public void AddDeck()
     {
         //덱추가 버튼
-        currentCard.currentCount--;
-        deck.AddCard(currentCard);
+        currentCard.cardBasic.currentCount--;
+        deck.AddCardObj(currentCard.cardBasic);
         LobbyManager.instance.InvokeCount();
         ClosePanel();
     }
 
-    public void OpenPanel()
+    public void OpenPanel(CardBasic cardBasic)
     {
+        currentCard = cardBasic;
+        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform);
+        
+        RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
+        tempCardRect.localScale = new Vector2(3, 4.5f);
+        tempCardRect.localPosition = new Vector2(0, 0);
+        tempCardRect.sizeDelta = new Vector2(90, 90);
         descriptionPanel.SetActive(true);
     }
 
@@ -82,7 +92,7 @@ public class DescriptionManager : MonoBehaviour
     }
 
     public void RightBtn(){
-        if(num>=currentCard.currentCount)return;
+        if(num>=currentCard.cardBasic.currentCount)return;
         num++;
         cardSubject.text = num.ToString();
     }
@@ -92,12 +102,13 @@ public class DescriptionManager : MonoBehaviour
         cardSubject.text = num.ToString();
     }
     public void DeCompositionBtn(){
-        currentCard.currentCount-=num;
+        currentCard.cardBasic.currentCount -= num;
         DataManager.Instance.CardPiece[(int)currentCard.rate]+=num;
-        if(currentCard.currentCount==0){
+        if(currentCard.cardBasic.currentCount == 0){
             DeCompositionPanelBtn();
             ClosePanel();
         }
         num=1;
+        LobbyManager.instance.InvokeCount();
     }
 }

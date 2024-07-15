@@ -45,8 +45,11 @@ public class DataManager : MonoBehaviour
 
 
     [Header("CardPiece")]
-    public int[] CardPiece = new int[(int)Rate.Count];
-
+    public int[] CardPiece; 
+    private void Start()
+    {
+        CardPiece= new int[(int)Rate.Count];
+    }
     public void SuffleDeckList()
     {
 
