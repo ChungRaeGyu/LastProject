@@ -21,7 +21,13 @@ public class GameManager : MonoBehaviour
 
     [Header("CharacterSpawnPoint")]
     public Transform playerSpawnPoint;
-    public List<Transform> monsterSpawnPoints;
+    public List<Transform> monsterSpawnPoint1;
+    public List<Transform> monsterSpawnPoint2;
+    public List<Transform> monsterSpawnPoint3;
+    public List<Transform> monsterSpawnPoint4;
+
+
+
 
     public Transform cardSpawnPoint; // 카드 소환 위치
 
@@ -62,17 +68,47 @@ public class GameManager : MonoBehaviour
 
     private void SpawnMonsters()
     {
+        int i = 0;
         monsterPrefab = DataManager.Instance.Monsters;
-        if (monsterPrefab != null && monsterSpawnPoints.Count > 0)
+        switch (DataManager.Instance.Monsters.Count)
         {
-            int i=0;
-            foreach (Transform spawnPoint in monsterSpawnPoints)
-            {
-                GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
-                MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
-                monsters.Add(monsterCharacter);
-                i++;
-            }
+            case 1:
+                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                {
+                    GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
+                    MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
+                    monsters.Add(monsterCharacter);
+                    i++;
+                }
+                break;
+            case 2:
+                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                {
+                    GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
+                    MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
+                    monsters.Add(monsterCharacter);
+                    i++;
+                }
+                break;
+            case 3:
+                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                {
+                    GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
+                    MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
+                    monsters.Add(monsterCharacter);
+                    i++;
+                }
+                break;
+            case 4:
+                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                {
+                    GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
+                    MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
+                    monsters.Add(monsterCharacter);
+                    i++;
+                }
+                break;
+        
         }
     }
 
