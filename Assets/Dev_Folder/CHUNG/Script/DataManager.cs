@@ -33,6 +33,7 @@ public class DataManager : MonoBehaviour
         }
     }
     #endregion
+
     [Header("Deck")]
     public List<CardBasic> deckList = new List<CardBasic>();
     public Stack<CardBasic> deck = new Stack<CardBasic>();

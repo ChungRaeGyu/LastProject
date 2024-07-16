@@ -10,7 +10,6 @@ public class EffectManager : MonoBehaviour
     //마법과 물리의 차이
     //마법 : 캐스팅 후 스킬 실행
     //물리 : 플레이어와 몬스터 이펙트 동시 실행
-
     public RangeAttackSystem RangeAttack;
     public Player tempPlayer;
     public CardBasic tempCardInfo;

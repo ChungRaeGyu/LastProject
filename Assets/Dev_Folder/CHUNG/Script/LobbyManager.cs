@@ -15,6 +15,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject deckCanvas;
     public GameObject currentCanvas;
     public event Action OnCount;
+
     private void Awake()
     {
         if (instance == null)

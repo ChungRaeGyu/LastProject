@@ -21,6 +21,7 @@ public class DeckControl : MonoBehaviour
         AddObj(cardObj);
         Debug.Log("카드추가");
     }
+
     public void RemoveCard(){
         if(DataManager.Instance.deckList.Count==0)return;
         int endCard = DataManager.Instance.deckList.Count-1;

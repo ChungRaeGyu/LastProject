@@ -35,7 +35,6 @@ public class DescriptionManager : MonoBehaviour
     }
     #endregion
 
-
     [Header("descriptionPanel")]
     public GameObject descriptionPanel;
     public Text text;
