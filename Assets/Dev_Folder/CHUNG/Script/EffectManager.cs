@@ -68,19 +68,9 @@ public class EffectManager : MonoBehaviour
     }
     #endregion
     #region 버프 및 기타 능력(Player에게만 이팩트 존재)
-    public void AddCostMethod(CardBasic cardBasic)
+    public void AddCostMethod(CardBasic cardBasic,Player player)
     {
-        if (tempPlayer == null)
-        {
-            Debug.LogError("AddCostMethod에서 tempPlayer가 null입니다.");
-            return;
-        }
-        if (cardBasic == null)
-        {
-            Debug.LogError("AddCostMethod에서 cardBasic이 null입니다.");
-            return;
-        }
-
+        tempPlayer = player;
         //tempCardInfo = cardBasic;
         PlayerEffectMethod(tempPlayer.transform.position);
         //tempPlayer.AddCost(tempCardInfo.ability);
