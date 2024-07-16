@@ -120,7 +120,7 @@ public class ButtonManager : MonoBehaviour
     // 보스로 들어가는 버튼
     public void Boss()
     {
-        DungeonManager.Instance.bossScene.SetActive(true);
+        //DungeonManager.Instance.bossScene.SetActive(true);
     }
 
     //스테이지 클리어하면 스테이지 보드로 돌아가는 버튼
