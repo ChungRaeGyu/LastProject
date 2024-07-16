@@ -217,7 +217,11 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(1);
         }
         else
-        SceneManager.LoadScene(2);
+        {
+            SceneManager.LoadScene(2);
+        }
+            
+        
     }
 
     private void StageCheck()
