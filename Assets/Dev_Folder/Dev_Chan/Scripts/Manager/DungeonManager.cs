@@ -52,7 +52,7 @@ public class DungeonManager : MonoBehaviour
             homeButton.SetActive(true);
             player.SetActive(true);
             int num = SaveManager.Instance.accessDungeonNum;
-            dungeonNum[num - 1].SetActive(true);
+            dungeonNum[num].SetActive(true);
 
             stage.SetActive(true);
         }

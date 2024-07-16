@@ -42,14 +42,15 @@ public class Stage : MonoBehaviour
 
     public void BattleBtn()
     {
+
         if(gameObject.name == "BossStage")
         {
             SaveManager.Instance.isBossStage = true;
         }
+        SceneManager.LoadScene(3);
         SaveManager.Instance.playerPosition = stagePosition;
         //DungeonManager.Instance.battleScene.SetActive(true);
         DataManager.Instance.Monsters = monsters;
-        SceneManager.LoadScene(3);
         DataManager.Instance.SuffleDeckList();
     }
 

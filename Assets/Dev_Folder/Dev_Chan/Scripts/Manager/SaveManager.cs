@@ -40,7 +40,6 @@ public class SaveManager : MonoBehaviour
     void Start()
     {
         accessDungeon = false;
-        accessDungeonNum = 0;
 
         accessibleDungeon[0] = true;
         for(int i = 1; i< accessDungeonNum; i++)

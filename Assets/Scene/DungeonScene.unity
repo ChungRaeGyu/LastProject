@@ -8546,6 +8546,7 @@ MonoBehaviour:
   accessDungeon: 0
   accessDungeonNum: 0
   playerPosition: {x: 0, y: 0, z: 0}
+  isBossStage: 0
 --- !u!4 &569416015
 Transform:
   m_ObjectHideFlags: 0
@@ -16967,6 +16968,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -35501,7 +35518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2070731565
 Transform:
   m_ObjectHideFlags: 0
@@ -37102,7 +37119,7 @@ PrefabInstance:
     - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: monsters.Array.data[1]
       value: 
-      objectReference: {fileID: 974049085}
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -37406,6 +37423,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 8990114933429913062, guid: 5a754195d6af52f42954a54165cda174, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3560965525818697419}
+    - target: {fileID: 8990114933429913062, guid: 5a754195d6af52f42954a54165cda174, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DungeonSetting, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37416,6 +37441,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6629940676423915781, guid: 5a754195d6af52f42954a54165cda174, type: 3}
   m_PrefabInstance: {fileID: 3560965525818697416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3560965525818697419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 566754978874596937, guid: 5a754195d6af52f42954a54165cda174, type: 3}
+  m_PrefabInstance: {fileID: 3560965525818697416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206bb5a428109994aa5a6e4dc773f079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3927516049175787828
 GameObject:
   m_ObjectHideFlags: 0
