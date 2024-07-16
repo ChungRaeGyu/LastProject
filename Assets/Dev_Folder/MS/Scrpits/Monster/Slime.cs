@@ -20,6 +20,8 @@ public class Slime : MonsterCharacter
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(monsterStats.maxhealth + hpUp, monsterStats.maxhealth + hpUp, transform.GetChild(1));
         }
+
+        AddCondition(UIManager.instance.conditionCanvas.transform, monsterStats.defense);
     }
 
     public override void TakeDamage(int damage)

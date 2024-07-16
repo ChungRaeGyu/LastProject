@@ -21,6 +21,8 @@ public class KingSlime : MonsterCharacter
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(monsterStats.maxhealth, monsterStats.maxhealth, transform.GetChild(1));
         }
+
+        AddCondition(UIManager.instance.conditionCanvas.transform, monsterStats.defense);
     }
 
     public override void TakeDamage(int damage)

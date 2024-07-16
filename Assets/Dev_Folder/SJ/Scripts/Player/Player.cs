@@ -30,7 +30,7 @@ public class Player : PlayerCharacter
         healthBarInstance = Instantiate(healthBarPrefab, healthBarcanvas.transform);
         healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
 
-        // 예시로 초기 스택 값 1로 새로운 컨0디션을 추가
+        // 예시로 초기 스택 값 1로 새로운 컨디션을 추가
         AddCondition(UIManager.instance.conditionCanvas.transform, playerStats.defense);
     }
 
