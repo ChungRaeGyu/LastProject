@@ -7,8 +7,7 @@ using System.Collections.Generic;
 using System;
 
 public class GameManager : MonoBehaviour
-
-
+{
     public static GameManager instance;
 
     private const string PLAYER_TURN_TEXT = "ео а╬╥А";
