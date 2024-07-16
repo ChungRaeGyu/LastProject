@@ -211,9 +211,17 @@ public class GameManager : MonoBehaviour
     public void OnLobbyButtonClick()
     {
         //TODO:보스클리어 확인
-        if(SaveManager.Instance.isBossStage)
+        if (SaveManager.Instance.isBossStage)
+        {
             StageCheck();
-        SceneManager.LoadScene(2);
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            SceneManager.LoadScene(2);
+        }
+            
+        
     }
 
     private void StageCheck()
