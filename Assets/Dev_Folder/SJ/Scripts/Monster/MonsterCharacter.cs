@@ -144,7 +144,6 @@ public class MonsterCharacter : MonoBehaviour
 
     public void DieAction()
     {
-        Debug.Log("DieAction");
         if (IsDead())
         {
             Die();

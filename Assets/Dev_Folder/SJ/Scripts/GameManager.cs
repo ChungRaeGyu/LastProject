@@ -210,9 +210,22 @@ public class GameManager : MonoBehaviour
 
     public void OnLobbyButtonClick()
     {
+        //TODO:보스클리어 확인
+        if(SaveManager.Instance.isBossStage)
+            StageCheck();
         SceneManager.LoadScene(2);
     }
 
+    private void StageCheck()
+    {
+        SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.accessibleDungeon[SaveManager.Instance.accessDungeonNum] = false;
+        if (SaveManager.Instance.accessDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
+        {
+            SaveManager.Instance.accessDungeonNum++;
+            SaveManager.Instance.accessibleDungeon[SaveManager.Instance.accessDungeonNum] = true;
+        }
+    }
     public void EndMonsterTurn()
     {
         playerTurn = true;

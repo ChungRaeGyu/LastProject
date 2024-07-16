@@ -127,20 +127,17 @@ public class DataManager : MonoBehaviour
     public void IncreaseMonstersKilledCount()
     {
         monstersKilledCount++;
-        Debug.Log($"몬스터를 총 {monstersKilledCount}마리 죽였습니다.");
     }
 
     // 몬스터 킬 수 초기화
     public void ResetMonstersKilledCount()
     {
         monstersKilledCount = 0;
-        Debug.Log("몬스터 킬 수 초기화");
     }
 
     // 플레이어 체력 초기화
     public void ResetPlayerHealth()
     {
         currenthealth = 0; // 일단 0으로 초기화 (0일때 최대값으로 들어가게 해놓은 로직이 player에 존재함)
-        Debug.Log("플레이어의 체력이 초기화되었습니다.");
     }
 }

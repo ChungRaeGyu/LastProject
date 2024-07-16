@@ -1047,7 +1047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeon: {fileID: 0}
 --- !u!114 &59638090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5768,7 +5767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeon: {fileID: 0}
 --- !u!114 &367051899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7073,7 +7071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeon: {fileID: 0}
 --- !u!114 &432666709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25316,7 +25313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeon: {fileID: 0}
 --- !u!114 &1579306913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36922,6 +36918,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5405742064417029715, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5282070450890624944}
+    - target: {fileID: 5405742064417029715, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BattleBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405742064417029715, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Stage, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8379252652185555812, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
       propertyPath: m_Type
       value: 1
@@ -36937,7 +36945,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8922143484383957093, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5282070450890624944}
   m_SourcePrefab: {fileID: 100100000, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
 --- !u!1 &1975355620440414305
 GameObject:
@@ -37563,6 +37574,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5377127095403130929, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
   m_PrefabInstance: {fileID: 1953882851218200672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5282070450890624944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44518782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battle: {fileID: 0}
+  eventStage: {fileID: 0}
+  store: {fileID: 0}
+  stageName: 
+  stagePosition: {x: 0, y: 0, z: 0}
+  monsters:
+  - {fileID: 1251262228192278890, guid: 5072fe4041effa143b2029bb9f572a5f, type: 3}
 --- !u!1001 &5664838560353910010
 PrefabInstance:
   m_ObjectHideFlags: 0

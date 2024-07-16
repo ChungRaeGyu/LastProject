@@ -59,7 +59,6 @@ public class EffectManager : MonoBehaviour
             {
                 monster.TakeDamage(tempCardInfo.ability);
             }
-            Debug.Log($"메테오로 인한 {monsters.Count}");
         }
         else
         {
@@ -134,11 +133,9 @@ public class EffectManager : MonoBehaviour
     public IEnumerator EndOfParticle(GameObject particle)
     {
         if (particle.TryGetComponent<ParticleSystem>(out var particleSystem)){
-            Debug.Log("Try"+particle.name);
             yield return new WaitForSecondsRealtime(particleSystem.main.duration);
         }else
         {
-            Debug.Log("normal"+ particle.name);
             particleSystem = particle.GetComponentInChildren<ParticleSystem>();
             yield return new WaitForSecondsRealtime(particleSystem.main.duration);
         }

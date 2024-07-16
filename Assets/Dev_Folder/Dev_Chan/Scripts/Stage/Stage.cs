@@ -14,6 +14,7 @@ public class Stage : MonoBehaviour
     public List<GameObject> monsters = new List<GameObject>();
     public void Start()
     {
+        if (monsters.Count == 1) return;
         int randomNum = Random.Range(0, 100);
         stagePosition = this.gameObject.transform.position;
         if (randomNum < 6)
@@ -41,6 +42,10 @@ public class Stage : MonoBehaviour
 
     public void BattleBtn()
     {
+        if(gameObject.name == "BossStage")
+        {
+            SaveManager.Instance.isBossStage = true;
+        }
         SaveManager.Instance.playerPosition = stagePosition;
         //DungeonManager.Instance.battleScene.SetActive(true);
         DataManager.Instance.Monsters = monsters;
