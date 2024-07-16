@@ -15,21 +15,7 @@ public class DeckControl : MonoBehaviour
 
     #region 로비
     //Book to Deck
-    public void AddCard(CardBasic cardObj){
-        //설명창에서 덱추가 버튼을 눌렀을 때
-        //드래그해서 덱에 닿였을때 호출
-        AddObj(cardObj);
-        Debug.Log("카드추가");
-    }
 
-    public void RemoveCard(){
-        if(DataManager.Instance.deckList.Count==0)return;
-        int endCard = DataManager.Instance.deckList.Count-1;
-        DataManager.Instance.deckList[endCard].GetComponent<Card>().cardObj.currentCount++;
-        DataManager.Instance.deckList.RemoveAt(endCard);
-        LobbyManager.instance.InvokeCount();
-        //UpdateDeck();
-    }
 
     private void Start()
     {
@@ -49,23 +35,21 @@ public class DeckControl : MonoBehaviour
         }
     }
 
-    public void AddObj(CardBasic cardBasic)
+    //드래그 앤 드랍으로 넣기
+    public void AddCardObj(CardBasic cardBasic)
     {
+        cardBasic.currentCount--;
+        LobbyManager.instance.InvokeCount();
         DataManager.Instance.deckList.Add(cardBasic);
         GameObject obj = Instantiate(prefab, Canvas.transform);
         obj.GetComponent<DeckListObj>().cardBasic= cardBasic;
         obj.SetActive(true); 
     }
-    /*
-    private void ClearDeck(){
-        Debug.Log("Deck ClearDeck()");
-        foreach (Card tempcard in cardObj)
-        {
-            ObjectPool.cardsObj.Enqueue(tempcard.gameObject);
-            tempcard.gameObject.SetActive(false);
-        }
-        cardObj.Clear();
+    public void RemoveCardObj(CardBasic cardBasic)
+    {
+        cardBasic.currentCount++;
+        LobbyManager.instance.InvokeCount();
+        DataManager.Instance.deckList.Remove(cardBasic);
     }
-    */
     #endregion
 }

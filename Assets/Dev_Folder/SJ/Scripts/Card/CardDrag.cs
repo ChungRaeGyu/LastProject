@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -25,6 +26,7 @@ public class CardDrag : MonoBehaviour
     private BezierDragLine dragLine; // BezierDragLine 스크립트 참조 변수
     private Coroutine clickCoroutine; // 클릭 코루틴을 저장할 변수
     private GameObject draggedCardPrefab;
+    private bool isClick = false;
 
     private void Awake()
     {
@@ -110,7 +112,9 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
+            if (cardBasic.cardBasic.currentCount == 0) return;
             clickCoroutine = StartCoroutine(OnClickDetect());
+            
         }
     }
 
@@ -120,7 +124,9 @@ public class CardDrag : MonoBehaviour
         float elapsedTime = 0f;
         bool isLongClick = false;
 
-        while (elapsedTime < clickTime)
+        isClick = true;
+
+        while (isClick)
         {
             elapsedTime += Time.deltaTime;
 
@@ -128,7 +134,7 @@ public class CardDrag : MonoBehaviour
             if (elapsedTime >= clickTime)
             {
                 isLongClick = true;
-                break;
+                isClick = false;
             }
 
             yield return null; // 한 프레임씩 대기
@@ -158,7 +164,8 @@ public class CardDrag : MonoBehaviour
         {
             // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
             Debug.Log("살짝 눌렀다.");
-
+            DescriptionManager.Instance.OpenPanel(cardBasic);
+            
             // 코루틴이 끝난 후 null로 초기화
             clickCoroutine = null;
         }
@@ -166,6 +173,7 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
+        isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (dragLine != null)
@@ -192,26 +200,30 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
-            //TODO : 삭제하거나 덱에 위치했으면 덱 추가
+            //로비에서 드래그 사용
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
+                Debug.Log("Content에 넣음");
+                LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
+            }
+            else
+            {
+                Debug.Log(LobbyManager.instance.currentCanvas + "currentCanvas");
+                Debug.Log(LobbyManager.instance.deckCanvas + "deckCanvas");
                 try
                 {
-                    LobbyManager.instance.deckControl.AddObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
+                    LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
                 }
                 catch (Exception err)
                 {
 
-                    Debug.Log("Message"+err.Message);
+                    Debug.Log("Message" + err.Message);
                 }
-                
+
             }
             Destroy(draggedCardPrefab);
         }
-
-
     }
-
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)
     {
         originalPosition = position;

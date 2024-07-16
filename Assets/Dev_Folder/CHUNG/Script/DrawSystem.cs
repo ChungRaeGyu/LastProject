@@ -69,9 +69,6 @@ public class DrawSystem : MonoBehaviour
     //Book(도감)으로 넣어준다. 그리고 카드를 다 초기화 시켜주기
     private void SaveCardInBook()
     {
-        Debug.Log($"Queue Count : {tempCardBasic.Count}");
-        Debug.Log($"List Count : {tempCardObj.Count}");
-
         //초기화
         foreach (GameObject cardObj in tempCardObj)
         {

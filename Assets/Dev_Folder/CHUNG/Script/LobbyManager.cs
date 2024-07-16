@@ -12,7 +12,10 @@ public class LobbyManager : MonoBehaviour
     public GameObject num;
     public DeckControl deckControl;
     public GameObject deckContent;
+    [Header("Canvas")]
     public GameObject deckCanvas;
+    public GameObject BookCanvas;
+    [Header("InputScript")]
     public GameObject currentCanvas;
     public event Action OnCount;
 

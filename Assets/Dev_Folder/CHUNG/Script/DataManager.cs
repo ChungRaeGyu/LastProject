@@ -45,7 +45,12 @@ public class DataManager : MonoBehaviour
     public List<CardBasic> cardObjs = new List<CardBasic>();
 
     [Header("CardPiece")]
-    public int[] CardPiece = new int[(int)Rate.Count];
+
+    public int[] CardPiece; 
+    private void Start()
+    {
+        CardPiece= new int[(int)Rate.Count];
+    }
 
     [Header("current Battle Monsters")]
     public List<GameObject> Monsters = new List<GameObject>();
