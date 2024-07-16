@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
     {
         int i = 0;
         monsterPrefab = DataManager.Instance.Monsters;
-        switch (DataManager.Instance.Monsters.Count)
+        Debug.Log("°è¼ö" + monsterPrefab.Count);
+        switch (monsterPrefab.Count)
         {
             case 1:
                 foreach (Transform spawnPoint in monsterSpawnPoint1)
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 2:
-                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                foreach (Transform spawnPoint in monsterSpawnPoint2)
                 {
                     GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
                     MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 3:
-                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                foreach (Transform spawnPoint in monsterSpawnPoint3)
                 {
                     GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
                     MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
@@ -100,7 +101,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 4:
-                foreach (Transform spawnPoint in monsterSpawnPoint1)
+                foreach (Transform spawnPoint in monsterSpawnPoint4)
                 {
                     GameObject monsterObject = Instantiate(monsterPrefab[i], spawnPoint.position, Quaternion.identity);
                     MonsterCharacter monsterCharacter = monsterObject.GetComponent<MonsterCharacter>();
