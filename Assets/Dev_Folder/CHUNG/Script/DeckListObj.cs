@@ -21,14 +21,8 @@ public class DeckListObj : MonoBehaviour
 
     private void delaySetting()
     {
-        Debug.Log("ONENABLE");
         if (cardBasic != null)
             text.text = cardBasic.cardName;
-        else
-        {
-            Debug.Log("null" + cardBasic);
-
-        }
     }
     private void OnMouseDown()
     {

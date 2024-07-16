@@ -79,7 +79,6 @@ public class DataManager : MonoBehaviour
         foreach (CardBasic tempCard in temp)
         {
             deck.Push(tempCard);
-            Debug.Log($"Card pushed: {tempCard.name}");
         }
 
         usedCards.Clear();
@@ -89,16 +88,13 @@ public class DataManager : MonoBehaviour
     {
         if (deck.Count == 0)
         {
-            Debug.Log("덱이 비어있습니다. 사용된 카드를 셔플합니다.");
             SuffleUsedCards();
 
             // 덱이 여전히 비어있다면 오류를 방지하기 위해 예외를 던집니다.
             if (deck.Count == 0)
             {
-                throw new InvalidOperationException("덱이 비어있습니다. 사용된 카드를 셔플한 후에도 덱이 비어있습니다.");
             }
         }
-        Debug.Log("카드배출");
         return deck.Pop();
     }
 

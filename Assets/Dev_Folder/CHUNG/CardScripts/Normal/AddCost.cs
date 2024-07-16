@@ -42,7 +42,7 @@ public class AddCost : CardBasic
 
     public void CardUse(Monster targetMonster)
     {
-        GameManager.instance.effectManager.AddCostMethod(cardBasic);
+        GameManager.instance.effectManager.AddCostMethod(cardBasic,GameManager.instance.player);
         GameManager.instance.player.AddCost(ability);
     }
 
