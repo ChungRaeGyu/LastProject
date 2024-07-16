@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+
     //던전으로 들어가는 버튼
     public void GoToDungeon()
     {
@@ -30,6 +31,7 @@ public class ButtonManager : MonoBehaviour
                 DataManager.Instance.ResetPlayerHealth();
                 // 몬스터 킬 수 초기화 (임시)
                 DataManager.Instance.ResetMonstersKilledCount();
+                SaveManager.Instance.playerPosition = Dungeon.Instance.stageNum[0].transform.position;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 
@@ -128,5 +130,10 @@ public class ButtonManager : MonoBehaviour
         DungeonManager.Instance.eventScene.SetActive(false);
         DungeonManager.Instance.storeScene.SetActive(false);
         DungeonManager.Instance.bossScene.SetActive(false);
+    }
+    public void BattleClear()
+    {
+
+        SceneManager.LoadScene(2);
     }
 }

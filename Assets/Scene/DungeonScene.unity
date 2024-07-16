@@ -445,6 +445,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1031,6 +1047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeon: {fileID: 0}
 --- !u!114 &59638090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1764,6 +1781,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5735,6 +5768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeon: {fileID: 0}
 --- !u!114 &367051899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7039,6 +7073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeon: {fileID: 0}
 --- !u!114 &432666709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9800,6 +9835,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10867,6 +10914,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -12705,6 +12764,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18092,6 +18167,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18512,6 +18603,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -20266,6 +20369,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -21118,6 +21237,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -22047,6 +22178,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[3]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -22806,6 +22957,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[3]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -25145,6 +25316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeon: {fileID: 0}
 --- !u!114 &1579306913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28652,6 +28824,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -30359,6 +30543,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[2]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -36876,6 +37076,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Random
       objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: battleSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ed4ac103a6dbd341b309744e3ec5aeb, type: 2}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[0]
+      value: 
+      objectReference: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+    - target: {fileID: 5473749328232849781, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
+      propertyPath: monsters.Array.data[1]
+      value: 
+      objectReference: {fileID: 974049085}
     - target: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -37054,6 +37270,10 @@ PrefabInstance:
     - target: {fileID: 1561552429277429540, guid: 5a754195d6af52f42954a54165cda174, type: 3}
       propertyPath: m_Name
       value: 01_Start_Dungeon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561552429277429540, guid: 5a754195d6af52f42954a54165cda174, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1561552429277429540, guid: 5a754195d6af52f42954a54165cda174, type: 3}
       propertyPath: m_TagString

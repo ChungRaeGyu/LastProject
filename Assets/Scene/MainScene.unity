@@ -2915,12 +2915,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7819706550800687401, guid: 3007b38cf437b3f46b6a97f274a3fad3, type: 3}
-  monsterPrefab: {fileID: 1251262228192278890, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
+  monsterPrefab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerSpawnPoint: {fileID: 1262914818}
-  monsterSpawnPoints:
+  monsterSpawnPoint1:
   - {fileID: 1238169277}
+  monsterSpawnPoint2:
+  - {fileID: 1238169277}
+  - {fileID: 1238169277}
+  monsterSpawnPoint3:
   - {fileID: 616671311}
+  - {fileID: 1238169277}
   - {fileID: 1152618596}
+  monsterSpawnPoint4: []
   cardSpawnPoint: {fileID: 582510203}
   monsters: []
   handManager: {fileID: 1587527351}
