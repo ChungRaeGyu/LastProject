@@ -205,6 +205,7 @@ public class CardDrag : MonoBehaviour
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
                 Debug.Log("Contentø° ≥÷¿Ω");
+
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
             Destroy(draggedCardPrefab);
