@@ -43,7 +43,7 @@ public class FrozenMagic : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(ability);
+        targetMonster.FreezeForTurns(ability);
         PlayPlayerAttackAnimation();
     }
 
