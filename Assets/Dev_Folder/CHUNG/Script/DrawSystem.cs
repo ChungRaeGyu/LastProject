@@ -22,8 +22,9 @@ public class DrawSystem : MonoBehaviour
     Vector3 initTransform;
     //나중에 switch를 없앨 방법을 생각해 보자
     private void Start(){
-        boardtransform = board.GetComponent<RectTransform>();
-        initTransform = board.GetComponent<RectTransform>().localPosition;
+        //boardtransform = board.GetComponent<RectTransform>();
+        //initTransform = board.GetComponent<RectTransform>().localPosition;
+        Debug.Log("시작 : " + initTransform);
         foreach (CardBasic card in DataManager.Instance.cardObjs){
             switch(card.rate){
                 case Rate.Normal: 
@@ -88,7 +89,8 @@ public class DrawSystem : MonoBehaviour
     //패널 닫기 
     public void CloseCanvas(){
         SaveCardInBook();
-        boardtransform.localPosition = initTransform;
+        Debug.Log("종료 : " + initTransform);
+        //boardtransform.localPosition = initTransform;
     }
 
     public void OpenCard(){
