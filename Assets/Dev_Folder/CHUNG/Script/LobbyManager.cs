@@ -19,6 +19,7 @@ public class LobbyManager : MonoBehaviour
     public GameObject currentCanvas;
     public event Action OnCount;
 
+    public bool isDrawing = false;
     private void Awake()
     {
         if (instance == null)

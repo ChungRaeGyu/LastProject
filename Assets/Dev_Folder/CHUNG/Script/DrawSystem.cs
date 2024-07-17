@@ -17,9 +17,14 @@ public class DrawSystem : MonoBehaviour
     //등급, 몇번째인지
     [SerializeField] GameObject board;
     [SerializeField] int count;
+
+    RectTransform boardtransform;
+    Vector3 initTransform;
     //나중에 switch를 없앨 방법을 생각해 보자
     private void Start(){
-        foreach(CardBasic card in DataManager.Instance.cardObjs){
+        boardtransform = board.GetComponent<RectTransform>();
+        initTransform = board.GetComponent<RectTransform>().localPosition;
+        foreach (CardBasic card in DataManager.Instance.cardObjs){
             switch(card.rate){
                 case Rate.Normal: 
                     normalCards.Add(card);
@@ -34,10 +39,9 @@ public class DrawSystem : MonoBehaviour
         }
     }
     public void DrawingCardBtn(){
-        drawButton.enabled=false;
+        LobbyManager.instance.isDrawing = true;
         for(int i=0; i< count; i++) { 
             int random = Random.Range(1,100);
-            Debug.Log($"{i}번째 {random}");
             if(random<80)
             {
                 //노말카드
@@ -78,12 +82,13 @@ public class DrawSystem : MonoBehaviour
         LobbyManager.instance.InvokeCount();
         tempCardBasic.Clear();
         tempCardObj.Clear();
+        LobbyManager.instance.isDrawing = false;
     }
 
     //패널 닫기 
     public void CloseCanvas(){
-        drawButton.enabled=true;
         SaveCardInBook();
+        boardtransform.localPosition = initTransform;
     }
 
     public void OpenCard(){
