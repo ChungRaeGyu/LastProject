@@ -85,11 +85,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8586083240637284215}
   - component: {fileID: 2832788313043729965}
-  - component: {fileID: 765371266515191359}
   - component: {fileID: 4230445555799865020}
   - component: {fileID: 3636337072441627182}
   - component: {fileID: 4634434947082303500}
   - component: {fileID: 8472182826931242114}
+  - component: {fileID: 6832844263539629909}
   m_Layer: 0
   m_Name: AddCard
   m_TagString: Untagged
@@ -162,18 +162,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 90, y: 90}
   m_EdgeRadius: 0
---- !u!114 &765371266515191359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873129473516573618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24a2a93c71a2f604db5ee9fa174bd9e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4230445555799865020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,3 +227,15 @@ MonoBehaviour:
   effect: {fileID: 0}
   dragLineCard: 0
   attackEffect: {fileID: 0}
+--- !u!114 &6832844263539629909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873129473516573618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a2a93c71a2f604db5ee9fa174bd9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -38,6 +38,7 @@ public class DeckControl : MonoBehaviour
     //드래그 앤 드랍으로 넣기
     public void AddCardObj(CardBasic cardBasic)
     {
+        Debug.Log("AddCardObj" + cardBasic);
         cardBasic.currentCount--;
         LobbyManager.instance.InvokeCount();
         DataManager.Instance.deckList.Add(cardBasic);

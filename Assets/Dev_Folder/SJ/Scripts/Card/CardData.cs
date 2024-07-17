@@ -38,7 +38,7 @@ public class CardData : MonoBehaviour
 
     private void Update()
     {
-        
+        if (!LobbyManager.instance.isDrawing) return;
         float newValue = ConvertRange(transform.position.x, -1178, 4386, 3, 5)*1.5f;
         
         transform.localScale= new Vector2(1* newValue, 1.5f* newValue);

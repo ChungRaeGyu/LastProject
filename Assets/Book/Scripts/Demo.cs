@@ -60,6 +60,7 @@ public class Demo : MonoBehaviour
     void GachaPage()
     {
         if (currentPage == 1) return;
+        bookAnim.animator.SetBool("Open", false);
         if (currentPage > 1)
         {
             bookController.PreviousPage();

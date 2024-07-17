@@ -147,6 +147,7 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             cursorWorldPoint.z = 0;
             draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint,Quaternion.identity, Canvas.transform);
+            Destroy(draggedCardPrefab.transform.GetChild(1).gameObject);
             draggedCardPrefab.GetComponentInChildren<Image>().raycastTarget = false;
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
@@ -205,21 +206,6 @@ public class CardDrag : MonoBehaviour
             {
                 Debug.Log("Contentø° ≥÷¿Ω");
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
-            }
-            else
-            {
-                Debug.Log(LobbyManager.instance.currentCanvas + "currentCanvas");
-                Debug.Log(LobbyManager.instance.deckCanvas + "deckCanvas");
-                try
-                {
-                    LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
-                }
-                catch (Exception err)
-                {
-
-                    Debug.Log("Message" + err.Message);
-                }
-
             }
             Destroy(draggedCardPrefab);
         }

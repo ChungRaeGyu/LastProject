@@ -34,6 +34,7 @@ public class DrawSystem : MonoBehaviour
         }
     }
     public void DrawingCardBtn(){
+        LobbyManager.instance.isDrawing = true;
         for(int i=0; i< count; i++) { 
             int random = Random.Range(1,100);
             if(random<80)
@@ -76,6 +77,7 @@ public class DrawSystem : MonoBehaviour
         LobbyManager.instance.InvokeCount();
         tempCardBasic.Clear();
         tempCardObj.Clear();
+        LobbyManager.instance.isDrawing = false;
     }
 
     //패널 닫기 

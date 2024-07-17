@@ -66,7 +66,6 @@ public class DescriptionManager : MonoBehaviour
     public void AddDeck()
     {
         //덱추가 버튼
-        currentCard.cardBasic.currentCount--;
         deck.AddCardObj(currentCard.cardBasic);
         LobbyManager.instance.InvokeCount();
         ClosePanel();
@@ -76,7 +75,7 @@ public class DescriptionManager : MonoBehaviour
     {
         currentCard = cardBasic;
         tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform);
-        
+        Destroy(tempCard.transform.GetChild(1).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
         tempCardRect.localScale = new Vector2(3, 4.5f);
         tempCardRect.localPosition = new Vector2(0, 0);
