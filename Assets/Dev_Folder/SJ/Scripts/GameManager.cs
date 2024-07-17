@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     [Header("Condition")]
     public GameObject conditionBoxPrefab;
 
+    public Condition defenseconditionPrefab;
+    public Condition frozenConditionPrefab;
+
     private void Awake()
     {
         if (instance == null)

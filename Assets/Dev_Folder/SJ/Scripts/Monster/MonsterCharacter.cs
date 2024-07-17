@@ -15,9 +15,6 @@ public class MonsterCharacter : MonoBehaviour
 
     public GameObject damageTextPrefab;
 
-    [SerializeField] private Condition defenseconditionPrefab;
-    [SerializeField] private Condition frozenConditionPrefab;
-
     private List<Condition> conditionInstances = new List<Condition>();
 
     public Transform hpBarPos; // HP 바 위치
@@ -46,7 +43,7 @@ public class MonsterCharacter : MonoBehaviour
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
         MonsterCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
-        AddCondition(MonsterCondition, monsterStats.defense, defenseconditionPrefab, ConditionType.Defense);
+        AddCondition(MonsterCondition, monsterStats.defense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
     }
 
     private void Update()
@@ -153,7 +150,7 @@ public class MonsterCharacter : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, frozenConditionPrefab, ConditionType.Frozen);
+            AddCondition(MonsterCondition, turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
         }
 
         Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
