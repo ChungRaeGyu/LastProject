@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 323401942279387412}
   - component: {fileID: 8352449707788295723}
   - component: {fileID: 1516393449248830274}
+  - component: {fileID: -1598070861796313375}
   m_Layer: 0
   m_Name: Heal
   m_TagString: Untagged
@@ -164,6 +165,27 @@ MonoBehaviour:
   effect: {fileID: 3018233352905704188, guid: 4cc8b7ae8fe113142ade2524b85851b7, type: 3}
   dragLineCard: 0
   attackEffect: {fileID: 0}
+--- !u!95 &-1598070861796313375
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378047061485869098}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ca8ccc8852733449ab348ed5acee745, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8716561571366841250
 GameObject:
   m_ObjectHideFlags: 0

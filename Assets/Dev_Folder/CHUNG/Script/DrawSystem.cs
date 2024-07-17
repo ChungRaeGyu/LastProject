@@ -17,9 +17,14 @@ public class DrawSystem : MonoBehaviour
     //등급, 몇번째인지
     [SerializeField] GameObject board;
     [SerializeField] int count;
+
+    RectTransform boardtransform;
+    Vector3 initTransform;
     //나중에 switch를 없앨 방법을 생각해 보자
     private void Start(){
-        foreach(CardBasic card in DataManager.Instance.cardObjs){
+        boardtransform = board.GetComponent<RectTransform>();
+        initTransform = board.GetComponent<RectTransform>().localPosition;
+        foreach (CardBasic card in DataManager.Instance.cardObjs){
             switch(card.rate){
                 case Rate.Normal: 
                     normalCards.Add(card);
@@ -83,6 +88,7 @@ public class DrawSystem : MonoBehaviour
     //패널 닫기 
     public void CloseCanvas(){
         SaveCardInBook();
+        boardtransform.localPosition = initTransform;
     }
 
     public void OpenCard(){

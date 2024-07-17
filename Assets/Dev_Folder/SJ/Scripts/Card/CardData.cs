@@ -3,19 +3,24 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CardData : MonoBehaviour
 {
     RectTransform transform;
     CardBasic cardBasic;
     Image image;
+    Animator animator;
     Vector2 maxSize = new Vector2(5, 7.5f);
     Vector2 minSize = new Vector2(3, 4.5f);
+    Coroutine coroutine;
     private void Awake()
     {
         transform = GetComponent<RectTransform>();
         cardBasic = GetComponent<CardBasic>();
         image = GetComponentInChildren<Image>();
+        animator = GetComponent<Animator>();
+        
         // 변환된 값 계산
 
     }
@@ -45,12 +50,20 @@ public class CardData : MonoBehaviour
 
         if (transform.localScale.x > 5)
         {
-            if (image.sprite == cardBasic.defaultImage)
+            if (coroutine==null&&image.sprite==cardBasic.defaultImage)
             {
-                image.sprite = cardBasic.image;
+                animator.SetTrigger("Flip");
+                coroutine = StartCoroutine(Delay());
+                
             }
         }
 
         //1564일때를 기준으로 
+    }
+    IEnumerator Delay()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        image.sprite = cardBasic.image;
+        coroutine = null;
     }
 }
