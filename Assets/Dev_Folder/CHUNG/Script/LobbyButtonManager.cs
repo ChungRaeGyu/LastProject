@@ -28,6 +28,7 @@ public class LobbyButtonManager : MonoBehaviour
             drawSystem.CloseCanvas();
         }else{
             DrawCanvas.SetActive(true);
+            GaChaBtn();
         }
         
     }

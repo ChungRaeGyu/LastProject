@@ -34,10 +34,8 @@ public class DrawSystem : MonoBehaviour
         }
     }
     public void DrawingCardBtn(){
-        drawButton.enabled=false;
         for(int i=0; i< count; i++) { 
             int random = Random.Range(1,100);
-            Debug.Log($"{i}번째 {random}");
             if(random<80)
             {
                 //노말카드
@@ -82,7 +80,6 @@ public class DrawSystem : MonoBehaviour
 
     //패널 닫기 
     public void CloseCanvas(){
-        drawButton.enabled=true;
         SaveCardInBook();
     }
 
