@@ -2745,7 +2745,7 @@ Transform:
   m_GameObject: {fileID: 1262914817}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -2, z: 0}
+  m_LocalPosition: {x: -5.5, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2914,7 +2914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33baa6b253904f49bfd761c1d836d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7819706550800687401, guid: 3007b38cf437b3f46b6a97f274a3fad3, type: 3}
+  playerPrefab: {fileID: 8836085219883261407, guid: 51779a941770b954389f123ade21778c, type: 3}
   monsterPrefab:
   - {fileID: 0}
   - {fileID: 0}
@@ -2934,6 +2934,7 @@ MonoBehaviour:
   monsters: []
   handManager: {fileID: 1587527351}
   effectManager: {fileID: 432568692}
+  conditionBoxPrefab: {fileID: 348306534641511078, guid: 3e70a7f523be7c44f95440cbdf658063, type: 3}
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0

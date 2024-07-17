@@ -177,9 +177,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3533223141691312670}
+  - component: {fileID: 7382438299613330229}
   - component: {fileID: 3079206633579136749}
   - component: {fileID: 9093908244926521988}
-  - component: {fileID: 7382438299613330229}
   m_Layer: 6
   m_Name: KingSlime
   m_TagString: Monster
@@ -205,6 +205,28 @@ Transform:
   - {fileID: 2372896892554073779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7382438299613330229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251262228192278890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ccc7e49eff06e74cb8a41034cbd6091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterStats: {fileID: 11400000, guid: 9f9b1d1a313331543aa228f8c40d1c26, type: 2}
+  animator: {fileID: 0}
+  damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
+  defenseconditionPrefab: {fileID: 2555176015284709196, guid: f59af806d5c622e4e9ecde624dc827db, type: 3}
+  frozenConditionPrefab: {fileID: 2555176015284709196, guid: ae20caddbd8866c44bfb23548ec0792d, type: 3}
+  hpBarPos: {fileID: 7550024549025472626}
+  conditionPos: {fileID: 2372896892554073779}
+  MonsterCondition: {fileID: 0}
+  frozenTurnsRemaining: 0
+  healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &3079206633579136749
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -277,21 +299,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7382438299613330229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251262228192278890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ccc7e49eff06e74cb8a41034cbd6091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: 9f9b1d1a313331543aa228f8c40d1c26, type: 2}
-  animator: {fileID: 0}
-  damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
-  defenseconditionPrefab: {fileID: 2555176015284709196, guid: f59af806d5c622e4e9ecde624dc827db, type: 3}
-  conditionSpacing: 1
-  healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}

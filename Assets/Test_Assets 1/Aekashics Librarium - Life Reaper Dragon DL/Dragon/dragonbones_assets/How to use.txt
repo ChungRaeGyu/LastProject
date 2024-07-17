@@ -1,0 +1,132 @@
+------------------
+Instructions for RPG Maker MV usage
+------------------
+1. If you haven't install http://yanfly.moe/2017/08/04/yep-150-dragonbones-integration-rpg-maker-mv-2/
+2. Optionally, please refer to the Librarium Dragonbones Sample Project for example implementation with other monsters! http://www.akashics.moe/monster-packs/librarium-dragonbones-demo-2-0/
+3. Copy the "Settings" template attached at the bottom of this fie into the database enemy entry notes section!
+4. Replace creature name with the same name found on the monter's file name (Without extensions) !
+5. Scale and adjust the battler as required for your project through the notetags!
+6. Battlers are usable both as hero actors and monsters! (place them under Actors/Enemies tabs respectively
+
+-Aekashics!
+
+------------------
+Instructions for RPG Maker MZ usage
+------------------
+1. Install the Visustella Dragonbones Union to your project http://www.yanfly.moe/wiki/Dragonbones_Union_VisuStella_MZ !
+2. Copy the "Settings" template attached at the bottom of this fie into the database enemy entry notes section!
+3. Replace creature name with the same name found on the monter's file name (Without extensions) !
+4. Scale and adjust the battler as required for your project through the notetags!
+5. Battlers are usable both as hero actors and monsters! (place them under Actors/Enemies tabs respectively
+6. Create action sequences to adjust the visual and mechanic effects of the battler's available attack motions!
+
+-Aekashics!
+
+Refer any questions you may have through patreon or twitter! 
+
+
+
+
+---MZ SETTINGS TEMPLATE---
+<Dragonbones Battler Settings>
+ Battler: CreatureName
+
+ Scale X: -1.0
+ Scale Y: 1.0
+
+ Height: 0
+
+ Time Scale: 1.0
+
+ Motion Walk: Idle
+ Motion Wait: Idle
+ Motion Chant: Idle
+ Motion Guard: Idle
+ Motion Damage: Damage
+ Motion Evade: Idle
+ Motion Thrust: Attack A
+ Motion Swing: Attack B
+ Motion Missile: Attack C
+ Motion Skill: Attack A
+ Motion Spell: Attack A
+ Motion Item: Attack A
+ Motion Escape: Idle
+ Motion Victory: Attack A
+ Motion Dying: Idle
+ Motion Abnormal: Idle
+ Motion Sleep: Attack A
+ Motion Dead: Damage
+</Dragonbones Battler Settings>
+
+
+Available Motions:
+Attack A
+Attack B
+Attack C
+Damage
+Idle
+
+
+Create Action sequences to tweak timing and effects of available motions as established by the VisuStella Dragonbones Union Plugin!
+
+---MV SETTINGS TEMPLATE---
+<DragonBone Settings>
+Battler: CreatureName
+Scalex: -1.0
+Scaley: 1.0
+Width: 150
+Height: 120
+
+Ani Wait: Idle
+Ani Walk: Idle
+Ani Attack: Attack A
+Ani Swing: Attack B
+Ani Thrust: Attack C
+Ani Missile: Attack C
+Ani Skill: Skill A
+Ani Chant: Casting
+Ani Spell: Skill B
+Ani Item: Attack A
+Ani Guard: Idle
+Ani Evade: Idle
+Ani Damage: Damage
+Ani Abnormal: Idle 
+Ani Sleep: Idle 
+Ani Dying: Idle
+Ani Dead: Damage
+Ani Victory: Victory
+Ani Escape: Idle
+
+Replace Sprite
+</DragonBone Settings>
+
+Available Motions:
+Attack A 
+Attack B
+Attack C 
+Attack D
+Damage
+Idle
+
+Sample Action Sequence:
+Replace and adjust the motion name as required!
+
+<Setup Action>
+display action
+immortal: targets, true
+</Setup Action>
+
+<target action>
+move user: targets, front base, 25, offset x -110
+motion Attack A: user
+wait: 29
+action animation: target
+action effect
+wait: 40
+</target action>
+
+
+<Finish Action>
+immortal: targets, false
+</Finish Action>
+

@@ -7,23 +7,17 @@ public class Condition : MonoBehaviour
 {
     private Transform conditionPos;
     public TMP_Text stackText;
-    private int stackCount;
+    public int stackCount;
+    public ConditionType conditionType;
 
-    // 위치와 초기 스택 수 설정
-    public void Initialized(int initialStackCount, Transform transform)
+    // 위치와 초기 스택 수 및 타입 설정
+    public void Initialized(int initialStackCount, Transform transform, ConditionType type)
     {
         conditionPos = transform;
         stackCount = initialStackCount;
+        conditionType = type;
 
         UpdateStackText();
-    }
-
-    private void Update()
-    {
-        if (conditionPos != null)
-            transform.position = conditionPos.position;
-        else
-            Destroy(gameObject);
     }
 
     // 스택 수를 텍스트로 업데이트
@@ -60,4 +54,10 @@ public class Condition : MonoBehaviour
             Destroy(gameObject);
         }
     }
+}
+
+public enum ConditionType
+{
+    Defense,
+    Frozen,
 }

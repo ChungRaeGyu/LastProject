@@ -6,8 +6,9 @@ public class DamageText : MonoBehaviour
     public float floatSpeed = 1f;
     public float fadeDuration = 1f;
 
-    private TMP_Text textMesh;
+    public TMP_Text textMesh;
     private Color textColor;
+    public Color stateColor { get;  set; }
 
     private void Awake()
     {
@@ -25,6 +26,8 @@ public class DamageText : MonoBehaviour
         transform.Translate(Vector3.up * floatSpeed * Time.deltaTime);
         textColor.a -= Time.deltaTime / fadeDuration;
         textMesh.color = textColor;
+
+        textMesh.color = stateColor;
 
         if (textColor.a <= 0)
         {
