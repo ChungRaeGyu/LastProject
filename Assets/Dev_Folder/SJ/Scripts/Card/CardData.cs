@@ -7,7 +7,7 @@ using System.Collections;
 
 public class CardData : MonoBehaviour
 {
-    RectTransform transform;
+    new RectTransform transform;
     CardBasic cardBasic;
     Image image;
     Animator animator;
