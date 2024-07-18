@@ -28,7 +28,7 @@ public class DeckControl : MonoBehaviour
         
         for (int i = 0; i < DataManager.Instance.deckList.Count; i++)
         {
-            GameObject obj = Instantiate(prefab, Canvas.transform);
+            GameObject obj = Instantiate(DataManager.Instance.deckList[i].deckCardImage, Canvas.transform);
             obj.GetComponent<DeckListObj>().cardBasic = DataManager.Instance.deckList[i];
             //이렇게 한다고 Obj의 CardBasic에 들어가지 않는다.
             obj.SetActive(true);
