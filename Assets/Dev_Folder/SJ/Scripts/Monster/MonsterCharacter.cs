@@ -26,6 +26,8 @@ public class MonsterCharacter : MonoBehaviour
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
     protected bool isFrozen; // 얼었는지 확인하는 용도
 
+
+    public Action deBuffAnim;
     private void Awake()
     {
         if (monsterStats == null)
@@ -128,11 +130,18 @@ public class MonsterCharacter : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount();
             }
+            if (frozenTurnsRemaining == 0)
+            {
+                animator.StopPlayback();
+                deBuffAnim?.Invoke();
+            }
             isFrozen = true;
             yield break;
         }
         else
         {
+            if (!isFrozen) yield break;
+
             isFrozen = false;
         }
 

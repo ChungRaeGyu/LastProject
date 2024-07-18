@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     public Condition defenseconditionPrefab;
     public Condition frozenConditionPrefab;
 
+
+    [Header("DeBuff_InputScript")]
+    public GameObject deBuff;
     private void Awake()
     {
         if (instance == null)
@@ -171,13 +174,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator DrawCardFromDeck()
     {
         CardBasic cardBasic = DataManager.Instance.PopCard();
-        Debug.Log("cardBasic" + cardBasic);
         GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPoint.position, Quaternion.identity); // 카드 소환 위치 사용
         newCard.GetComponent<CardBasic>().cardBasic = cardBasic;
 
         // HandManager에 카드 추가
         handManager.AddCard(newCard.transform);
-        Debug.Log("HandManager에 카드 추가 완료.");
         yield return null;
     }
 
@@ -249,5 +250,20 @@ public class GameManager : MonoBehaviour
     {
         handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
+    }
+
+    public void DeBuffAnim()
+    {
+        Debug.Log("실행");
+        deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
+        StartCoroutine(DelayDestroy());
+
+    }
+
+    IEnumerator DelayDestroy()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        Destroy(deBuff);
+        deBuff = null;
     }
 }

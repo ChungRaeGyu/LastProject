@@ -24,7 +24,6 @@ public class DrawSystem : MonoBehaviour
     private void Start(){
         //boardtransform = board.GetComponent<RectTransform>();
         //initTransform = board.GetComponent<RectTransform>().localPosition;
-        Debug.Log("시작 : " + initTransform);
         foreach (CardBasic card in DataManager.Instance.cardObjs){
             switch(card.rate){
                 case Rate.Normal: 

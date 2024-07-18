@@ -12,7 +12,6 @@ public class DungeonBoardManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -53,8 +52,4 @@ public class DungeonBoardManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
 }
