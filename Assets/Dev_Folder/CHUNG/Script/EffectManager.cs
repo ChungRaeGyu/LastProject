@@ -71,7 +71,7 @@ public class EffectManager : MonoBehaviour
     public void AddCostMethod(CardBasic cardBasic,Player player)
     {
         tempPlayer = player;
-        //tempCardInfo = cardBasic;
+        tempCardInfo = cardBasic;
         PlayerEffectMethod(tempPlayer.transform.position);
         //tempPlayer.AddCost(tempCardInfo.ability);
     }
@@ -106,12 +106,6 @@ public class EffectManager : MonoBehaviour
 
     private void PlayerEffectMethod(Vector2 position)
     {
-        if (tempCardInfo == null)
-        {
-            Debug.LogError("tempCardInfo is null in PlayerEffectMethod.");
-            return;
-        }
-
         GameObject prefab = tempCardInfo.effect;
         GameObject tempPrefab = Instantiate(prefab, position, prefab.transform.rotation);
         StartCoroutine(EndOfParticle(tempPrefab));
