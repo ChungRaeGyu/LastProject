@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KingSlime : MonsterCharacter
+public class LivingArmor : MonsterCharacter
 {
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
