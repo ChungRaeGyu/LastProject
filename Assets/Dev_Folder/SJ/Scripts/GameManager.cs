@@ -255,13 +255,14 @@ public class GameManager : MonoBehaviour
     public void DeBuffAnim()
     {
         Debug.Log("½ÇÇà");
-        deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
+
         StartCoroutine(DelayDestroy());
 
     }
 
     IEnumerator DelayDestroy()
     {
+        deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
         yield return new WaitForSecondsRealtime(1f);
         Destroy(deBuff);
         deBuff = null;

@@ -111,6 +111,7 @@ public class MonsterCharacter : MonoBehaviour
     protected virtual void Die()
     {
         Destroy(gameObject);
+        GameManager.instance.DeBuffAnim();
     }
 
     public virtual IEnumerator MonsterTurn()
