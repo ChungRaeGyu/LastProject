@@ -49,6 +49,8 @@ public class CardBasic : MonoBehaviour
     public GameObject effect;
     public bool dragLineCard;
     public GameObject attackEffect = null;
+    public GameObject deckCardImage;
+
     public virtual void CardUse(Monster targetMonster, Player player)
     {
         Debug.Log("CardBasic");

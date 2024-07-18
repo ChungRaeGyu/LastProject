@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class FrozenMagic : CardBasic
 {
     [Header("CardData")]
-
+    public GameObject freezeEffectPrefab;
 
     private CardDrag cardDrag;
     private BezierDragLine bezierDragLine;
@@ -45,6 +45,12 @@ public class FrozenMagic : CardBasic
     {
         targetMonster.FreezeForTurns(ability);
         PlayPlayerAttackAnimation();
+
+        // 이펙트를 몬스터의 위치에 생성
+        if (freezeEffectPrefab != null)
+        {
+            Instantiate(freezeEffectPrefab, targetMonster.transform.position, Quaternion.identity);
+        }
     }
 
     #region 특수카드 사용

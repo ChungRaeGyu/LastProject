@@ -37,6 +37,13 @@ public class GameManager : MonoBehaviour
     [Header("Manager")]
     public HandManager handManager; // 손 패 매니저
     public EffectManager effectManager;
+
+    [Header("Condition")]
+    public GameObject conditionBoxPrefab;
+
+    public Condition defenseconditionPrefab;
+    public Condition frozenConditionPrefab;
+
     private void Awake()
     {
         if (instance == null)

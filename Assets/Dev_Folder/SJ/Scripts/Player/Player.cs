@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class Player : PlayerCharacter
 {
     public HpBar healthBarPrefab;
-    public Condition defenseconditionPrefab;
     public int maxCost = 3;
 
     public int currentCost { get; private set; }
     private HpBar healthBarInstance;
     private List<Condition> conditionInstances = new List<Condition>();
-    public float conditionSpacing = 1f; // 각 컨디션 간의 간격
+
+    private Transform hpBarPos;
+    private Transform conditionPos;
+
+    public Transform playerCondition;
 
     private void Start()
     {
         InitializeCost();
+
+        // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
+        playerCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
         if (DataManager.Instance.currenthealth != 0)
         {
@@ -24,14 +30,24 @@ public class Player : PlayerCharacter
             InitializeStats(DataManager.Instance.currenthealth);
         }
 
+        hpBarPos = transform.GetChild(1);
+        conditionPos = transform.GetChild(2);
+
         // GameManager를 통해 캔버스 참조
         Canvas healthBarcanvas = UIManager.instance.healthBarCanvas;
         // healthBarPrefab을 healthBarcanvas의 자식으로 생성
         healthBarInstance = Instantiate(healthBarPrefab, healthBarcanvas.transform);
-        healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, transform.GetChild(1));
+        healthBarInstance.Initialized(playerStats.maxhealth, currenthealth, hpBarPos);
 
-        // 예시로 초기 스택 값 1로 새로운 컨디션을 추가
-        AddCondition(UIManager.instance.conditionCanvas.transform, playerStats.defense);
+        // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
+        playerCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
+
+        AddCondition(playerCondition, playerStats.defense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
+    }
+
+    private void Update()
+    {
+        playerCondition.position = conditionPos.position;
     }
 
     public override void InitializeStats(int currenthealthData)
@@ -53,9 +69,6 @@ public class Player : PlayerCharacter
             healthBarInstance.ResetHealthSlider(currenthealth);
             healthBarInstance.UpdatehealthText();
         }
-
-        //// 테스트용 - 디버프 추가
-        //AddCondition(UIManager.instance.conditionCanvas.transform, 1);
     }
 
     public void UseCost(int amount)
@@ -96,14 +109,14 @@ public class Player : PlayerCharacter
     }
 
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
-    public void AddCondition(Transform parent, int initialStackCount)
+    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
     {
-        if (defenseconditionPrefab != null)
+        if (conditionPrefab != null)
         {
-            Condition newCondition = Instantiate(defenseconditionPrefab, parent);
+            Condition newCondition = Instantiate(conditionPrefab, parent);
             conditionInstances.Add(newCondition);
-            UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, newCondition.transform); // 위치 초기화 후에 스택 값 설정
+            //UpdateConditionPositions();
+            newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
         }
     }
 
@@ -114,7 +127,7 @@ public class Player : PlayerCharacter
         {
             conditionInstances.Remove(condition);
             Destroy(condition.gameObject);
-            UpdateConditionPositions();
+            //UpdateConditionPositions();
         }
     }
 
@@ -126,16 +139,6 @@ public class Player : PlayerCharacter
             Destroy(condition.gameObject);
         }
         conditionInstances.Clear();
-    }
-
-    // 각 Condition의 위치를 transform.GetChild(2)를 기준으로 우측으로 하나씩 나열 (위치 업데이트 용도)
-    public void UpdateConditionPositions()
-    {
-        for (int i = 0; i < conditionInstances.Count; i++)
-        {
-            Vector3 newPosition = transform.GetChild(2).position + new Vector3(conditionSpacing * i, 0, 0);
-            conditionInstances[i].transform.position = newPosition;
-        }
     }
 
     public void UpdateConditions()
