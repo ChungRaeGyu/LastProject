@@ -11,14 +11,13 @@ public class EffectManager : MonoBehaviour
     //마법 : 캐스팅 후 스킬 실행
     //물리 : 플레이어와 몬스터 이펙트 동시 실행
     public RangeAttackSystem RangeAttack;
-    public Player tempPlayer;
     public CardBasic tempCardInfo;
-
+    public Vector2 playerEffectPos;
     #region 물리공격
-    public void AttackMethod(MonsterCharacter targetMonster, Player player,CardBasic cardSO)
+    public void AttackMethod(MonsterCharacter targetMonster,CardBasic cardSO)
     {
         //현재 안쓰는 중
-        PlayerEffectMethod(tempPlayer.transform.position);
+        PlayerEffectMethod(GetPos());
         AttackEffectMethod(targetMonster.transform.position);
 
     }
@@ -32,22 +31,20 @@ public class EffectManager : MonoBehaviour
     }
     #endregion
     #region 마법공격
-    public void MagicAttackMethod(MonsterCharacter targetMonster, Player player,CardBasic cardBasic)
+    public void MagicAttackMethod(MonsterCharacter targetMonster, CardBasic cardBasic)
     {
-        tempPlayer = player;
         tempCardInfo = cardBasic;
         //단일공격
         StartCoroutine(MagicAttack(false,targetMonster));
     }
-    public void MagicRangeAttackMethod(Player player,CardBasic cardBasic)
+    public void MagicRangeAttackMethod(CardBasic cardBasic)
     {
-        tempPlayer = player;
         tempCardInfo = cardBasic;
         StartCoroutine(MagicAttack(true));
     }
     IEnumerator MagicAttack(bool isRange,MonsterCharacter targetMonster=null)
     {
-        PlayerEffectMethod(tempPlayer.transform.position);
+        PlayerEffectMethod(GetPos());
         yield return new WaitForSeconds(0f);
 
         List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
@@ -67,34 +64,14 @@ public class EffectManager : MonoBehaviour
         }
     }
     #endregion
-    #region 버프 및 기타 능력(Player에게만 이팩트 존재)
-    public void AddCostMethod(CardBasic cardBasic,Player player)
+    #region 이펙트 호출
+    public void PlayerEffect(CardBasic cardBasic)
     {
-        tempPlayer = player;
         tempCardInfo = cardBasic;
-        PlayerEffectMethod(tempPlayer.transform.position);
-        //tempPlayer.AddCost(tempCardInfo.ability);
-    }
+        PlayerEffectMethod(GetPos());
 
-    public void AddCardMethod(CardBasic cardBasic)
-    {
-        tempCardInfo = cardBasic;
-        for (int i = 0; i < tempCardInfo.ability; i++)
-        {
-            //GameManager.instance.DrawCardFromDeck();
-            //코루틴을 일반 메소드처럼 썻을때 상황
-        }
-    }
-    public void HealMethod(Player player, CardBasic cardBasic)
-    {
-        tempCardInfo = cardBasic;
-        tempPlayer = player;
-        Vector2 pos = tempPlayer.transform.position;
-        PlayerEffectMethod(pos);
-        
     }
     #endregion
-
     #region 이펙트실행
     private void AttackEffectMethod(Vector2 position)
     {
@@ -125,5 +102,10 @@ public class EffectManager : MonoBehaviour
         }
         //yield return new WaitForSecondsRealtime(particleSystem.main.duration);
         DestroyImmediate(particle);
+    }
+
+    private Vector2 GetPos()
+    {
+        return new Vector2(GameManager.instance.player.transform.position.x, -2.4f);
     }
 }

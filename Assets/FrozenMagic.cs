@@ -44,7 +44,7 @@ public class FrozenMagic : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         targetMonster.FreezeForTurns(ability);
-        Debug.Log("CardUse실행");
+        GameManager.instance.effectManager.PlayerEffect(cardBasic);
         targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
         targetMonster.deBuffAnim += GameManager.instance.DeBuffAnim;
         PlayPlayerAttackAnimation();

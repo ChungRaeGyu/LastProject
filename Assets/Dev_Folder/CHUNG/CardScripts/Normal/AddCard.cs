@@ -20,20 +20,8 @@ public class AddCard : CardBasic
     {
         if (GameManager.instance.player != null)
         {
-            GameManager.instance.player.UseCost(cost);
 
             CardUse();
-
-            DataManager.Instance.AddUsedCard(cardBasic);
-
-            GameManager.instance.handManager.RemoveCard(transform);
-
-            // 덱에서 카드 뽑기 시작
-            GameManager.instance.StartCoroutine(DrawCard());
-
-            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
-
-            GameManager.instance.CheckAllMonstersDead();
         }
 
         return true; // 카드 사용이 실패한 경우 시도했음을 반환
@@ -47,7 +35,17 @@ public class AddCard : CardBasic
 
     public void CardUse(Monster targetMonster = null)
     {
-        GameManager.instance.effectManager.AddCardMethod(cardBasic);
+        GameManager.instance.player.UseCost(cost);
+        DataManager.Instance.AddUsedCard(cardBasic);
+
+        GameManager.instance.handManager.RemoveCard(transform);
+
+        // 덱에서 카드 뽑기 시작
+        GameManager.instance.StartCoroutine(DrawCard());
+
+        Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+
+        GameManager.instance.CheckAllMonstersDead();
     }
 
     #region 특수카드 사용
