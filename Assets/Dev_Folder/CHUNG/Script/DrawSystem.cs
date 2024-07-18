@@ -90,7 +90,7 @@ public class DrawSystem : MonoBehaviour
     public void CloseCanvas(){
         SaveCardInBook();
         Debug.Log("종료 : " + initTransform);
-        //boardtransform.localPosition = initTransform;
+        boardtransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right,0,0);
     }
 
     public void OpenCard(){

@@ -20,7 +20,14 @@ public class CardData : MonoBehaviour
         cardBasic = GetComponent<CardBasic>();
         image = GetComponentInChildren<Image>();
         animator = GetComponent<Animator>();
-        
+        if (SceneManager.GetActiveScene().buildIndex == 1) {
+            animator.enabled = true;
+        }
+        else
+        {
+            animator.enabled = false;
+        }
+
         // 변환된 값 계산
 
     }
