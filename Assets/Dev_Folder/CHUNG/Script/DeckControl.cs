@@ -42,7 +42,7 @@ public class DeckControl : MonoBehaviour
         cardBasic.currentCount--;
         LobbyManager.instance.InvokeCount();
         DataManager.Instance.deckList.Add(cardBasic);
-        GameObject obj = Instantiate(prefab, Canvas.transform);
+        GameObject obj = Instantiate(cardBasic.deckCardImage, Canvas.transform);
         obj.GetComponent<DeckListObj>().cardBasic= cardBasic;
         obj.SetActive(true); 
     }
