@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class LobbyManager : MonoBehaviour
     [Header("InputScript")]
     public GameObject currentCanvas;
     public event Action OnCount;
+
+    [Header("Book")]
+    [SerializeField] private GameObject book;
+    [SerializeField] private Transform bookTarget; // 책의 목표 위치 (빈 오브젝트)
+    [SerializeField] private float duration = 2.0f; // 이동하는데 걸리는 시간
 
     public bool isDrawing = false;
     private void Awake()
