@@ -70,7 +70,7 @@ public class Demo : MonoBehaviour
             bookController.NextPage();
         }
         currentPage = 1;
-        StartCoroutine(UpdatePageDelayed());
+        StartCoroutine(UpdatePageDelayed(true));
     }
     void BookPage()
     {
@@ -85,7 +85,7 @@ public class Demo : MonoBehaviour
             bookController.NextPage();
         }
         currentPage = 2;
-        StartCoroutine(UpdatePageDelayed());
+        StartCoroutine(UpdatePageDelayed(true));
     }
     void NextPage()
     {
@@ -99,7 +99,7 @@ public class Demo : MonoBehaviour
         }
         bookController.NextPage();
         currentPage = Mathf.Min(++currentPage, pages.Length - 1);
-        StartCoroutine(UpdatePageDelayed());
+        StartCoroutine(UpdatePageDelayed(true));
     }
 
     void PreviousPage()
@@ -114,12 +114,20 @@ public class Demo : MonoBehaviour
         }
         bookController.PreviousPage();
         currentPage = Mathf.Max(--currentPage, 0);
-        StartCoroutine(UpdatePageDelayed());
+        StartCoroutine(UpdatePageDelayed(false));
     }
     
-    IEnumerator UpdatePageDelayed()
+    IEnumerator UpdatePageDelayed(bool nextPageBtn)
     {
-        yield return new WaitForEndOfFrame();
+        //yield return new WaitForEndOfFrame();
+        if (nextPageBtn)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        else
+        {
+            yield return new WaitForEndOfFrame();
+        }
         UpdatePage();
     }
     

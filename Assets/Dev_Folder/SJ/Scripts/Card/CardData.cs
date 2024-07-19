@@ -9,7 +9,7 @@ public class CardData : MonoBehaviour
 {
     new RectTransform transform;
     CardBasic cardBasic;
-    Image image;
+    Image[] image;
     Animator animator;
     Vector2 maxSize = new Vector2(5, 7.5f);
     Vector2 minSize = new Vector2(3, 4.5f);
@@ -18,7 +18,7 @@ public class CardData : MonoBehaviour
     {
         transform = GetComponent<RectTransform>();
         cardBasic = GetComponent<CardBasic>();
-        image = GetComponentInChildren<Image>();
+        image = GetComponentsInChildren<Image>();
         animator = GetComponent<Animator>();
         if (SceneManager.GetActiveScene().buildIndex == 1) {
             animator.enabled = true;
@@ -57,7 +57,7 @@ public class CardData : MonoBehaviour
 
         if (transform.localScale.x > 5)
         {
-            if (coroutine==null&&image.sprite==cardBasic.defaultImage)
+            if (coroutine == null && image[1].sprite==cardBasic.defaultImage)
             {
                 animator.SetTrigger("Flip");
                 coroutine = StartCoroutine(Delay());
@@ -70,7 +70,7 @@ public class CardData : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        image.sprite = cardBasic.image;
+        image[1].sprite = cardBasic.image;
         coroutine = null;
     }
 }
