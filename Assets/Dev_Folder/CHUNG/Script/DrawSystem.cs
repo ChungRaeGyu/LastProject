@@ -47,7 +47,8 @@ public class DrawSystem : MonoBehaviour
                 //노말카드
                 int randomCard = Random.Range(0, normalCards.Count);
                 GameObject tempObj = Instantiate(normalCards[randomCard].gameObject, board.transform);
-                tempObj.GetComponentInChildren<Image>().sprite = normalCards[randomCard].defaultImage;
+                Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
+                tempObjImage[1].sprite = normalCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(normalCards[randomCard]);
                 tempCardObj.Add(tempObj);
 
@@ -56,7 +57,8 @@ public class DrawSystem : MonoBehaviour
                 //희귀카드뽑기
                 int randomCard = Random.Range(0, rarityCards.Count);
                 GameObject tempObj = Instantiate(rarityCards[randomCard].gameObject, board.transform);
-                tempObj.GetComponentInChildren<Image>().sprite = rarityCards[randomCard].defaultImage;
+                Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
+                tempObjImage[1].sprite = normalCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(rarityCards[randomCard]);
                 tempCardObj.Add(tempObj);
             }
@@ -64,7 +66,8 @@ public class DrawSystem : MonoBehaviour
                 //영웅카드뽑기
                 int randomCard = Random.Range(0, heroCards.Count);
                 GameObject tempObj= Instantiate(heroCards[randomCard].gameObject, board.transform);
-                tempObj.GetComponentInChildren<Image>().sprite = heroCards[randomCard].defaultImage;
+                Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
+                tempObjImage[1].sprite = normalCards[randomCard].defaultImage;
                 tempCardBasic.Enqueue(heroCards[randomCard]);
                 tempCardObj.Add(tempObj);
             }
