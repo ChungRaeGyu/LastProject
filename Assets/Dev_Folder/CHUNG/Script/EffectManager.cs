@@ -40,7 +40,7 @@ public class EffectManager : MonoBehaviour
     IEnumerator DeBuffCoroutine(bool isRange, MonsterCharacter targetMonster = null)
     {
         PlayerEffectMethod_Image(GetPos());
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(1f);
 
         List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // º¹Á¦
 
@@ -56,7 +56,6 @@ public class EffectManager : MonoBehaviour
         else
         {
             DebuffEffectMethod_Image(targetMonster.transform.position);
-            GameManager.instance.deBuff = Instantiate(tempCardInfo.debuffEffectPrefab, targetMonster.transform.position, Quaternion.identity);
         }
     }
     #endregion
@@ -135,7 +134,7 @@ public class EffectManager : MonoBehaviour
     private void DebuffEffectMethod_Image(Vector2 position)
     {
         GameObject prefab = tempCardInfo.debuffEffectPrefab;
-        Instantiate(prefab, position, prefab.transform.rotation);
+        GameManager.instance.deBuff = Instantiate(prefab, position, prefab.transform.rotation);
     }
     #endregion
 

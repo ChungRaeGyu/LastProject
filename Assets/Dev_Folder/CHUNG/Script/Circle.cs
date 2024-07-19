@@ -10,6 +10,7 @@ public class Circle : MonoBehaviour
     private void Start()
     {
         FadeIn();
+        FadeOut();
     }
     private void FadeIn()
     {
@@ -17,7 +18,7 @@ public class Circle : MonoBehaviour
     }
     private void FadeOut()
     {
-
+        StartCoroutine(FadeOutCoroutine());
     }
 
     IEnumerator FadeInCoroutine()
@@ -34,5 +35,23 @@ public class Circle : MonoBehaviour
             
         }
         yield return null;
+    }
+    IEnumerator FadeOutCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        Debug.Log("FadOutCoroutine");
+        for (int i = renderers.Count-1; i >=0; i--)
+        {
+            
+            while (renderers[i].color.a >0)
+            {
+                Color color = new Color(0, 0, 0, 0.05f);
+                renderers[i].color -= color;
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+
+        }
+        Destroy(gameObject);
+
     }
 }
