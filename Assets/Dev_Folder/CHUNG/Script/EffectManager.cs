@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EffectManager : MonoBehaviour
 {
@@ -30,6 +27,41 @@ public class EffectManager : MonoBehaviour
         }
     }
     #endregion
+
+
+    #region 빙결
+    public void FrozemMagic(MonsterCharacter targetMonster, CardBasic cardBasic)
+    {
+        tempCardInfo = cardBasic;
+        //단일공격
+        StartCoroutine(DeBuffCoroutine(false, targetMonster));
+    }
+
+    IEnumerator DeBuffCoroutine(bool isRange, MonsterCharacter targetMonster = null)
+    {
+        PlayerEffectMethod_Image(GetPos());
+        yield return new WaitForSeconds(1f);
+
+        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
+
+        if (isRange)
+        {
+            //RangeAttack.AttackAnim(tempCardInfo);불덩이 한개를 여러개를 불러서 만들었다.
+            foreach (MonsterCharacter monster in monsters)
+            {
+                GameManager.instance.deBuff = Instantiate(tempCardInfo.debuffEffectPrefab, targetMonster.transform.position, Quaternion.identity);
+
+            }
+        }
+        else
+        {
+            DebuffEffectMethod_Image(targetMonster.transform.position);
+        }
+    }
+    #endregion
+
+
+
     #region 마법공격
     public void MagicAttackMethod(MonsterCharacter targetMonster, CardBasic cardBasic)
     {
@@ -71,8 +103,13 @@ public class EffectManager : MonoBehaviour
         PlayerEffectMethod(GetPos());
 
     }
+    public void PlayerEffect_Image(CardBasic cardBasic)
+    {
+        tempCardInfo = cardBasic;
+        PlayerEffectMethod_Image(GetPos());
+    }
     #endregion
-    #region 이펙트실행
+    #region 이펙트실행(파티클)
     private void AttackEffectMethod(Vector2 position)
     {
         GameObject prefab = tempCardInfo.attackEffect;
@@ -86,10 +123,20 @@ public class EffectManager : MonoBehaviour
         GameObject prefab = tempCardInfo.effect;
         GameObject tempPrefab = Instantiate(prefab, position, prefab.transform.rotation);
         StartCoroutine(EndOfParticle(tempPrefab));
-
     }
     #endregion
-
+    #region 이펙트실행(이미지 애니메이션)
+    private void PlayerEffectMethod_Image(Vector2 position)
+    {
+        GameObject prefab = tempCardInfo.effect;
+        Instantiate(prefab, position, prefab.transform.rotation);
+    }
+    private void DebuffEffectMethod_Image(Vector2 position)
+    {
+        GameObject prefab = tempCardInfo.debuffEffectPrefab;
+        GameManager.instance.deBuff = Instantiate(prefab, position, prefab.transform.rotation);
+    }
+    #endregion
 
     public IEnumerator EndOfParticle(GameObject particle)
     {
@@ -103,7 +150,6 @@ public class EffectManager : MonoBehaviour
         //yield return new WaitForSecondsRealtime(particleSystem.main.duration);
         DestroyImmediate(particle);
     }
-
     private Vector2 GetPos()
     {
         return new Vector2(GameManager.instance.player.transform.position.x, -2.4f);

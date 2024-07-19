@@ -18,8 +18,8 @@ public class BookController : MonoBehaviour
     {
         EnableRaycasters(false);
 
-        bookCamera.targetTexture = nextPageTexture;
-        rightPage.mainTexture = nextPageTexture;
+       bookCamera.targetTexture = nextPageTexture;
+       rightPage.mainTexture = nextPageTexture;
 
         nextPageAnimation.leftSideMaterial.mainTexture = currentPageTexture;
         nextPageAnimation.rightSideMaterial.mainTexture = nextPageTexture;
