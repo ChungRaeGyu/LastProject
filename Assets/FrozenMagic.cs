@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class FrozenMagic : CardBasic
 {
     [Header("CardData")]
-    public GameObject freezeEffectPrefab;
+
 
     private CardDrag cardDrag;
     private BezierDragLine bezierDragLine;
@@ -44,16 +44,10 @@ public class FrozenMagic : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         targetMonster.FreezeForTurns(ability);
-        GameManager.instance.effectManager.PlayerEffect(cardBasic);
+        GameManager.instance.effectManager.FrozemMagic(targetMonster,cardBasic);
         targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
         targetMonster.deBuffAnim += GameManager.instance.DeBuffAnim;
         PlayPlayerAttackAnimation();
-
-        // 이펙트를 몬스터의 위치에 생성
-        if (freezeEffectPrefab != null)
-        {
-            GameManager.instance.deBuff = Instantiate(freezeEffectPrefab, targetMonster.transform.position, Quaternion.identity);
-        }
     }
 
     #region 특수카드 사용
