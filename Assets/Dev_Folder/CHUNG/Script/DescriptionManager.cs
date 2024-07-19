@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class DescriptionManager : MonoBehaviour
 {
-    #region Ïã±Í∏ÄÌÜ§
+    #region ΩÃ±€≈Ê
     private static DescriptionManager _instance;
     public static DescriptionManager Instance
     {
@@ -16,7 +16,7 @@ public class DescriptionManager : MonoBehaviour
             if (_instance == null)
             {
                 _instance = new GameObject("DescriptionManager").AddComponent<DescriptionManager>();
-                Debug.Log("Ïã§Ìñâ");
+                Debug.Log("Ω««‡");
             }
             return _instance;
         }
@@ -55,7 +55,7 @@ public class DescriptionManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI pieceSubject;
 
     GameObject tempCard;
-    int num=1;
+    int num = 1;
     public void ClosePanel()
     {
         descriptionPanel.SetActive(false);
@@ -65,7 +65,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void AddDeck()
     {
-        //Îç±Ï∂îÍ∞Ä Î≤ÑÌäº
+        //µ¶√ﬂ∞° πˆ∆∞
         deck.AddCardObj(currentCard.cardBasic);
         LobbyManager.instance.InvokeCount();
         ClosePanel();
@@ -75,7 +75,7 @@ public class DescriptionManager : MonoBehaviour
     {
         currentCard = cardBasic;
         tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform);
-        Destroy(tempCard.transform.GetChild(1).gameObject);
+        Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
         tempCardRect.localScale = new Vector2(3, 4.5f);
         tempCardRect.localPosition = new Vector2(0, 0);
@@ -83,30 +83,35 @@ public class DescriptionManager : MonoBehaviour
         descriptionPanel.SetActive(true);
     }
 
-    public void DeCompositionPanelBtn(){
-        //Î∂ÑÌï¥Ï∞Ω Ïò§Ìîà
+    public void DeCompositionPanelBtn()
+    {
+        //∫–«ÿ√¢ ø¿«¬
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
-        num=1;
+        num = 1;
     }
 
-    public void RightBtn(){
-        if(num>=currentCard.cardBasic.currentCount)return;
+    public void RightBtn()
+    {
+        if (num >= currentCard.cardBasic.currentCount) return;
         num++;
         cardSubject.text = num.ToString();
     }
-    public void LeftBtn(){
-        if(num<=1)return;
+    public void LeftBtn()
+    {
+        if (num <= 1) return;
         num--;
         cardSubject.text = num.ToString();
     }
-    public void DeCompositionBtn(){
+    public void DeCompositionBtn()
+    {
         currentCard.cardBasic.currentCount -= num;
-        DataManager.Instance.CardPiece[(int)currentCard.rate]+=num;
-        if(currentCard.cardBasic.currentCount == 0){
+        DataManager.Instance.CardPiece[(int)currentCard.rate] += num;
+        if (currentCard.cardBasic.currentCount == 0)
+        {
             DeCompositionPanelBtn();
             ClosePanel();
         }
-        num=1;
+        num = 1;
         LobbyManager.instance.InvokeCount();
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class CardZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CardZoom : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
 {
     public float zoomScale = 1.5f; // 확대 배율
     public float zoomDuration = 0.25f; // 축소 애니메이션 지속 시간
@@ -23,27 +23,27 @@ public class CardZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         originalSiblingIndex = transform.GetSiblingIndex();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            if (currentlyZoomedCard == null || currentlyZoomedCard == this)
-            {
-                ZoomIn();
-            }
-        }
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+    //    if (SceneManager.GetActiveScene().buildIndex == 3)
+    //    {
+    //        if (currentlyZoomedCard == null || currentlyZoomedCard == this)
+    //        {
+    //            ZoomIn();
+    //        }
+    //    }
+    //}
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            if (currentlyZoomedCard == this)
-            {
-                ZoomOut();
-            }
-        }
-    }
+    //public void OnPointerExit(PointerEventData eventData)
+    //{
+    //    if (SceneManager.GetActiveScene().buildIndex == 3)
+    //    {
+    //        if (currentlyZoomedCard == this)
+    //        {
+    //            ZoomOut();
+    //        }
+    //    }
+    //}
 
     public void ZoomIn()
     {

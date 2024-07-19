@@ -108,6 +108,7 @@ public class UIManager : MonoBehaviour
         SetCardScale(centerCard);
         centerCard.transform.localPosition = Vector3.zero;
         AddClickEvent(centerCard, chosenIndexes[0]);
+        RemoveOutlineScript(centerCard);
 
         // 왼쪽 카드 생성
         leftCard = Instantiate(rewardCardPrefabs[chosenIndexes[1]], CardSelectPanelCanvas);
@@ -115,6 +116,7 @@ public class UIManager : MonoBehaviour
         leftCard.transform.localPosition = Vector3.zero;
         AddClickEvent(leftCard, chosenIndexes[1]);
         StartCoroutine(MoveCard(leftCard, new Vector3(-400, 0, 0)));
+        RemoveOutlineScript(leftCard);
 
         // 오른쪽 카드 생성
         rightCard = Instantiate(rewardCardPrefabs[chosenIndexes[2]], CardSelectPanelCanvas);
@@ -122,6 +124,16 @@ public class UIManager : MonoBehaviour
         rightCard.transform.localPosition = Vector3.zero;
         AddClickEvent(rightCard, chosenIndexes[2]);
         StartCoroutine(MoveCard(rightCard, new Vector3(400, 0, 0)));
+        RemoveOutlineScript(rightCard);
+    }
+
+    private void RemoveOutlineScript(GameObject card)
+    {
+        CardOutline outlineScript = card.GetComponent<CardOutline>();
+        if (outlineScript != null)
+        {
+            Destroy(outlineScript);
+        }
     }
 
     private List<int> GetRandomIndexes(int count, int numberOfIndexes)
@@ -209,7 +221,7 @@ public class UIManager : MonoBehaviour
         card.transform.localPosition = targetPosition;
     }
 
-    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setOpenCardSelectionButton)
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setOpenCardSelectionButton, float openCardSelectionProbability = 0.5f)
     {
         if (lobbyButton != null)
         {
@@ -233,7 +245,9 @@ public class UIManager : MonoBehaviour
 
         if (openCardSelectionButton != null)
         {
-            openCardSelectionButton.gameObject.SetActive(setOpenCardSelectionButton);
+            // 확률적으로 활성화
+            bool shouldBeActive = Random.value <= openCardSelectionProbability;
+            openCardSelectionButton.gameObject.SetActive(shouldBeActive);
         }
     }
 
