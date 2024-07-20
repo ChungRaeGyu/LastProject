@@ -11,9 +11,39 @@ public class AddCard : CardBasic
     [Header("CardData")]
 
     private CardDrag cardDrag;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         cardDrag = GetComponent<CardDrag>();
+
+        SetDescription();
+    }
+
+    protected override void SetDescription()
+    {
+        if (descriptionText != null)
+        {
+            string color;
+
+            // 초기 ability와 현재 ability 비교
+            if (utilAbility > initialUtilAbility)
+            {
+                color = "#00FF00"; // 초록색
+            }
+            else if (utilAbility < initialUtilAbility)
+            {
+                color = "#FF0000"; // 빨간색
+            }
+            else
+            {
+                color = ""; // 기본 색
+            }
+
+            descriptionText.text = color == ""
+                ? $"<b>{utilAbility}</b> 만큼 카드를 뽑습니다."
+                : $"<color={color}><b>{utilAbility}</b></color> 만큼 카드를 뽑습니다.";
+        }
     }
 
     public override bool TryUseCard()
@@ -30,7 +60,7 @@ public class AddCard : CardBasic
     private IEnumerator DrawCard()
     {
         // 덱에서 카드 뽑기
-        yield return GameManager.instance.StartCoroutine(GameManager.instance.DrawInitialHand(ability));
+        yield return GameManager.instance.StartCoroutine(GameManager.instance.DrawInitialHand(utilAbility));
     }
 
     public void CardUse(Monster targetMonster = null)

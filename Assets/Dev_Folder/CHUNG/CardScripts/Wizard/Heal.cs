@@ -11,9 +11,39 @@ public class Heal : CardBasic
 
     private CardDrag cardDrag;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         cardDrag = GetComponent<CardDrag>();
+
+        SetDescription();
+    }
+
+    protected override void SetDescription()
+    {
+        if (descriptionText != null)
+        {
+            string color;
+
+            // 초기 ability와 현재 ability 비교
+            if (utilAbility > initialUtilAbility)
+            {
+                color = "#00FF00"; // 초록색
+            }
+            else if (utilAbility < initialUtilAbility)
+            {
+                color = "#FF0000"; // 빨간색
+            }
+            else
+            {
+                color = ""; // 기본 색
+            }
+
+            descriptionText.text = color == ""
+                ? $"<b>{utilAbility}</b> 만큼 회복합니다."
+                : $"<color={color}><b>{utilAbility}</b></color> 만큼 회복합니다.";
+        }
     }
 
     public override bool TryUseCard()
@@ -39,7 +69,7 @@ public class Heal : CardBasic
     public void CardUse(Monster targetMonster = null)
     {
         GameManager.instance.effectManager.PlayerEffect(cardBasic);
-        GameManager.instance.player.Heal(ability);
+        GameManager.instance.player.Heal(utilAbility);
         //TODO : 애니메이션 넣어주기
     }
 

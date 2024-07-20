@@ -355,19 +355,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardBasic: {fileID: 0}
-  cardName: "\uCE74\uB4DC\uD68D\uB4DD"
-  description: "\uCE74\uB4DC\uB97C \uCD94\uAC00\uB85C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
-  cost: 0
-  ability: 2
-  currentCount: 3
+  cardName: "\uC2E0\uBE44\uD55C \uD1B5\uCC30"
+  cost: 1
+  damageAbility: 0
+  utilAbility: 2
+  currentCount: 2
   image: {fileID: 21300000, guid: 5c96b739ef571924eb3be9a38f0c27af, type: 3}
-  defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
+  defaultImage: {fileID: 21300000, guid: f76193dd53c892a43815f0ac10aea1be, type: 3}
   job: 0
   rate: 0
   effect: {fileID: 1936541313609731422, guid: a2b267517b6c50249a3447f613c6e636, type: 3}
   dragLineCard: 0
   attackEffect: {fileID: 0}
   deckCardImage: {fileID: 3136015016114371348, guid: 49bb36907b264b949b4f9521c3c6bef7, type: 3}
+  debuffEffectPrefab: {fileID: 0}
+  nameText: {fileID: 7048099759004187412}
+  costText: {fileID: 2676658800992777779}
+  descriptionText: {fileID: 7182416735426621651}
 --- !u!114 &6832844263539629909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,8 +485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "18 \uB370\uBBF8\uC9C0\uB97C \uC8FC\uACE0 \uCC98\uCE58 \uC2DC \uCF54\uC2A4\uD2B8\uB97C
-    \uC774 \uCE74\uB4DC\uC758 \uCF54\uC2A4\uD2B8\uB9CC\uD07C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  m_text: "\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0bbc2c83f2f18bb488d73b7f23805fd0, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 57618236739646340ab22dcd93be20c6, type: 2}
@@ -638,7 +641,7 @@ GameObject:
   - component: {fileID: 8850695138877930507}
   - component: {fileID: 7048099759004187412}
   m_Layer: 0
-  m_Name: CardTitle
+  m_Name: CardName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,7 +694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC36C\uB354\uBCFC\uD2B8"
+  m_text: "\uC774\uB984"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0bbc2c83f2f18bb488d73b7f23805fd0, type: 2}
   m_sharedMaterial: {fileID: 4959029791396565224, guid: 0bbc2c83f2f18bb488d73b7f23805fd0, type: 2}

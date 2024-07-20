@@ -13,12 +13,42 @@ public class BasicAttack : CardBasic
 
     private CardDrag cardDrag;
     private BezierDragLine bezierDragLine;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         bezierDragLine = GetComponent<BezierDragLine>();
         cardDrag = GetComponent<CardDrag>();
+
+        SetDescription();
+    }
+
+    protected override void SetDescription()
+    {
+        if (descriptionText != null)
+        {
+            string color;
+
+            // 초기 ability와 현재 ability 비교
+            if (damageAbility > initialDamageAbility)
+            {
+                color = "#00FF00"; // 초록색
+            }
+            else if (damageAbility < initialDamageAbility)
+            {
+                color = "#FF0000"; // 빨간색
+            }
+            else
+            {
+                color = ""; // 기본 색
+            }
+
+            descriptionText.text = color == ""
+                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
+        }
     }
 
     public override bool TryUseCard()
@@ -45,7 +75,7 @@ public class BasicAttack : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(ability);
+        targetMonster.TakeDamage(damageAbility);
         PlayPlayerAttackAnimation();
     }
 

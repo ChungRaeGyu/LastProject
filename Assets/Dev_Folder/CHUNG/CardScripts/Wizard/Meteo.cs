@@ -11,12 +11,41 @@ public class Meteo : CardBasic
 
     private CardDrag cardDrag;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         cardDrag = GetComponent<CardDrag>();
 
+        SetDescription();
+    }
+
+    protected override void SetDescription()
+    {
+        if (descriptionText != null)
+        {
+            string color;
+
+            // 초기 ability와 현재 ability 비교
+            if (damageAbility > initialDamageAbility)
+            {
+                color = "#00FF00"; // 초록색
+            }
+            else if (damageAbility < initialDamageAbility)
+            {
+                color = "#FF0000"; // 빨간색
+            }
+            else
+            {
+                color = ""; // 기본 색
+            }
+
+            descriptionText.text = color == ""
+                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다."
+                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
+        }
     }
 
     public override bool TryUseCard()

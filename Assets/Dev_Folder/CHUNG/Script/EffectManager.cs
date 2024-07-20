@@ -23,7 +23,7 @@ public class EffectManager : MonoBehaviour
         tempCardInfo = cardBasic;
         foreach (MonsterCharacter monster in GameManager.instance.monsters)
         {
-            monster.TakeDamage(tempCardInfo.ability);
+            monster.TakeDamage(tempCardInfo.damageAbility);
         }
     }
     #endregion
@@ -86,13 +86,13 @@ public class EffectManager : MonoBehaviour
             RangeAttack.AttackAnim(tempCardInfo);
             foreach (MonsterCharacter monster in monsters)
             {
-                monster.TakeDamage(tempCardInfo.ability);
+                monster.TakeDamage(tempCardInfo.damageAbility);
             }
         }
         else
         {
             AttackEffectMethod(targetMonster.transform.position);
-            targetMonster.TakeDamage(tempCardInfo.ability);
+            targetMonster.TakeDamage(tempCardInfo.damageAbility);
         }
     }
     #endregion

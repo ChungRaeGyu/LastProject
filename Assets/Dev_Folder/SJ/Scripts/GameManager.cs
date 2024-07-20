@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
                     i++;
                 }
                 break;
-        
+
         }
     }
 
@@ -228,8 +228,8 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(2);
         }
-            
-        
+
+
     }
 
     private void StageCheck()
@@ -262,9 +262,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DelayDestroy()
     {
-        deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
-        yield return new WaitForSecondsRealtime(1f);
-        Destroy(deBuff);
-        deBuff = null;
+        if (deBuff = null)
+        {
+            deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
+            yield return new WaitForSecondsRealtime(1f);
+            Destroy(deBuff);
+            deBuff = null;
+        }
     }
 }
