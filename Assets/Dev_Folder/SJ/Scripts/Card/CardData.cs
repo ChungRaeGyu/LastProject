@@ -62,8 +62,8 @@ public class CardData : MonoBehaviour
             if (coroutine == null && image[1].sprite == cardBasic.defaultImage)
             {
                 animator.SetTrigger("Flip");
-                coroutine = StartCoroutine(Delay());
 
+                coroutine = StartCoroutine(Delay());
             }
         }
 
