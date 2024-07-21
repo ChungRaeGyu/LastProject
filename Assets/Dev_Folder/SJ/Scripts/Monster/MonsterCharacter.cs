@@ -110,9 +110,10 @@ public class MonsterCharacter : MonoBehaviour
 
     protected virtual void Die()
     {
-        Destroy(gameObject);
         if(isFrozen)
             GameManager.instance.DeBuffAnim();
+        Destroy(gameObject);
+
     }
 
     public virtual IEnumerator MonsterTurn()
@@ -142,7 +143,6 @@ public class MonsterCharacter : MonoBehaviour
         }
         else
         {
-            if (!isFrozen) yield break;
 
             isFrozen = false;
         }

@@ -52,7 +52,6 @@ public class LobbyManager : MonoBehaviour
 
     public void InvokeCount()
     {
-        Debug.Log("Ω««‡GameManager");
         OnCount?.Invoke();
     }
 

@@ -26,6 +26,7 @@ public class Demo : MonoBehaviour
     public BookAnimation bookAnim;
     int currentPage;
     View currentView;
+    bool isChangePage = false;
 
 
     public enum View
@@ -59,7 +60,8 @@ public class Demo : MonoBehaviour
     }
     void GachaPage()
     {
-        if (currentPage == 1) return;
+        if (currentPage == 1|| isChangePage) return;
+        isChangePage = true;
         bookAnim.animator.SetBool("Open", false);
         if (currentPage > 1)
         {
@@ -70,11 +72,12 @@ public class Demo : MonoBehaviour
             bookController.NextPage();
         }
         currentPage = 1;
-        StartCoroutine(UpdatePageDelayed(true));
+        StartCoroutine(UpdatePageDelayed());
     }
     void BookPage()
     {
-        if (currentPage == 2) return;
+        if (currentPage == 2|| isChangePage) return;
+        isChangePage = true;
         bookAnim.animator.SetBool("Open", true);
         if (currentPage > 2)
         {
@@ -85,10 +88,11 @@ public class Demo : MonoBehaviour
             bookController.NextPage();
         }
         currentPage = 2;
-        StartCoroutine(UpdatePageDelayed(true));
+        StartCoroutine(UpdatePageDelayed());
     }
     void NextPage()
     {
+        if (isChangePage) return;
         if (currentPage == 1)
         {
             bookAnim.animator.SetBool("Open", true);
@@ -97,13 +101,16 @@ public class Demo : MonoBehaviour
         {
             bookAnim.animator.SetBool("Open", false);
         }
+        isChangePage = true;
         bookController.NextPage();
         currentPage = Mathf.Min(++currentPage, pages.Length - 1);
-        StartCoroutine(UpdatePageDelayed(true));
+        StartCoroutine(UpdatePageDelayed());
     }
 
     void PreviousPage()
     {
+        if (isChangePage) return;
+        isChangePage = true;
         if (currentPage == 2)
         {
             bookAnim.animator.SetBool("Open", false);
@@ -114,20 +121,12 @@ public class Demo : MonoBehaviour
         }
         bookController.PreviousPage();
         currentPage = Mathf.Max(--currentPage, 0);
-        StartCoroutine(UpdatePageDelayed(false));
+        StartCoroutine(UpdatePageDelayed());
     }
     
-    IEnumerator UpdatePageDelayed(bool nextPageBtn)
+    IEnumerator UpdatePageDelayed()
     {
-        //yield return new WaitForEndOfFrame();
-        if (nextPageBtn)
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        else
-        {
-            yield return new WaitForEndOfFrame();
-        }
+        yield return new WaitForEndOfFrame();
         UpdatePage();
     }
     
@@ -137,5 +136,6 @@ public class Demo : MonoBehaviour
         pages[currentPage].SetActive(true);
         nextButton.gameObject.SetActive(currentPage < pages.Length - 1);
         previousButton.gameObject.SetActive(currentPage > 0);
+        isChangePage = false;
     }
 }

@@ -254,20 +254,14 @@ public class GameManager : MonoBehaviour
 
     public void DeBuffAnim()
     {
-        Debug.Log("½ÇÇà");
-
         StartCoroutine(DelayDestroy());
-
     }
 
     IEnumerator DelayDestroy()
     {
-        if (deBuff = null)
-        {
-            deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
-            yield return new WaitForSecondsRealtime(1f);
-            Destroy(deBuff);
-            deBuff = null;
-        }
+        deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
+        yield return new WaitForSecondsRealtime(1f);
+        Destroy(deBuff);
+        deBuff = null;
     }
 }

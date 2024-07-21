@@ -26,7 +26,7 @@ public class DeckListObj : MonoBehaviour
     }
     private void OnMouseDown()
     {
-
+        Debug.Log("´©¸§");
         StartCoroutine(OnClickDetect());
 
     }
