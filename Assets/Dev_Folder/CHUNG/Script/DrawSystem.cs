@@ -5,28 +5,31 @@ using UnityEngine.UI;
 
 public class DrawSystem : MonoBehaviour
 {
-    //DrawSystemì— ë‹¬ë ¤ìˆìŠµë‹ˆë‹¤.
-    List<CardBasic> normalCards = new List<CardBasic>(); //ë³´í†µ;
-    List<CardBasic> rarityCards = new List<CardBasic>(); //í¬ê·€;
-    List<CardBasic> heroCards = new List<CardBasic>();//ì˜ì›…ì¹´ë“œ;
+    //DrawSystem¿¡ ´Ş·ÁÀÖ½À´Ï´Ù.
+    List<CardBasic> normalCards = new List<CardBasic>(); //º¸Åë;
+    List<CardBasic> rarityCards = new List<CardBasic>(); //Èñ±Í;
+    List<CardBasic> heroCards = new List<CardBasic>();//¿µ¿õÄ«µå;
 
     Queue<CardBasic> tempCardBasic = new Queue<CardBasic>();
-    List<GameObject> tempCardObj = new List<GameObject> ();
+    List<GameObject> tempCardObj = new List<GameObject>();
 
     public Button drawButton;
-    //ë“±ê¸‰, ëª‡ë²ˆì§¸ì¸ì§€
+    //µî±Ş, ¸î¹øÂ°ÀÎÁö
     [SerializeField] GameObject board;
     [SerializeField] int count;
 
     RectTransform boardtransform;
     Vector3 initTransform;
-    //ë‚˜ì¤‘ì— switchë¥¼ ì—†ì•¨ ë°©ë²•ì„ ìƒê°í•´ ë³´ì
-    private void Start(){
+    //³ªÁß¿¡ switch¸¦ ¾ø¾Ù ¹æ¹ıÀ» »ı°¢ÇØ º¸ÀÚ
+    private void Start()
+    {
         //boardtransform = board.GetComponent<RectTransform>();
         //initTransform = board.GetComponent<RectTransform>().localPosition;
-        foreach (CardBasic card in DataManager.Instance.cardObjs){
-            switch(card.rate){
-                case Rate.Normal: 
+        foreach (CardBasic card in DataManager.Instance.cardObjs)
+        {
+            switch (card.rate)
+            {
+                case Rate.Normal:
                     normalCards.Add(card);
                     break;
                 case Rate.Rarity:
@@ -38,45 +41,45 @@ public class DrawSystem : MonoBehaviour
             }
         }
     }
-    public void DrawingCardBtn(){
-        LobbyManager.instance.isDrawing = true;
-        for(int i=0; i< count; i++) { 
-            int random = Random.Range(1,100);
-            if(random<80)
-            {
-                //ë…¸ë§ì¹´ë“œ
-                int randomCard = Random.Range(0, normalCards.Count);
-                GameObject tempObj = Instantiate(normalCards[randomCard].gameObject, board.transform);
-                Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
-                tempObjImage[1].sprite = normalCards[randomCard].defaultImage;
-                tempCardBasic.Enqueue(normalCards[randomCard]);
-                tempCardObj.Add(tempObj);
 
+    // Ä«µå »Ì±â½Ã µŞ¸éÀ¸·Î º¸ÀÌ°Ô »ı¼ºÇØÁÖ´Â ¸Ş¼­µå
+    public void DrawingCardBtn()
+    {
+        LobbyManager.instance.isDrawing = true;
+        for (int i = 0; i < count; i++)
+        {
+            int random = Random.Range(1, 100);
+            List<CardBasic> cardList;
+            if (random < 80)
+            {
+                cardList = normalCards;
             }
-            else if(random<95){
-                //í¬ê·€ì¹´ë“œë½‘ê¸°
-                int randomCard = Random.Range(0, rarityCards.Count);
-                GameObject tempObj = Instantiate(rarityCards[randomCard].gameObject, board.transform);
-                Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
-                tempObjImage[1].sprite = normalCards[randomCard].defaultImage;
-                tempCardBasic.Enqueue(rarityCards[randomCard]);
-                tempCardObj.Add(tempObj);
+            else if (random < 95)
+            {
+                cardList = rarityCards;
             }
-            else{
-                //ì˜ì›…ì¹´ë“œë½‘ê¸°
-                int randomCard = Random.Range(0, heroCards.Count);
-                GameObject tempObj= Instantiate(heroCards[randomCard].gameObject, board.transform);
-                Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
-                tempObjImage[1].sprite = normalCards[randomCard].defaultImage;
-                tempCardBasic.Enqueue(heroCards[randomCard]);
-                tempCardObj.Add(tempObj);
+            else
+            {
+                cardList = heroCards;
             }
+
+            int randomCard = Random.Range(0, cardList.Count);
+            GameObject tempObj = Instantiate(cardList[randomCard].gameObject, board.transform);
+            Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
+            tempObjImage[1].sprite = DataManager.Instance.cardBackImage;
+
+            // ÅØ½ºÆ®µéÀÌ ¾Èº¸ÀÌ°Ô ÇÑ´Ù
+            tempObj.GetComponent<CardData>().SetTextVisibility(false);
+
+            tempCardBasic.Enqueue(cardList[randomCard]);
+            tempCardObj.Add(tempObj);
         }
     }
-    //Book(ë„ê°)ìœ¼ë¡œ ë„£ì–´ì¤€ë‹¤. ê·¸ë¦¬ê³  ì¹´ë“œë¥¼ ë‹¤ ì´ˆê¸°í™” ì‹œì¼œì£¼ê¸°
+
+    //Book(µµ°¨)À¸·Î ³Ö¾îÁØ´Ù. ±×¸®°í Ä«µå¸¦ ´Ù ÃÊ±âÈ­ ½ÃÄÑÁÖ±â
     private void SaveCardInBook()
     {
-        //ì´ˆê¸°í™”
+        //ÃÊ±âÈ­
         foreach (GameObject cardObj in tempCardObj)
         {
             tempCardBasic.Dequeue().currentCount++;
@@ -88,16 +91,18 @@ public class DrawSystem : MonoBehaviour
         LobbyManager.instance.isDrawing = false;
     }
 
-    //íŒ¨ë„ ë‹«ê¸° 
-    public void CloseCanvas(){
+    //ÆĞ³Î ´İ±â 
+    public void CloseCanvas()
+    {
         SaveCardInBook();
-        Debug.Log("ì¢…ë£Œ : " + initTransform);
+        Debug.Log("Á¾·á : " + initTransform);
         //boardtransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right,0,0);
     }
 
-    public void OpenCard(){
-        if(tempCardBasic.Count==0)return;
-        foreach(GameObject cardObj in tempCardObj)
+    public void OpenCard()
+    {
+        if (tempCardBasic.Count == 0) return;
+        foreach (GameObject cardObj in tempCardObj)
         {
             cardObj.GetComponentInChildren<Image>().sprite = cardObj.GetComponent<CardBasic>().image;
         }

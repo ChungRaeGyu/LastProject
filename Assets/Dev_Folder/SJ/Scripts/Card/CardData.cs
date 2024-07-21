@@ -15,6 +15,7 @@ public class CardData : MonoBehaviour
     Vector2 maxSize = new Vector2(5, 7.5f);
     Vector2 minSize = new Vector2(3, 4.5f);
     Coroutine coroutine;
+
     private void Awake()
     {
         transform = GetComponent<RectTransform>();
@@ -56,23 +57,39 @@ public class CardData : MonoBehaviour
         float newValue = ConvertRange(transform.position.x, -1178, 4386, 3, 5) * 1.5f;
 
         transform.localScale = new Vector2(1 * newValue, 1.5f * newValue);
+        if (image[1].sprite == DataManager.Instance.cardBackImage)
+        {
+
+        }
 
         if (transform.localScale.x > 5)
         {
-            if (coroutine == null && image[1].sprite == cardBasic.defaultImage)
+            if (coroutine == null && image[1].sprite == DataManager.Instance.cardBackImage)
             {
-                animator.SetTrigger("Flip");
+                animator.SetTrigger("Flip"); // 카드를 뒤집음
                 coroutine = StartCoroutine(Delay());
-
             }
         }
 
         //1564일때를 기준으로 
     }
+
+    // 텍스트들을 보이거나 안보이게 하는 메서드
+    public void SetTextVisibility(bool isVisible)
+    {
+        cardBasic.nameText.gameObject.SetActive(isVisible);
+        cardBasic.costText.gameObject.SetActive(isVisible);
+        cardBasic.descriptionText.gameObject.SetActive(isVisible);
+    }
+
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(0.2f);
         image[1].sprite = cardBasic.image;
+
+        // 텍스트가 보이게 한다
+        SetTextVisibility(true);
+
         coroutine = null;
     }
 }

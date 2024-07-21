@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class CardZoom : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandler*/
 {
-    public float zoomScale = 1.5f; // 확대 배율
+    private float zoomScale = 1.3f; // 확대 배율
     public float zoomDuration = 0.25f; // 축소 애니메이션 지속 시간
 
     private Vector3 originalScale; // 원래 크기

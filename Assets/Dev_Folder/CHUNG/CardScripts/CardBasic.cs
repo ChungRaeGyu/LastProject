@@ -46,7 +46,6 @@ public class CardBasic : MonoBehaviour
     public int utilAbility;
     public int currentCount;
     public Sprite image;
-    public Sprite defaultImage;
     public JOB job;
     public Rate rate;
     public GameObject effect;
@@ -57,9 +56,9 @@ public class CardBasic : MonoBehaviour
     public GameObject debuffEffectPrefab;
 
     [Header("UI Components")]
-    [SerializeField] protected TMP_Text nameText;
-    [SerializeField] protected TMP_Text costText;
-    [SerializeField] protected TMP_Text descriptionText;
+    public TMP_Text nameText;
+    public TMP_Text costText;
+    public TMP_Text descriptionText;
 
     // 초기 ability 값 저장
     protected int initialDamageAbility;

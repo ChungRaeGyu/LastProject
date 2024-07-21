@@ -66,6 +66,7 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
             transform.position = cursorWorldPoint; // 마우스와의 거리 유지하며 카드 이동
             transform.SetAsLastSibling(); // 맨 위로 올리기
+            cardZoom.ZoomIn();
 
             if (SceneManager.GetActiveScene().buildIndex != 3) return;
 
@@ -75,7 +76,6 @@ public class CardDrag : MonoBehaviour
                 isFixed = true;
                 rectTransform.anchoredPosition = fixedPosition;
                 transform.rotation = fixedRotation;
-                cardZoom.ZoomIn();
 
                 // 드래그 라인 그리기 시작
                 dragLine.StartDrawing(transform.position);
