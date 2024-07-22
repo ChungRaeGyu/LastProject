@@ -14,7 +14,6 @@ public class Interact : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("³ª°¨");
         LobbyManager.instance.currentCanvas = null;
     }
 }

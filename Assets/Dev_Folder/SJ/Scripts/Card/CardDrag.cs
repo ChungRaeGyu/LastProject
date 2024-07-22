@@ -112,6 +112,7 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
+            if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
             if (cardBasic.cardBasic.currentCount == 0) return;
             clickCoroutine = StartCoroutine(OnClickDetect());
             
@@ -147,12 +148,14 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             cursorWorldPoint.z = 0;
             draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint,Quaternion.identity, Canvas.transform);
-            draggedCardPrefab.GetComponent<RectTransform>().localScale = new Vector3(2, 3, 1);
             Destroy(draggedCardPrefab.transform.GetChild(2).gameObject);
-            draggedCardPrefab.GetComponentsInChildren<Image>()[1].raycastTarget = false;
+            draggedCardPrefab.GetComponentInChildren<Image>().raycastTarget = false;
+
+            
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
             tempRect.sizeDelta = new Vector2(100, 100);
+            tempRect.localScale = new Vector3(2, 3,1);
             // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
             /*
             
@@ -202,6 +205,7 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
+            if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
             //로비에서 드래그 사용
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
@@ -209,7 +213,7 @@ public class CardDrag : MonoBehaviour
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
-            Destroy(draggedCardPrefab);
+            //Destroy(draggedCardPrefab);
         }
     }
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)

@@ -66,6 +66,7 @@ public class DescriptionManager : MonoBehaviour
     public void AddDeck()
     {
         //덱추가 버튼
+        if (currentCard.cardBasic.currentCount <= 0) return;
         deck.AddCardObj(currentCard.cardBasic);
         LobbyManager.instance.InvokeCount();
         ClosePanel();
@@ -90,6 +91,7 @@ public class DescriptionManager : MonoBehaviour
         //분해창 오픈
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
         num = 1;
+        cardSubject.text = num.ToString();
     }
 
     public void RightBtn()
@@ -114,6 +116,7 @@ public class DescriptionManager : MonoBehaviour
             ClosePanel();
         }
         num = 1;
+        cardSubject.text = num.ToString();
         LobbyManager.instance.InvokeCount();
     }
 }
