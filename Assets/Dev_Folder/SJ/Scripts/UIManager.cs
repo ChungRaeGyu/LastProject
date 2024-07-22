@@ -426,6 +426,7 @@ public class UIManager : MonoBehaviour
     // 로비 씬으로 이동하는 메서드
     public void GoToLobbyScene()
     {
+        SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
     }
 }
