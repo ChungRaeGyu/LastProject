@@ -22,9 +22,8 @@ public class MonsterCharacter : MonoBehaviour
 
     [HideInInspector]
     public Transform MonsterCondition;
-
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
-    protected bool isFrozen; // 얼었는지 확인하는 용도
+    public bool isFrozen; // 얼었는지 확인하는 용도
 
 
     public Action deBuffAnim;
@@ -138,7 +137,6 @@ public class MonsterCharacter : MonoBehaviour
                 animator.StopPlayback();
                 deBuffAnim?.Invoke();
             }
-            isFrozen = true;
             yield break;
         }
         else
@@ -152,6 +150,7 @@ public class MonsterCharacter : MonoBehaviour
 
     public virtual void FreezeForTurns(int turns)
     {
+        isFrozen = true;
         frozenTurnsRemaining += turns;
 
         Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
