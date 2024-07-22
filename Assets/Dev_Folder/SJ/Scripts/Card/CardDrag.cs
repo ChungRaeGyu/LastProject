@@ -147,8 +147,9 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             cursorWorldPoint.z = 0;
             draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint,Quaternion.identity, Canvas.transform);
+            draggedCardPrefab.GetComponent<RectTransform>().localScale = new Vector3(2, 3, 1);
             Destroy(draggedCardPrefab.transform.GetChild(2).gameObject);
-            draggedCardPrefab.GetComponentInChildren<Image>().raycastTarget = false;
+            draggedCardPrefab.GetComponentsInChildren<Image>()[1].raycastTarget = false;
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
             tempRect.sizeDelta = new Vector2(100, 100);
