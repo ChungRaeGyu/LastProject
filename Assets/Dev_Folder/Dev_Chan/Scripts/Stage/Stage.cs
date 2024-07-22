@@ -15,8 +15,10 @@ public class Stage : MonoBehaviour
     public void Start()
     {
         if (monsters.Count == 1) return;
-        int randomNum = Random.Range(0, 100);
         stagePosition = this.gameObject.transform.position;
+        
+        //이벤트와 스토어 스테이지 아직 코딩 못함
+        /*int randomNum = Random.Range(0, 100);
         if (randomNum < 6)
         {
             stageName = "store";
@@ -32,12 +34,11 @@ public class Stage : MonoBehaviour
             store.SetActive(false);
         }
         else
-        {
-            stageName = "battle";
-            battle.SetActive(true);
-            eventStage.SetActive(false);
-            store.SetActive(false);
-        }
+        {*/
+        stageName = "battle";
+        battle.SetActive(true);
+        eventStage.SetActive(false);
+        store.SetActive(false);
     }
 
     public void BattleBtn()
