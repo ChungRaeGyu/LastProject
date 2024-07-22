@@ -13,8 +13,6 @@ public class MonsterCharacter : MonoBehaviour
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int Attack = Animator.StringToHash("Attack");
 
-    public GameObject damageTextPrefab;
-
     private List<Condition> conditionInstances = new List<Condition>();
 
     public Transform hpBarPos; // HP 바 위치
@@ -68,38 +66,37 @@ public class MonsterCharacter : MonoBehaviour
         DieAction();
     }
 
+    private void SpawnText(string text, Vector3 position, Color? color = null)
+    {
+        if (GameManager.instance.damageTextPrefab != null)
+        {
+            GameObject textInstance = Instantiate(GameManager.instance.damageTextPrefab, position, Quaternion.identity);
+            DamageText damageText = textInstance.GetComponent<DamageText>();
+            damageText.SetText(text);
+
+            // 색상 설정
+            if (color.HasValue)
+            {
+                damageText.currentColor = color.Value;
+            }
+
+            // 화면 좌표에서 위로 이동
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
+            float yOffset = 50f; // 얼마나 위로 위치할지 설정
+            Vector3 newScreenPosition = new Vector3(screenPosition.x, screenPosition.y + yOffset, 10f);
+            textInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
+        }
+    }
+
     private void SpawnDamageText(int damageAmount, Vector3 position)
     {
-        if (damageTextPrefab != null)
-        {
-            GameObject damageTextInstance = Instantiate(damageTextPrefab, position, Quaternion.identity);
-            DamageText damageText = damageTextInstance.GetComponent<DamageText>();
-            damageText.SetText(damageAmount.ToString());
-
-            // 위치를 화면 좌표로
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
-        }
+        SpawnText(damageAmount.ToString(), position);
     }
 
     private void SpawnConditionText(string conditionText, Vector3 position)
     {
-        if (damageTextPrefab != null)
-        {
-            GameObject conditionTextInstance = Instantiate(damageTextPrefab, position, Quaternion.identity);
-            DamageText damageText = conditionTextInstance.GetComponent<DamageText>();
-            damageText.SetText(conditionText);
-
-            // 빙결 상태일 때만 텍스트 파란색으로
-            if (conditionText == "빙결")
-            {
-                damageText.stateColor = new Color(0.53f, 0.81f, 0.92f);
-            }
-
-            // 위치를 화면 좌표로
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            conditionTextInstance.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
-        }
+        Color? textColor = conditionText == "빙결" ? new Color(0.53f, 0.81f, 0.92f) : (Color?)null;
+        SpawnText(conditionText, position, textColor);
     }
 
 
@@ -118,6 +115,8 @@ public class MonsterCharacter : MonoBehaviour
 
     public virtual IEnumerator MonsterTurn()
     {
+        if (GameManager.instance.player?.IsDead() == true) yield break;
+
         if (frozenTurnsRemaining > 0)
         {
             frozenTurnsRemaining--;

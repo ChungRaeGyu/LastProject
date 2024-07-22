@@ -98,6 +98,8 @@ public class CardDrag : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
+            if (GameManager.instance.player?.IsDead() == true) return;
+
             if (!GameManager.instance.handManager.setCardEnd) return;
 
             // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
@@ -178,6 +180,8 @@ public class CardDrag : MonoBehaviour
         isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
+            if (GameManager.instance.player?.IsDead() == true) return;
+
             if (dragLine != null)
             {
                 dragLine.StopDrawing();

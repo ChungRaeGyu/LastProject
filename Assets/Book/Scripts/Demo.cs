@@ -28,6 +28,11 @@ public class Demo : MonoBehaviour
     View currentView;
     bool isChangePage = false;
 
+    // 색상 설정
+    [SerializeField]
+    Color highlightColor = Color.yellow; // 현재 페이지를 나타내는 색상
+    [SerializeField]
+    Color defaultColor = Color.white; // 기본 버튼 색상
 
     public enum View
     {
@@ -57,6 +62,7 @@ public class Demo : MonoBehaviour
 
         currentView = value;
         bookImage.sprite = currentView == View.Book ? bookTexture : notepadTexture;
+        UpdateButtonColors(); // 색상 업데이트 호출
     }
     void GachaPage()
     {
@@ -137,5 +143,14 @@ public class Demo : MonoBehaviour
         nextButton.gameObject.SetActive(currentPage < pages.Length - 1);
         previousButton.gameObject.SetActive(currentPage > 0);
         isChangePage = false;
+
+        UpdateButtonColors(); // 페이지 업데이트 후 색상 변경 호출
+    }
+
+    void UpdateButtonColors()
+    {
+        // 버튼 색상 설정
+        BookOpenButton.GetComponent<Image>().color = (currentPage == 2) ? highlightColor : defaultColor;
+        GaChaOpenButton.GetComponent<Image>().color = (currentPage == 1) ? highlightColor : defaultColor;
     }
 }

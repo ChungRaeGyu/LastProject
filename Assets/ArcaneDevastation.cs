@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class ArcaneDevastation : CardBasic
 {
-    [Header("CardData")]
-
-
-    private CardDrag cardDrag;
     private BezierDragLine bezierDragLine;
+
     protected override void Start()
     {
         base.Start();
@@ -18,7 +15,6 @@ public class ArcaneDevastation : CardBasic
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         bezierDragLine = GetComponent<BezierDragLine>();
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }

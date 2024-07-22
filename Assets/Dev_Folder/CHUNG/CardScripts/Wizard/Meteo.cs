@@ -5,19 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Meteo : CardBasic
 {
-    //이름
-    //데이터 넣을꺼임
-
-
-    private CardDrag cardDrag;
-
     protected override void Start()
     {
         base.Start();
 
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }
@@ -83,6 +75,4 @@ public class Meteo : CardBasic
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
     }
-
-
 }

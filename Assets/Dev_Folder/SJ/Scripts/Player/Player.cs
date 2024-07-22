@@ -42,7 +42,7 @@ public class Player : PlayerCharacter
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
         playerCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
-        AddCondition(playerCondition, playerStats.defense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
+        AddCondition(playerCondition, currentDefense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
     }
 
     private void Update()

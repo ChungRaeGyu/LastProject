@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class FrozenMagic : CardBasic
 {
-    [Header("CardData")]
-
-
-    private CardDrag cardDrag;
     private BezierDragLine bezierDragLine;
+
     protected override void Start()
     {
         base.Start();
@@ -18,7 +15,6 @@ public class FrozenMagic : CardBasic
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         bezierDragLine = GetComponent<BezierDragLine>();
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }

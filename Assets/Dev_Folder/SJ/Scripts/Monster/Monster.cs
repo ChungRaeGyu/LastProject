@@ -46,6 +46,8 @@ public class Monster : MonsterCharacter
 
     public override IEnumerator MonsterTurn()
     {
+        if (GameManager.instance.player?.IsDead() == true) yield break;
+
         //counter++;
         //if(counter >= 2 && !counterOnOff) // 2턴에 시작
         //{

@@ -26,9 +26,6 @@ public class GameManager : MonoBehaviour
     public List<Transform> monsterSpawnPoint3;
     public List<Transform> monsterSpawnPoint4;
 
-
-
-
     public Transform cardSpawnPoint; // 카드 소환 위치
 
     public Player player { get; private set; }
@@ -44,9 +41,12 @@ public class GameManager : MonoBehaviour
     public Condition defenseconditionPrefab;
     public Condition frozenConditionPrefab;
 
-
     [Header("DeBuff_InputScript")]
     public GameObject deBuff;
+
+    [Header("DamageText")]
+    public GameObject damageTextPrefab;
+
     private void Awake()
     {
         if (instance == null)

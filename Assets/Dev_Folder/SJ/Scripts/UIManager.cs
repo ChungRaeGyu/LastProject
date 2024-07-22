@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -138,7 +139,7 @@ public class UIManager : MonoBehaviour
         List<int> chosenIndexes = new List<int>();
         for (int i = 0; i < numberOfIndexes; i++)
         {
-            int randomIndex = Random.Range(0, indexes.Count);
+            int randomIndex = UnityEngine.Random.Range(0, indexes.Count);
             chosenIndexes.Add(indexes[randomIndex]);
             indexes.RemoveAt(randomIndex);
         }
@@ -237,7 +238,7 @@ public class UIManager : MonoBehaviour
         if (openCardSelectionButton != null)
         {
             // 확률적으로 활성화
-            bool shouldBeActive = Random.value <= openCardSelectionProbability;
+            bool shouldBeActive = UnityEngine.Random.value <= openCardSelectionProbability;
             openCardSelectionButton.gameObject.SetActive(shouldBeActive);
         }
     }
@@ -280,14 +281,14 @@ public class UIManager : MonoBehaviour
 
     public void ApplyDeathPenalty()
     {
-        // 덱 리스트에서 랜덤으로 카드를 제거합니다.
+        // 덱 리스트에서 랜덤으로 카드를 제거한다.
         if (DataManager.Instance.deckList.Count > 0)
         {
-            int randomIndex = Random.Range(0, DataManager.Instance.deckList.Count);
+            int randomIndex = UnityEngine.Random.Range(0, DataManager.Instance.deckList.Count);
             CardBasic removedCard = DataManager.Instance.deckList[randomIndex];
             DataManager.Instance.deckList.RemoveAt(randomIndex);
 
-            // 제거된 카드를 화면에 보여주고 사라지는 효과를 구현합니다.
+            // 제거된 카드를 화면에 보여주고 사라지는 효과를 구현한다.
             ShowRemovedCard(removedCard);
         }
         else
@@ -298,33 +299,51 @@ public class UIManager : MonoBehaviour
 
     private void ShowRemovedCard(CardBasic cardToRemove)
     {
-        // 제거된 카드를 생성하고 부모를 removeCardSpawnPoint로 설정합니다.
+        // 제거된 카드를 생성하고 부모를 removeCardSpawnPoint로 설정
         GameObject removedCardObj = Instantiate(cardToRemove.gameObject, removeCardSpawnPoint);
         removedCardObj.SetActive(true);
 
-        // 스케일 조정
-        removedCardObj.transform.localScale = new Vector3(4f, 6f, 1f); // 2배 크기로 설정
+        // 자식 오브젝트들의 Image 컴포넌트를 가져옴
+        Image[] cardImages = removedCardObj.GetComponentsInChildren<Image>();
 
-        // 자식 오브젝트의 Image 컴포넌트 가져오기
-        Image cardImage = removedCardObj.GetComponentInChildren<Image>();
-        if (cardImage != null)
+        if (cardImages.Length > 0)
         {
-            // 카드의 알파값을 조정하기 위해 코루틴 호출
-            StartCoroutine(FadeOutAndDestroy(cardImage));
+            // 첫 번째 자식 이미지 삭제 <= 형광색 효과 이미지
+            Destroy(cardImages[0].gameObject);
+        }
+
+        if (cardImages.Length > 1)
+        {
+            // 두 번째 자식 이미지와 그 안의 TMP_Text 컴포넌트들 가져오기
+            Image secondImage = cardImages[1];
+            TMP_Text[] textComponents = secondImage.GetComponentsInChildren<TMP_Text>();
+
+            // 두 번째 자식 이미지와 TMP_Text 컴포넌트들의 알파값을 조절하는 메서드 호출
+            StartCoroutine(FadeOutAndDestroy(secondImage, textComponents));
         }
         else
         {
-            Debug.LogWarning("자식 오브젝트에서 Image 컴포넌트를 찾을 수 없습니다.");
+            Debug.LogWarning("두 번째 자식 오브젝트에서 Image 컴포넌트를 찾을 수 없습니다.");
         }
+
+        // 이미지 크기 조정
+        removedCardObj.transform.localScale = new Vector3(4f, 6f, 1f); // 2배 크기로 설정
     }
 
 
-    private IEnumerator FadeOutAndDestroy(Image cardImage)
+    private IEnumerator FadeOutAndDestroy(Image cardImage, TMP_Text[] textComponents)
     {
         float fadeDuration = 2.0f;
         float fadeTimer = 0.0f;
 
         Color originalColor = cardImage.color;
+
+        // 텍스트 컴포넌트의 원래 색상 저장
+        Color[] originalTextColors = new Color[textComponents.Length];
+        for (int i = 0; i < textComponents.Length; i++)
+        {
+            originalTextColors[i] = textComponents[i].color;
+        }
 
         yield return new WaitForSeconds(1.0f); // 1초 지연
 
@@ -332,9 +351,17 @@ public class UIManager : MonoBehaviour
         while (fadeTimer < fadeDuration)
         {
             float alpha = Mathf.Lerp(1.0f, 0.0f, fadeTimer / fadeDuration);
-            Color newColor = originalColor;
-            newColor.a = alpha;
-            cardImage.color = newColor;
+            Color newImageColor = originalColor;
+            newImageColor.a = alpha;
+            cardImage.color = newImageColor;
+
+            // 텍스트 컴포넌트의 알파값 조정
+            foreach (var textComponent in textComponents)
+            {
+                Color newTextColor = originalTextColors[Array.IndexOf(textComponents, textComponent)];
+                newTextColor.a = alpha;
+                textComponent.color = newTextColor;
+            }
 
             fadeTimer += Time.deltaTime;
             yield return null;
@@ -346,11 +373,15 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePlayerTurnCount(int turnNumber)
     {
+        if (GameManager.instance.player?.IsDead() == true) return;
+
         StartCoroutine(AnimateTurnCount(PlayerTurnCountText, $"플레이어 {turnNumber}번째 턴"));
     }
 
     public void UpdateMonsterTurnCount(int turnNumber)
     {
+        if (GameManager.instance.player?.IsDead() == true) return;
+
         StartCoroutine(AnimateTurnCount(MonsterTurnCountText, $"몬스터 {turnNumber}번째 턴"));
     }
 

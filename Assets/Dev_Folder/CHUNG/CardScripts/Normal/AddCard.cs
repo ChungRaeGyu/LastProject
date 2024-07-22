@@ -6,16 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class AddCard : CardBasic
 {
-    //이름
-    //데이터 넣을꺼임
-    [Header("CardData")]
-
-    private CardDrag cardDrag;
     protected override void Start()
     {
         base.Start();
-
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }
@@ -77,17 +70,4 @@ public class AddCard : CardBasic
 
         GameManager.instance.CheckAllMonstersDead();
     }
-
-    #region 특수카드 사용
-
-    #endregion
-    private void PlayPlayerAttackAnimation()
-    {
-        if (GameManager.instance.player != null && GameManager.instance.player.animator != null)
-        {
-            GameManager.instance.player.animator.SetTrigger("Attack");
-        }
-    }
-
-
 }

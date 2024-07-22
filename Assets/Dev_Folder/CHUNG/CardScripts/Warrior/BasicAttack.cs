@@ -6,13 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BasicAttack : CardBasic
 {
-    //이름
-    //데이터 넣을꺼임
-    [Header("CardData")]
-
-
-    private CardDrag cardDrag;
     private BezierDragLine bezierDragLine;
+
     protected override void Start()
     {
         base.Start();
@@ -20,7 +15,6 @@ public class BasicAttack : CardBasic
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         bezierDragLine = GetComponent<BezierDragLine>();
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }
@@ -82,6 +76,7 @@ public class BasicAttack : CardBasic
     #region 특수카드 사용
 
     #endregion
+
     private void PlayPlayerAttackAnimation()
     {
         if (GameManager.instance.player != null && GameManager.instance.player.animator != null)
@@ -89,6 +84,4 @@ public class BasicAttack : CardBasic
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
     }
-
-
 }

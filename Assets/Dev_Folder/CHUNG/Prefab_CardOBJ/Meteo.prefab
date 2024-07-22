@@ -549,7 +549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3a9fe83c483be408543ad3870f60d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomScale: 1.5
   zoomDuration: 0.25
 --- !u!114 &9107333178606898114
 MonoBehaviour:
@@ -578,11 +577,10 @@ MonoBehaviour:
   cardBasic: {fileID: 0}
   cardName: "\uBA54\uD14C\uC624"
   cost: 2
-  damageAbility: 4
+  damageAbility: 99
   utilAbility: 0
   currentCount: 11
   image: {fileID: 21300000, guid: b490e9352a87da7418ed75dbbb03760e, type: 3}
-  defaultImage: {fileID: 21300000, guid: f76193dd53c892a43815f0ac10aea1be, type: 3}
   job: 0
   rate: 2
   effect: {fileID: 2388411697999515596, guid: 7fe9ac92f2adec1418d541cf9ab91d5a, type: 3}

@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ThunderBolt : CardBasic
 {
-    //이름
-
-    private CardDrag cardDrag;
     public BezierDragLine bezierDragLine;
 
     protected override void Start()
@@ -17,7 +14,6 @@ public class ThunderBolt : CardBasic
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         bezierDragLine = GetComponent<BezierDragLine>();
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }
@@ -71,7 +67,7 @@ public class ThunderBolt : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         GameManager.instance.effectManager.MagicAttackMethod(targetMonster, cardBasic);
-        //TODO : 애니메이션 넣어주기
+        PlayPlayerAttackAnimation();
     }
 
     #region 특수카드 사용
@@ -84,6 +80,4 @@ public class ThunderBolt : CardBasic
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
     }
-
-
 }

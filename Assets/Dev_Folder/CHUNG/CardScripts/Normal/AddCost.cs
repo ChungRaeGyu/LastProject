@@ -5,13 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class AddCost : CardBasic
 {
-    //이름
-    //데이터 넣을꺼임
-    [Header("CardData")]
-
-
-    private CardDrag cardDrag;
     private CardCollision cardCollision;
+
     protected override void Start()
     {
         base.Start();
@@ -19,7 +14,6 @@ public class AddCost : CardBasic
         this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
 
         cardCollision = GetComponent<CardCollision>();
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }
@@ -74,16 +68,5 @@ public class AddCost : CardBasic
     {
         GameManager.instance.effectManager.PlayerEffect(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);
-    }
-
-    #region 특수카드 사용
-
-    #endregion
-    private void PlayPlayerAttackAnimation()
-    {
-        if (GameManager.instance.player != null && GameManager.instance.player.animator != null)
-        {
-            GameManager.instance.player.animator.SetTrigger("Attack");
-        }
     }
 }

@@ -4,18 +4,9 @@ using UnityEngine;
 
 public class Heal : CardBasic
 {
-    //이름
-    //데이터 넣을꺼임
-    [Header("CardData")]
-
-
-    private CardDrag cardDrag;
-
     protected override void Start()
     {
         base.Start();
-
-        cardDrag = GetComponent<CardDrag>();
 
         SetDescription();
     }
@@ -70,19 +61,5 @@ public class Heal : CardBasic
     {
         GameManager.instance.effectManager.PlayerEffect(cardBasic);
         GameManager.instance.player.Heal(utilAbility);
-        //TODO : 애니메이션 넣어주기
     }
-
-    #region 특수카드 사용
-
-    #endregion
-    private void PlayPlayerAttackAnimation()
-    {
-        if (GameManager.instance.player != null && GameManager.instance.player.animator != null)
-        {
-            GameManager.instance.player.animator.SetTrigger("Attack");
-        }
-    }
-
-
 }
