@@ -42,6 +42,7 @@ public class SwordGoblin : MonsterCharacter
 
     public override IEnumerator MonsterTurn()
     {
+        if (GameManager.instance.player?.IsDead() == true) yield break;
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
 

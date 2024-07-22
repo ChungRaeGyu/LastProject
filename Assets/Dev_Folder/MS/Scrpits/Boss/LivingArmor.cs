@@ -42,6 +42,8 @@ public class LivingArmor : MonsterCharacter
 
     public override IEnumerator MonsterTurn()
     {
+        if (GameManager.instance.player?.IsDead() == true) yield break;
+
         bossTurnCount++;
         Debug.Log("----- 보스의 " + bossTurnCount + "턴 째 -----");
 
