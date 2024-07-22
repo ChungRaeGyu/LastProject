@@ -38,6 +38,7 @@ public class LobbyManager : MonoBehaviour
         Init();
     }
 
+    // 도감에 카드를 생성하는 메서드
     private void Init()
     {
         int j = 0;

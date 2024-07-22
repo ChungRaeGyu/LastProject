@@ -118,7 +118,6 @@ public class UIManager : MonoBehaviour
         StartCoroutine(MoveCard(leftCard, new Vector3(-400, 0, 0)));
         Destroy(leftCard.transform.GetChild(0).gameObject);
 
-
         // 오른쪽 카드 생성
         rightCard = Instantiate(rewardCardPrefabs[chosenIndexes[2]], CardSelectPanelCanvas);
         SetCardScale(rightCard);

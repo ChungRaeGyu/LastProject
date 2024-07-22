@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    //ì¹´ë“œë¥¼ ë½‘ì„ë•Œ, ë±ì„ ë¡œë”©í• ë•Œ, ë„ê°ì„ ë¡œë”©í•  ë•Œ, í•¸ë“œë¥¼ ë³¼ë•Œ
-    // cardSOë¥¼ ìƒˆë¡œ ì„¤ì •í•´ì¤€ë‹¤.
+    //Ä«µå¸¦ »ÌÀ»¶§, µ¦À» ·ÎµùÇÒ¶§, µµ°¨À» ·ÎµùÇÒ ¶§, ÇÚµå¸¦ º¼¶§
+    // cardSO¸¦ »õ·Î ¼³Á¤ÇØÁØ´Ù.
     [Header("PutInScript")]
     public CardBasic cardObj;
 
@@ -35,7 +35,7 @@ public class Card : MonoBehaviour
         {
             button.enabled = true;
             transform.gameObject.name = cardObj.cardName;
-            cardImage.sprite = cardObj.defaultImage;
+            cardImage.sprite = DataManager.Instance.cardBackImage;
         }
         else
         {

@@ -70,15 +70,17 @@ public class DescriptionManager : MonoBehaviour
         LobbyManager.instance.InvokeCount();
         ClosePanel();
     }
-
+    public GameObject targetEmptyObject;
     public void OpenPanel(CardBasic cardBasic)
     {
         currentCard = cardBasic;
-        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform);
+        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
         Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
         tempCardRect.localScale = new Vector2(3, 4.5f);
-        tempCardRect.localPosition = new Vector2(0, 0);
+
+        tempCardRect.localPosition = targetEmptyObject.transform.localPosition; // 카드 위치 지정
+
         tempCardRect.sizeDelta = new Vector2(90, 90);
         descriptionPanel.SetActive(true);
     }

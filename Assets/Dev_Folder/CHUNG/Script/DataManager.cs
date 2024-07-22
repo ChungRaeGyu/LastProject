@@ -45,8 +45,11 @@ public class DataManager : MonoBehaviour
     public List<CardBasic> cardObjs = new List<CardBasic>();
 
     [Header("CardPiece")]
+    public int[] CardPiece;
 
-    public int[] CardPiece; 
+    [Header("CardBack")]
+    public Sprite cardBackImage;
+
     private void Start()
     {
         CardPiece= new int[(int)Rate.Count];
