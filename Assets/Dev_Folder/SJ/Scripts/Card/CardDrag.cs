@@ -213,7 +213,7 @@ public class CardDrag : MonoBehaviour
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
-            //Destroy(draggedCardPrefab);
+            Destroy(draggedCardPrefab);
         }
     }
     public void SetOriginalPosition(Vector3 position, Quaternion rotation)
