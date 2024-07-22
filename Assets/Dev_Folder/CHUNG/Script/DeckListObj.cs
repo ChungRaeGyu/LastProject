@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TreeEditor;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class DeckListObj : MonoBehaviour
@@ -13,9 +15,11 @@ public class DeckListObj : MonoBehaviour
     private Coroutine clickCoroutine;
     bool isLongClick = false;
     private bool isClick = false;
+    RectTransform rectTransform;
     // Start is called before the first frame update
     void Start()
     {
+        rectTransform = GetComponent<RectTransform>();
         Invoke("delaySetting", 0.1f);
     }
 
@@ -37,8 +41,8 @@ public class DeckListObj : MonoBehaviour
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             cursorWorldPoint.z = -1;
             //offset = (Vector2)transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
-            transform.position = cursorWorldPoint;
-
+            rectTransform.position = cursorWorldPoint;
+            //transform.position = cursorWorldPoint;
         }
     }
     private void OnMouseUp()
@@ -49,7 +53,7 @@ public class DeckListObj : MonoBehaviour
         {
             
             LobbyManager.instance.deckControl.RemoveCardObj(cardBasic);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         else
         {

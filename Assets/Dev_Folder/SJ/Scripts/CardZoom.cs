@@ -47,7 +47,7 @@ public class CardZoom : MonoBehaviour/*, IPointerEnterHandler, IPointerExitHandl
 
     public void ZoomIn()
     {
-        if (isZoomed || (currentlyZoomedCard != null && currentlyZoomedCard != this)) return;
+        if (isZoomed || (currentlyZoomedCard != null && currentlyZoomedCard != this)|| SceneManager.GetActiveScene().buildIndex != 3) return;
 
         transform.localScale = originalScale * zoomScale;
         transform.rotation = Quaternion.Euler(0, 0, 0);
