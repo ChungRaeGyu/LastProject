@@ -5231,9 +5231,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardBasic: {fileID: 0}
   cardName: "\uCE74\uB4DC\uD68D\uB4DD"
-  description: "\uCE74\uB4DC\uB97C \uCD94\uAC00\uB85C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
   cost: 0
-  ability: 2
+  damageAbility: 0
+  utilAbility: 0
   currentCount: 13
   image: {fileID: 21300000, guid: 5c96b739ef571924eb3be9a38f0c27af, type: 3}
   defaultImage: {fileID: 21300000, guid: 36cc1e1800d705846a9fc5969769d3bd, type: 3}
@@ -5243,6 +5243,10 @@ MonoBehaviour:
   dragLineCard: 0
   attackEffect: {fileID: 0}
   deckCardImage: {fileID: 3136015016114371348, guid: 49bb36907b264b949b4f9521c3c6bef7, type: 3}
+  debuffEffectPrefab: {fileID: 0}
+  nameText: {fileID: 0}
+  costText: {fileID: 0}
+  descriptionText: {fileID: 0}
 --- !u!224 &8730619209028195996
 RectTransform:
   m_ObjectHideFlags: 0
