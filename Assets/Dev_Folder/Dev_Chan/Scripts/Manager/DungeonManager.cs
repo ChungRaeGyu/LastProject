@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class DungeonManager : MonoBehaviour
@@ -24,23 +25,18 @@ public class DungeonManager : MonoBehaviour
 
     public GameObject[] dungeonNum = new GameObject[5];
 
-    public GameObject homeButton;
     public GameObject backButton;
     public GameObject player;
     public GameObject stage;
-    public GameObject battleScene;
     public GameObject eventScene;
     public GameObject storeScene;
-    public GameObject bossScene;
 
     public Vector3 stage01;
 
     private void Start()
-    { 
-        battleScene.SetActive(false);
+    {
         eventScene.SetActive(false);
         storeScene.SetActive(false);
-        bossScene.SetActive(false);
     }
 
     private void Update()
@@ -48,7 +44,6 @@ public class DungeonManager : MonoBehaviour
         if (SaveManager.Instance.accessDungeon == true)
         {
             backButton.SetActive(true);
-            homeButton.SetActive(true);
             player.SetActive(true);
             int num = SaveManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
@@ -58,7 +53,6 @@ public class DungeonManager : MonoBehaviour
         if (SaveManager.Instance.accessDungeon == false)
         {
             backButton.SetActive(false);
-            homeButton.SetActive(false);
             player.SetActive(false);
 
             stage.SetActive(false);
