@@ -174,12 +174,15 @@ public class GameManager : MonoBehaviour
     public IEnumerator DrawCardFromDeck()
     {
         CardBasic cardBasic = DataManager.Instance.PopCard();
+        AddCard(cardBasic);
+        yield return null;
+    }
+
+    public void AddCard(CardBasic cardBasic)
+    {
         GameObject newCard = Instantiate(cardBasic.gameObject, cardSpawnPoint.position, Quaternion.identity); // 카드 소환 위치 사용
         newCard.GetComponent<CardBasic>().cardBasic = cardBasic;
-
-        // HandManager에 카드 추가
         handManager.AddCard(newCard.transform);
-        yield return null;
     }
 
     public void CheckAllMonstersDead()

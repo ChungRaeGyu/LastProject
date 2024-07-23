@@ -570,10 +570,10 @@ GameObject:
   - component: {fileID: 5006092552455994640}
   - component: {fileID: 638509791874259214}
   - component: {fileID: 6533821262809756158}
+  - component: {fileID: -5038888254405635864}
   - component: {fileID: -80209571416098305}
   - component: {fileID: 480552651306711603}
   - component: {fileID: 7284953810828747658}
-  - component: {fileID: -5038888254405635864}
   m_Layer: 0
   m_Name: Blood
   m_TagString: Untagged
@@ -716,6 +716,35 @@ MonoBehaviour:
   defaultLineColor: {r: 1, g: 1, b: 1, a: 1}
   hitLineColor: {r: 1, g: 0, b: 0, a: 1}
   aimingImagePrefab: {fileID: 5264567246619975850, guid: a254e51df01f89441a312ca8011f9aeb, type: 3}
+--- !u!114 &-5038888254405635864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447918245922251516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f006df2332d4204a8db38fefc083765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardBasic: {fileID: 0}
+  cardName: "\uD761\uD608"
+  cost: 1
+  damageAbility: 3
+  utilAbility: 3
+  currentCount: 0
+  image: {fileID: 0}
+  job: 0
+  rate: 0
+  effect: {fileID: 0}
+  dragLineCard: 1
+  attackEffect: {fileID: 0}
+  deckCardImage: {fileID: 0}
+  debuffEffectPrefab: {fileID: 0}
+  nameText: {fileID: 221894563013941276}
+  costText: {fileID: 5789303704972573939}
+  descriptionText: {fileID: 4450855068073631251}
 --- !u!120 &-80209571416098305
 LineRenderer:
   serializedVersion: 2
@@ -855,33 +884,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardImage: {fileID: 2485784911423644093}
   animationDuration: 1
-  cardBasic: {fileID: 0}
---- !u!114 &-5038888254405635864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6447918245922251516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f006df2332d4204a8db38fefc083765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardBasic: {fileID: 0}
-  cardName: "\uD761\uD608"
-  cost: 1
-  damageAbility: 3
-  utilAbility: 3
-  currentCount: 0
-  image: {fileID: 0}
-  job: 0
-  rate: 0
-  effect: {fileID: 0}
-  dragLineCard: 1
-  attackEffect: {fileID: 0}
-  deckCardImage: {fileID: 0}
-  debuffEffectPrefab: {fileID: 0}
-  nameText: {fileID: 221894563013941276}
-  costText: {fileID: 5789303704972573939}
-  descriptionText: {fileID: 4450855068073631251}
+  cardBasic: {fileID: -5038888254405635864}
