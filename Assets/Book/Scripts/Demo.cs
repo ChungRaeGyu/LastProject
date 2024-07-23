@@ -21,6 +21,10 @@ public class Demo : MonoBehaviour
     Sprite bookTexture;
     [SerializeField]
     Sprite notepadTexture;
+    
+    // 새로 추가된 변수들
+    [SerializeField] private AudioClip pageTurnClip; // 책 넘기는 소리
+    [SerializeField] private AudioSource audioSource;
 
     public GameObject[] pages;
     public BookAnimation bookAnim;
@@ -64,11 +68,13 @@ public class Demo : MonoBehaviour
         bookImage.sprite = currentView == View.Book ? bookTexture : notepadTexture;
         UpdateButtonColors(); // 색상 업데이트 호출
     }
+
     void GachaPage()
     {
         if (currentPage == 1|| isChangePage) return;
         isChangePage = true;
         bookAnim.animator.SetBool("Open", false);
+        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
         if (currentPage > 1)
         {
             bookController.PreviousPage();
@@ -80,11 +86,13 @@ public class Demo : MonoBehaviour
         currentPage = 1;
         StartCoroutine(UpdatePageDelayed());
     }
+
     void BookPage()
     {
         if (currentPage == 2|| isChangePage) return;
         isChangePage = true;
         bookAnim.animator.SetBool("Open", true);
+        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
         if (currentPage > 2)
         {
             bookController.PreviousPage();
@@ -96,6 +104,7 @@ public class Demo : MonoBehaviour
         currentPage = 2;
         StartCoroutine(UpdatePageDelayed());
     }
+
     void NextPage()
     {
         if (isChangePage) return;
@@ -108,6 +117,7 @@ public class Demo : MonoBehaviour
             bookAnim.animator.SetBool("Open", false);
         }
         isChangePage = true;
+        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
         bookController.NextPage();
         currentPage = Mathf.Min(++currentPage, pages.Length - 1);
         StartCoroutine(UpdatePageDelayed());
@@ -125,6 +135,7 @@ public class Demo : MonoBehaviour
         {
             bookAnim.animator.SetBool("Open", true);
         }
+        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
         bookController.PreviousPage();
         currentPage = Mathf.Max(--currentPage, 0);
         StartCoroutine(UpdatePageDelayed());

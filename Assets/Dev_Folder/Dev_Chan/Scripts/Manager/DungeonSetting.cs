@@ -76,10 +76,8 @@ public class DungeonSetting : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 0;
-                // 플레이어 체력 초기화 (임시)
-                DataManager.Instance.ResetPlayerHealth();
-                // 몬스터 킬 수 초기화 (임시)
-                DataManager.Instance.ResetMonstersKilledCount();
+                DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
+                DataManager.Instance.ResetMonstersKilledCount(); // 몬스터 킬 수 초기화 (임시)
                 SaveManager.Instance.playerPosition = Dungeon01.Instance.stageNum[0].transform.position;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
@@ -97,10 +95,8 @@ public class DungeonSetting : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 1;
-                // 플레이어 체력 초기화 (임시)
-                DataManager.Instance.ResetPlayerHealth();
-                // 몬스터 킬 수 초기화 (임시)
-                DataManager.Instance.ResetMonstersKilledCount();
+                DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
+                DataManager.Instance.ResetMonstersKilledCount(); // 몬스터 킬 수 초기화 (임시)
                 SaveManager.Instance.playerPosition = Dungeon02.Instance.stageNum[0].transform.position;
                 Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;

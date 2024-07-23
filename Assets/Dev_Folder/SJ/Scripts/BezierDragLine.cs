@@ -146,6 +146,15 @@ public class BezierDragLine : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // 카드가 사용되면 에임 오브젝트 삭제
+        if (aimingImageInstance != null)
+        {
+            Destroy(aimingImageInstance);
+        }
+    }
+
     public void DestroyAimingImage()
     {
         // 조준 이미지 비활성화

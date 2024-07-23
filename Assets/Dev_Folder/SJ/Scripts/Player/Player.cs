@@ -131,21 +131,24 @@ public class Player : PlayerCharacter
         }
     }
 
-    // 모든 Condition 인스턴스를 제거 (모든 해로운 효과 한번에 제거용도, 안써도 됨)
-    public void ClearConditions()
-    {
-        foreach (var condition in conditionInstances)
-        {
-            Destroy(condition.gameObject);
-        }
-        conditionInstances.Clear();
-    }
-
     public void UpdateConditions()
     {
         foreach (var condition in conditionInstances)
         {
             // Condition 업데이트 로직 구현
+        }
+    }
+
+    // 방어력 Condition의 스택 수를 증가시킵니다.
+    public void IncrementDefenseConditionStack(int amount)
+    {
+        foreach (var condition in conditionInstances)
+        {
+            if (condition.conditionType == ConditionType.Defense)
+            {
+                condition.IncrementStackCount(amount);
+                break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
+            }
         }
     }
 }

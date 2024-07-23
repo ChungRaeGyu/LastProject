@@ -9,7 +9,11 @@ public class LobbyButtonManager : MonoBehaviour
     [SerializeField] GameObject BookCanvas;
     [SerializeField] GameObject DeckCanvas;
     [SerializeField] GameObject DrawCanvas;
-    
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource AudioSource;
+    [SerializeField] private AudioClip GachaClip;
+
     private DrawSystem drawSystem;
 
     private void Start(){
@@ -20,17 +24,17 @@ public class LobbyButtonManager : MonoBehaviour
         DeckCanvas.SetActive(!DeckCanvas.activeInHierarchy);
     }
 
-
     #region DrawSystem
     public void ControlDrawCanvas(){
-        if(DrawCanvas.activeInHierarchy){
+        if (DrawCanvas.activeInHierarchy){
+            AudioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
             DrawCanvas.SetActive(false);
             drawSystem.CloseCanvas();
         }else{
+            AudioSource.PlayOneShot(GachaClip);
             DrawCanvas.SetActive(true);
             GaChaBtn();
         }
-        
     }
     public void GaChaBtn(){
         drawSystem.DrawingCardBtn();
@@ -43,6 +47,7 @@ public class LobbyButtonManager : MonoBehaviour
         
     }
     public void GotoStageBoardBtn(){
+        AudioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
         DataManager.Instance.SuffleDeckList();
         SceneManager.LoadScene(2);
     }
