@@ -171,6 +171,9 @@ public class CardDrag : MonoBehaviour
         {
             // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
             Debug.Log("살짝 눌렀다.");
+
+            //audioSource.PlayOneShot(AudioManager.Instance.CardPassClip);
+
             DescriptionManager.Instance.OpenPanel(cardBasic);
             
             // 코루틴이 끝난 후 null로 초기화

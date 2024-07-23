@@ -52,6 +52,7 @@ public class CardBasic : MonoBehaviour
     public bool dragLineCard;
     public GameObject attackEffect = null;
     public GameObject deckCardImage;
+
     [Header("attackEffect_Image")]
     public GameObject debuffEffectPrefab;
 

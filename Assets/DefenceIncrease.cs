@@ -35,8 +35,8 @@ public class DefenceIncrease : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{utilAbility}</b> 만큼 방어력이 오릅니다."
-                : $"<color={color}><b>{utilAbility}</b></color> 만큼 방어력이 오릅니다.";
+                ? $"<b>{utilAbility}</b>만큼 방어력이 오릅니다."
+                : $"<color={color}><b>{utilAbility}</b></color>만큼 방어력이 오릅니다.";
         }
     }
 
@@ -63,5 +63,8 @@ public class DefenceIncrease : CardBasic
     {
         // 방어력이 일시적(?)으로 증가
         GameManager.instance.player.currentDefense += utilAbility;
+
+        // 방어력 Condition의 스택을 증가시킵니다.
+        GameManager.instance.player.IncrementDefenseConditionStack(utilAbility);
     }
 }

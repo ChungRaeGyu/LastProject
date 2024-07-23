@@ -221,8 +221,14 @@ public class GameManager : MonoBehaviour
         //TODO:보스클리어 확인
         if (SaveManager.Instance.isBossStage)
         {
-            StageCheck();
-            SceneManager.LoadScene(1);
+            // 클리어 패널을 띄워 줌
+            UIManager.instance.victoryPanel.gameObject.SetActive(true);
+
+            // 처치한 몬스터 수를 표시하는 부분
+            if (UIManager.instance.victoryMonstersKilledText != null)
+            {
+                UIManager.instance.victoryMonstersKilledText.text = $"처치한 몬스터 수: {DataManager.Instance.monstersKilledCount}";
+            }
         }
         else
         {
@@ -230,6 +236,13 @@ public class GameManager : MonoBehaviour
         }
 
 
+    }
+
+    // 다음 스테이지 해금과 씬로드, 클리어 했을 때 하단의 진행 버튼
+    public void ClearGoToLobbyScene()
+    {
+        StageCheck();
+        SceneManager.LoadScene(1);
     }
 
     private void StageCheck()

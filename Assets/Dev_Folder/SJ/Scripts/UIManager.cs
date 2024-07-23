@@ -54,7 +54,11 @@ public class UIManager : MonoBehaviour
     [Header("Defeat")]
     public GameObject defeatPanel;
     public Transform removeCardSpawnPoint; // 제거된 카드를 보여줄 위치값
-    public TMP_Text monstersKilledText; // 처치한 몬스터 수
+    public TMP_Text defeatMnstersKilledText; // 처치한 몬스터 수
+
+    [Header("Victory")]
+    public GameObject victoryPanel;
+    public TMP_Text victoryMonstersKilledText;
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
     private Vector2 originalCostImagePosition;
@@ -75,6 +79,7 @@ public class UIManager : MonoBehaviour
         originalUnUsedCardsPosition = UnUsedCards.rectTransform.anchoredPosition;
         originalUsedCardsPosition = UsedCards.rectTransform.anchoredPosition;
 
+        victoryPanel.gameObject.SetActive(false);
         cardSelectPanel.SetActive(false);
         UIClear(false, true, false, false, false);
 
@@ -267,9 +272,9 @@ public class UIManager : MonoBehaviour
             defeatPanel.SetActive(true);
 
             // 처치한 몬스터 수를 표시하는 부분
-            if (monstersKilledText != null)
+            if (defeatMnstersKilledText != null)
             {
-                monstersKilledText.text = $"처치한 몬스터 수: {DataManager.Instance.monstersKilledCount}";
+                defeatMnstersKilledText.text = $"처치한 몬스터 수: {DataManager.Instance.monstersKilledCount}";
             }
         }
 
@@ -423,7 +428,7 @@ public class UIManager : MonoBehaviour
         textElement.gameObject.SetActive(false);
     }
 
-    // 로비 씬으로 이동하는 메서드
+    // 로비 씬으로 이동하는 메서드 죽었을 때 뜨는 패널 하단의 버튼
     public void GoToLobbyScene()
     {
         SaveManager.Instance.accessDungeon = false;
