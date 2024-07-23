@@ -119,6 +119,7 @@ public class MonsterCharacter : MonoBehaviour
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
+        Debug.Log("몬스터 턴 시작 ㅁㄴㅇㄻㅇㄴㄻㄹㅇㅁㅇㄴㄹㄴㅁ");
         if (frozenTurnsRemaining > 0)
         {
             frozenTurnsRemaining--;
@@ -134,14 +135,13 @@ public class MonsterCharacter : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount();
             }
-            if (frozenTurnsRemaining == 0)
-            {
-
-                animator.StopPlayback();
-                deBuffAnim?.Invoke();
-                isFrozen = false;
-            }
             yield break;
+        }
+        else
+        {
+            animator.StopPlayback();
+            deBuffAnim?.Invoke();
+            isFrozen = false;
         }
 
         yield return null;
