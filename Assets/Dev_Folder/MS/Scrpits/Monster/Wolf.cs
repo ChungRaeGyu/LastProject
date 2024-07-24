@@ -45,9 +45,9 @@ public class Wolf : MonsterCharacter
 
     public override IEnumerator MonsterTurn()
     {
-        monsterTurn++;
-
         if (GameManager.instance.player?.IsDead() == true) yield break;
+
+        monsterTurn++;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
@@ -77,7 +77,7 @@ public class Wolf : MonsterCharacter
             monsterStats.maxhealth += monsterStats.attackPower;
         }
 
-        if (monsterTurn / 3 == 0) // 2턴 뒤 공격력 2배 공격
+        if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
         {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
             Debug.Log(this.name + "이 강한공격!");

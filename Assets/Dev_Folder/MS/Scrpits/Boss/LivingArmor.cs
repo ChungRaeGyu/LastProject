@@ -7,7 +7,6 @@ public class LivingArmor : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
     private int bossTurnCount = 0;
-    private bool bossHeal = false;
     private bool strongAttack = false;
     private System.Random random = new System.Random();
 

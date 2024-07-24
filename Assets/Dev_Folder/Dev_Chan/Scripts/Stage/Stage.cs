@@ -14,8 +14,10 @@ public class Stage : MonoBehaviour
     public List<GameObject> monsters = new List<GameObject>();
     public void Start()
     {
-        if (monsters.Count == 1) return;
         stagePosition = this.gameObject.transform.position;
+
+        if (monsters.Count == 1) return;
+        //stagePosition = this.gameObject.transform.position;
         
         //이벤트와 스토어 스테이지 아직 코딩 못함
         /*int randomNum = Random.Range(0, 100);
