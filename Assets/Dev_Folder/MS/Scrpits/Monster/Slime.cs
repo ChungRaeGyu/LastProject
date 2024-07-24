@@ -16,7 +16,7 @@ public class Slime : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6);
+            int hpUp = random.Next(0, 10);
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
@@ -47,17 +47,17 @@ public class Slime : MonsterCharacter
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
 
-        if (!isFrozen)
+        if (isFrozen) yield break;
+
+        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+        GameManager.instance.player.TakeDamage(monsterStats.attackPower = random.Next(0, 10));
+
+        if (animator != null)
         {
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
-
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
-            }
+            animator.SetTrigger("Attack");
         }
+
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
         GameManager.instance.EndMonsterTurn();

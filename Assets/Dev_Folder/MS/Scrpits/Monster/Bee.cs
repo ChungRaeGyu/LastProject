@@ -16,7 +16,7 @@ public class Bee : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6);
+            int hpUp = random.Next(0, 10);
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
@@ -47,17 +47,25 @@ public class Bee : MonsterCharacter
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
 
-        if (!isFrozen)
+        if (isFrozen) yield break;
+
+        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+        if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
         {
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
-
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
-            }
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+            Debug.Log(this.name + "이 강한공격!");
         }
+        else
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        }
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
         GameManager.instance.EndMonsterTurn();

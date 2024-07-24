@@ -7,7 +7,6 @@ public class KingSlime : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
     private int bossTurnCount = 0;
-    private bool bossHeal = false;
     private bool strongAttack = false;
     private System.Random random = new System.Random();
 
@@ -49,10 +48,9 @@ public class KingSlime : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (monsterStats.maxhealth < monsterStats.maxhealth / 2 && !bossHeal) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
+        if (monsterStats.maxhealth < monsterStats.maxhealth / 2) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
         {
             monsterStats.maxhealth += 30;
-            bossHeal = true;
             Debug.Log(this.name + "이" + 30 + "만큼 회복했다!");
         }
 

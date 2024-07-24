@@ -49,18 +49,17 @@ public class LivingArmor : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (monsterStats.maxhealth < monsterStats.maxhealth / 2 && !bossHeal) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
-        {
-            monsterStats.maxhealth += 30;
-            bossHeal = true;
-            Debug.Log(this.name + "이" + 30 + "만큼 회복했다!");
-        }
-
         if (bossTurnCount <= 4 && !strongAttack) // 3턴동안 공격력 2배 공격
         {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
             strongAttack = true;
             Debug.Log(this.name + "초반 공격" + monsterStats.attackPower * 2 + "데미지");
+        }
+
+        else if (monsterStats.maxhealth < monsterStats.maxhealth / 2) // 반의 반의 체력이 남으면 강해진다
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
+            Debug.Log(this.name + "마지막 발악" + monsterStats.attackPower * 3 + "데미지");
         }
 
         else if (bossTurnCount % 10 == 0) // 10턴 뒤 공격력 3배 공격
