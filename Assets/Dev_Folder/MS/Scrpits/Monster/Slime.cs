@@ -16,7 +16,7 @@ public class Slime : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6);
+            int hpUp = random.Next(0, 10);
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
@@ -51,7 +51,7 @@ public class Slime : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        GameManager.instance.player.TakeDamage(monsterStats.attackPower = random.Next(0, 10));
 
         if (animator != null)
         {

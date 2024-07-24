@@ -9,6 +9,9 @@ public class DaggerGoblin : MonsterCharacter
 
     private System.Random random = new System.Random();
 
+    private int monsterTurn = 0;
+    private bool buffCounterOnOff = false;
+
     private new void Start()
     {
         base.Start();
@@ -16,7 +19,7 @@ public class DaggerGoblin : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6);
+            int hpUp = random.Next(0, 10);
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
@@ -51,7 +54,24 @@ public class DaggerGoblin : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        if (monsterTurn / 3 == 0) // 2턴 뒤 공격력 2배 공격
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+            Debug.Log(this.name + "이 강한공격!");
+
+            GameManager.instance.player.TakeDamage(5);
+            Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
+            buffCounterOnOff = true;
+
+            if (monsterTurn <= 4) // 4턴째에 디버프 끝
+            {
+                buffCounterOnOff = false;
+            }
+        }
+        else
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        }
 
         if (animator != null)
         {
