@@ -66,6 +66,7 @@ public class CardData : MonoBehaviour
         {
             if (coroutine == null && image[1].sprite == DataManager.Instance.cardBackImage)
             {
+                cardBasic.PlaySound(SettingManager.Instance.CardFlip);
                 animator.SetTrigger("Flip"); // 카드를 뒤집음
                 coroutine = StartCoroutine(Delay());
             }

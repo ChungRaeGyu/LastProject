@@ -105,6 +105,8 @@ public class UIManager : MonoBehaviour
 
     public void SpawnRewardCards()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+
         cardSelectPanel.SetActive(true);
 
         List<int> chosenIndexes = GetRandomIndexes(rewardCardPrefabs.Count, 3);
@@ -175,6 +177,8 @@ public class UIManager : MonoBehaviour
         // 클릭한 보상 카드를 DataManager에 추가
         if (DataManager.Instance != null)
         {
+            SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+
             // 클릭한 카드를 추가
             CardBasic cardToAdd = rewardCardPrefabs[cardIndex].GetComponent<CardBasic>();
             DataManager.Instance.deckList.Add(cardToAdd);
@@ -431,7 +435,19 @@ public class UIManager : MonoBehaviour
     // 로비 씬으로 이동하는 메서드 죽었을 때 뜨는 패널 하단의 버튼
     public void GoToLobbyScene()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+
         SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
+    }
+
+    public void ShowUseCardList()
+    {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+    }
+
+    public void ShowUnUseCardList()
+    {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
     }
 }

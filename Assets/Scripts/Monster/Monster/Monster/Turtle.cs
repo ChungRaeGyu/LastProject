@@ -54,19 +54,19 @@ public class Turtle : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
-            Debug.Log(this.name + "이 강한공격!");
-        }
-        else if (monsterTurn / 3 == 0) // 3턴마다 방어력 1 상승
-        {
-            monsterStats.defense += 1;
-        }
-        else
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-        }
+            if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                Debug.Log(this.name + "이 강한공격!");
+            }
+            else if (monsterTurn / 3 == 0) // 3턴마다 방어력 1 상승
+            {
+                monsterStats.defense += 1;
+            }
+            else
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+            }
 
             if (animator != null)
             {

@@ -14,7 +14,7 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private AudioClip MainBGM;
 
     [Header("SFX")]
-    [SerializeField] private AudioSource SFXAudioSource;
+    public AudioSource SFXAudioSource;
 
     [Header("RecycleSFX")]
     public AudioClip BtnClip1;
@@ -22,6 +22,7 @@ public class SettingManager : MonoBehaviour
     public AudioClip CardPassClip;
     public AudioClip CardDrop;
     public AudioClip CardSelect;
+    public AudioClip CardFlip;
 
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer audioMixer;

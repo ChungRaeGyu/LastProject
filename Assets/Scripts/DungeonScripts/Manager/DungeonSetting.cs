@@ -57,6 +57,7 @@ public class DungeonSetting : MonoBehaviour
     //던전으로 들어가는 버튼
     public void GoToDungeon()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
         DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
         DungeonBoardManager.Instance.dungeon.SetActive(true);
         SaveManager.Instance.accessDungeon = true;

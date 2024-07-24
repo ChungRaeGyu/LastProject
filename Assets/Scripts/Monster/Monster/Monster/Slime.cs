@@ -49,7 +49,6 @@ public class Slime : MonsterCharacter
 
         if (!isFrozen)
         {
-
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
             GameManager.instance.player.TakeDamage(monsterStats.attackPower = random.Next(0, 10));

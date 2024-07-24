@@ -45,8 +45,9 @@ public class Stage : MonoBehaviour
 
     public void BattleBtn()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
-        if(gameObject.name == "BossStage")
+        if (gameObject.name == "BossStage")
         {
             SaveManager.Instance.isBossStage = true;
         }
@@ -59,12 +60,16 @@ public class Stage : MonoBehaviour
 
     public void EventBtn()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+
         SaveManager.Instance.playerPosition = stagePosition;
         DungeonManager.Instance.eventScene.SetActive(true);
     }
 
     public void StoreBtn()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+
         SaveManager.Instance.playerPosition = stagePosition;
         DungeonManager.Instance.storeScene.SetActive(true);
     }

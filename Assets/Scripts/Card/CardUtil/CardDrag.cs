@@ -28,8 +28,6 @@ public class CardDrag : MonoBehaviour
     private GameObject draggedCardPrefab;
     private bool isClick = false;
 
-    [SerializeField] private AudioSource audioSource;
-
     private void Awake()
     {
         cardBasic = GetComponent<CardBasic>();
@@ -107,7 +105,7 @@ public class CardDrag : MonoBehaviour
             // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
             if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
             {
-                PlaySound(SettingManager.Instance.CardSelect);
+                cardBasic.PlaySound(SettingManager.Instance.CardSelect);
 
                 transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
                 Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
@@ -141,7 +139,7 @@ public class CardDrag : MonoBehaviour
             // 1초 이상 눌렀을 때
             if (elapsedTime >= clickTime)
             {
-                PlaySound(SettingManager.Instance.CardSelect);
+                cardBasic.PlaySound(SettingManager.Instance.CardSelect);
 
                 isLongClick = true;
                 isClick = false;
@@ -214,7 +212,7 @@ public class CardDrag : MonoBehaviour
             }
 
             isDragging = false;
-            PlaySound(SettingManager.Instance.CardDrop);
+            cardBasic.PlaySound(SettingManager.Instance.CardDrop);
             ResetPosition();
             transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
             cardZoom.ZoomOut();
@@ -226,7 +224,7 @@ public class CardDrag : MonoBehaviour
             {
                 Debug.Log("Content에 넣음");
 
-                PlaySound(SettingManager.Instance.CardDrop);
+                cardBasic.PlaySound(SettingManager.Instance.CardDrop);
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
@@ -243,13 +241,5 @@ public class CardDrag : MonoBehaviour
     {
         transform.position = originalPosition; // 카드 위치 초기화
         transform.rotation = originalRotation; // 카드 회전 초기화
-    }
-
-    private void PlaySound(AudioClip clip)
-    {
-        if (audioSource != null && audioSource.enabled)
-        {
-            audioSource.PlayOneShot(clip);
-        }
     }
 }

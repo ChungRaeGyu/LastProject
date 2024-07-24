@@ -61,6 +61,9 @@ public class CardBasic : MonoBehaviour
     public TMP_Text costText;
     public TMP_Text descriptionText;
 
+    [Header("UI Components")]
+    public AudioSource audioSource;
+
     // 초기 ability 값 저장
     protected int initialDamageAbility;
     protected int initialUtilAbility;
@@ -76,6 +79,8 @@ public class CardBasic : MonoBehaviour
 
     protected virtual void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         // 초기 ability 값 저장
         initialDamageAbility = damageAbility;
         initialUtilAbility = utilAbility;
@@ -94,5 +99,13 @@ public class CardBasic : MonoBehaviour
     protected virtual void SetDescription()
     {
 
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && audioSource.enabled)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

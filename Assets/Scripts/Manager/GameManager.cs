@@ -238,7 +238,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // 스테이지 저장이 안된다.
+            SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
+
             SceneManager.LoadScene(2);
         }
     }
@@ -266,6 +267,8 @@ public class GameManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+
         handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
     }

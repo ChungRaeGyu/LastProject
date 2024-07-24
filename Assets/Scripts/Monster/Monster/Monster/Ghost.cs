@@ -51,15 +51,15 @@ public class Ghost : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
-            Debug.Log(this.name + "이 강한공격!");
-        }
-        else
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-        }
+            if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                Debug.Log(this.name + "이 강한공격!");
+            }
+            else
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+            }
 
             if (animator != null)
             {

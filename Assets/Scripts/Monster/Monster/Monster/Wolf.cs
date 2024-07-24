@@ -56,45 +56,51 @@ public class Wolf : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (monsterTurn / 2 == 0) // 2턴마다 공격력 1 상승
-        {
-            monsterStats.attackPower += 1;
-        }
-
-        if (monsterTurn / 3 == 0) // 3턴 마다 공격력 2배 공격
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
-        }
-
-        if (random.Next(0, 100) < 15) // 15% 확률로 공격력 3배 공격
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
-            Debug.Log(this.name + "이 강한공격!");
-        }
-        else
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            monsterStats.maxhealth += monsterStats.attackPower;
-        }
-
-        if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
-            Debug.Log(this.name + "이 강한공격!");
-
-            GameManager.instance.player.TakeDamage(5);
-            Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
-            buffCounterOnOff = true;
-
-            if (monsterTurn <= 4) // 4턴째에 디버프 끝
+            if (monsterTurn / 2 == 0) // 2턴마다 공격력 1 상승
             {
-                buffCounterOnOff = false;
+                monsterStats.attackPower += 1;
+                yield return new WaitForSeconds(1f);
             }
-        }
-        else
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-        }
+
+            if (monsterTurn / 3 == 0) // 3턴 마다 공격력 2배 공격
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return new WaitForSeconds(1f);
+            }
+
+            if (random.Next(0, 100) < 15) // 15% 확률로 공격력 3배 공격
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
+                Debug.Log(this.name + "이 강한공격!");
+                yield return new WaitForSeconds(1f);
+            }
+            else
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+                monsterStats.maxhealth += monsterStats.attackPower;
+                yield return new WaitForSeconds(1f);
+            }
+
+            if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                Debug.Log(this.name + "이 강한공격!");
+
+                GameManager.instance.player.TakeDamage(5);
+                Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
+                buffCounterOnOff = true;
+
+                if (monsterTurn <= 4) // 4턴째에 디버프 끝
+                {
+                    buffCounterOnOff = false;
+                }
+                yield return new WaitForSeconds(1f);
+            }
+            else
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+                yield return new WaitForSeconds(1f);
+            }
 
             if (animator != null)
             {

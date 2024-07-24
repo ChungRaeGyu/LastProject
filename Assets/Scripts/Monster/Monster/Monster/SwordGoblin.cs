@@ -56,24 +56,26 @@ public class SwordGoblin : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
-            Debug.Log(this.name + "이 강한공격!");
-
-            GameManager.instance.player.TakeDamage(5);
-            Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
-            buffCounterOnOff = true;
-
-            if (monsterTurn <= 4) // 4턴째에 디버프 끝
+            if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
             {
-                buffCounterOnOff = false;
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                Debug.Log(this.name + "이 강한공격!");
+
+                yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+                GameManager.instance.player.TakeDamage(5);
+                Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
+                buffCounterOnOff = true;
+
+                if (monsterTurn <= 4) // 4턴째에 디버프 끝
+                {
+                    buffCounterOnOff = false;
+                }
             }
-        }
-        else
-        {
-            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-        }
+            else
+            {
+                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+            }
 
             if (animator != null)
             {
