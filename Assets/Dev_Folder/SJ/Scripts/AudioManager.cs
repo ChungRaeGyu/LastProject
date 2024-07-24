@@ -40,9 +40,24 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // 씬이 바뀔 때
+    // SoundPanel.gameObject.SetActive(false);
+    // SetBackgroundMusicForCurrentScene();
+    // 위 2개의 메서드 호출
     private void OnEnable()
     {
-        SetBackgroundMusicForCurrentScene(); // 씬이 활성화될 때 배경음악 설정
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SoundPanel.gameObject.SetActive(false);
+        SetBackgroundMusicForCurrentScene();
     }
 
     private void Start()
@@ -55,8 +70,6 @@ public class AudioManager : MonoBehaviour
         SetMasterVolume(musicMasterSlider.value);
         SetBGMVolume(musicBGMSlider.value);
         SetSFXVolume(musicSFXSlider.value);
-
-        SoundPanel.gameObject.SetActive(false);
     }
 
     private void SetBackgroundMusicForCurrentScene()
@@ -101,13 +114,29 @@ public class AudioManager : MonoBehaviour
 
     public void ShowSetting()
     {
-        SFXAudioSource.PlayOneShot(CardPassClip);
-        SoundPanel.gameObject.SetActive(true);
+        if (SoundPanel.activeSelf)
+        {
+            HideSetting();
+        }
+        else
+        {
+            SFXAudioSource.PlayOneShot(CardPassClip);
+            SoundPanel.SetActive(true);
+        }
     }
 
     public void HideSetting()
     {
         SFXAudioSource.PlayOneShot(BtnClip2);
         SoundPanel.gameObject.SetActive(false);
+    }
+
+    public void ReturnBtn()
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            SaveManager.Instance.accessDungeon = false;
+            SceneManager.LoadScene(1);
+        }
     }
 }
