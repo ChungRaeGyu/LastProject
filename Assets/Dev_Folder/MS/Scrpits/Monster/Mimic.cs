@@ -9,6 +9,7 @@ public class Mimic : MonsterCharacter
 
     private System.Random random = new System.Random();
 
+    private int monsterTurn = 0;
     private new void Start()
     {
         base.Start();
@@ -16,7 +17,7 @@ public class Mimic : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6);
+            int hpUp = random.Next(0, 10);
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
@@ -42,6 +43,7 @@ public class Mimic : MonsterCharacter
 
     public override IEnumerator MonsterTurn()
     {
+        monsterTurn++;
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
@@ -51,7 +53,24 @@ public class Mimic : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
+        if (monsterTurn <= 5) // 5턴 뒤에 시작
+        {
+            if (monsterTurn == 0) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
+            {
+                monsterStats.maxhealth = 0;
+                GameManager.instance.player.TakeDamage(30);
+                monsterTurn = 5;
+            }
+        }
+        if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+            Debug.Log(this.name + "이 강한공격!");
+        }
+        else
+        {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        }
 
             if (animator != null)
             {

@@ -16,7 +16,7 @@ public class Fox : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6);
+            int hpUp = random.Next(10, 15);
 
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
@@ -51,7 +51,15 @@ public class Fox : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
+        if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+        {
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+            Debug.Log(this.name + "이 강한공격!");
+        }
+        else
+        {
             GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+        }
 
             if (animator != null)
             {
