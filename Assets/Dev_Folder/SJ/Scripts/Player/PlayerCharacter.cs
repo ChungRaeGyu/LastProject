@@ -51,6 +51,8 @@ public abstract class PlayerCharacter : MonoBehaviour
     public virtual void Heal(int amount)
     {
         currenthealth += amount;
+
+        SpawnDamageText(amount, transform.position);
     }
 
     private void SpawnDamageText(int damageAmount, Vector3 position)
@@ -63,7 +65,9 @@ public abstract class PlayerCharacter : MonoBehaviour
 
             // 위치를 화면 좌표로
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, 10f));
+            float yOffset = 50f; // 얼마나 위로 위치할지 설정
+            Vector3 newScreenPosition = new Vector3(screenPosition.x, screenPosition.y + yOffset, 10f);
+            damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
         }
     }
 

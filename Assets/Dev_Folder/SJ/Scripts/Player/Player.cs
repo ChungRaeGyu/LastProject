@@ -139,7 +139,7 @@ public class Player : PlayerCharacter
         }
     }
 
-    // 방어력 Condition의 스택 수를 증가시킵니다.
+    // 방어력 Condition의 스택 수를 증가
     public void IncrementDefenseConditionStack(int amount)
     {
         foreach (var condition in conditionInstances)
