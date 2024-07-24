@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 206017239}
   - component: {fileID: 206017238}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: SettingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -909,12 +909,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BGMAudioSource: {fileID: 519825763}
-  LobbyBGM: {fileID: 0}
-  DungeonAndMainBGM: {fileID: 0}
+  LobbyBGM: {fileID: 8300000, guid: 4c3c41ad160bf4e42a01d60a585b697b, type: 3}
+  DungeonBGM: {fileID: 8300000, guid: 7d13db61810ecfb4d893a095f4375dd4, type: 3}
+  MainBGM: {fileID: 8300000, guid: 272f4baaeb651d14fb6c18218ca9d760, type: 3}
   SFXAudioSource: {fileID: 107463554}
   BtnClip1: {fileID: 8300000, guid: 1bb68c15265bd2c4db981b51e32bd190, type: 3}
   BtnClip2: {fileID: 8300000, guid: e2e7426d9847cd4459b1283882815208, type: 3}
   CardPassClip: {fileID: 8300000, guid: d6cb3a8386c88314282fc916a54fc6c5, type: 3}
+  CardDrop: {fileID: 8300000, guid: e0c79c86c4e62554baca0afb27bf54cd, type: 3}
+  CardSelect: {fileID: 8300000, guid: 9d639e63c6745fa43ac124df7a9e79b3, type: 3}
   audioMixer: {fileID: 24100000, guid: 3d618d19a54b6a446bb34de36b16e4cf, type: 2}
   SoundPanel: {fileID: 1049506432}
   musicMasterSlider: {fileID: 1395545466}

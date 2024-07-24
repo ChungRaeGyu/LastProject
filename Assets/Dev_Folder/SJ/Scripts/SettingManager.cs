@@ -10,13 +10,18 @@ public class SettingManager : MonoBehaviour
     [Header("BGM")]
     [SerializeField] private AudioSource BGMAudioSource;
     [SerializeField] private AudioClip LobbyBGM;
-    [SerializeField] private AudioClip DungeonAndMainBGM;
+    [SerializeField] private AudioClip DungeonBGM;
+    [SerializeField] private AudioClip MainBGM;
 
     [Header("SFX")]
     [SerializeField] private AudioSource SFXAudioSource;
+
+    [Header("RecycleSFX")]
     public AudioClip BtnClip1;
     public AudioClip BtnClip2;
     public AudioClip CardPassClip;
+    public AudioClip CardDrop;
+    public AudioClip CardSelect;
 
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer audioMixer;
@@ -86,9 +91,13 @@ public class SettingManager : MonoBehaviour
                 // Lobby æ¿
                 BGMAudioSource.clip = LobbyBGM;
                 break;
-            case 3:
+            case 2:
                 // Dungeon æ¿
-                BGMAudioSource.clip = DungeonAndMainBGM;
+                BGMAudioSource.clip = DungeonBGM;
+                break;
+            case 3:
+                // main æ¿
+                BGMAudioSource.clip = MainBGM;
                 break;
             default:
                 // ±‚∫ª πË∞Ê¿Ωæ«

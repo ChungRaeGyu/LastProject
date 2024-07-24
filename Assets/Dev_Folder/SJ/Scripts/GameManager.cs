@@ -41,10 +41,12 @@ public class GameManager : MonoBehaviour
     public Condition defenseconditionPrefab;
     public Condition frozenConditionPrefab;
 
-
-
     [Header("DamageText")]
     public GameObject damageTextPrefab;
+
+    [Header("AudioSource")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip CardDrawClip;
 
     private void Awake()
     {
@@ -126,6 +128,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
+            audioSource.PlayOneShot(CardDrawClip);
+
             yield return StartCoroutine(DrawCardFromDeck());
             yield return new WaitForSeconds(0.2f); // 드로우 간 딜레이
         }

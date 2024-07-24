@@ -28,6 +28,8 @@ public class CardDrag : MonoBehaviour
     private GameObject draggedCardPrefab;
     private bool isClick = false;
 
+    [SerializeField] private AudioSource audioSource;
+
     private void Awake()
     {
         cardBasic = GetComponent<CardBasic>();
@@ -102,6 +104,8 @@ public class CardDrag : MonoBehaviour
 
             if (!GameManager.instance.handManager.setCardEnd) return;
 
+            audioSource.PlayOneShot(SettingManager.Instance.CardSelect);
+
             // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
             if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
             {
@@ -115,6 +119,7 @@ public class CardDrag : MonoBehaviour
         else
         {
             if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
+
             if (cardBasic.cardBasic.currentCount == 0) return;
             clickCoroutine = StartCoroutine(OnClickDetect());
             
@@ -136,6 +141,8 @@ public class CardDrag : MonoBehaviour
             // 1초 이상 눌렀을 때
             if (elapsedTime >= clickTime)
             {
+                audioSource.PlayOneShot(SettingManager.Instance.CardSelect);
+
                 isLongClick = true;
                 isClick = false;
             }
@@ -207,17 +214,19 @@ public class CardDrag : MonoBehaviour
             }
 
             isDragging = false;
+            audioSource.PlayOneShot(SettingManager.Instance.CardDrop);
             ResetPosition();
             transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
             cardZoom.ZoomOut();
         }
         else
         {
-            
             //로비에서 드래그 사용
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
                 Debug.Log("Content에 넣음");
+
+                audioSource.PlayOneShot(SettingManager.Instance.CardDrop);
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
