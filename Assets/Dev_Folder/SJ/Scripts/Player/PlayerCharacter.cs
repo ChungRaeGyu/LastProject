@@ -65,7 +65,7 @@ public abstract class PlayerCharacter : MonoBehaviour
 
             // 위치를 화면 좌표로
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            float yOffset = 50f; // 얼마나 위로 위치할지 설정
+            float yOffset = 200f; // 얼마나 위로 위치할지 설정
             Vector3 newScreenPosition = new Vector3(screenPosition.x, screenPosition.y + yOffset, 10f);
             damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
         }

@@ -43,8 +43,9 @@ public class Mimic : MonsterCharacter
 
     public override IEnumerator MonsterTurn()
     {
-        monsterTurn++;
         if (GameManager.instance.player?.IsDead() == true) yield break;
+
+        monsterTurn++;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
