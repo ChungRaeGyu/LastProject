@@ -72,7 +72,6 @@ public class FrozenMagic : CardBasic
         targetMonster.FreezeForTurns(utilAbility);
         GameManager.instance.effectManager.FrozemMagic(targetMonster,cardBasic);
         targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
-        targetMonster.deBuffAnim += GameManager.instance.DeBuffAnim;
         PlayPlayerAttackAnimation();
     }
 

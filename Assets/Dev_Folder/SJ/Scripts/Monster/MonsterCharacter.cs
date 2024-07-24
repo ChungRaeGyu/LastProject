@@ -27,6 +27,9 @@ public class MonsterCharacter : MonoBehaviour
     public bool isFrozen; // 얼었는지 확인하는 용도
 
 
+    [Header("DeBuff_InputScript")]
+    public GameObject deBuff;
+
     public Action deBuffAnim;
     private void Awake()
     {
@@ -110,7 +113,7 @@ public class MonsterCharacter : MonoBehaviour
     protected virtual void Die()
     {
         if(isFrozen)
-            GameManager.instance.DeBuffAnim();
+            GameManager.instance.DeBuffAnim(deBuff);
         Destroy(gameObject);
 
     }
@@ -119,7 +122,6 @@ public class MonsterCharacter : MonoBehaviour
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
-        Debug.Log("몬스터 턴 시작 ㅁㄴㅇㄻㅇㄴㄻㄹㅇㅁㅇㄴㄹㄴㅁ");
         if (frozenTurnsRemaining > 0)
         {
             frozenTurnsRemaining--;
@@ -140,7 +142,7 @@ public class MonsterCharacter : MonoBehaviour
         else
         {
             animator.StopPlayback();
-            deBuffAnim?.Invoke();
+            GameManager.instance.DeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
             isFrozen = false;
         }
 
