@@ -53,7 +53,7 @@ public class DeckListObj : MonoBehaviour
         {
             
             LobbyManager.instance.deckControl.RemoveCardObj(cardBasic);
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         else
         {
