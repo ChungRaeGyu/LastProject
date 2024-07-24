@@ -1096,11 +1096,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterStats: {fileID: 11400000, guid: 55fa41b064feb554497c196f970e2403, type: 2}
   animator: {fileID: 0}
-  damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
   hpBarPos: {fileID: 1550231151570143962}
   conditionPos: {fileID: 1012181297289180423}
   MonsterCondition: {fileID: 0}
   frozenTurnsRemaining: 0
+  isFrozen: 0
+  deBuff: {fileID: 0}
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &-8323117599054143835
 BoxCollider2D:

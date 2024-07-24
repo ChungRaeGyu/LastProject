@@ -47,15 +47,16 @@ public class Turtle : MonsterCharacter
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
 
-        if (isFrozen) yield break;
-
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
-
-        GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-
-        if (animator != null)
+        if (!isFrozen)
         {
-            animator.SetTrigger("Attack");
+            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+            GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+
+            if (animator != null)
+            {
+                animator.SetTrigger("Attack");
+            }
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
