@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
 
     [Header("UI")]
-    [SerializeField] private GameObject SoundPanel;
+     public GameObject SoundPanel;
     [SerializeField] private Slider musicMasterSlider;
     [SerializeField] private Slider musicBGMSlider;
     [SerializeField] private Slider musicSFXSlider;

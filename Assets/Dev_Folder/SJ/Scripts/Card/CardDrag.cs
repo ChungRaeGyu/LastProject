@@ -169,13 +169,14 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
-            // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
+            if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) yield break;
+            if (AudioManager.Instance.SoundPanel.activeInHierarchy) yield break;
+            DescriptionManager.Instance.OpenPanel(cardBasic);
+
+                // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
             Debug.Log("살짝 눌렀다.");
 
-            //audioSource.PlayOneShot(AudioManager.Instance.CardPassClip);
-
-            DescriptionManager.Instance.OpenPanel(cardBasic);
-            
+            //audioSource.PlayOneShot(AudioManager.Instance.CardPassClip);        
             // 코루틴이 끝난 후 null로 초기화
             clickCoroutine = null;
         }
@@ -212,7 +213,7 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
-            if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
+            
             //로비에서 드래그 사용
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
