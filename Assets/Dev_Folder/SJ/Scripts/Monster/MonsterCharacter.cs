@@ -137,12 +137,16 @@ public class MonsterCharacter : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount();
             }
+            if (frozenTurnsRemaining == 0)
+            {
+                animator.StopPlayback();
+                GameManager.instance.DeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
+            }
             yield break;
         }
         else
         {
-            animator.StopPlayback();
-            GameManager.instance.DeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
+
             isFrozen = false;
         }
 
