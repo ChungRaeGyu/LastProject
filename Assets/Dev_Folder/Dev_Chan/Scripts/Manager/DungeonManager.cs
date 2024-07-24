@@ -25,7 +25,6 @@ public class DungeonManager : MonoBehaviour
 
     public GameObject[] dungeonNum = new GameObject[5];
 
-    public GameObject backButton;
     public GameObject player;
     public GameObject stage;
     public GameObject eventScene;
@@ -43,7 +42,6 @@ public class DungeonManager : MonoBehaviour
     {
         if (SaveManager.Instance.accessDungeon == true)
         {
-            backButton.SetActive(true);
             player.SetActive(true);
             int num = SaveManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
@@ -52,7 +50,6 @@ public class DungeonManager : MonoBehaviour
         }
         if (SaveManager.Instance.accessDungeon == false)
         {
-            backButton.SetActive(false);
             player.SetActive(false);
 
             stage.SetActive(false);

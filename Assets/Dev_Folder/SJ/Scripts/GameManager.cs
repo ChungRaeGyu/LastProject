@@ -235,10 +235,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            // 스테이지 저장이 안된다.
             SceneManager.LoadScene(2);
         }
-
-
     }
 
     // 다음 스테이지 해금과 씬로드, 클리어 했을 때 하단의 진행 버튼

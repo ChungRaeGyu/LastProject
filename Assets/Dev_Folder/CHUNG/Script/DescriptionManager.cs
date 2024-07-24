@@ -64,7 +64,7 @@ public class DescriptionManager : MonoBehaviour
     int num = 1;
     public void ClosePanel()
     {
-        audioSource.PlayOneShot(AudioManager.Instance.BtnClip2);
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
         descriptionPanel.SetActive(false);
         currentCard = null;
         Destroy(tempCard);
@@ -72,7 +72,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void AddDeck()
     {
-        audioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         //덱추가 버튼
         if (currentCard.cardBasic.currentCount <= 0) return;
         deck.AddCardObj(currentCard.cardBasic);
@@ -82,7 +82,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void OpenPanel(CardBasic cardBasic)
     {
-        audioSource.PlayOneShot(AudioManager.Instance.CardPassClip);
+        audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         currentCard = cardBasic;
         tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
         Destroy(tempCard.transform.GetChild(2).gameObject);
@@ -97,7 +97,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void DeCompositionPanelBtn()
     {
-        audioSource.PlayOneShot(AudioManager.Instance.CardPassClip);
+        audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         //분해창 오픈
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
         num = 1;
@@ -106,21 +106,21 @@ public class DescriptionManager : MonoBehaviour
 
     public void RightBtn()
     {
-        audioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         if (num >= currentCard.cardBasic.currentCount) return;
         num++;
         cardSubject.text = num.ToString();
     }
     public void LeftBtn()
     {
-        audioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         if (num <= 1) return;
         num--;
         cardSubject.text = num.ToString();
     }
     public void DeCompositionBtn()
     {
-        audioSource.PlayOneShot(AudioManager.Instance.BtnClip2);
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
         currentCard.cardBasic.currentCount -= num;
         DataManager.Instance.CardPiece[(int)currentCard.rate] += num;
         if (currentCard.cardBasic.currentCount == 0)

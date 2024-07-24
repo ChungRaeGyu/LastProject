@@ -170,7 +170,7 @@ public class CardDrag : MonoBehaviour
         else
         {
             if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) yield break;
-            if (AudioManager.Instance.SoundPanel.activeInHierarchy) yield break;
+            if (SettingManager.Instance.SoundPanel.activeInHierarchy) yield break;
             DescriptionManager.Instance.OpenPanel(cardBasic);
 
                 // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.

@@ -27,7 +27,7 @@ public class LobbyButtonManager : MonoBehaviour
     #region DrawSystem
     public void ControlDrawCanvas(){
         if (DrawCanvas.activeInHierarchy){
-            AudioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
+            AudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
             DrawCanvas.SetActive(false);
             drawSystem.CloseCanvas();
         }else{
@@ -47,7 +47,7 @@ public class LobbyButtonManager : MonoBehaviour
         
     }
     public void GotoStageBoardBtn(){
-        AudioSource.PlayOneShot(AudioManager.Instance.BtnClip1);
+        AudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         DataManager.Instance.SuffleDeckList();
         SceneManager.LoadScene(2);
     }

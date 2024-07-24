@@ -27,14 +27,10 @@ public class DungeonBoardManager : MonoBehaviour
 
     public GameObject[] dungeonEntrance = new GameObject[5];
 
-    public GameObject homeButton;
-
     public int accessDungeon = 1;
 
     void Start()
     {
-        homeButton.SetActive(true);
-
         //던전에 입장했을 때
         if (SaveManager.Instance.accessDungeon == true)
         {

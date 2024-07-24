@@ -60,7 +60,8 @@ public class DungeonSetting : MonoBehaviour
         DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
         DungeonBoardManager.Instance.dungeon.SetActive(true);
         SaveManager.Instance.accessDungeon = true;
-        
+        SettingManager.Instance.UpdateButtonVisibility();
+
         switch (gameObject.name)
         {
             case "01_Start_Dungeon":
