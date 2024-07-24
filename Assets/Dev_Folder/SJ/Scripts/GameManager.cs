@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
     public Condition defenseconditionPrefab;
     public Condition frozenConditionPrefab;
 
-    [Header("DeBuff_InputScript")]
-    public GameObject deBuff;
+
 
     [Header("DamageText")]
     public GameObject damageTextPrefab;
@@ -267,16 +266,14 @@ public class GameManager : MonoBehaviour
         playerTurn = false;
     }
 
-    public void DeBuffAnim()
+    public void DeBuffAnim(GameObject deBuff)
     {
-        StartCoroutine(DelayDestroy());
+        StartCoroutine(DelayDestroy(deBuff));
     }
-
-    IEnumerator DelayDestroy()
+    IEnumerator DelayDestroy(GameObject deBuff)
     {
         deBuff.GetComponentInChildren<Animator>().SetTrigger("IceOff");
         yield return new WaitForSecondsRealtime(1f);
         Destroy(deBuff);
-        deBuff = null;
     }
 }

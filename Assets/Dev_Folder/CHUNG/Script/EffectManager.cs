@@ -49,13 +49,13 @@ public class EffectManager : MonoBehaviour
             //RangeAttack.AttackAnim(tempCardInfo);불덩이 한개를 여러개를 불러서 만들었다.
             foreach (MonsterCharacter monster in monsters)
             {
-                GameManager.instance.deBuff = Instantiate(tempCardInfo.debuffEffectPrefab, targetMonster.transform.position, Quaternion.identity);
+                //GameManager.instance.deBuff = Instantiate(tempCardInfo.debuffEffectPrefab, targetMonster.transform.position, Quaternion.identity);
 
             }
         }
         else
         {
-            DebuffEffectMethod_Image(targetMonster.transform.position);
+            DebuffEffectMethod_Image(targetMonster);
         }
     }
     #endregion
@@ -131,10 +131,11 @@ public class EffectManager : MonoBehaviour
         GameObject prefab = tempCardInfo.effect;
         Instantiate(prefab, position, prefab.transform.rotation);
     }
-    private void DebuffEffectMethod_Image(Vector2 position)
+    private void DebuffEffectMethod_Image(MonsterCharacter monster)
     {
         GameObject prefab = tempCardInfo.debuffEffectPrefab;
-        GameManager.instance.deBuff = Instantiate(prefab, position, prefab.transform.rotation);
+        if(monster.deBuff==null)
+            monster.deBuff = Instantiate(prefab, monster.transform.position, prefab.transform.rotation);
     }
     #endregion
 
