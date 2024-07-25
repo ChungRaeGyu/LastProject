@@ -146,7 +146,6 @@ public class MonsterCharacter : MonoBehaviour
         }
         else
         {
-
             isFrozen = false;
         }
 
