@@ -59,26 +59,22 @@ public class Wolf : MonsterCharacter
             if (monsterTurn / 2 == 0) // 2턴마다 공격력 1 상승
             {
                 monsterStats.attackPower += 1;
-                yield return new WaitForSeconds(1f);
             }
 
             if (monsterTurn / 3 == 0) // 3턴 마다 공격력 2배 공격
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
-                yield return new WaitForSeconds(1f);
             }
 
             if (random.Next(0, 100) < 15) // 15% 확률로 공격력 3배 공격
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
                 Debug.Log(this.name + "이 강한공격!");
-                yield return new WaitForSeconds(1f);
             }
             else
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower);
                 monsterStats.maxhealth += monsterStats.attackPower;
-                yield return new WaitForSeconds(1f);
             }
 
             if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
@@ -94,12 +90,10 @@ public class Wolf : MonsterCharacter
                 {
                     buffCounterOnOff = false;
                 }
-                yield return new WaitForSeconds(1f);
             }
             else
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-                yield return new WaitForSeconds(1f);
             }
 
             if (animator != null)
