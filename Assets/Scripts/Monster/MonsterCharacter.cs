@@ -20,7 +20,9 @@ public class MonsterCharacter : MonoBehaviour
 
     [HideInInspector]
     public Transform MonsterCondition;
+    //디버프관련변수
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
+    public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
 
 
 
@@ -131,7 +133,6 @@ public class MonsterCharacter : MonoBehaviour
             SpawnConditionText("빙결", transform.position);
 
             yield return new WaitForSeconds(2f); // 연출을 위한 대기
-            GameManager.instance.EndMonsterTurn(); // 몬스터 턴 종료 알림
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
             if (existingFrozenCondition != null)
             {
@@ -148,10 +149,10 @@ public class MonsterCharacter : MonoBehaviour
         {
             isFrozen = false;
         }
-
+         
         yield return null;
     }
-
+    #region 디버프
     public virtual void FreezeForTurns(int turns)
     {
         isFrozen = true;
@@ -166,10 +167,24 @@ public class MonsterCharacter : MonoBehaviour
         {
             AddCondition(MonsterCondition, turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
         }
-
         Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
     }
+    public void WeakForTurns(int turns)
+    {
+        //약화 : 몬스터의 공격력이 약해진다.
+        weakerTurnsRemaining += turns;
 
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Weaker);
+        if (existingFrozenCondition != null)
+        {
+            existingFrozenCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            AddCondition(MonsterCondition, turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
+        }
+    }
+    #endregion
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
     public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
     {
@@ -182,9 +197,11 @@ public class MonsterCharacter : MonoBehaviour
         }
     }
 
+    #region 안쓰는 것
     // 리스트에서 Condition 인스턴스를 제거하고 위치를 업데이트
     public void RemoveCondition(Condition condition)
     {
+        //비사용 중
         if (conditionInstances.Contains(condition))
         {
             conditionInstances.Remove(condition);
@@ -207,10 +224,10 @@ public class MonsterCharacter : MonoBehaviour
     {
         foreach (var condition in conditionInstances)
         {
-            // Condition 업데이트 로직 구현
+            //Condition 업데이트 로직 구현
         }
     }
-
+    #endregion
     public void DieAction()
     {
         if (IsDead())

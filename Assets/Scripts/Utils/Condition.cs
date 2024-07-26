@@ -67,4 +67,5 @@ public enum ConditionType
 {
     Defense,
     Frozen,
+    Weaker
 }

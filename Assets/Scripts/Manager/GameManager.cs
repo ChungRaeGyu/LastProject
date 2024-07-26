@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public GameObject conditionBoxPrefab;
     public Condition defenseconditionPrefab;
     public Condition frozenConditionPrefab;
+    public Condition weakerConditionPrefab;
 
     [Header("DamageText")]
     public GameObject damageTextPrefab;
