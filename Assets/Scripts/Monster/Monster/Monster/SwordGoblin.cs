@@ -60,6 +60,7 @@ public class SwordGoblin : MonsterCharacter
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
+                yield return new WaitForSeconds(0.5f);
 
                 yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
