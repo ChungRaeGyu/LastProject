@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
     public Condition frozenConditionPrefab;
     public Condition weakerConditionPrefab;
     public Condition defDownConditionPrefab;
-
+    public Condition burnConditionPrefab; //화상 이런 류로 한다. 일단 화상을 입힌다.
+    public Condition poisonConditionPrefab;
+    public Condition bleedingConditioinPrefab;
 
     [Header("DamageText")]
     public GameObject damageTextPrefab;

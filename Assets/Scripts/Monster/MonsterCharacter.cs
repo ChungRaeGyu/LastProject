@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,6 +30,10 @@ public class MonsterCharacter : MonoBehaviour
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
     public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
     public int defDownTurnsRemaining = 0; //방깍 상태가 유지될 턴 수 
+    public int burnTurnsRemaining = 0; //화상
+    public int poisonTurnsRemaining = 0; //중독 
+    public int bleedingTurnsRemaining = 0; //출혈
+
     private float defDownValue;
     public bool isFrozen; // 얼었는지 확인하는 용도
 
@@ -175,6 +180,36 @@ public class MonsterCharacter : MonoBehaviour
             }
             yield break;
         }
+        if (burnTurnsRemaining > 0)
+        {
+            burnTurnsRemaining--;
+            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
+            if (existingFrozenCondition != null)
+            {
+                existingFrozenCondition.DecrementStackCount(this);
+            }
+            TakeDamage(5);
+        }
+        if (poisonTurnsRemaining > 0)
+        {
+            poisonTurnsRemaining--;
+            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
+            if (existingFrozenCondition != null)
+            {
+                existingFrozenCondition.DecrementStackCount(this);
+            }
+            TakeDamage(5);
+        }
+        if (bleedingTurnsRemaining > 0)
+        {
+            bleedingTurnsRemaining--;
+            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
+            if (existingFrozenCondition != null)
+            {
+                existingFrozenCondition.DecrementStackCount(this);
+            }
+            TakeDamage(5);
+        }
         yield return null;
     }
 
@@ -229,6 +264,53 @@ public class MonsterCharacter : MonoBehaviour
             defDownValue = ability;
         }
     }
+
+    public void burnForTunrs(int turns)
+    {
+        //도트 딜
+        burnTurnsRemaining += turns;
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
+        if (existingFrozenCondition != null)
+        {
+            existingFrozenCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            AddCondition(MonsterCondition, turns, GameManager.instance.burnConditionPrefab, ConditionType.Burn);
+        }
+
+    }
+    public void PoisonForTunrs(int turns)
+    {
+        //도트 딜
+        burnTurnsRemaining += turns;
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
+        if (existingFrozenCondition != null)
+        {
+            existingFrozenCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            AddCondition(MonsterCondition, turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Poison);
+        }
+
+    }
+    public void BleedingForTunrs(int turns)
+    {
+        //도트 딜
+        burnTurnsRemaining += turns;
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
+        if (existingFrozenCondition != null)
+        {
+            existingFrozenCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            AddCondition(MonsterCondition, turns, GameManager.instance.poisonConditionPrefab, ConditionType.Bleeding);
+        }
+
+    }
+
     #endregion
 
 

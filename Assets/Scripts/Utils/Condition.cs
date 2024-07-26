@@ -68,5 +68,8 @@ public enum ConditionType
     Defense,
     Frozen,
     Weaker,
-    DefDown
+    DefDown,
+    Burn,
+    Poison,
+    Bleeding
 }
