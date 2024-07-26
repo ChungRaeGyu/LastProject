@@ -57,6 +57,8 @@ public class LobbyManager : MonoBehaviour
             temp.GetComponent<CardBasic>().cardBasic = DataManager.Instance.cardObjs[i];
             Instantiate(num, temp.transform);
         }
+
+        DataManager.Instance.deckList.Clear();
     }
 
     public void InvokeCount()

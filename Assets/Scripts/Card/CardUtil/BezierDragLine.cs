@@ -123,7 +123,6 @@ public class BezierDragLine : MonoBehaviour
     {
         isDrawingLine = false;
         lineRenderer.positionCount = 0; // 라인 지우기
-        Debug.Log("라인이 지워졌습니다.");
         DestroyAimingImage();
     }
 

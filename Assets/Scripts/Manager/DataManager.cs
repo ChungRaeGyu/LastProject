@@ -35,14 +35,19 @@ public class DataManager : MonoBehaviour
     #endregion
 
     [Header("Deck")]
-    public List<CardBasic> deckList = new List<CardBasic>();
-    public Stack<CardBasic> deck = new Stack<CardBasic>();
+    public List<CardBasic> LobbyDeck = new List<CardBasic>(); //기본카드로 들고갈 덱
+                                                              //게임시작 버튼을 눌렀을 때 deckList에 넣어줘야함)
+                                                              //최대 6장 고정 6장 미만시 게임시작 불가능
+                                                              
+    [HideInInspector]
+    public List<CardBasic> deckList = new List<CardBasic>(); //던전에서 사용할 덱 리스트
+    public Stack<CardBasic> deck = new Stack<CardBasic>(); //실제 카드를 뽑는 덱( deckList를 사용해서 넣어준다.)
 
     [Header("Used Cards")]
     public List<CardBasic> usedCards = new List<CardBasic>(); // 사용된 카드 리스트
 
     [Header("GameObjects")]
-    public List<CardBasic> cardObjs = new List<CardBasic>();
+    public List<CardBasic> cardObjs = new List<CardBasic>();//실제 데이터를 모두 가지고 있는 곳
 
     [Header("CardPiece")]
     public int[] CardPiece;

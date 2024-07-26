@@ -87,7 +87,6 @@ public class CardDrag : MonoBehaviour
                 // 드래그 라인 그리기 중지
                 if (dragLine != null)
                 {
-                    Debug.Log("dragLine이 null이 아닙니다.");
                     dragLine.StopDrawing();
                 }
             }

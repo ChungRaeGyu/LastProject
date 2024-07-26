@@ -50,13 +50,14 @@ public class Condition : MonoBehaviour
     }
 
     // 스택 수를 감소시키고, 스택이 0 이하이면 객체를 파괴
-    public void DecrementStackCount(int amount = 1) // 기본값은 1
+    public void DecrementStackCount(MonsterCharacter monsterCharacter, int amount = 1) // 기본값은 1
     {
         stackCount -= amount;
         UpdateStackText();
 
         if (stackCount <= 0)
         {
+            monsterCharacter.conditionInstances.Remove(this);
             Destroy(gameObject);
         }
     }
@@ -66,4 +67,5 @@ public enum ConditionType
 {
     Defense,
     Frozen,
+    Weaker
 }

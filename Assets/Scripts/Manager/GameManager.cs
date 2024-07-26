@@ -37,9 +37,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Condition")]
     public GameObject conditionBoxPrefab;
-
     public Condition defenseconditionPrefab;
     public Condition frozenConditionPrefab;
+    public Condition weakerConditionPrefab;
 
     [Header("DamageText")]
     public GameObject damageTextPrefab;
@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
     {
         int i = 0;
         monsterPrefab = DataManager.Instance.Monsters;
-        Debug.Log("°è¼ö" + monsterPrefab.Count);
         switch (monsterPrefab.Count)
         {
             case 1:
