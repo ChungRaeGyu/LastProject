@@ -148,6 +148,7 @@ public class SettingManager : MonoBehaviour
     public void LobbyReturnBtn()
     {
         UpdateButtonVisibility();
+        DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(1);
     }
@@ -155,6 +156,7 @@ public class SettingManager : MonoBehaviour
     public void DungeonReturnBtn()
     {
         UpdateButtonVisibility();
+        DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(2);
     }
