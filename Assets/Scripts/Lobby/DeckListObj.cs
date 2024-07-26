@@ -30,6 +30,7 @@ public class DeckListObj : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
         Debug.Log("´©¸§");
         StartCoroutine(OnClickDetect());
 
@@ -47,6 +48,7 @@ public class DeckListObj : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
         isLongClick = false;
         isClick = false;
         if (LobbyManager.instance.currentCanvas != LobbyManager.instance.deckCanvas)
