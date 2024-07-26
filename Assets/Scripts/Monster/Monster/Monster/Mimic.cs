@@ -54,13 +54,12 @@ public class Mimic : MonsterCharacter
         {
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (monsterTurn <= 5) // 5턴 뒤에 시작
+            if (monsterTurn >= 0) // 바로 시작
             {
-                if (monsterTurn == 0) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
+                if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
                 {
                     monsterStats.maxhealth = 0;
                     GameManager.instance.player.TakeDamage(30);
-                    monsterTurn = 5;
                 }
             }
             if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
