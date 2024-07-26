@@ -70,7 +70,14 @@ public class SaveManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            dungeonTimer.SetActive(true);
+            if (DungeonBoardManager.Instance != null && DungeonBoardManager.Instance.dungeon.activeSelf)
+            {
+                dungeonTimer.SetActive(true);
+            }
+            else
+            {
+                dungeonTimer.SetActive(false);
+            }
         }
         else
         {
