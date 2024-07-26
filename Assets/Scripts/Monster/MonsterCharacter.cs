@@ -28,7 +28,8 @@ public class MonsterCharacter : MonoBehaviour
     //디버프관련변수
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
     public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
-
+    public int defDownTurnsRemaining = 0; //방깍 상태가 유지될 턴 수 
+    private float defDownValue;
     public bool isFrozen; // 얼었는지 확인하는 용도
 
 
@@ -58,7 +59,10 @@ public class MonsterCharacter : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
+
+
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
+        actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
         currenthealth -= actualDamage;
 
         if (animator != null)
@@ -161,8 +165,20 @@ public class MonsterCharacter : MonoBehaviour
         {
             monsterStats.attackPower = baseAttackPower;
         }
+        if (defDownTurnsRemaining > 0)
+        {
+            weakerTurnsRemaining--;
+            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
+            if (existingFrozenCondition != null)
+            {
+                existingFrozenCondition.DecrementStackCount(this);
+            }
+            yield break;
+        }
         yield return null;
     }
+
+
     #region 디버프
     public virtual void FreezeForTurns(int turns)
     {
@@ -194,10 +210,28 @@ public class MonsterCharacter : MonoBehaviour
         {
             AddCondition(MonsterCondition, turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
             //약화 
-            monsterStats.attackPower = (int)(monsterStats.attackPower* ability);
+            monsterStats.attackPower = (int)(monsterStats.attackPower* (1-ability));
+        }
+    }
+    public void DefDownForTurns(int turns, float ability)
+    {
+        //취약 : 몬스터의 방어력이 약해진다.
+        defDownTurnsRemaining += turns;
+
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
+        if (existingFrozenCondition != null)
+        {
+            existingFrozenCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            AddCondition(MonsterCondition, turns, GameManager.instance.defDownConditionPrefab, ConditionType.DefDown);
+            defDownValue = ability;
         }
     }
     #endregion
+
+
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
     public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
     {
