@@ -76,6 +76,10 @@ public class DataManager : MonoBehaviour
     public int bossesDefeatedCount { get; set; }
     public int totalCrystal { get; set; }
 
+    // 점수 계산 변수들
+    public int adjustedCurrentCoin { get; set; }
+    public int adjustedClearTime { get; set; }
+
     // 게임 재화
     //public int currentCoin { get; set; }
     public int currentCoin; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
@@ -145,8 +149,8 @@ public class DataManager : MonoBehaviour
         // 반올림
         //int adjustedCoin = Mathf.RoundToInt(currentCoin / 100f);
         // 소수점 아래를 버림 (재화를 1개라도 덜 줌으로서 난이도 상승)
-        int adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 100f);
-        int adjustedClearTime = Mathf.Max(300 - totalClearTime, 0);
+        adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 100f);
+        adjustedClearTime = Mathf.Max(300 - totalClearTime, 0);
 
         // TotalCrystal 계산
         totalCrystal = adjustedCurrentCoin

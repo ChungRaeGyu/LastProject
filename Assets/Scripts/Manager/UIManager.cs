@@ -61,14 +61,23 @@ public class UIManager : MonoBehaviour
     public Transform removeCardSpawnPoint; // 제거된 카드를 보여줄 위치값
     public TMP_Text defeatMnstersKilledText; // 처치한 몬스터 수
     public TMP_Text defeatStageClearCountText; // 클리어한 스테이지 수
+    [Header("DefeatPoint")]
+    public TMP_Text defeatMnstersKilledPointText; // 처치한 몬스터 점수
+    public TMP_Text defeatStageClearCountPointText; // 클리어한 스테이지 점수
     public TMP_Text defeatTotalCrystalText; // 획득한 크리스탈
     [Header("Victory")]
     public GameObject victoryPanel; // 승리 패널
     public TMP_Text victoryMonstersKilledText; // 처치한 몬스터 수
-    public TMP_Text victoryStageClearCount; // 클리어한 스테이지 수
-    public TMP_Text victoryTotalClearTime; // 던전 클리어 시간
-    public TMP_Text victoryBossesDefeatedCount; // 보스 처치
-    public TMP_Text victoryRemainingCoinCount; // 잔여 코인
+    public TMP_Text victoryStageClearCountText; // 클리어한 스테이지 수
+    public TMP_Text victoryTotalClearTimeText; // 던전 클리어 시간
+    public TMP_Text victoryBossesDefeatedCountText; // 보스 처치
+    public TMP_Text victoryRemainingCoinCountText; // 잔여 코인
+    [Header("VictoryPoint")]
+    public TMP_Text victoryMonstersKilledPointText; // 처치한 몬스터 수
+    public TMP_Text victoryStageClearCountPointText; // 클리어한 스테이지 수
+    public TMP_Text victoryTotalClearTimePointText; // 던전 클리어 시간
+    public TMP_Text victoryBossesDefeatedCountPointText; // 보스 처치
+    public TMP_Text victoryRemainingCoinCountPointText; // 잔여 코인
     public TMP_Text victoryTotalCrystal; // 획득한 크리스탈
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
@@ -291,26 +300,32 @@ public class UIManager : MonoBehaviour
         {
             defeatPanel.SetActive(true);
 
-            // 처치한 몬스터 수를 표시하는 부분
-            if (defeatMnstersKilledText != null)
-            {
-                defeatMnstersKilledText.text = $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})";
-            }
-            // 클리어한 스테이지 수를 표시하는 부분
-            if (defeatStageClearCountText != null)
-            {
-                defeatStageClearCountText.text = $"클리어한 스테이지 ({DataManager.Instance.monstersKilledCount})";
-            }
-            // 획득한 크리스탈를 표시하는 부분
-            if (defeatTotalCrystalText != null)
-            {
-                defeatTotalCrystalText.text = $"{DataManager.Instance.monstersKilledCount}";
-            }
+            // 텍스트 업데이트
+            UpdateDefeatTexts();
         }
 
         if (fadeRewardPanel != null)
         {
             fadeRewardPanel.gameObject.SetActive(true);
+        }
+    }
+
+    private void UpdateDefeatTexts()
+    {
+        SetText(defeatMnstersKilledText, $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})");
+        SetText(defeatStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.stageClearCount})");
+
+        SetText(defeatMnstersKilledPointText, $"{DataManager.Instance.monstersKilledCount}");
+        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.stageClearCount}");
+
+        SetText(defeatTotalCrystalText, $"{DataManager.Instance.monstersKilledCount}");
+    }
+
+    private void SetText(TMP_Text textComponent, string text)
+    {
+        if (textComponent != null)
+        {
+            textComponent.text = text;
         }
     }
 

@@ -4269,7 +4269,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBCF4\uC2A4 \uCC98\uCE58"
+  m_text: "\uBCF4\uC2A4 \uCC98\uCE58(0)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 69842bf1241052d4a9e99564070da842, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e97c75f43a476994fb0356e9a256b4dc, type: 2}
@@ -7109,13 +7109,20 @@ MonoBehaviour:
   removeCardSpawnPoint: {fileID: 1996410944}
   defeatMnstersKilledText: {fileID: 1806972126}
   defeatStageClearCountText: {fileID: 1189291484}
+  defeatMnstersKilledPointText: {fileID: 881794698}
+  defeatStageClearCountPointText: {fileID: 2120495135}
   defeatTotalCrystalText: {fileID: 257269608}
   victoryPanel: {fileID: 1493401027}
   victoryMonstersKilledText: {fileID: 1503729723}
-  victoryStageClearCount: {fileID: 269218212}
-  victoryTotalClearTime: {fileID: 1104255145}
-  victoryBossesDefeatedCount: {fileID: 1607226569}
-  victoryRemainingCoinCount: {fileID: 68778179}
+  victoryStageClearCountText: {fileID: 269218212}
+  victoryTotalClearTimeText: {fileID: 1104255145}
+  victoryBossesDefeatedCountText: {fileID: 1607226569}
+  victoryRemainingCoinCountText: {fileID: 68778179}
+  victoryMonstersKilledPointText: {fileID: 363711760}
+  victoryStageClearCountPointText: {fileID: 187287971}
+  victoryTotalClearTimePointText: {fileID: 1849602280}
+  victoryBossesDefeatedCountPointText: {fileID: 1881931109}
+  victoryRemainingCoinCountPointText: {fileID: 1001561936}
   victoryTotalCrystal: {fileID: 1064311951}
 --- !u!4 &1801712840
 Transform:

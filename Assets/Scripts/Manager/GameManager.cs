@@ -234,54 +234,56 @@ public class GameManager : MonoBehaviour
     {
         DataManager.Instance.stageClearCount++;
 
-        //TODO:보스클리어 확인
+        // 보스 클리어 확인
         if (SaveManager.Instance.isBossStage)
         {
             DataManager.Instance.bossesDefeatedCount++;
-
             SaveManager.Instance.StopTrackingTime();
             DataManager.Instance.totalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
 
             // 클리어 패널을 띄워 줌
             UIManager.instance.victoryPanel.gameObject.SetActive(true);
 
-            // 처치한 몬스터 수를 표시하는 부분
-            if (UIManager.instance.victoryMonstersKilledText != null)
-            {
-                UIManager.instance.victoryMonstersKilledText.text = $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})";
-            }
-            // 던전 클리어 시간을 표시하는 부분
-            if (UIManager.instance.victoryTotalClearTime != null)
-            {
-                UIManager.instance.victoryTotalClearTime.text = $"던전 클리어 시간 ({DataManager.Instance.totalClearTime})";
-            }
-            // 클리어한 스테이지 수를 표시하는 부분
-            if (UIManager.instance.victoryStageClearCount != null)
-            {
-                UIManager.instance.victoryStageClearCount.text = $"클리어한 스테이지 ({SaveManager.Instance.FormatTime(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds)})";
-            }
-            // 보스 처치를 표시하는 부분
-            if (UIManager.instance.victoryBossesDefeatedCount != null)
-            {
-                UIManager.instance.victoryBossesDefeatedCount.text = $"보스 처치 ({DataManager.Instance.bossesDefeatedCount})";
-            }            
-            // 잔여 코인을 표시하는 부분
-            if (UIManager.instance.victoryRemainingCoinCount != null)
-            {
-                UIManager.instance.victoryRemainingCoinCount.text = $"잔여 코인 ({DataManager.Instance.currentCoin})";
-            }            
-            // 획득한 크리스탈을 표시하는 부분
+            // 텍스트 업데이트
+            UpdateVictoryTexts();
+
+            // 획득한 크리스탈 계산 및 표시
+            DataManager.Instance.CalculateTotalCrystal();
             if (UIManager.instance.victoryTotalCrystal != null)
             {
-                DataManager.Instance.CalculateTotalCrystal();
                 UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.totalCrystal}";
             }
         }
         else
         {
             SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
-
             SceneManager.LoadScene(2);
+        }
+    }
+
+    private void UpdateVictoryTexts()
+    {
+        DataManager.Instance.adjustedCurrentCoin = Mathf.FloorToInt(DataManager.Instance.currentCoin / 100f);
+        DataManager.Instance.adjustedClearTime = Mathf.Max(300 - DataManager.Instance.totalClearTime, 0);
+
+        SetText(UIManager.instance.victoryMonstersKilledText, $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})");
+        SetText(UIManager.instance.victoryStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.stageClearCount})");
+        SetText(UIManager.instance.victoryTotalClearTimeText, $"던전 클리어 시간 ({SaveManager.Instance.FormatTime(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds)})");
+        SetText(UIManager.instance.victoryBossesDefeatedCountText, $"보스 처치 ({DataManager.Instance.bossesDefeatedCount})");
+        SetText(UIManager.instance.victoryRemainingCoinCountText, $"잔여 코인 ({DataManager.Instance.currentCoin})");
+
+        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.monstersKilledCount}");
+        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.stageClearCount}");
+        SetText(UIManager.instance.victoryTotalClearTimePointText, $"{DataManager.Instance.adjustedClearTime}");
+        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.bossesDefeatedCount}");
+        SetText(UIManager.instance.victoryRemainingCoinCountPointText, $"{DataManager.Instance.adjustedCurrentCoin}");
+    }
+        
+    private void SetText(TMP_Text textComponent, string text)
+    {
+        if (textComponent != null)
+        {
+            textComponent.text = text;
         }
     }
 
