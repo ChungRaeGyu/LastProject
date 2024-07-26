@@ -60,6 +60,7 @@ public class SwordGoblin : MonsterCharacter
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
+                yield return new WaitForSeconds(0.5f);
 
                 GameManager.instance.player.TakeDamage(5);
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
