@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -37,6 +40,13 @@ public class SaveManager : MonoBehaviour
 
     //현재 보스던전인지 체크
     public bool isBossStage;
+
+    [Header("UI")]
+    public TMP_Text timeText; // UI 텍스트 컴포넌트
+    public GameObject dungeonTimer; // 타이머가 든 UI 오브젝트
+
+    public Stopwatch stopwatch; // 시간 측정을 위한 Stopwatch
+
     void Start()
     {
         accessDungeon = false;
@@ -46,12 +56,51 @@ public class SaveManager : MonoBehaviour
         {
             accessibleDungeon[i] = false;
         }
+
+        // Stopwatch 초기화
+        if (stopwatch == null)
+        {
+            stopwatch = new Stopwatch();
+        }
+
+        dungeonTimer.SetActive(false);
     }
 
     void Update()
     {
-        
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            dungeonTimer.SetActive(true);
+        }
+        else
+        {
+            dungeonTimer.SetActive(false);
+        }
+
+        if (stopwatch.IsRunning && timeText != null)
+        {
+            // 경과 시간 업데이트
+            timeText.text = FormatTime(stopwatch.Elapsed.TotalSeconds);
+        }
     }
 
-    
+    public string FormatTime(double seconds)
+    {
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
+        return string.Format("{0:D2}:{1:D2}:{2:D2}",
+                              time.Hours,
+                              time.Minutes,
+                              time.Seconds);
+    }
+
+    public void StartTrackingTime()
+    {
+        stopwatch.Reset(); // Stopwatch 초기화
+        stopwatch.Start(); // 시간 측정 시작
+    }
+
+    public void StopTrackingTime()
+    {
+        stopwatch.Stop(); // 시간 측정 중지
+    }
 }

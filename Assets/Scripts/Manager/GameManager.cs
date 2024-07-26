@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,6 +49,9 @@ public class GameManager : MonoBehaviour
     [Header("AudioSource")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip CardDrawClip;
+
+    // 몬스터에 대한 보상 코인 합산
+    public int monsterTotalRewardCoin;
 
     private void Awake()
     {
@@ -223,16 +228,49 @@ public class GameManager : MonoBehaviour
 
     public void OnLobbyButtonClick()
     {
+        DataManager.Instance.stageClearCount++;
+
         //TODO:보스클리어 확인
         if (SaveManager.Instance.isBossStage)
         {
+            DataManager.Instance.bossesDefeatedCount++;
+
+            SaveManager.Instance.StopTrackingTime();
+            DataManager.Instance.totalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
+
             // 클리어 패널을 띄워 줌
             UIManager.instance.victoryPanel.gameObject.SetActive(true);
 
             // 처치한 몬스터 수를 표시하는 부분
             if (UIManager.instance.victoryMonstersKilledText != null)
             {
-                UIManager.instance.victoryMonstersKilledText.text = $"처치한 몬스터 수: {DataManager.Instance.monstersKilledCount}";
+                UIManager.instance.victoryMonstersKilledText.text = $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})";
+            }
+            // 던전 클리어 시간을 표시하는 부분
+            if (UIManager.instance.victoryTotalClearTime != null)
+            {
+                UIManager.instance.victoryTotalClearTime.text = $"던전 클리어 시간 ({DataManager.Instance.totalClearTime})";
+            }
+            // 클리어한 스테이지 수를 표시하는 부분
+            if (UIManager.instance.victoryStageClearCount != null)
+            {
+                UIManager.instance.victoryStageClearCount.text = $"클리어한 스테이지 ({SaveManager.Instance.FormatTime(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds)})";
+            }
+            // 보스 처치를 표시하는 부분
+            if (UIManager.instance.victoryBossesDefeatedCount != null)
+            {
+                UIManager.instance.victoryBossesDefeatedCount.text = $"보스 처치 ({DataManager.Instance.bossesDefeatedCount})";
+            }            
+            // 잔여 코인을 표시하는 부분
+            if (UIManager.instance.victoryRemainingCoinCount != null)
+            {
+                UIManager.instance.victoryRemainingCoinCount.text = $"잔여 코인 ({DataManager.Instance.currentCoin})";
+            }            
+            // 획득한 크리스탈을 표시하는 부분
+            if (UIManager.instance.victoryTotalCrystal != null)
+            {
+                DataManager.Instance.CalculateTotalCrystal();
+                UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.totalCrystal}";
             }
         }
         else
@@ -246,6 +284,7 @@ public class GameManager : MonoBehaviour
     // 다음 스테이지 해금과 씬로드, 클리어 했을 때 하단의 진행 버튼
     public void ClearGoToLobbyScene()
     {
+        DataManager.Instance.currentCrystal += DataManager.Instance.totalCrystal;
         StageCheck();
         SceneManager.LoadScene(1);
     }

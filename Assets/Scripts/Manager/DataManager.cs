@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 public class DataManager : MonoBehaviour
@@ -38,7 +41,7 @@ public class DataManager : MonoBehaviour
     public List<CardBasic> LobbyDeck = new List<CardBasic>(); //기본카드로 들고갈 덱
                                                               //게임시작 버튼을 눌렀을 때 deckList에 넣어줘야함)
                                                               //최대 6장 고정 6장 미만시 게임시작 불가능
-                                                              
+
     [HideInInspector]
     public List<CardBasic> deckList = new List<CardBasic>(); //던전에서 사용할 덱 리스트
     public Stack<CardBasic> deck = new Stack<CardBasic>(); //실제 카드를 뽑는 덱( deckList를 사용해서 넣어준다.)
@@ -67,7 +70,11 @@ public class DataManager : MonoBehaviour
     public int currenthealth { get; set; }
 
     // 던전 클리어 기록들
-    public int monstersKilledCount { get; private set; }
+    public int monstersKilledCount { get; set; }
+    public int stageClearCount { get; set; }
+    public int totalClearTime { get; set; }
+    public int bossesDefeatedCount { get; set; }
+    public int totalCrystal { get; set; }
 
     // 게임 재화
     //public int currentCoin { get; set; }
@@ -77,7 +84,6 @@ public class DataManager : MonoBehaviour
 
     public void SuffleDeckList()
     {
-
         Suffle(deckList);
     }
     public void SuffleUsedCards()
@@ -133,16 +139,32 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    // 몬스터를 죽일 때 호출할 메서드
-    public void IncreaseMonstersKilledCount()
+    // TotalCrystal을 계산하는 메서드
+    public void CalculateTotalCrystal()
     {
-        monstersKilledCount++;
+        // 반올림
+        //int adjustedCoin = Mathf.RoundToInt(currentCoin / 100f);
+        // 소수점 아래를 버림 (재화를 1개라도 덜 줌으로서 난이도 상승)
+        int adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 100f);
+        int adjustedClearTime = Mathf.Max(300 - totalClearTime, 0);
+
+        // TotalCrystal 계산
+        totalCrystal = adjustedCurrentCoin
+                     + monstersKilledCount
+                     + stageClearCount
+                     + adjustedClearTime
+                     + bossesDefeatedCount;
     }
 
-    // 몬스터 킬 수 초기화
-    public void ResetMonstersKilledCount()
+    // 기록 초기화
+    public void ResetRecord()
     {
+        currentCoin = 0;
         monstersKilledCount = 0;
+        stageClearCount = 0;
+        totalClearTime = 0;
+        bossesDefeatedCount = 0;
+        totalCrystal = 0;
     }
 
     // 플레이어 체력 초기화

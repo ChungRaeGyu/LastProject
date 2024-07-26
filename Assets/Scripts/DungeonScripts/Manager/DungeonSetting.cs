@@ -9,7 +9,7 @@ public class DungeonSetting : MonoBehaviour
     public GameObject explain;
 
     void Start()
-    {           
+    {
         if (gameObject.name == "02_Dungeon" && SaveManager.Instance.accessibleDungeon[1] == true)
         {
             enterBtn.SetActive(true);
@@ -51,21 +51,24 @@ public class DungeonSetting : MonoBehaviour
 
     void Update()
     {
-       
+
     }
 
     //던전으로 들어가는 버튼
     public void GoToDungeon()
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
-
-        // 골드를 초기화 (임시)
-        DataManager.Instance.currentCoin = 0;
-
         DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
         DungeonBoardManager.Instance.dungeon.SetActive(true);
         SaveManager.Instance.accessDungeon = true;
         SettingManager.Instance.UpdateButtonVisibility();
+
+        DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
+        // 스탯 초기화 메서드 호출 예정
+
+        // 기록 초기화 메서드
+        DataManager.Instance.ResetRecord();
+        SaveManager.Instance.StartTrackingTime();
 
         switch (gameObject.name)
         {
@@ -82,8 +85,7 @@ public class DungeonSetting : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 0;
-                DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
-                DataManager.Instance.ResetMonstersKilledCount(); // 몬스터 킬 수 초기화 (임시)
+
                 SaveManager.Instance.playerPosition = Dungeon01.Instance.stageNum[0].transform.position;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
@@ -101,8 +103,7 @@ public class DungeonSetting : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 1;
-                DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
-                DataManager.Instance.ResetMonstersKilledCount(); // 몬스터 킬 수 초기화 (임시)
+
                 SaveManager.Instance.playerPosition = Dungeon02.Instance.stageNum[0].transform.position;
                 Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;

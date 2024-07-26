@@ -118,7 +118,6 @@ public class MonsterCharacter : MonoBehaviour
         if(isFrozen)
             GameManager.instance.DeBuffAnim(deBuff);
         Destroy(gameObject);
-
     }
 
     public virtual IEnumerator MonsterTurn()
@@ -234,7 +233,13 @@ public class MonsterCharacter : MonoBehaviour
         if (IsDead())
         {
             Die();
-            DataManager.Instance.IncreaseMonstersKilledCount(); // DataManager에서 몬스터 카운트 증가
+            DataManager.Instance.monstersKilledCount++; // DataManager에서 몬스터 카운트 증가
+
+            // 몬스터가 가진 코인에 -2에서 2 사이의 랜덤 값을 추가
+            int randomCoinAdjustment = UnityEngine.Random.Range(-2, 3); // -2에서 2까지의 값 (3은 포함되지 않음)
+            int rewardCoin = monsterStats.Coin + randomCoinAdjustment;
+
+            GameManager.instance.monsterTotalRewardCoin += rewardCoin; // 랜덤하게 수정된 보상 코인을 추가
         }
     }
 }

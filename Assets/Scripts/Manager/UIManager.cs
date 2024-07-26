@@ -33,14 +33,15 @@ public class UIManager : MonoBehaviour
     public Image UnUsedCards;
     public Image UsedCards;
 
+    [Header("Reward")]
+    public Image fadeRewardPanel;
+    public GameObject rewardPanel;
+    public TMP_Text rewardCoinAmountText;
+
     [Header("Button")]
     public Button lobbyButton;
     public Button openCardSelectionButton;
     public Button addCoinButton;
-
-    [Header("Reward")]
-    public Image fadeRewardPanel;
-    public GameObject rewardPanel;
 
     [Header("UI")]
     public Canvas healthBarCanvas;
@@ -54,14 +55,21 @@ public class UIManager : MonoBehaviour
     public TMP_Text PlayerTurnCountText;
     public TMP_Text MonsterTurnCountText;
 
+    // TODO: 승리와 패배 싹 나중에 스크립트 하나 만들어서 옮기기
     [Header("Defeat")]
-    public GameObject defeatPanel;
+    public GameObject defeatPanel; // 패배 패널
     public Transform removeCardSpawnPoint; // 제거된 카드를 보여줄 위치값
     public TMP_Text defeatMnstersKilledText; // 처치한 몬스터 수
-
+    public TMP_Text defeatStageClearCountText; // 클리어한 스테이지 수
+    public TMP_Text defeatTotalCrystalText; // 획득한 크리스탈
     [Header("Victory")]
-    public GameObject victoryPanel;
-    public TMP_Text victoryMonstersKilledText;
+    public GameObject victoryPanel; // 승리 패널
+    public TMP_Text victoryMonstersKilledText; // 처치한 몬스터 수
+    public TMP_Text victoryStageClearCount; // 클리어한 스테이지 수
+    public TMP_Text victoryTotalClearTime; // 던전 클리어 시간
+    public TMP_Text victoryBossesDefeatedCount; // 보스 처치
+    public TMP_Text victoryRemainingCoinCount; // 잔여 코인
+    public TMP_Text victoryTotalCrystal; // 획득한 크리스탈
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
     private Vector2 originalCostImagePosition;
@@ -108,9 +116,16 @@ public class UIManager : MonoBehaviour
         rectTransform.anchoredPosition = targetPosition;
     }
 
+
+
     public void AddCoin()
     {
-        // DataManager.Instance.currentCoin +=
+        DataManager.Instance.currentCoin += GameManager.instance.monsterTotalRewardCoin;
+
+        // 동전소리? 같은거 나게함
+        currentCoinText.text = DataManager.Instance.currentCoin.ToString();
+
+        addCoinButton.gameObject.SetActive(false);
     }
 
     public void SpawnRewardCards()
@@ -208,13 +223,9 @@ public class UIManager : MonoBehaviour
             cardSelectPanel.SetActive(false);
 
             // openCardSelectionButton 비활성화
-            if (openCardSelectionButton != null)
-            {
-                openCardSelectionButton.gameObject.SetActive(false);
-            }
+            openCardSelectionButton.gameObject.SetActive(false);
         }
     }
-
 
     private IEnumerator MoveCard(GameObject card, Vector3 targetPosition)
     {
@@ -237,6 +248,7 @@ public class UIManager : MonoBehaviour
         SetActive(lobbyButton?.gameObject, lobbyBtn);
         SetActive(turnEndButton?.gameObject, turnEndBtn);
         SetActive(rewardPanel, setRewardPanel);
+        rewardCoinAmountText.text = $"던전코인 {GameManager.instance.monsterTotalRewardCoin}개";
         SetActive(fadeRewardPanel?.gameObject, setFadeRewardPanel);
         SetActive(addCoinButton?.gameObject, setAddCoinButton);
 
@@ -282,7 +294,17 @@ public class UIManager : MonoBehaviour
             // 처치한 몬스터 수를 표시하는 부분
             if (defeatMnstersKilledText != null)
             {
-                defeatMnstersKilledText.text = $"처치한 몬스터 수: {DataManager.Instance.monstersKilledCount}";
+                defeatMnstersKilledText.text = $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})";
+            }
+            // 클리어한 스테이지 수를 표시하는 부분
+            if (defeatStageClearCountText != null)
+            {
+                defeatStageClearCountText.text = $"클리어한 스테이지 ({DataManager.Instance.monstersKilledCount})";
+            }
+            // 획득한 크리스탈를 표시하는 부분
+            if (defeatTotalCrystalText != null)
+            {
+                defeatTotalCrystalText.text = $"{DataManager.Instance.monstersKilledCount}";
             }
         }
 

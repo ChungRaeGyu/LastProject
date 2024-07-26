@@ -10,4 +10,5 @@ public class MonsterStats : ScriptableObject
     public int maxhealth;
     public int attackPower;
     public int defense;
+    public int Coin;
 }
