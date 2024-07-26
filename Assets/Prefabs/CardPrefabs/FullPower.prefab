@@ -674,7 +674,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDragging: 0
   dragLimitY: -340
-  audioSource: {fileID: -4599413465653537958}
 --- !u!114 &5006092552455994640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,13 +879,14 @@ MonoBehaviour:
   job: 1
   rate: 1
   effect: {fileID: 0}
-  dragLineCard: 0
+  dragLineCard: 1
   attackEffect: {fileID: 0}
   deckCardImage: {fileID: 3136015016114371348, guid: 1160556fe886bdf4491238fc9549097f, type: 3}
   debuffEffectPrefab: {fileID: 0}
   nameText: {fileID: 221894563013941276}
   costText: {fileID: 5789303704972573939}
   descriptionText: {fileID: 4450855068073631251}
+  audioSource: {fileID: 0}
 --- !u!82 &-4599413465653537958
 AudioSource:
   m_ObjectHideFlags: 0
