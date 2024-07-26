@@ -6,5 +6,4 @@ public class PlayerStats : ScriptableObject
     [Header("Base Stats")]
     public int maxhealth;
     public int defense;
-    public int money;
 }

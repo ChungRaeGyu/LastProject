@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     [Header("Button")]
     public Button lobbyButton;
     public Button openCardSelectionButton;
+    public Button addCoinButton;
 
     [Header("Reward")]
     public Image fadeRewardPanel;
@@ -44,8 +45,10 @@ public class UIManager : MonoBehaviour
     [Header("UI")]
     public Canvas healthBarCanvas;
     public Canvas conditionCanvas;
+    public Canvas InfoCanvas;
     public TMP_Text costText;
     public TMP_Text TurnText;
+    public TMP_Text currentCoinText;
 
     [Header("TurnCountText")]
     public TMP_Text PlayerTurnCountText;
@@ -86,6 +89,8 @@ public class UIManager : MonoBehaviour
         MoveUIElementsToStartPositions();
 
         UpdatePlayerTurnCount(1); // 초기에 1번째 턴 진행
+
+        currentCoinText.text = DataManager.Instance.currentCoin.ToString();
     }
 
     private IEnumerator MoveUIElement(RectTransform rectTransform, Vector2 targetPosition, float duration)
@@ -101,6 +106,11 @@ public class UIManager : MonoBehaviour
         }
 
         rectTransform.anchoredPosition = targetPosition;
+    }
+
+    public void AddCoin()
+    {
+        // DataManager.Instance.currentCoin +=
     }
 
     public void SpawnRewardCards()
@@ -222,33 +232,27 @@ public class UIManager : MonoBehaviour
         card.transform.localPosition = targetPosition;
     }
 
-    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setOpenCardSelectionButton, float openCardSelectionProbability = 0.5f)
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.5f)
     {
-        if (lobbyButton != null)
-        {
-            lobbyButton.gameObject.SetActive(lobbyBtn);
-        }
-
-        if (turnEndButton != null)
-        {
-            turnEndButton.gameObject.SetActive(turnEndBtn);
-        }
-
-        if (rewardPanel != null)
-        {
-            rewardPanel.gameObject.SetActive(setRewardPanel);
-        }
-
-        if (fadeRewardPanel != null)
-        {
-            fadeRewardPanel.gameObject.SetActive(setFadeRewardPanel);
-        }
+        SetActive(lobbyButton?.gameObject, lobbyBtn);
+        SetActive(turnEndButton?.gameObject, turnEndBtn);
+        SetActive(rewardPanel, setRewardPanel);
+        SetActive(fadeRewardPanel?.gameObject, setFadeRewardPanel);
+        SetActive(addCoinButton?.gameObject, setAddCoinButton);
 
         if (openCardSelectionButton != null)
         {
-            // 확률적으로 활성화
             bool shouldBeActive = UnityEngine.Random.value <= openCardSelectionProbability;
             openCardSelectionButton.gameObject.SetActive(shouldBeActive);
+        }
+    }
+
+    // 게임 오브젝트의 활성화/비활성화 상태 설정
+    private void SetActive(GameObject obj, bool state)
+    {
+        if (obj != null)
+        {
+            obj.SetActive(state);
         }
     }
 

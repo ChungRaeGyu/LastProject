@@ -58,6 +58,10 @@ public class DungeonSetting : MonoBehaviour
     public void GoToDungeon()
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
+
+        // 골드를 초기화 (임시)
+        DataManager.Instance.currentCoin = 0;
+
         DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
         DungeonBoardManager.Instance.dungeon.SetActive(true);
         SaveManager.Instance.accessDungeon = true;

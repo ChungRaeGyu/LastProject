@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -32,10 +33,15 @@ public class DungeonManager : MonoBehaviour
 
     public Vector3 stage01;
 
+    [Header("TextUI")]
+    public TMP_Text currentCoinText;
+
     private void Start()
     {
         eventScene.SetActive(false);
         storeScene.SetActive(false);
+
+        currentCoinText.text = DataManager.Instance.currentCoin.ToString();
     }
 
     private void Update()

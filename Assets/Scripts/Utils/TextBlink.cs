@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class SmoothTextBlink : MonoBehaviour
+public class TextBlink : MonoBehaviour
 {
     public TMP_Text textComponent;
     public float blinkDuration = 1f; // ±Ù∫˝¿” ¡÷±‚

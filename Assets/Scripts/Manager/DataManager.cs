@@ -52,7 +52,7 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
-        CardPiece= new int[(int)Rate.Count];
+        CardPiece = new int[(int)Rate.Count];
     }
 
     [Header("current Battle Monsters")]
@@ -61,8 +61,14 @@ public class DataManager : MonoBehaviour
     //플레이어의 스탯을 저장하는 변수들
     public int currenthealth { get; set; }
 
-    // 몬스터를 죽인 횟수를 저장하는 변수
+    // 던전 클리어 기록들
     public int monstersKilledCount { get; private set; }
+
+    // 게임 재화
+    //public int currentCoin { get; set; }
+    public int currentCoin; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
+    // public int currentCrystal { get; set; } = 0; // 일단 0으로 (임시)
+    public int currentCrystal; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
 
     public void SuffleDeckList()
     {

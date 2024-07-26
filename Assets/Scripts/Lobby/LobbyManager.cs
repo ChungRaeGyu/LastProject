@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -21,6 +22,10 @@ public class LobbyManager : MonoBehaviour
     public event Action OnCount;
 
     public bool isDrawing = false;
+
+    [Header("UI")]
+    public TMP_Text currentCrystal;
+
     private void Awake()
     {
         if (instance == null)
@@ -36,6 +41,8 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         Init();
+
+        currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
     }
 
     // 도감에 카드를 생성하는 메서드

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,11 +19,11 @@ public class MonsterCharacter : MonoBehaviour
     public Transform hpBarPos; // HP 바 위치
     public Transform conditionPos; // 컨디션 위치
 
+    public TMP_Text monsterName;
+
     [HideInInspector]
     public Transform MonsterCondition;
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
-
-
 
     public bool isFrozen; // 얼었는지 확인하는 용도
 
