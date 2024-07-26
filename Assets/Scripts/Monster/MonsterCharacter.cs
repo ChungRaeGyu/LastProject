@@ -13,7 +13,7 @@ public class MonsterCharacter : MonoBehaviour
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int Attack = Animator.StringToHash("Attack");
 
-    private List<Condition> conditionInstances = new List<Condition>();
+    public List<Condition> conditionInstances = new List<Condition>();
 
     public Transform hpBarPos; // HP 바 위치
     public Transform conditionPos; // 컨디션 위치
@@ -135,7 +135,7 @@ public class MonsterCharacter : MonoBehaviour
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
             if (existingFrozenCondition != null)
             {
-                existingFrozenCondition.DecrementStackCount();
+                existingFrozenCondition.DecrementStackCount(this);
             }
             if (frozenTurnsRemaining == 0)
             {

@@ -47,7 +47,17 @@ public class LobbyButtonManager : MonoBehaviour
         
     }
     public void GotoStageBoardBtn(){
+        if (DataManager.Instance.LobbyDeck.Count < 6)
+        {
+            Debug.Log("카드가 부족해요~ 6장을 채워 주세요");
+            return;
+        }
+        
         AudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+        foreach(var card in DataManager.Instance.LobbyDeck)
+        {
+            DataManager.Instance.deckList.Add(card);
+        }
         DataManager.Instance.SuffleDeckList();
         SceneManager.LoadScene(2);
     }

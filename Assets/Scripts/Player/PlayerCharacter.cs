@@ -91,6 +91,7 @@ public abstract class PlayerCharacter : MonoBehaviour
 
         // 결과패널(패배)를 보여줌
         UIManager.instance.ShowDefeatPanel();
-        UIManager.instance.ApplyDeathPenalty();
+        //UIManager.instance.ApplyDeathPenalty(); //카드 랜덤 삭제 일단 보류
+        //덱 초기화는 LobbyManager에 있습니다.
     }
 }
