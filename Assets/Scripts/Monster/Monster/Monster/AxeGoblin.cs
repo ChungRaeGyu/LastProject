@@ -65,7 +65,7 @@ public class AxeGoblin : MonsterCharacter
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 buffCounterOnOff = true;
 
-                if (monsterTurn <= 4) // 4턴째에 디버프 끝
+                if (monsterTurn <= 4) // 4턴째에 버프 끝
                 {
                     buffCounterOnOff = false;
                 }

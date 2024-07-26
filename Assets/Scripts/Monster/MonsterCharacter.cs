@@ -8,7 +8,9 @@ using UnityEngine.UIElements;
 public class MonsterCharacter : MonoBehaviour
 {
     public MonsterStats monsterStats;
+    private int baseAttackPower;
     public int currenthealth { get; private set; }
+
     public Animator animator;
 
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
@@ -36,18 +38,13 @@ public class MonsterCharacter : MonoBehaviour
     public Action deBuffAnim;
     private void Awake()
     {
-        if (monsterStats == null)
-        {
-            Debug.Log("MonsterStats가 " + gameObject.name + "에 할당되지 않았다.");
-        }
-
-        currenthealth = monsterStats.maxhealth;
-
         animator = GetComponentInChildren<Animator>();
     }
 
     public void Start()
     {
+        currenthealth = monsterStats.maxhealth;
+        baseAttackPower = monsterStats.attackPower;
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
         MonsterCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
@@ -150,7 +147,20 @@ public class MonsterCharacter : MonoBehaviour
         {
             isFrozen = false;
         }
-         
+        if (weakerTurnsRemaining > 0)
+        {
+            weakerTurnsRemaining--;
+            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Weaker);
+            if (existingFrozenCondition != null)
+            {
+                existingFrozenCondition.DecrementStackCount(this);
+            }
+            yield break;
+        }
+        else
+        {
+            monsterStats.attackPower = baseAttackPower;
+        }
         yield return null;
     }
     #region 디버프
@@ -170,7 +180,7 @@ public class MonsterCharacter : MonoBehaviour
         }
         Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
     }
-    public void WeakForTurns(int turns)
+    public void WeakForTurns(int turns,float ability)
     {
         //약화 : 몬스터의 공격력이 약해진다.
         weakerTurnsRemaining += turns;
@@ -183,6 +193,8 @@ public class MonsterCharacter : MonoBehaviour
         else
         {
             AddCondition(MonsterCondition, turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
+            //약화 
+            monsterStats.attackPower = (int)(monsterStats.attackPower* ability);
         }
     }
     #endregion
@@ -233,6 +245,7 @@ public class MonsterCharacter : MonoBehaviour
     {
         if (IsDead())
         {
+            monsterStats.attackPower = baseAttackPower;
             Die();
             DataManager.Instance.IncreaseMonstersKilledCount(); // DataManager에서 몬스터 카운트 증가
         }
