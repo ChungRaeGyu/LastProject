@@ -42,7 +42,7 @@ public class DataManager : MonoBehaviour
                                                               //게임시작 버튼을 눌렀을 때 deckList에 넣어줘야함)
                                                               //최대 6장 고정 6장 미만시 게임시작 불가능
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<CardBasic> deckList = new List<CardBasic>(); //던전에서 사용할 덱 리스트
     public Stack<CardBasic> deck = new Stack<CardBasic>(); //실제 카드를 뽑는 덱( deckList를 사용해서 넣어준다.)
 
@@ -113,11 +113,6 @@ public class DataManager : MonoBehaviour
         if (deck.Count == 0)
         {
             SuffleUsedCards();
-
-            // 덱이 여전히 비어있다면 오류를 방지하기 위해 예외를 던집니다.
-            if (deck.Count == 0)
-            {
-            }
         }
         return deck.Pop();
     }

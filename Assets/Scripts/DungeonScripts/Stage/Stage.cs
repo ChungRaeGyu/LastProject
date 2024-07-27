@@ -45,6 +45,7 @@ public class Stage : MonoBehaviour
 
     public void BattleBtn()
     {
+        
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
         if (gameObject.name == "BossStage")

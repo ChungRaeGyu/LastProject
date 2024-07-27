@@ -11,7 +11,6 @@ public class Dungeon02 : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
