@@ -538,7 +538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDragging: 0
   dragLimitY: -340
-  audioSource: {fileID: 4620568394043863831}
 --- !u!114 &-8422195899710481067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,7 +578,7 @@ MonoBehaviour:
   cardBasic: {fileID: 0}
   cardName: "\uBA54\uD14C\uC624"
   cost: 2
-  damageAbility: 99
+  damageAbility: 15
   utilAbility: 0
   currentCount: 11
   image: {fileID: 21300000, guid: b490e9352a87da7418ed75dbbb03760e, type: 3}
@@ -593,6 +592,7 @@ MonoBehaviour:
   nameText: {fileID: 1972893899820538944}
   costText: {fileID: 5536741194926361989}
   descriptionText: {fileID: 8101368830585369959}
+  audioSource: {fileID: 0}
 --- !u!95 &3251595711392501658
 Animator:
   serializedVersion: 5
