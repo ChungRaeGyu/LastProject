@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 566679136773136946}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 1.2, z: 0}
+  m_LocalPosition: {x: -1, y: 1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 1028244232644022737}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -219,13 +219,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterStats: {fileID: 11400000, guid: 9f9b1d1a313331543aa228f8c40d1c26, type: 2}
   animator: {fileID: 0}
-  damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
-  defenseconditionPrefab: {fileID: 2555176015284709196, guid: f59af806d5c622e4e9ecde624dc827db, type: 3}
-  frozenConditionPrefab: {fileID: 2555176015284709196, guid: ae20caddbd8866c44bfb23548ec0792d, type: 3}
+  conditionInstances: []
   hpBarPos: {fileID: 7550024549025472626}
   conditionPos: {fileID: 2372896892554073779}
+  monsterName: {fileID: 0}
   MonsterCondition: {fileID: 0}
   frozenTurnsRemaining: 0
+  weakerTurnsRemaining: 0
+  defDownTurnsRemaining: 0
+  burnTurnsRemaining: 0
+  poisonTurnsRemaining: 0
+  bleedingTurnsRemaining: 0
+  isFrozen: 0
+  deBuff: {fileID: 0}
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &3079206633579136749
 BoxCollider2D:

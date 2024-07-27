@@ -291,10 +291,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterStats: {fileID: 11400000, guid: 04b190098093e6c4e9f68305637cd2d3, type: 2}
   animator: {fileID: 0}
+  conditionInstances: []
   hpBarPos: {fileID: 8644677452201008279}
   conditionPos: {fileID: 3195870973923627791}
+  monsterName: {fileID: 0}
   MonsterCondition: {fileID: 0}
   frozenTurnsRemaining: 0
+  weakerTurnsRemaining: 0
+  defDownTurnsRemaining: 0
+  burnTurnsRemaining: 0
+  poisonTurnsRemaining: 0
+  bleedingTurnsRemaining: 0
   isFrozen: 0
   deBuff: {fileID: 0}
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
@@ -661,7 +668,7 @@ Transform:
   m_GameObject: {fileID: 2606779958302282468}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -755,7 +762,7 @@ Transform:
   m_GameObject: {fileID: 3242949399866233402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 1.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
 
     public CardListManager cardListManager;
 
+    // 카드 드래그나 버튼작동을 멈추는 딜레이를 스킵하게 하는 값
+    public bool skip;
+
     private void Awake()
     {
         if (instance == null)
@@ -140,7 +143,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public IEnumerator DrawInitialHand(int count)
+    public IEnumerator DrawInitialHand(int count, bool skip = true)
     {
         for (int i = 0; i < count; i++)
         {
@@ -164,8 +167,10 @@ public class GameManager : MonoBehaviour
 
             player.InitializeCost();
 
+            skip = false;
             // 덱에서 카드 드로우
             yield return StartCoroutine(DrawInitialHand(5));
+            skip = true;
 
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
 

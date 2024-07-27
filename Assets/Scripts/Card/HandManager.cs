@@ -24,7 +24,7 @@ public class HandManager : MonoBehaviour
     {
         cards.Add(card);
         card.SetParent(handCanvas.transform, false); // HandCanvas의 자식으로 설정
-        StartCoroutine(UpdateHandLayoutCoroutine(2f));
+        StartCoroutine(UpdateHandLayoutCoroutine(2f, GameManager.instance.skip));
         UpdateCardCountText();
         UpdatUsedCardCountText();
     }
@@ -33,12 +33,12 @@ public class HandManager : MonoBehaviour
     public void RemoveCard(Transform card)
     {
         cards.Remove(card);
-        StartCoroutine(UpdateHandLayoutCoroutine(2f));
+        StartCoroutine(UpdateHandLayoutCoroutine(2f, GameManager.instance.skip));
         UpdateCardCountText();
         UpdatUsedCardCountText();
     }
 
-    private IEnumerator UpdateHandLayoutCoroutine(float delay = 1f)
+    private IEnumerator UpdateHandLayoutCoroutine(float delay = 1f, bool skip = true)
     {
         // 손패 배치가 끝나지 않았음을 표시
         setCardEnd = false;
@@ -50,7 +50,7 @@ public class HandManager : MonoBehaviour
         if (numCards == 1)
         {
             MoveAndSetupCard(cards[0], 0.5f, 0f, 0f, 0);
-            yield return new WaitForSeconds(delay); // 1초 대기
+            if (!skip) yield return new WaitForSeconds(delay); // 1초 대기
             setCardEnd = true; // 손패 배치가 끝났음을 표시
             yield break; // 메서드 종료
         }
@@ -60,7 +60,7 @@ public class HandManager : MonoBehaviour
         {
             MoveAndSetupCard(cards[0], 0.4f, 3f, 0.5f, 0, 0.1f);
             MoveAndSetupCard(cards[1], 0.6f, -3f, 0.5f, 1, 0.1f);
-            yield return new WaitForSeconds(delay); // 1초 대기
+            if (!skip) yield return new WaitForSeconds(delay); // 1초 대기
             setCardEnd = true; // 손패 배치가 끝났음을 표시
             yield break; // 메서드 종료
         }
@@ -71,7 +71,7 @@ public class HandManager : MonoBehaviour
             MoveAndSetupCard(cards[0], 0.27f, 9f, 0.75f, 0, 0.2f);
             MoveAndSetupCard(cards[1], 0.5f, 0f, 0f, 1);
             MoveAndSetupCard(cards[2], 0.73f, -9f, 0.75f, 2, 0.2f);
-            yield return new WaitForSeconds(delay); // 1초 대기
+            if (!skip) yield return new WaitForSeconds(delay); // 1초 대기
             setCardEnd = true; // 손패 배치가 끝났음을 표시
             yield break; // 메서드 종료
         }
@@ -83,7 +83,7 @@ public class HandManager : MonoBehaviour
             MoveAndSetupCard(cards[1], 0.38f, 4f, 0.5f, 1, 0.1f);
             MoveAndSetupCard(cards[2], 0.62f, -4f, 0.5f, 2, 0.1f);
             MoveAndSetupCard(cards[3], 0.85f, -8.5f, 1f, 3, 0.2f);
-            yield return new WaitForSeconds(delay); // 1초 대기
+            if (!skip) yield return new WaitForSeconds(delay); // 1초 대기
             setCardEnd = true; // 손패 배치가 끝났음을 표시
             yield break; // 메서드 종료
         }
@@ -102,7 +102,7 @@ public class HandManager : MonoBehaviour
         }
 
         // 1초 대기 후 손패 배치가 끝났음을 표시
-        yield return new WaitForSeconds(delay);
+        if (!skip) yield return new WaitForSeconds(delay);
         setCardEnd = true;
     }
 
@@ -220,7 +220,7 @@ public class HandManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(UpdateHandLayoutCoroutine());
+        StartCoroutine(UpdateHandLayoutCoroutine(1f, GameManager.instance.skip));
         UpdateCardCountText();
         UpdatUsedCardCountText();
     }

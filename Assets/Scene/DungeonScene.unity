@@ -21999,12 +21999,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -30153,7 +30153,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2070731565
 Transform:
   m_ObjectHideFlags: 0
@@ -32608,11 +32608,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1542671646691102494, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 1542671646691102494, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 90
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1542671646691102494, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32644,11 +32644,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1542671646691102494, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -700
+      value: -480
       objectReference: {fileID: 0}
     - target: {fileID: 1542671646691102494, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 1542671646691102494, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -32662,17 +32662,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2292510249430700405, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -280
+    - target: {fileID: 8274711241122015910, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8732762768435705393, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
       propertyPath: m_Name
       value: DungeonTimer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732762768435705393, guid: d456dcc9be8ad8b4f82f25981301f975, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33474,6 +33470,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3077438268257331052, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3471339605386763756, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8698932189957242645, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
