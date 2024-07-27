@@ -59,22 +59,17 @@ public class Mimic : MonsterCharacter
                 if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
                 {
                     monsterStats.maxhealth = 0;
-                    GameManager.instance.player.TakeDamage(30);
+                    yield return PerformAttack(30);
                 }
             }
             if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
             }
             else
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            }
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
+                yield return PerformAttack(monsterStats.attackPower);
             }
         }
 

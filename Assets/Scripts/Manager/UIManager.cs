@@ -277,7 +277,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void MoveUIElementsToStartPositions()
+    public void MoveUIElementsToStartPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(-725, costImage.rectTransform.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), new Vector2(-130, turnEndButton.GetComponent<RectTransform>().anchoredPosition.y), 0.5f));
@@ -291,6 +291,20 @@ public class UIManager : MonoBehaviour
         StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+    }
+
+    public void UnUsedCardsResetUIPositions()
+    {
+        StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+    }
+
+    public void UsedCardsResetUIPositions()
+    {
+        StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
     }
 
     // 패배 시 호출될 메서드
@@ -480,15 +494,5 @@ public class UIManager : MonoBehaviour
 
         SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
-    }
-
-    public void ShowUseCardList()
-    {
-        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
-    }
-
-    public void ShowUnUseCardList()
-    {
-        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
     }
 }

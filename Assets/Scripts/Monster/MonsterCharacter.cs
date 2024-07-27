@@ -64,8 +64,6 @@ public class MonsterCharacter : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-
-
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
         currenthealth -= actualDamage;
@@ -121,7 +119,7 @@ public class MonsterCharacter : MonoBehaviour
 
     protected virtual void Die()
     {
-        if(isFrozen)
+        if (isFrozen)
             GameManager.instance.DeBuffAnim(deBuff);
         Destroy(gameObject);
     }
@@ -212,6 +210,21 @@ public class MonsterCharacter : MonoBehaviour
         yield return null;
     }
 
+    protected IEnumerator PerformAttack(int damage, float attackDelay = 1.2f)
+    {
+        // 애니메이션 트리거
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        GameManager.instance.player.TakeDamage(damage);
+
+        //대기 시간
+        yield return new WaitForSeconds(attackDelay);
+    }
 
     #region 디버프
     public virtual void FreezeForTurns(int turns)
@@ -230,7 +243,7 @@ public class MonsterCharacter : MonoBehaviour
         }
         Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
     }
-    public void WeakForTurns(int turns,float ability)
+    public void WeakForTurns(int turns, float ability)
     {
         //약화 : 몬스터의 공격력이 약해진다.
         weakerTurnsRemaining += turns;
@@ -244,7 +257,7 @@ public class MonsterCharacter : MonoBehaviour
         {
             AddCondition(MonsterCondition, turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
             //약화 
-            monsterStats.attackPower = (int)(monsterStats.attackPower* (1-ability));
+            monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
         }
     }
     public void DefDownForTurns(int turns, float ability)

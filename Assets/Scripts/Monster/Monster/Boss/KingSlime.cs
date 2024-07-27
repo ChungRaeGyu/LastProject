@@ -60,7 +60,8 @@ public class KingSlime : MonsterCharacter
 
             if (bossTurnCount <= 4 && !strongAttack) // 3턴동안 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
+
                 strongAttack = true;
                 Debug.Log(this.name + "초반 공격" + monsterStats.attackPower * 2 + "데미지");
                 yield return new WaitForSeconds(1f);
@@ -68,31 +69,30 @@ public class KingSlime : MonsterCharacter
 
             else if (bossTurnCount % 10 == 0) // 10턴 뒤 공격력 3배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
+                yield return PerformAttack(monsterStats.attackPower * 3);
+
                 Debug.Log(this.name + "이 강한 공격을 했다!" + monsterStats.attackPower * 3 + "데미지");
                 yield return new WaitForSeconds(1f);
             }
 
             else if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
+
                 Debug.Log(this.name + "이 일정 확률로 강한공격!");
                 yield return new WaitForSeconds(1f);
             }
 
             else // 기본공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+                yield return PerformAttack(monsterStats.attackPower);
+
                 yield return new WaitForSeconds(1f);
             }
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        if (animator != null) // 애니메이션
-        {
-            animator.SetTrigger("Attack");
-        }
         // 공격 후에 필요한 다른 동작
 
         // 공격 후에 다음 턴을 위해 GameManager에 알림

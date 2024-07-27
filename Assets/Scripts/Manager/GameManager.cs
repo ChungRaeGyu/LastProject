@@ -54,8 +54,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip CardDrawClip;
 
+    [Header("ScrollView")]
+    [SerializeField] private GameObject unUsedScrollView;
+    [SerializeField] private GameObject usedScrollView;
+
     // 몬스터에 대한 보상 코인 합산
     public int monsterTotalRewardCoin;
+
+    public CardListManager cardListManager;
 
     private void Awake()
     {
@@ -76,6 +82,8 @@ public class GameManager : MonoBehaviour
             player = playerObject.GetComponent<Player>();
             Debug.Log($"{player}");
         }
+
+        cardListManager = GetComponent<CardListManager>();
 
         // 몬스터 생성
         SpawnMonsters();
@@ -313,6 +321,9 @@ public class GameManager : MonoBehaviour
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
 
+        if (!playerTurn) return;
+        if (!handManager.setCardEnd) return;
+
         handManager.MoveUnusedCardsToUsed();
         playerTurn = false;
     }
@@ -330,4 +341,58 @@ public class GameManager : MonoBehaviour
             Destroy(deBuff);
         }
     }
+
+    // ScrollView의 활성화/비활성화 공통 메서드
+    private void ToggleScrollView(GameObject scrollView, Action showCardsAction, Action hideCardsAction, Action resetUIAction, bool fadeRewardPanelActive, Action updateList)
+    {
+        if (scrollView != null)
+        {
+            if (scrollView.activeSelf)
+            {
+                // 비활성화
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+                UIManager.instance.MoveUIElementsToStartPositions();
+                UIManager.instance.fadeRewardPanel.gameObject.SetActive(false);
+                showCardsAction?.Invoke();
+            }
+            else
+            {
+                // 활성화
+                updateList?.Invoke();
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+                resetUIAction?.Invoke();
+                UIManager.instance.fadeRewardPanel.gameObject.SetActive(fadeRewardPanelActive);
+                hideCardsAction?.Invoke();
+            }
+
+            scrollView.SetActive(!scrollView.activeSelf);
+        }
+    }
+
+    // unUsedScrollView 활성화/비활성화 메서드
+    public void ToggleUnUsedScrollView()
+    {
+        ToggleScrollView(
+            unUsedScrollView,
+            handManager.ShowAllCardsActive,  // 카드 표시
+            handManager.HideAllCardsActive,  // 카드 숨기기
+            UIManager.instance.UnUsedCardsResetUIPositions, // UI 위치 재설정
+            true, // fadeRewardPanel 활성화
+            cardListManager.UpdateDeckList
+        );
+    }
+
+    // usedScrollView 활성화/비활성화 메서드
+    public void ToggleUsedScrollView()
+    {
+        ToggleScrollView(
+            usedScrollView,
+            handManager.ShowAllCardsActive,  // 카드 표시
+            handManager.HideAllCardsActive,  // 카드 숨기기
+            UIManager.instance.UsedCardsResetUIPositions, // UI 위치 재설정
+            true, // fadeRewardPanel 활성화
+            cardListManager.UpdateUsedCardsList
+        );
+    }
+
 }

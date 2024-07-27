@@ -63,26 +63,28 @@ public class Wolf : MonsterCharacter
 
             if (monsterTurn / 3 == 0) // 3턴 마다 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
             }
 
             if (random.Next(0, 100) < 15) // 15% 확률로 공격력 3배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 3);
+                yield return PerformAttack(monsterStats.attackPower * 3);
+
                 Debug.Log(this.name + "이 강한공격!");
             }
             else
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
+                yield return PerformAttack(monsterStats.attackPower);
+
                 monsterStats.maxhealth += monsterStats.attackPower;
             }
 
             if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
 
-                GameManager.instance.player.TakeDamage(5);
+                yield return PerformAttack(5);
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 buffCounterOnOff = true;
 
@@ -93,12 +95,7 @@ public class Wolf : MonsterCharacter
             }
             else
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            }
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
+                yield return PerformAttack(monsterStats.attackPower);
             }
         }
 

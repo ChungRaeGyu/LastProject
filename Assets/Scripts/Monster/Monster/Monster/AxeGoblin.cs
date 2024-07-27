@@ -58,10 +58,9 @@ public class AxeGoblin : MonsterCharacter
 
             if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
-                yield return new WaitForSeconds(0.5f);
-                GameManager.instance.player.TakeDamage(5);
+                yield return PerformAttack(5);
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 buffCounterOnOff = true;
 
@@ -72,12 +71,7 @@ public class AxeGoblin : MonsterCharacter
             }
             else
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            }
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
+                yield return PerformAttack(monsterStats.attackPower);
             }
         }
 

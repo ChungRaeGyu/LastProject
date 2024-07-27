@@ -56,7 +56,8 @@ public class Turtle : MonsterCharacter
 
             if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                yield return PerformAttack(monsterStats.attackPower * 2);
+
                 Debug.Log(this.name + "이 강한공격!");
             }
             else if (monsterTurn / 3 == 0) // 3턴마다 방어력 1 상승
@@ -65,12 +66,7 @@ public class Turtle : MonsterCharacter
             }
             else
             {
-                GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            }
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
+                yield return PerformAttack(monsterStats.attackPower);
             }
         }
 

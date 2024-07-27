@@ -54,16 +54,19 @@ public class Bee : MonsterCharacter
             if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower * 2);
+                if (animator != null)
+                {
+                    animator.SetTrigger("Attack");
+                }
                 Debug.Log(this.name + "이 강한공격!");
             }
             else
             {
                 GameManager.instance.player.TakeDamage(monsterStats.attackPower);
-            }
-
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");
+                if (animator != null)
+                {
+                    animator.SetTrigger("Attack");
+                }
             }
         }
 
