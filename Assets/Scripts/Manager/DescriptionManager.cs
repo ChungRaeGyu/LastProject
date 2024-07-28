@@ -97,6 +97,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void DeCompositionPanelBtn()
     {
+        if (currentCard.cardBasic.currentCount <= 0) return;
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         //분해창 오픈
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
@@ -132,4 +133,17 @@ public class DescriptionManager : MonoBehaviour
         cardSubject.text = num.ToString();
         LobbyManager.instance.InvokeCount();
     }
+    
+    //제작 버튼
+    public void MakingCard()
+    {
+        if (DataManager.Instance.CardPiece[(int)currentCard.rate] > 100)
+        {
+            DataManager.Instance.CardPiece[(int)currentCard.rate] -= 100;
+            currentCard.cardBasic.currentCount++;
+        }
+    }
+
+
+
 }
