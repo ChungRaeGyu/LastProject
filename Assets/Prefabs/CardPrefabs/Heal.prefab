@@ -460,7 +460,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDragging: 0
   dragLimitY: -340
-  audioSource: {fileID: -7147299002427153917}
 --- !u!114 &323401942279387412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,7 +502,7 @@ MonoBehaviour:
   cost: 1
   damageAbility: 0
   utilAbility: 5
-  currentCount: 2
+  currentCount: 0
   image: {fileID: 21300000, guid: 1cb9197cc86d4ee41b57a81431fe3352, type: 3}
   job: 0
   rate: 1
@@ -515,6 +514,7 @@ MonoBehaviour:
   nameText: {fileID: 6030839025843857421}
   costText: {fileID: 6794821868858011651}
   descriptionText: {fileID: 320888928599249707}
+  audioSource: {fileID: 0}
 --- !u!95 &-1598070861796313375
 Animator:
   serializedVersion: 5
