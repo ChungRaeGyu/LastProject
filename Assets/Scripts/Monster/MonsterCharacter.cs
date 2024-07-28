@@ -10,7 +10,7 @@ public class MonsterCharacter : MonoBehaviour
 {
     public MonsterStats monsterStats;
     private int baseAttackPower;
-    public int currenthealth { get; private set; }
+    public int currenthealth;
 
     public Animator animator;
 
@@ -21,11 +21,13 @@ public class MonsterCharacter : MonoBehaviour
 
     public Transform hpBarPos; // HP 바 위치
     public Transform conditionPos; // 컨디션 위치
+    public Transform monsterNextActionPos; // 다음 행동을 나타낼 위치
+    public Transform monsterNamePos; // 이름 위치
 
-    public TMP_Text monsterName;
+    private Transform MonsterCondition;
+    public Transform monsterNextAction { get; set; }
+    private Transform monsterName;
 
-    [HideInInspector]
-    public Transform MonsterCondition;
     //디버프관련변수
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
     public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
@@ -37,6 +39,9 @@ public class MonsterCharacter : MonoBehaviour
     private float defDownValue;
     public bool isFrozen; // 얼었는지 확인하는 용도
 
+    public bool boss;
+
+    public System.Random random = new System.Random();
 
     [Header("DeBuff_InputScript")]
     public GameObject deBuff;
@@ -50,16 +55,36 @@ public class MonsterCharacter : MonoBehaviour
     public void Start()
     {
         currenthealth = monsterStats.maxhealth;
+        // 몬스터에 랜덤한
+        if (!boss)
+        {
+            int hpUp = random.Next(0, 10);
+            currenthealth += hpUp;
+        }
         baseAttackPower = monsterStats.attackPower;
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
         MonsterCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
         AddCondition(MonsterCondition, monsterStats.defense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
+
+        monsterNextAction = Instantiate(GameManager.instance.attackActionPrefab, UIManager.instance.nextActionCanvas.transform).transform;
+        monsterNextAction.gameObject.SetActive(false);
+
+        monsterName = Instantiate(GameManager.instance.monsterNamePrefab, UIManager.instance.monsterNameCanvas.transform).transform;
+
+        // TMP_Text 컴포넌트를 찾아서 몬스터 이름 설정
+        TMP_Text nameText = monsterName.GetComponentInChildren<TMP_Text>();
+        if (nameText != null)
+        {
+            nameText.text = monsterStats.monsterName;
+        }
     }
 
     private void Update()
     {
         MonsterCondition.position = conditionPos.position;
+        monsterNextAction.position = monsterNextActionPos.position;
+        monsterName.position = monsterNamePos.position;
     }
 
     public virtual void TakeDamage(int damage)
@@ -121,6 +146,17 @@ public class MonsterCharacter : MonoBehaviour
     {
         if (isFrozen)
             GameManager.instance.DeBuffAnim(deBuff);
+
+        if (monsterNextAction != null)
+        {
+            Destroy(monsterNextAction.gameObject);
+        }
+
+        if (monsterName != null)
+        {
+            Destroy(monsterName.gameObject);
+        }
+
         Destroy(gameObject);
     }
 

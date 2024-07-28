@@ -7,8 +7,6 @@ public class DaggerGoblin : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
-    private System.Random random = new System.Random();
-
     private int monsterTurn = 0;
     private bool buffCounterOnOff = false;
 
@@ -19,11 +17,9 @@ public class DaggerGoblin : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 10);
-
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth + hpUp, monsterStats.maxhealth + hpUp, transform.GetChild(1));
+            healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
     }
 
@@ -54,6 +50,10 @@ public class DaggerGoblin : MonsterCharacter
 
         if (!isFrozen)
         {
+            monsterNextAction.gameObject.SetActive(false);
+
+            // 행동 이미지에 연출을 줌
+
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
             if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격

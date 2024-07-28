@@ -46,7 +46,8 @@ public class UIManager : MonoBehaviour
     [Header("UI")]
     public Canvas healthBarCanvas;
     public Canvas conditionCanvas;
-    public Canvas InfoCanvas;
+    public Canvas nextActionCanvas;
+    public Canvas monsterNameCanvas;
     public TMP_Text costText;
     public TMP_Text TurnText;
     public TMP_Text currentCoinText;
@@ -79,6 +80,10 @@ public class UIManager : MonoBehaviour
     public TMP_Text victoryBossesDefeatedCountPointText; // 보스 처치
     public TMP_Text victoryRemainingCoinCountPointText; // 잔여 코인
     public TMP_Text victoryTotalCrystal; // 획득한 크리스탈
+
+    [Header("VictoryPoint")]
+    public AudioSource SFXAudioSource;
+    public AudioClip CoinClip;
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
     private Vector2 originalCostImagePosition;
@@ -125,13 +130,12 @@ public class UIManager : MonoBehaviour
         rectTransform.anchoredPosition = targetPosition;
     }
 
-
-
     public void AddCoin()
     {
         DataManager.Instance.currentCoin += GameManager.instance.monsterTotalRewardCoin;
 
         // 동전소리? 같은거 나게함
+        SFXAudioSource.PlayOneShot(CoinClip);
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
         addCoinButton.gameObject.SetActive(false);

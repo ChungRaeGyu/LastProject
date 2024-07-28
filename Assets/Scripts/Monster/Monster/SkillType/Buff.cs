@@ -5,7 +5,7 @@ using UnityEngine;
 public class Buff : MonsterCharacter
 {
     private PlayerStats playerStats;
-    private System.Random random = new System.Random(); // 디버프가 걸릴 확률
+    //private System.Random random = new System.Random(); // 디버프가 걸릴 확률
 
     private int buffCounter = 5;  // 디버프 카운트
     private bool buffCounterOnOff = false; // 디버프 활성화

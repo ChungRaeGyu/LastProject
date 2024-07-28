@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
     public HandManager handManager; // 손 패 매니저
     public EffectManager effectManager;
 
+    [Header("MonsterInfoPrefabs")]
+    public GameObject attackActionPrefab;
+    public GameObject monsterNamePrefab;
+
     [Header("Condition")]
     public GameObject conditionBoxPrefab;
     public Condition defenseconditionPrefab;
@@ -172,6 +176,15 @@ public class GameManager : MonoBehaviour
             yield return StartCoroutine(DrawInitialHand(5));
             skip = true;
 
+            foreach (MonsterCharacter monster in monsters)
+            {
+                if (monster.monsterNextAction != null)
+                {
+                    if (monster.frozenTurnsRemaining <= 1)
+                    monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
+                }
+            }
+
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
@@ -189,6 +202,7 @@ public class GameManager : MonoBehaviour
                     yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
             }
+
             Debug.Log("----- 몬스터들의 턴 종료 -----");
 
             turnCount++;
@@ -291,7 +305,7 @@ public class GameManager : MonoBehaviour
         SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.bossesDefeatedCount}");
         SetText(UIManager.instance.victoryRemainingCoinCountPointText, $"{DataManager.Instance.adjustedCurrentCoin}");
     }
-        
+
     private void SetText(TMP_Text textComponent, string text)
     {
         if (textComponent != null)

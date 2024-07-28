@@ -8,8 +8,6 @@ public class Monster : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
-    private System.Random random = new System.Random();
-
     private new void Start()
     {
         base.Start();
@@ -17,11 +15,9 @@ public class Monster : MonsterCharacter
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
-            int hpUp = random.Next(0, 6); // 0~5 까지 랜덤 hp상승 효과
-
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
-            healthBarInstance.Initialized(monsterStats.maxhealth + hpUp, monsterStats.maxhealth + hpUp, transform.GetChild(1));
+            healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
     }
 
@@ -61,6 +57,10 @@ public class Monster : MonsterCharacter
         //        Debug.Log(this.name + "디버프 끝! ");
         //    }
         //}
+        monsterNextAction.gameObject.SetActive(false);
+
+        // 행동 이미지에 연출을 줌
+
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
         GameManager.instance.player.TakeDamage(monsterStats.attackPower);
