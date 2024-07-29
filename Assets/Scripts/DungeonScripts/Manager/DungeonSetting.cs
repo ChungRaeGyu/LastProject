@@ -89,7 +89,6 @@ public class DungeonSetting : MonoBehaviour
                 }
                 SaveManager.Instance.accessDungeonNum = 0;
 
-                SaveManager.Instance.playerPosition = Dungeon01.Instance.stageNum[0].transform.position;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 

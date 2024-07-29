@@ -4,49 +4,45 @@ using UnityEngine;
 
 public class Dungeon_Test : MonoBehaviour
 {
-    public GameObject[] stage;
+    public GameObject[,] stage;
     public GameObject stagePrefab;
 
-    //public Transform stagePosition;
+
+    public Canvas stageCanvas;
 
     public int[,] isStage;
-    public Vector2[,] stagePosition;
+
+    public int x;
+    public int y;
 
     // Start is called before the first frame update
     void Start()
     {
-        isStage = new int[7, 9] { { 0, 0, 0, 1, 0, 1, 0, 0, 0 },
-                                  { 0, 0, 1, 0, 1, 0, 1, 0, 0 },
-                                  { 0, 1, 0, 1, 0, 1, 0, 1, 0 },
-                                  { 1, 0, 1, 0, 1, 0, 1, 0, 1 },
-                                  { 0, 1, 0, 1, 0, 1, 0, 1, 0 },
-                                  { 0, 0, 1, 0, 1, 0, 1, 0, 0 },
-                                  { 0, 0, 0, 1, 0, 1, 0, 0, 0 } };
+        isStage = new int[,] { { 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0 },
+                               { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0 },
+                               { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 },
+                               { 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
+                               { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0 },
+                               { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0 },
+                               { 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0 } };
 
-        //{0,0}
 
-        stagePosition = new Vector2[7, 9];
+        stage = new GameObject[x, y];
 
-        for (int a = 0; a < 7; a++)
+        for (int a = 0; a < x; a++)
         {
-            for (int b = 0; b < 9; b++)
+            for (int b = 0; b < y; b++)
             {
-                stagePosition[a, b] = new Vector2(b, a * 1.8f);
-            }
-        }
 
-        stage = new GameObject[63];
-        for (int i = 0; i < 7; i++)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                if (isStage[i, j] == 1)
+                if (isStage[a, b] == 1)
                 {
-                    stage[9 * i + j] = Instantiate(stagePrefab, stagePosition[i, j], Quaternion.identity);
+                    stage[a, b] = Instantiate(stagePrefab, stageCanvas.transform);
+                    stage[a, b].transform.position = new Vector2(a, b);
                 }
+
             }
         }
-        
+        SaveManager.Instance.playerPosition = stage[x/2,0].transform.position;
     }
 
     // Update is called once per frame
