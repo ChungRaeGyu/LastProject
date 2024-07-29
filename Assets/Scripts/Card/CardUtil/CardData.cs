@@ -57,10 +57,6 @@ public class CardData : MonoBehaviour
         float newValue = ConvertRange(transform.position.x, -1178, 4386, 3, 5) * 1.5f;
 
         transform.localScale = new Vector2(1 * newValue, 1.5f * newValue);
-        if (image[1].sprite == DataManager.Instance.cardBackImage)
-        {
-
-        }
 
         if (transform.localScale.x > 5)
         {

@@ -46,8 +46,8 @@ public class Blood : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다.{utilAbility}의 피를 회복합니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.{utilAbility}의 피를 회복합니다.";
         }
     }
 

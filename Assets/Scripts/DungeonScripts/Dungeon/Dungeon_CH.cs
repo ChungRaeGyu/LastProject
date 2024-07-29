@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class Dungeon_CH : MonoBehaviour
 {
-    bool[,] stages = new bool[5, 7];
+    public int boardX;
+    public int boardY;
+    bool[,] stages;
     
     void Start()
     {
+        stages = new bool[boardX, boardY];
         Init();
     }
 
@@ -18,14 +21,7 @@ public class Dungeon_CH : MonoBehaviour
         {
             for (int j = 0; j < stages.GetLength(1); j++)
             {
-                if (i <= stages.GetLength(0) / 2)
-                {
-
-                }
-                else
-                {
-
-                }
+                
             }
         }
     }
