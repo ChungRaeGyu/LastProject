@@ -21,7 +21,7 @@ public class Dungeon01 : MonoBehaviour
             }
         }
     }
-
+    public Dictionary<int,List<GameObject>> keyValuePairs = new Dictionary<int,List<GameObject>>();
     public GameObject[] stageNum;
     public GameObject[] stageBtn;
 

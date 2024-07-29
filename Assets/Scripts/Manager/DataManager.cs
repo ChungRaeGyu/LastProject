@@ -40,7 +40,8 @@ public class DataManager : MonoBehaviour
     [Header("Deck")]
     public List<CardBasic> LobbyDeck = new List<CardBasic>(); //기본카드로 들고갈 덱
                                                               //게임시작 버튼을 눌렀을 때 deckList에 넣어줘야함)
-                                                              //최대 6장 고정 6장 미만시 게임시작 불가능
+    [HideInInspector]                                                       //최대 6장 고정 6장 미만시 게임시작 불가능
+    public int[] LobbyDeckRateCheck = new int[(int)Rate.Count];
 
     [HideInInspector]
     public List<CardBasic> deckList = new List<CardBasic>(); //던전에서 사용할 덱 리스트

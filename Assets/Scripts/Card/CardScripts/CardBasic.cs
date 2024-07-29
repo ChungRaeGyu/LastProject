@@ -31,6 +31,7 @@ public enum Rate
     Normal,
     Rarity,
     Hero,
+    Legend,
     Count
 }
 public class CardBasic : MonoBehaviour

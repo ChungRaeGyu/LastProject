@@ -43,10 +43,11 @@ public class DeckControl : MonoBehaviour
             Debug.Log("6¿Â¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ.");
             return;
         }
-        Debug.Log("AddCardObj" + cardBasic);
+        if (RateCheck(cardBasic)) return;
         cardBasic.currentCount--;
         LobbyManager.instance.InvokeCount();
         DataManager.Instance.LobbyDeck.Add(cardBasic);
+        DataManager.Instance.LobbyDeckRateCheck[(int)cardBasic.rate]++;
         GameObject obj = Instantiate(cardBasic.deckCardImage, Canvas.transform);
         obj.GetComponent<DeckListObj>().cardBasic= cardBasic;
         obj.SetActive(true); 
@@ -56,6 +57,29 @@ public class DeckControl : MonoBehaviour
         cardBasic.currentCount++;
         LobbyManager.instance.InvokeCount();
         DataManager.Instance.LobbyDeck.Remove(cardBasic);
+    }
+
+    private bool RateCheck(CardBasic cardBasic)
+    {
+        if (cardBasic.rate == Rate.Rarity)
+        {
+            if (DataManager.Instance.LobbyDeckRateCheck[(int)cardBasic.rate] >= 2)
+            {
+                return true;
+            }
+            else
+                return false;
+        }else if(cardBasic.rate == Rate.Hero||cardBasic.rate==Rate.Legend)
+        {
+            if (DataManager.Instance.LobbyDeckRateCheck[(int)cardBasic.rate] >= 1)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return false;
+        }
     }
     #endregion
 }

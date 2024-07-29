@@ -253,7 +253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDragging: 0
   dragLimitY: -340
-  audioSource: {fileID: 5833299610622415675}
 --- !u!114 &-2778258329077608676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,10 +313,10 @@ MonoBehaviour:
   cost: 2
   damageAbility: 10
   utilAbility: 0
-  currentCount: 1
+  currentCount: 8
   image: {fileID: 21300000, guid: a63ab91a7b7d37d488baec3b460c1da3, type: 3}
   job: 3
-  rate: 1
+  rate: 2
   effect: {fileID: 0}
   dragLineCard: 1
   attackEffect: {fileID: 0}
@@ -326,6 +325,7 @@ MonoBehaviour:
   nameText: {fileID: 6829335494324872386}
   costText: {fileID: 2534594926307945825}
   descriptionText: {fileID: 2581341808501073629}
+  audioSource: {fileID: 0}
   bezierDragLine: {fileID: 0}
 --- !u!120 &-6128813661473196628
 LineRenderer:

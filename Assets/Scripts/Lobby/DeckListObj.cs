@@ -31,7 +31,6 @@ public class DeckListObj : MonoBehaviour
     private void OnMouseDown()
     {
         if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
-        Debug.Log("누름");
         StartCoroutine(OnClickDetect());
 
     }
@@ -86,6 +85,5 @@ public class DeckListObj : MonoBehaviour
             }
             yield return null; // 한 프레임씩 대기
         }
-        Debug.Log("종료");
     }
 }
