@@ -44,6 +44,11 @@ public class Heal : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse();
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse();
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -56,8 +61,7 @@ public class Heal : CardBasic
         return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
-
-    public void CardUse(Monster targetMonster = null)
+    public void CardUse(MonsterCharacter targetMonster = null)
     {
         GameManager.instance.effectManager.PlayerEffect(cardBasic);
         GameManager.instance.player.Heal(utilAbility);

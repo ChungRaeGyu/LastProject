@@ -62,6 +62,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject unUsedScrollView;
     [SerializeField] private GameObject usedScrollView;
 
+    [Header("CardUtil")]
+    public bool volumeUp = false;
+
     // 몬스터에 대한 보상 코인 합산
     public int monsterTotalRewardCoin;
 

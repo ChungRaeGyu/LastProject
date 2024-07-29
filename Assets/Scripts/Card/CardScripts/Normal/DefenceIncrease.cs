@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DefenceIncrease : CardBasic
@@ -47,6 +48,11 @@ public class DefenceIncrease : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse();
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse();
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 

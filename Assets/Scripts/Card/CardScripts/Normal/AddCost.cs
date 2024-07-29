@@ -52,6 +52,11 @@ public class AddCost : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse(targetMonster);
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse(targetMonster);
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -64,7 +69,7 @@ public class AddCost : CardBasic
         return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
-    public void CardUse(Monster targetMonster)
+    public void CardUse(MonsterCharacter targetMonster)
     {
         GameManager.instance.effectManager.PlayerEffect(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);

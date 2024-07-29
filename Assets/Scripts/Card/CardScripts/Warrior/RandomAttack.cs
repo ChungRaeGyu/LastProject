@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,6 +58,11 @@ public class RandomAttack : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse();
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse();
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 

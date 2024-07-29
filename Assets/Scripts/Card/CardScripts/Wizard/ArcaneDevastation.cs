@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Playables;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class ArcaneDevastation : CardBasic
@@ -55,7 +56,11 @@ public class ArcaneDevastation : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse(targetMonster);
-
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse(targetMonster);
+                GameManager.instance.volumeUp = false;
+            }
             // 몬스터가 죽었는지 확인
             if (targetMonster.IsDead())
             {
@@ -75,8 +80,8 @@ public class ArcaneDevastation : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(damageAbility);
-        PlayPlayerAttackAnimation();
+{        targetMonster.TakeDamage(damageAbility);
+        PlayPlayerAttackAnimation();}
     }
 
     private void RecoverCost()

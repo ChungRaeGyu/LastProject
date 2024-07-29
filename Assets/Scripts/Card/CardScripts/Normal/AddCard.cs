@@ -43,7 +43,6 @@ public class AddCard : CardBasic
     {
         if (GameManager.instance.player != null)
         {
-
             CardUse();
         }
 
@@ -59,6 +58,11 @@ public class AddCard : CardBasic
     public void CardUse(Monster targetMonster = null)
     {
         GameManager.instance.player.UseCost(cost);
+        if (GameManager.instance.volumeUp)
+        {
+            GameManager.instance.player.UseCost(cost);
+            GameManager.instance.volumeUp = false;
+        }
         DataManager.Instance.AddUsedCard(cardBasic);
 
         GameManager.instance.handManager.RemoveCard(transform);

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,6 +48,11 @@ public class LatentPotential : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse(targetMonster);
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse(targetMonster);
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 

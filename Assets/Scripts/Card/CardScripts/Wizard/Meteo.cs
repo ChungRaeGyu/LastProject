@@ -47,6 +47,11 @@ public class Meteo : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse();
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse();
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 

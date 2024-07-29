@@ -61,6 +61,11 @@ public class Blood : CardBasic
             GameManager.instance.player.UseCost(cost);
 
             CardUse(targetMonster);
+            if (GameManager.instance.volumeUp)
+            {
+                CardUse(targetMonster);
+                GameManager.instance.volumeUp = false;
+            }
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
