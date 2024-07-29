@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Dungeon_CH : MonoBehaviour
 {
+    //x´Â È¦¼ö
+    //y >=x
     public int boardX;
     public int boardY;
     bool[,] stages;
@@ -17,15 +19,15 @@ public class Dungeon_CH : MonoBehaviour
 
     private void Init()
     {
-        for (int i = 0; i < stages.GetLength(0); i++)
+        for (int i = 0; i < boardX; i++)
         {
-            for (int j = 0; j < stages.GetLength(1); j++)
+            for (int j = 0; j < boardY; j++)
             {
-                
+                if(Mathf.Abs(i-(int)(boardX / 2))<j&&boardY-M)
             }
         }
     }
-
+        
     // Update is called once per frame
     void Update()
     {
