@@ -8,7 +8,6 @@ public class DaggerGoblin : MonsterCharacter
     private HpBar healthBarInstance;
 
     private int monsterTurn = 0;
-    private bool buffCounterOnOff = false;
 
     private new void Start()
     {
@@ -20,6 +19,24 @@ public class DaggerGoblin : MonsterCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // 공격 의도가 있을 때
+        if (!isFrozen)
+        {
+            if (monsterTurn < 2)
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+            else
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
+        }
+        else
+        {
+            attackDescriptionText.text = "";
         }
     }
 
@@ -43,8 +60,6 @@ public class DaggerGoblin : MonsterCharacter
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
-        monsterTurn++;
-
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
 
@@ -56,18 +71,13 @@ public class DaggerGoblin : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (monsterTurn / 3 == 0 && !buffCounterOnOff) // 2턴 뒤 공격력 2배 공격
+            if (monsterTurn < 2) // 2턴 동안 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
                 yield return PerformAttack(5);
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
-                buffCounterOnOff = true;
-
-                if (monsterTurn <= 4) // 4턴째에 디버프 끝
-                {
-                    buffCounterOnOff = false;
-                }
+                //attackDescriptionObject.SetActive(false);
             }
             else
             {
@@ -76,6 +86,8 @@ public class DaggerGoblin : MonsterCharacter
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+        monsterTurn++;
 
         GameManager.instance.EndMonsterTurn();
     }

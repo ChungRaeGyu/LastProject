@@ -39,8 +39,10 @@ public class GameManager : MonoBehaviour
 
     [Header("MonsterInfoPrefabs")]
     public GameObject attackActionPrefab;
+    public GameObject monsterNextActionListPrefab;
+    public GameObject actionDescriptionPrefab;
     public GameObject monsterNamePrefab;
-
+    
     [Header("Condition")]
     public GameObject conditionBoxPrefab;
     public Condition defenseconditionPrefab;
@@ -183,7 +185,7 @@ public class GameManager : MonoBehaviour
             {
                 if (monster.monsterNextAction != null)
                 {
-                    if (monster.frozenTurnsRemaining <= 1)
+                    if (monster.frozenTurnsRemaining < 1)
                     monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
                 }
             }

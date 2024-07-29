@@ -8,6 +8,8 @@ public class Mimic : MonsterCharacter
     private HpBar healthBarInstance;
 
     private int monsterTurn = 0;
+    private int attackRandomValue;
+
     private new void Start()
     {
         base.Start();
@@ -18,6 +20,29 @@ public class Mimic : MonsterCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // 공격 의도가 있을 때
+        if (!isFrozen)
+        {
+            if (monsterTurn == 5)
+            {
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n 다음 턴에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
+                return;
+            }
+            if (attackRandomValue < 15)
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            else
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
+        }
+        else
+        {
+            attackDescriptionText.text = "";
         }
     }
 
@@ -41,8 +66,6 @@ public class Mimic : MonsterCharacter
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
-        monsterTurn++;
-
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.MonsterTurn();
 
@@ -54,15 +77,13 @@ public class Mimic : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (monsterTurn >= 0) // 바로 시작
+            if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
             {
-                if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
-                {
-                    monsterStats.maxhealth = 0;
-                    yield return PerformAttack(30);
-                }
+                monsterStats.maxhealth = 0;
+                yield return PerformAttack(30);
             }
-            if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+
+            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
@@ -74,6 +95,10 @@ public class Mimic : MonsterCharacter
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+        monsterTurn++;
+
+        attackRandomValue = Random.Range(0, 100);
 
         GameManager.instance.EndMonsterTurn();
     }

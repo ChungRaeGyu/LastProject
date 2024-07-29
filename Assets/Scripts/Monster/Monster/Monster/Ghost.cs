@@ -7,6 +7,8 @@ public class Ghost : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private int attackRandomValue;
+
     private new void Start()
     {
         base.Start();
@@ -17,6 +19,24 @@ public class Ghost : MonsterCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // 공격 의도가 있을 때
+        if (!isFrozen)
+        {
+            if (attackRandomValue < 15)
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            else
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
+        }
+        else
+        {
+            attackDescriptionText.text = "";
         }
     }
 
@@ -51,7 +71,7 @@ public class Ghost : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
@@ -63,6 +83,8 @@ public class Ghost : MonsterCharacter
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+        attackRandomValue = Random.Range(0, 100);
 
         GameManager.instance.EndMonsterTurn();
     }

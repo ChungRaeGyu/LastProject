@@ -46,7 +46,8 @@ public class UIManager : MonoBehaviour
     [Header("UI")]
     public Canvas healthBarCanvas;
     public Canvas conditionCanvas;
-    public Canvas nextActionCanvas;
+    public Canvas nextActionIconCanvas;
+    public Canvas nextActionDescriptionCanvas;
     public Canvas monsterNameCanvas;
     public TMP_Text costText;
     public TMP_Text TurnText;
