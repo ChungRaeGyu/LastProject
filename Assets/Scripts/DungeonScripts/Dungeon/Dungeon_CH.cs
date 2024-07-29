@@ -23,7 +23,7 @@ public class Dungeon_CH : MonoBehaviour
         {
             for (int j = 0; j < boardY; j++)
             {
-                if(Mathf.Abs(i-(int)(boardX / 2))<j&&boardY-M)
+                //if(Mathf.Abs(i-(int)(boardX / 2))<j&&boardY-M)
             }
         }
     }
