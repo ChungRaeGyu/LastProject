@@ -35,6 +35,8 @@ public class Dungeon : MonoBehaviour
     public int y;
 
     public List<GameObject> monsters = new List<GameObject>();
+    public List<List<GameObject>> monstersSetting = new List<List<GameObject>>();
+    public List<GameObject> set1 = new List<GameObject>();
     public List<GameObject> spawnMonsters = new List<GameObject>();
 
     public System.Random random = new System.Random();
@@ -71,43 +73,20 @@ public class Dungeon : MonoBehaviour
 
     public void MonsterSpawn()
     {
-        int randomNum1 = random.Next(0, 3);
-        int randomNum2 = random.Next(0, 10);
-        int random3 = random.Next(0, 2);
-        int monsterType = random.Next(0, monsters.Count - 1);
+        int MonsterNum = random.Next(0, 3);
+        
 
-        if (randomNum1 >= 0 && randomNum1 < 5)
+        for(int i = 0; i < MonsterNum; i++)
         {
-            if(randomNum2 >=0 && randomNum2 < 5)
-            {
-                spawnMonsters.Add(monsters[3]);
-                spawnMonsters.Add(monsters[4]);
-                spawnMonsters.Add(monsters[3]);
-                spawnMonsters.Add(monsters[5]);
-            }
-            else
-            {
-                for(int i = 0; i < 4; i++)
-                {
-                    spawnMonsters.Add(monsters[random3]);
-                }
-            }
-        }
-        if (randomNum1 >= 5 && randomNum1 < 25)
-        {
-            spawnMonsters.Add(monsters[monsterType]);
-            spawnMonsters.Add(monsters[monsterType]);
+            int monsterType = random.Next(0, monsters.Count - 1);
             spawnMonsters.Add(monsters[monsterType]);
         }
-        if(randomNum1 >= 25 && randomNum1 < 60)
-        {
-            spawnMonsters.Add(monsters[monsterType]);
-            spawnMonsters.Add(monsters[monsterType]);
-        }
-        else
-        {
-            spawnMonsters.Add(monsters[monsterType]);
-        }
+
         DataManager.Instance.Monsters = spawnMonsters;
+    }
+
+    public void MonsterSet()
+    {
+      //  monstersSetting.Add()
     }
 }
