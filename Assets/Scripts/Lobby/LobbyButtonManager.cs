@@ -117,10 +117,6 @@ public class LobbyButtonManager : MonoBehaviour
         }
         
         AudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
-        foreach(var card in DataManager.Instance.LobbyDeck)
-        {
-            DataManager.Instance.deckList.Add(card);
-        }
         DataManager.Instance.SuffleDeckList();
         SceneManager.LoadScene(2);
     }

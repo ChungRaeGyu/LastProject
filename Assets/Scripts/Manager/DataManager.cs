@@ -113,11 +113,6 @@ public class DataManager : MonoBehaviour
         if (deck.Count == 0)
         {
             SuffleUsedCards();
-
-            // 덱이 여전히 비어있다면 오류를 방지하기 위해 예외를 던집니다.
-            if (deck.Count == 0)
-            {
-            }
         }
         return deck.Pop();
     }

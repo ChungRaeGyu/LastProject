@@ -116,8 +116,6 @@ public class CardDrag : MonoBehaviour
         else
         {
             if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
-
-            if (cardBasic.cardBasic.currentCount == 0) return;
             clickCoroutine = StartCoroutine(OnClickDetect());
             
         }
@@ -130,21 +128,23 @@ public class CardDrag : MonoBehaviour
         bool isLongClick = false;
 
         isClick = true;
-
-        while (isClick)
+        if (cardBasic.cardBasic.currentCount != 0)
         {
-            elapsedTime += Time.deltaTime;
-
-            // 1초 이상 눌렀을 때
-            if (elapsedTime >= clickTime)
+            while (isClick)
             {
-                cardBasic.PlaySound(SettingManager.Instance.CardSelect);
+                elapsedTime += Time.deltaTime;
 
-                isLongClick = true;
-                isClick = false;
+                // 1초 이상 눌렀을 때
+                if (elapsedTime >= clickTime)
+                {
+                    cardBasic.PlaySound(SettingManager.Instance.CardSelect);
+
+                    isLongClick = true;
+                    isClick = false;
+                }
+
+                yield return null; // 한 프레임씩 대기
             }
-
-            yield return null; // 한 프레임씩 대기
         }
 
         if (isLongClick)

@@ -49,20 +49,23 @@ public class DeckListObj : MonoBehaviour
     private void OnMouseUp()
     {
         if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
+        if (isLongClick)
+        {
+            if (LobbyManager.instance.currentCanvas != LobbyManager.instance.deckCanvas)
+            {
+
+                LobbyManager.instance.deckControl.RemoveCardObj(cardBasic);
+                Destroy(gameObject);
+            }
+            else
+            {
+                //덱 안에 그대로 있을 때 
+                transform.SetParent(LobbyManager.instance.deckContent.transform);
+
+            }
+        }
         isLongClick = false;
         isClick = false;
-        if (LobbyManager.instance.currentCanvas != LobbyManager.instance.deckCanvas)
-        {
-            
-            LobbyManager.instance.deckControl.RemoveCardObj(cardBasic);
-            Destroy(gameObject);
-        }
-        else
-        {
-            //덱 안에 그대로 있을 때 
-            transform.SetParent(LobbyManager.instance.deckContent.transform);
-
-        }
     }
     private IEnumerator OnClickDetect()
     {

@@ -37,7 +37,6 @@ public class DescriptionManager : MonoBehaviour
 
     [Header("descriptionPanel")]
     public GameObject descriptionPanel;
-    public Text text;
 
     [Header("Deck")]
     public DeckControl deck;
@@ -54,6 +53,11 @@ public class DescriptionManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI cardSubject;
     [SerializeField] TextMeshProUGUI pieceSubject;
 
+    [Header("MakingCard")]
+    [SerializeField] GameObject MakingCardPanel;
+    [SerializeField] TextMeshProUGUI CurrentpieceSubject;
+
+
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
 
@@ -68,6 +72,7 @@ public class DescriptionManager : MonoBehaviour
         descriptionPanel.SetActive(false);
         currentCard = null;
         Destroy(tempCard);
+        SetClose();
     }
 
     public void AddDeck()
@@ -97,11 +102,12 @@ public class DescriptionManager : MonoBehaviour
 
     public void DeCompositionPanelBtn()
     {
+        if (currentCard.cardBasic.currentCount <= 0) return;
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         //분해창 오픈
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
         num = 1;
-        cardSubject.text = num.ToString();
+        NumUpdate();
     }
 
     public void RightBtn()
@@ -109,14 +115,20 @@ public class DescriptionManager : MonoBehaviour
         audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         if (num >= currentCard.cardBasic.currentCount) return;
         num++;
-        cardSubject.text = num.ToString();
+        NumUpdate();
     }
     public void LeftBtn()
     {
         audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         if (num <= 1) return;
         num--;
+        NumUpdate();
+    }
+
+    private void NumUpdate()
+    {
         cardSubject.text = num.ToString();
+        pieceSubject.text = num.ToString();
     }
     public void DeCompositionBtn()
     {
@@ -125,11 +137,35 @@ public class DescriptionManager : MonoBehaviour
         DataManager.Instance.CardPiece[(int)currentCard.rate] += num;
         if (currentCard.cardBasic.currentCount == 0)
         {
-            DeCompositionPanelBtn();
             ClosePanel();
         }
         num = 1;
-        cardSubject.text = num.ToString();
+        NumUpdate();
         LobbyManager.instance.InvokeCount();
     }
+    
+    //제작 버튼
+    public void MakingCard()
+    {
+        if (DataManager.Instance.CardPiece[(int)currentCard.rate] >= 100)
+        {
+            DataManager.Instance.CardPiece[(int)currentCard.rate] -= 100;
+            currentCard.cardBasic.currentCount++;
+            CurrentpieceSubject.text = DataManager.Instance.CardPiece[(int)currentCard.cardBasic.rate].ToString();
+            LobbyManager.instance.InvokeCount();
+        }
+    }
+
+    public void MakingCardPanelControl()
+    {
+        MakingCardPanel.SetActive(!MakingCardPanel.activeInHierarchy);
+        CurrentpieceSubject.text = DataManager.Instance.CardPiece[(int)currentCard.cardBasic.rate].ToString();
+    }
+
+    private void SetClose()
+    {
+        deCompositionPanel.SetActive(false);
+        MakingCardPanel.SetActive(false);
+    }
+
 }

@@ -69,7 +69,10 @@ public class DungeonSetting : MonoBehaviour
         // 기록 초기화 메서드
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
-
+        foreach (var card in DataManager.Instance.LobbyDeck)
+        {
+            DataManager.Instance.deckList.Add(card);
+        }
         switch (gameObject.name)
         {
             case "01_Start_Dungeon":
