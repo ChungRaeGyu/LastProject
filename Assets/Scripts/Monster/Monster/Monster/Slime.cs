@@ -7,6 +7,8 @@ public class Slime : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private int attackRandomValue;
+
     private new void Start()
     {
         base.Start();
@@ -17,6 +19,18 @@ public class Slime : MonsterCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // 공격 의도가 있을 때
+        if (!isFrozen)
+        {
+            if (attackRandomValue < 15)
+                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
         }
     }
 
@@ -51,10 +65,12 @@ public class Slime : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            yield return PerformAttack(monsterStats.attackPower = random.Next(0, 10));
+            yield return PerformAttack(attackRandomValue);
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
+
+        attackRandomValue = random.Next(0, 10);
 
         GameManager.instance.EndMonsterTurn();
     }

@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class MonsterCharacter : MonoBehaviour
 {
     public MonsterStats monsterStats;
-    private int baseAttackPower;
+    public int baseAttackPower;
     public int currenthealth;
 
     public Animator animator;
@@ -27,6 +27,16 @@ public class MonsterCharacter : MonoBehaviour
     private Transform MonsterCondition;
     public Transform monsterNextAction { get; set; }
     private Transform monsterName;
+    private Transform monsterNextActionList;
+
+    private AdjustHeightBasedOnText attackDescriptionAdjustHeight;
+    protected TMP_Text attackDescriptionText;
+
+    private AdjustHeightBasedOnText util1DescriptionAdjustHeight;
+    protected TMP_Text util1DescriptionText;
+
+    private AdjustHeightBasedOnText util2DescriptionAdjustHeight;
+    protected TMP_Text util2DescriptionText;
 
     //디버프관련변수
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
@@ -47,6 +57,12 @@ public class MonsterCharacter : MonoBehaviour
     public GameObject deBuff;
 
     public Action deBuffAnim;
+
+    [Header("Description_NotCashing")]
+    public Transform descriptionTransform;
+    public GameObject attackDescriptionObject;
+    public GameObject defenseDescriptionObject;
+    public GameObject healDescriptionObject;
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -67,7 +83,7 @@ public class MonsterCharacter : MonoBehaviour
 
         AddCondition(MonsterCondition, monsterStats.defense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
 
-        monsterNextAction = Instantiate(GameManager.instance.attackActionPrefab, UIManager.instance.nextActionCanvas.transform).transform;
+        monsterNextAction = Instantiate(GameManager.instance.attackActionPrefab, UIManager.instance.nextActionIconCanvas.transform).transform;
         monsterNextAction.gameObject.SetActive(false);
 
         monsterName = Instantiate(GameManager.instance.monsterNamePrefab, UIManager.instance.monsterNameCanvas.transform).transform;
@@ -78,13 +94,39 @@ public class MonsterCharacter : MonoBehaviour
         {
             nameText.text = monsterStats.monsterName;
         }
+        
+        monsterNextActionList = Instantiate(GameManager.instance.monsterNextActionListPrefab, UIManager.instance.nextActionDescriptionCanvas.transform).transform;
+
+        // ActionDescriptionPrefab을 Description 오브젝트 안에 생성
+        descriptionTransform = monsterNextActionList.GetChild(0); // GetChild(0)
+        if (descriptionTransform != null)
+        {
+            // 공격 설명 프리팹
+            attackDescriptionObject = Instantiate(GameManager.instance.actionDescriptionPrefab, descriptionTransform);
+            attackDescriptionAdjustHeight = attackDescriptionObject.GetComponent<AdjustHeightBasedOnText>();
+            attackDescriptionText = attackDescriptionAdjustHeight.childText;
+            attackDescriptionText.text = $"";
+
+            // 방어 설명 프리팹
+            defenseDescriptionObject = Instantiate(GameManager.instance.actionDescriptionPrefab, descriptionTransform);
+            util1DescriptionAdjustHeight = defenseDescriptionObject.GetComponent<AdjustHeightBasedOnText>();
+            util1DescriptionText = util1DescriptionAdjustHeight.childText;
+            util1DescriptionText.text = $"";
+
+            // 회복 설명 프리팹
+            GameObject healDescriptionObject = Instantiate(GameManager.instance.actionDescriptionPrefab, descriptionTransform);
+            util2DescriptionAdjustHeight = healDescriptionObject.GetComponent<AdjustHeightBasedOnText>();
+            util2DescriptionText = util2DescriptionAdjustHeight.childText;
+            util2DescriptionText.text = $"";
+        }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         MonsterCondition.position = conditionPos.position;
         monsterNextAction.position = monsterNextActionPos.position;
         monsterName.position = monsterNamePos.position;
+        monsterNextActionList.position = transform.position;
     }
 
     public virtual void TakeDamage(int damage)
