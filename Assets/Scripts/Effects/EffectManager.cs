@@ -37,14 +37,16 @@ public class EffectManager : MonoBehaviour
     {
         tempCardInfo = cardBasic;
         StartCoroutine(MagicAttack(targetMonster));
+        Debug.Log("targetMonster : " + targetMonster);
     }
     IEnumerator MagicAttack(MonsterCharacter targetMonster = null)
     {
         //캐스팅 후 공격을 위한 코루틴
         PlayerEffectMethod(GetPos());
         yield return new WaitForSeconds(0.5f);
-        if (targetMonster = null)
+        if (targetMonster == null)
         {
+
             //범위공격
             List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
             RangeAttack.AttackAnim(tempCardInfo);
@@ -55,6 +57,8 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("targetMonster : " + targetMonster);
+
             //단일공격
             AttackEffectMethod(targetMonster.transform.position);
             targetMonster.TakeDamage(tempCardInfo.damageAbility);
