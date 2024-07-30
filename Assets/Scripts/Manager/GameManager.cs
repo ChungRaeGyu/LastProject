@@ -191,6 +191,7 @@ public class GameManager : MonoBehaviour
             }
 
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
+            if (volumeUp) volumeUp = false;
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);

@@ -7,8 +7,11 @@ public class SceneFader : MonoBehaviour
 {
     public static SceneFader instance;
 
-    private Image fadeImage;
-    private float fadeSpeed;
+    public Image fadeImage; // 검정색 이미지
+    public float fadeSpeed = 1.0f; // 페이드 속도 (낮을수록 느리게)
+    public AudioClip clickSound; // 클릭 소리
+
+    private AudioSource audioSource;
     private bool isFading = false;
 
     private void Awake()
@@ -24,17 +27,37 @@ public class SceneFader : MonoBehaviour
         }
     }
 
-    public static void FadeOutAndLoadScene(int sceneNum, Image image, float speed)
+    private void Start()
     {
-        if (instance != null)
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
         {
-            instance.fadeImage = image;
-            instance.fadeSpeed = speed;
-            instance.StartCoroutine(instance.FadeOutAndLoad(sceneNum));
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 0) // 첫 씬에서만 입력 대기
+        {
+            StartCoroutine(WaitForInput());
         }
     }
 
-    private IEnumerator FadeOutAndLoad(int sceneNum)
+    private IEnumerator WaitForInput()
+    {
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began));
+
+        PlayClickSound();
+        StartCoroutine(FadeOutAndLoad(1)); // 씬 인덱스 1로 전환
+    }
+
+    private void PlayClickSound()
+    {
+        if (clickSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
+    }
+
+    public IEnumerator FadeOutAndLoad(int sceneNum)
     {
         if (isFading)
             yield break;
@@ -51,7 +74,7 @@ public class SceneFader : MonoBehaviour
         SceneManager.LoadScene(sceneNum);
 
         // 씬 로드 후 기다리기
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(3f); // 짧은 대기 시간으로 씬 로드 대기
 
         // 페이드 인
         if (fadeImage != null)

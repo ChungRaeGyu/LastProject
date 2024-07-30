@@ -20,6 +20,10 @@ public class Slime : MonsterCharacter
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
+
+        attackRandomValue = random.Next(0, 10);
+
+        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()

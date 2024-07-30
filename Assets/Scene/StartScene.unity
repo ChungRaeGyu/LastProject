@@ -957,7 +957,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 150
   m_TargetDisplay: 0
 --- !u!1 &360452862
 GameObject:
@@ -2492,7 +2492,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1332967503}
   - component: {fileID: 1332967502}
-  - component: {fileID: 1332967504}
   m_Layer: 0
   m_Name: SceneFader
   m_TagString: Untagged
@@ -2512,6 +2511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7291fd163b438741a002de5225249cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeImage: {fileID: 273475492}
+  fadeSpeed: 1
+  clickSound: {fileID: 8300000, guid: 1fe83b7c1965f76418246a65681141e6, type: 3}
 --- !u!4 &1332967503
 Transform:
   m_ObjectHideFlags: 0
@@ -2528,21 +2530,6 @@ Transform:
   - {fileID: 283048687}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1332967504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1332967501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4aee15dcaa91f44a6565cf035a6f72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 273475492}
-  fadeSpeed: 1
-  clickSound: {fileID: 8300000, guid: 1fe83b7c1965f76418246a65681141e6, type: 3}
 --- !u!1 &1405951330
 GameObject:
   m_ObjectHideFlags: 0

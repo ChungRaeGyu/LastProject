@@ -23,6 +23,13 @@ public class Turtle : MonsterCharacter
         }
 
         util1DescriptionText.text = $"<color=#FF7F50><size=30><b>껍질</b></size></color>\n <color=#FFFF00>3</color>턴마다 방어력이 <color=#FFFF00>1</color>씩 증가합니다.";
+
+        attackRandomValue = random.Next(0, 100);
+
+        if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
@@ -86,8 +93,8 @@ public class Turtle : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        attackRandomValue = random.Next(0, 100);
         monsterTurn++;
+        attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
