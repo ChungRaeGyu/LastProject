@@ -35,6 +35,9 @@ public class SaveManager : MonoBehaviour
     //입장한 던전
     public int accessDungeonNum;
 
+    //현 위치가 던전 시작 지점인지에 대한 여부
+    public bool isStartPoint;
+
     //플레이어 위치 저장
     public Vector3 playerPosition;
 
@@ -50,6 +53,7 @@ public class SaveManager : MonoBehaviour
     void Start()
     {
         accessDungeon = false;
+        isStartPoint = false;
 
         accessibleDungeon[0] = true;
         for(int i = 1; i< accessDungeonNum; i++)

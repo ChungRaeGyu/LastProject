@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Event : MonoBehaviour
+public class Event : Stage
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnMouseDown()
     {
-        
-    }
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SaveManager.Instance.playerPosition = stagePosition;
+        DungeonManager.Instance.eventScene.SetActive(true);
     }
 }

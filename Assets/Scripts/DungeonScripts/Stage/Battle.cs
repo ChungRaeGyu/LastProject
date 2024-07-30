@@ -9,7 +9,7 @@ public class Battle : Stage
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
-        if (gameObject.name == "BossStage")
+        if (gameObject.name == "Boss")
         {
             SaveManager.Instance.isBossStage = true;
         }

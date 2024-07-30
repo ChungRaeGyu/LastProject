@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,8 +36,12 @@ public class Dungeon : MonoBehaviour
     public int y;
 
     public List<GameObject> monsters = new List<GameObject>();
-    public List<List<GameObject>> monstersSetting = new List<List<GameObject>>();
-    public List<GameObject> set1 = new List<GameObject>();
+    public List<List<GameObject>> setList = new List<List<GameObject>>();
+    public List<GameObject> set2 = new List<GameObject>();
+    public List<GameObject> set3 = new List<GameObject>();
+    public List<GameObject> set4 = new List<GameObject>();
+    public List<GameObject> set4_goblins = new List<GameObject>();
+    public List<GameObject> Boss = new List<GameObject>();
     public List<GameObject> spawnMonsters = new List<GameObject>();
 
     public System.Random random = new System.Random();
@@ -62,31 +67,32 @@ public class Dungeon : MonoBehaviour
             }
         }
 
-        SaveManager.Instance.playerPosition = stage[x / 2, 0].transform.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (SaveManager.Instance.isStartPoint == true)
+        {
+            SaveManager.Instance.playerPosition = stage[(x - 1) / 2, 0].transform.position;
+            SaveManager.Instance.isStartPoint = false;
+        }
     }
 
     public void MonsterSpawn()
     {
-        int MonsterNum = random.Next(0, 3);
-        
+        int respawn = random.Next(0, setList.Count - 1);
+        MonsterSet();
 
-        for(int i = 0; i < MonsterNum; i++)
+        if (SaveManager.Instance.isBossStage)
+            DataManager.Instance.Monsters = Boss;
+        else
         {
-            int monsterType = random.Next(0, monsters.Count - 1);
-            spawnMonsters.Add(monsters[monsterType]);
+            DataManager.Instance.Monsters = setList[respawn];
         }
-
-        DataManager.Instance.Monsters = spawnMonsters;
+        Debug.Log("몬스터 스폰");
     }
 
     public void MonsterSet()
     {
-      //  monstersSetting.Add()
+        setList.Add(set2);
+        setList.Add(set3);
+        setList.Add(set4);
+        setList.Add(set4_goblins);
     }
 }

@@ -49,10 +49,6 @@ public class DungeonSetting : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-
-    }
 
     //던전으로 들어가는 버튼
     public void GoToDungeon()
@@ -61,6 +57,7 @@ public class DungeonSetting : MonoBehaviour
         DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
         DungeonBoardManager.Instance.dungeon.SetActive(true);
         SaveManager.Instance.accessDungeon = true;
+        SaveManager.Instance.isStartPoint = true;
         SettingManager.Instance.UpdateButtonVisibility();
 
         DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
@@ -88,7 +85,6 @@ public class DungeonSetting : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 0;
-
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 
@@ -105,8 +101,6 @@ public class DungeonSetting : MonoBehaviour
                     }
                 }
                 SaveManager.Instance.accessDungeonNum = 1;
-
-                SaveManager.Instance.playerPosition = Dungeon02.Instance.stageNum[0].transform.position;
                 Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;
 
