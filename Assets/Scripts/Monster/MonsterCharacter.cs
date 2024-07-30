@@ -187,7 +187,7 @@ public class MonsterCharacter : MonoBehaviour
     protected virtual void Die()
     {
         if (isFrozen)
-            GameManager.instance.DeBuffAnim(deBuff);
+            GameManager.instance.DestroyDeBuffAnim(deBuff);
 
         if (monsterNextAction != null)
         {
@@ -223,7 +223,7 @@ public class MonsterCharacter : MonoBehaviour
             if (frozenTurnsRemaining == 0)
             {
                 animator.StopPlayback();
-                GameManager.instance.DeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
+                GameManager.instance.DestroyDeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
             }
             yield break;
         }
