@@ -49,12 +49,12 @@ public class CardBasic : MonoBehaviour
     public Sprite image;
     public JOB job;
     public Rate rate;
-    public GameObject effect;
     public bool dragLineCard;
-    public GameObject attackEffect = null;
     public GameObject deckCardImage;
 
-    [Header("attackEffect_Image")]
+    [Header("EffectPrefab")]
+    public GameObject playerEffect;
+    public GameObject attackEffect = null;
     public GameObject debuffEffectPrefab;
 
     [Header("UI Components")]

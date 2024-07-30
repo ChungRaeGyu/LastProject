@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RangeAttackSystem : MonoBehaviour
 {
-    
-
     public void AttackAnim(CardBasic cardBasic)
     {
         for (int i = 0; i < 10; i++)
@@ -22,8 +20,6 @@ public class RangeAttackSystem : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
         GameObject meteo = Instantiate(cardBasic.attackEffect, new Vector2(random, 0), cardBasic.attackEffect.transform.rotation);
-        StartCoroutine(GameManager.instance.effectManager.EndOfParticle(meteo));
         meteo.SetActive(true);
-
     }
 }

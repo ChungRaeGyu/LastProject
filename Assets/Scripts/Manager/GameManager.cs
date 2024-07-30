@@ -352,7 +352,7 @@ public class GameManager : MonoBehaviour
         playerTurn = false;
     }
 
-    public void DeBuffAnim(GameObject deBuff)
+    public void DestroyDeBuffAnim(GameObject deBuff)
     {
         StartCoroutine(DelayDestroy(deBuff));
     }
