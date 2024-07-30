@@ -14,6 +14,7 @@ public class EffectManager : MonoBehaviour
 
     public void PhysicalAttack(CardBasic cardBasic, MonsterCharacter targetMonster=null)
     {
+        //호출될 메소드
         tempCardInfo = cardBasic;
         PlayerEffectMethod(GetPos()); //플레이어의 공격 이펙트
         if(targetMonster == null)
@@ -35,6 +36,8 @@ public class EffectManager : MonoBehaviour
 
     public void MagicAttack(CardBasic cardBasic, MonsterCharacter targetMonster=null)
     {
+        //호출될 메소드
+
         tempCardInfo = cardBasic;
         StartCoroutine(MagicAttack(targetMonster));
         Debug.Log("targetMonster : " + targetMonster);
@@ -66,12 +69,15 @@ public class EffectManager : MonoBehaviour
     }
     public void Buff(CardBasic cardBasic)
     {
+        //호출될 메소드
+
         tempCardInfo = cardBasic;
         PlayerEffectMethod(GameManager.instance.player.transform.position);
     }
     public void Debuff(MonsterCharacter targetMonster, CardBasic cardBasic)
     {
-        //디버프 호출
+        //호출될 메소드
+
         tempCardInfo = cardBasic;
         StartCoroutine(DeBuffCoroutine(false, targetMonster));
     }
