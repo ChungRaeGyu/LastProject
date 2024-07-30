@@ -9,6 +9,7 @@ public class Mimic : MonsterCharacter
 
     private int monsterTurn = 0;
     private int attackRandomValue;
+    private int selfdestructionCount = 5;
 
     private new void Start()
     {
@@ -27,20 +28,8 @@ public class Mimic : MonsterCharacter
     {
         base.Update();
 
-        // 공격 의도가 있을 때
-        if (!isFrozen)
-        {
-            if (monsterTurn == 5)
-            {
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n 다음 턴에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
-                return;
-            }
-            if (attackRandomValue < 15)
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
-            else
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
-        }
-        else
+        // 얼면 아무것도 띄우지 않는다.
+        if (isFrozen)
         {
             attackDescriptionText.text = "";
         }
@@ -97,8 +86,22 @@ public class Mimic : MonsterCharacter
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
         monsterTurn++;
-
+        selfdestructionCount -= 1;
         attackRandomValue = Random.Range(0, 100);
+
+        if (monsterTurn <= 5)
+        {
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n {selfdestructionCount}턴 후에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
+        }
+
+        if (attackRandomValue < 15)
+        {
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        }
+        else
+        {
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
+        }
 
         GameManager.instance.EndMonsterTurn();
     }

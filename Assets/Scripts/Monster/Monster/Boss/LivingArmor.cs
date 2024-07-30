@@ -6,8 +6,8 @@ public class LivingArmor : MonsterCharacter
 {
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
-    private int bossTurnCount = 0;
-    private bool strongAttack = false;
+    private int monsterTurn = 0;
+    private int attackRandomValue;
 
     private new void Start()
     {
@@ -19,6 +19,17 @@ public class LivingArmor : MonsterCharacter
             // healthBarPrefab을 canvas의 자식으로 생성
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // 얼면 아무것도 띄우지 않는다.
+        if (isFrozen)
+        {
+            attackDescriptionText.text = "";
         }
     }
 
@@ -42,8 +53,7 @@ public class LivingArmor : MonsterCharacter
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
-        bossTurnCount++;
-        Debug.Log("----- 보스의 " + bossTurnCount + "턴 째 -----");
+        Debug.Log("----- 보스의 " + monsterTurn + "턴 째 -----");
 
         yield return base.MonsterTurn();
 
@@ -55,35 +65,22 @@ public class LivingArmor : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (bossTurnCount <= 4 && !strongAttack) // 3턴동안 공격력 2배 공격
+            if (monsterTurn < 3) // 3턴동안 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
-
-                strongAttack = true;
-                Debug.Log(this.name + "초반 공격" + monsterStats.attackPower * 2 + "데미지");
             }
-
-            else if (monsterStats.maxhealth < monsterStats.maxhealth / 2) // 반의 반의 체력이 남으면 강해진다
+            else if (currenthealth < monsterStats.maxhealth / 2) // 반의 반의 체력이 남으면 강해진다
             {
                 yield return PerformAttack(monsterStats.attackPower * 3);
-
-                Debug.Log(this.name + "마지막 발악" + monsterStats.attackPower * 3 + "데미지");
             }
-
-            else if (bossTurnCount % 10 == 0) // 10턴 뒤 공격력 3배 공격
+            else if (monsterTurn > 10) // 10턴 뒤 공격력 3배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 3);
-
-                Debug.Log(this.name + "이 강한 공격을 했다!" + monsterStats.attackPower * 3 + "데미지");
             }
-
-            else if (random.Next(0, 100) < 15) // 15% 확률로 공격력 2배 공격
+            else if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
-
-                Debug.Log(this.name + "이 일정 확률로 강한공격!");
             }
-
             else // 기본공격
             {
                 yield return PerformAttack(monsterStats.attackPower);
@@ -92,7 +89,19 @@ public class LivingArmor : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        // 공격 후에 필요한 다른 동작
+        monsterTurn++;
+        attackRandomValue = random.Next(0, 100);
+
+        if (monsterTurn < 3)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else if (currenthealth < monsterStats.maxhealth / 2)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";
+        else if (monsterTurn > 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";
+        else if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
 
         // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();

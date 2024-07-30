@@ -28,37 +28,16 @@ public class KingSlime : MonsterCharacter
     {
         base.Update();
 
-        // 공격 의도가 있을 때
-        if (!isFrozen)
-        {
-            if (monsterTurn < 3)
-            {
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
-                return;
-            }
-            if (monsterTurn == 10)
-            {
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";
-                return;
-            }
-            if (attackRandomValue < 15)
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
-            else
-                attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
-        }
-        else
+        // 얼면 아무것도 띄우지 않는다.
+        if (isFrozen)
         {
             attackDescriptionText.text = "";
         }
 
         if (currenthealth < monsterStats.maxhealth / 2 && !bossheal)
-        {
             util1DescriptionText.text = $"<color=#FF7F50><size=30><b>재생</b></size></color>\n <color=#FFFF00>{30}</color>의 체력을 회복합니다.";
-        }
         else
-        {
             util1DescriptionText.text = "";
-        }
     }
 
     public override void TakeDamage(int damage)
@@ -95,36 +74,24 @@ public class KingSlime : MonsterCharacter
             if (currenthealth < monsterStats.maxhealth / 2 && !bossheal) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
             {
                 currenthealth += 30;
-                Debug.Log(this.name + "이" + 30 + "만큼 회복했다!");
                 bossheal = true;
             }
 
-            if (monsterTurn < 3) // 3턴동안 공격력 2배 공격
+            if (monsterTurn % 3 == 0) // 3턴마다 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
-
-                Debug.Log(this.name + "초반 공격" + monsterStats.attackPower * 2 + "데미지");
-                yield return new WaitForSeconds(1f);
             }
             else if (monsterTurn == 10) // 10턴 뒤 공격력 3배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 3);
-
-                Debug.Log(this.name + "이 강한 공격을 했다!" + monsterStats.attackPower * 3 + "데미지");
-                yield return new WaitForSeconds(1f);
             }
             else if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
-
-                Debug.Log(this.name + "이 일정 확률로 강한공격!");
-                yield return new WaitForSeconds(1f);
             }
             else // 기본공격
             {
                 yield return PerformAttack(monsterStats.attackPower);
-
-                yield return new WaitForSeconds(1f);
             }
         }
 
@@ -132,6 +99,15 @@ public class KingSlime : MonsterCharacter
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);
+
+        if (monsterTurn % 3 == 0)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else if (monsterTurn == 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";
+        else if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
 
         // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();
