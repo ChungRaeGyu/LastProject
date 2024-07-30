@@ -63,7 +63,7 @@ public class Heal : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
-        GameManager.instance.effectManager.PlayerEffect(cardBasic);
+        GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.Heal(utilAbility);
     }
 }

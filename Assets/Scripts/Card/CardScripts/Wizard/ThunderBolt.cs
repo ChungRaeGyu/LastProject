@@ -71,7 +71,7 @@ public class ThunderBolt : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        GameManager.instance.effectManager.MagicAttackMethod(targetMonster, cardBasic);
+        GameManager.instance.effectManager.MagicAttack(cardBasic,targetMonster);
         PlayPlayerAttackAnimation();
     }
 

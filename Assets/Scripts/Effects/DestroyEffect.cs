@@ -5,7 +5,7 @@ using UnityEngine;
 public class DestroyEffect : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float destroyDelay=4f;
+    public float destroyDelay=2f;
     void Start()
     {
         StartCoroutine(DestroyEffectDelay());

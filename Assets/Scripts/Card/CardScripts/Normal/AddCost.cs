@@ -71,7 +71,7 @@ public class AddCost : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        GameManager.instance.effectManager.PlayerEffect(cardBasic);
+        GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);
     }
 }

@@ -16,6 +16,8 @@ public class Demo : MonoBehaviour
     [SerializeField]
     Button GaChaOpenButton;
     [SerializeField]
+    Button CreditOpenButton;
+    [SerializeField]
     Image bookImage;
     [SerializeField]
     Sprite bookTexture;
@@ -53,6 +55,7 @@ public class Demo : MonoBehaviour
         previousButton.onClick.AddListener(PreviousPage);
         BookOpenButton.onClick.AddListener(BookPage);
         GaChaOpenButton.onClick.AddListener(GachaPage);
+        CreditOpenButton.onClick.AddListener(CreditPage);
     }
 
     public void SetBook(bool value)
@@ -68,7 +71,22 @@ public class Demo : MonoBehaviour
         bookImage.sprite = currentView == View.Book ? bookTexture : notepadTexture;
         UpdateButtonColors(); // 색상 업데이트 호출
     }
-
+    void CreditPage()
+    {
+        if (currentPage == 4 || isChangePage) return;
+        isChangePage = true;
+        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
+        if (currentPage > 4)
+        {
+            bookController.PreviousPage();
+        }
+        else
+        {
+            bookController.NextPage();
+        }
+        currentPage = 4;
+        StartCoroutine(UpdatePageDelayed());
+    }
     void GachaPage()
     {
         if (currentPage == 1|| isChangePage) return;
