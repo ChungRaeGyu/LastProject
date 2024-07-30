@@ -76,8 +76,8 @@ public class Dungeon : MonoBehaviour
 
     public void MonsterSpawn()
     {
-        int respawn = random.Next(0, setList.Count - 1);
         MonsterSet();
+        int respawn = random.Next(0, setList.Count - 1);
 
         if (SaveManager.Instance.isBossStage)
             DataManager.Instance.Monsters = Boss;
