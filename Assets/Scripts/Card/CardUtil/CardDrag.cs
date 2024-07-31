@@ -225,7 +225,7 @@ public class CardDrag : MonoBehaviour
                 Debug.Log("Contentø° ≥÷¿Ω");
 
                 cardBasic.PlaySound(SettingManager.Instance.CardDrop);
-
+ 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
             Destroy(draggedCardPrefab);

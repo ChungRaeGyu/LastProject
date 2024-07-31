@@ -263,7 +263,7 @@ public class MonsterCharacter : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            TakeDamage(5);
+            TakeDamage(3);
         }
         if (poisonTurnsRemaining > 0)
         {
