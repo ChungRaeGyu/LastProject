@@ -56,7 +56,6 @@ public class DungeonSetting : MonoBehaviour
             dungeonInfo.SetActive(false);
     }
 
-
     //던전으로 들어가는 버튼
     public void GoToDungeon()
     {
