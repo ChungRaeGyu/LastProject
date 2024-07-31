@@ -8,6 +8,8 @@ public class DungeonSetting : MonoBehaviour
     public GameObject lockDungeon;
     public GameObject explain;
 
+    public GameObject dungeonInfo;
+
     void Start()
     {
         if (gameObject.name == "02_Dungeon" && SaveManager.Instance.accessibleDungeon[1] == true)
@@ -47,6 +49,11 @@ public class DungeonSetting : MonoBehaviour
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
+
+        if (SaveManager.Instance.showInfo)
+            dungeonInfo.SetActive(true);
+        else
+            dungeonInfo.SetActive(false);
     }
 
 
@@ -66,6 +73,12 @@ public class DungeonSetting : MonoBehaviour
         // 기록 초기화 메서드
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
+
+        SaveManager.Instance.showInfo = true;
+
+        if (!dungeonInfo.activeSelf)
+        dungeonInfo.SetActive(true);
+
         foreach (var card in DataManager.Instance.LobbyDeck)
         {
             DataManager.Instance.deckList.Add(card);

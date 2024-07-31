@@ -177,11 +177,11 @@ public class GameManager : MonoBehaviour
             player.InitializeCost();
 
             skip = false;
-            if (DataManager.Instance.deck.Count >= 5)
+            if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count >= 5)
                 // 덱에서 카드 드로우
                 yield return StartCoroutine(DrawInitialHand(5));
             else
-                yield return StartCoroutine(DrawInitialHand(DataManager.Instance.deck.Count));
+                yield return StartCoroutine(DrawInitialHand(DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count));
             skip = true;
 
             foreach (MonsterCharacter monster in monsters)

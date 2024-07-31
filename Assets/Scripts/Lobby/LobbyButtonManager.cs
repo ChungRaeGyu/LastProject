@@ -118,6 +118,6 @@ public class LobbyButtonManager : MonoBehaviour
         
         AudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         DataManager.Instance.SuffleDeckList();
-        SceneManager.LoadScene(2);
+        LoadingSceneManager.LoadScene(2);
     }
 }

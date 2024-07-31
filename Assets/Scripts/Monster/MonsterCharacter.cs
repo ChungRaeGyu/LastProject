@@ -199,6 +199,11 @@ public class MonsterCharacter : MonoBehaviour
             Destroy(monsterName.gameObject);
         }
 
+        if (monsterNextActionList = null)
+        {
+            Destroy(monsterNextActionList.gameObject);
+        }
+
         Destroy(gameObject);
     }
 

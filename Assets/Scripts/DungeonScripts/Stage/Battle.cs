@@ -13,7 +13,7 @@ public class Battle : Stage
         {
             SaveManager.Instance.isBossStage = true;
         }
-        SceneManager.LoadScene(3);
+        LoadingSceneManager.LoadScene(3);
         SaveManager.Instance.playerPosition = stagePosition;
         //DungeonManager.Instance.battleScene.SetActive(true);
         Dungeon.Instance.MonsterSpawn();
