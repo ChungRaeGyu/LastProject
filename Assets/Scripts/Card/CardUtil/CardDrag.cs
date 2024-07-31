@@ -27,7 +27,7 @@ public class CardDrag : MonoBehaviour
     private Coroutine clickCoroutine; // 클릭 코루틴을 저장할 변수
     private GameObject draggedCardPrefab;
     private bool isClick = false;
-
+    private bool isLongClick = false;
     private void Awake()
     {
         cardBasic = GetComponent<CardBasic>();
@@ -125,7 +125,6 @@ public class CardDrag : MonoBehaviour
     {
         float clickTime = 1f; // 클릭 감지 시간 설정 (1초)
         float elapsedTime = 0f;
-        bool isLongClick = false;
 
         isClick = true;
         if (cardBasic.cardBasic.currentCount != 0)
@@ -218,13 +217,15 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
+            if (!isLongClick) return;
+            isLongClick = false;
             //로비에서 드래그 사용
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
                 Debug.Log("Content에 넣음");
 
                 cardBasic.PlaySound(SettingManager.Instance.CardDrop);
-
+ 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
             Destroy(draggedCardPrefab);
