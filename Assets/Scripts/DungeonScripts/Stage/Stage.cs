@@ -14,7 +14,8 @@ public class Stage : MonoBehaviour
     public GameObject boss;
 
     public Vector3 stagePosition;
-    //public List<GameObject> monsters = new List<GameObject>();
+
+    public System.Random random = new System.Random();
 
     public void Start()
     {
@@ -40,26 +41,29 @@ public class Stage : MonoBehaviour
         }
         else
         {
-            battle.SetActive(true);
+            int rand = random.Next(0, 100);
+            switch (rand)
+            {
+                case 0:
+                    eliteMob.SetActive(true);
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                    store.SetActive(true);
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    eventStage.SetActive(true);
+                    break;
+                default:
+                    battle.SetActive(true);
+                    break;
+            }
         }
-
-        //이벤트와 스토어 스테이지 아직 코딩 못함
-        /*int randomNum = Random.Range(0, 100);
-        if (randomNum < 6)
-        {
-            stageName = "store";
-            battle.SetActive(false);
-            eventStage.SetActive(false);
-            store.SetActive(true);
-        }
-        else if(randomNum >= 6 && randomNum <= 15)
-        {
-            stageName = "event";
-            battle.SetActive(false);
-            eventStage.SetActive(true);
-            store.SetActive(false);
-        }
-        else
-        {*/
     }
 }

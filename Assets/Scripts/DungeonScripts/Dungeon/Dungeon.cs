@@ -27,7 +27,6 @@ public class Dungeon : MonoBehaviour
     public GameObject[,] stage;
     public GameObject stagePrefab;
 
-
     public Transform stageBoard;
 
     public int[,] isStage;
@@ -37,10 +36,18 @@ public class Dungeon : MonoBehaviour
 
     public List<GameObject> monsters = new List<GameObject>();
     public List<List<GameObject>> setList = new List<List<GameObject>>();
-    public List<GameObject> set2 = new List<GameObject>();
-    public List<GameObject> set3 = new List<GameObject>();
-    public List<GameObject> set4 = new List<GameObject>();
+
+    public List<GameObject> set2_1 = new List<GameObject>();
+    public List<GameObject> set2_2 = new List<GameObject>();
+    public List<GameObject> set2_3 = new List<GameObject>();
+    public List<GameObject> set2_4 = new List<GameObject>();
+    public List<GameObject> set3_1 = new List<GameObject>();
+    public List<GameObject> set3_2 = new List<GameObject>();
+    public List<GameObject> set3_3 = new List<GameObject>();
+    public List<GameObject> set4_1 = new List<GameObject>();
+    public List<GameObject> set4_2 = new List<GameObject>();
     public List<GameObject> set4_goblins = new List<GameObject>();
+
     public List<GameObject> Boss = new List<GameObject>();
     public List<GameObject> spawnMonsters = new List<GameObject>();
 
@@ -82,17 +89,21 @@ public class Dungeon : MonoBehaviour
         if (SaveManager.Instance.isBossStage)
             DataManager.Instance.Monsters = Boss;
         else
-        {
             DataManager.Instance.Monsters = setList[respawn];
-        }
         Debug.Log("몬스터 스폰");
     }
 
     public void MonsterSet()
     {
-        setList.Add(set2);
-        setList.Add(set3);
-        setList.Add(set4);
+        setList.Add(set2_1);
+        setList.Add(set2_2);
+        setList.Add(set2_3);
+        setList.Add(set2_4);
+        setList.Add(set3_1);
+        setList.Add(set3_2);
+        setList.Add(set3_3);
+        setList.Add(set4_1);
+        setList.Add(set4_2);
         setList.Add(set4_goblins);
     }
 }

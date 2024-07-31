@@ -2230,9 +2230,15 @@ MonoBehaviour:
   x: 7
   y: 23
   monsters: []
-  set2: []
-  set3: []
-  set4: []
+  set2_1: []
+  set2_2: []
+  set2_3: []
+  set2_4: []
+  set3_1: []
+  set3_2: []
+  set3_3: []
+  set4_1: []
+  set4_2: []
   set4_goblins: []
   Boss: []
   spawnMonsters: []
@@ -2771,9 +2777,15 @@ MonoBehaviour:
   x: 7
   y: 51
   monsters: []
-  set2: []
-  set3: []
-  set4: []
+  set2_1: []
+  set2_2: []
+  set2_3: []
+  set2_4: []
+  set3_1: []
+  set3_2: []
+  set3_3: []
+  set4_1: []
+  set4_2: []
   set4_goblins: []
   Boss: []
   spawnMonsters: []
@@ -3123,9 +3135,15 @@ MonoBehaviour:
   x: 7
   y: 71
   monsters: []
-  set2: []
-  set3: []
-  set4: []
+  set2_1: []
+  set2_2: []
+  set2_3: []
+  set2_4: []
+  set3_1: []
+  set3_2: []
+  set3_3: []
+  set4_1: []
+  set4_2: []
   set4_goblins: []
   Boss: []
   spawnMonsters: []
@@ -3950,7 +3968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1610142721
 Transform:
   m_ObjectHideFlags: 0
@@ -3991,14 +4009,36 @@ MonoBehaviour:
   - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
   - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
   - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
-  set2:
+  set2_1:
   - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
   - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  set3:
+  set2_2:
+  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
+  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
+  set2_3:
+  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
+  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
+  set2_4:
+  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
+  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
+  set3_1:
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  set3_2:
+  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
+  - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
+  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
+  set3_3:
   - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
   - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
   - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  set4:
+  set4_1:
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  set4_2:
   - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
   - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
   - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
@@ -4922,9 +4962,15 @@ MonoBehaviour:
   x: 7
   y: 35
   monsters: []
-  set2: []
-  set3: []
-  set4: []
+  set2_1: []
+  set2_2: []
+  set2_3: []
+  set2_4: []
+  set3_1: []
+  set3_2: []
+  set3_3: []
+  set4_1: []
+  set4_2: []
   set4_goblins: []
   Boss: []
   spawnMonsters: []
