@@ -88,6 +88,7 @@ public class UIManager : MonoBehaviour
 
     // 원래 UI 요소들의 초기 위치를 저장할 변수들
     private Vector2 originalCostImagePosition;
+    private RectTransform turnEndButtonRect;
     private Vector2 originalTurnEndButtonPosition;
     private Vector2 originalUnUsedCardsPosition;
     private Vector2 originalUsedCardsPosition;
@@ -101,7 +102,8 @@ public class UIManager : MonoBehaviour
     {
         // 초기 위치 저장
         originalCostImagePosition = costImage.rectTransform.anchoredPosition;
-        originalTurnEndButtonPosition = turnEndButton.GetComponent<RectTransform>().anchoredPosition;
+        turnEndButtonRect = turnEndButton.GetComponent<RectTransform>();
+        originalTurnEndButtonPosition = turnEndButtonRect.anchoredPosition;
         originalUnUsedCardsPosition = UnUsedCards.rectTransform.anchoredPosition;
         originalUsedCardsPosition = UsedCards.rectTransform.anchoredPosition;
 
@@ -285,7 +287,7 @@ public class UIManager : MonoBehaviour
     public void MoveUIElementsToStartPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(-725, costImage.rectTransform.anchoredPosition.y), 0.5f));
-        StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), new Vector2(-130, turnEndButton.GetComponent<RectTransform>().anchoredPosition.y), 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButtonRect, new Vector2(-200, turnEndButtonRect.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, new Vector2(40, 40), 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, new Vector2(-40, 40), 0.5f));
     }
@@ -293,7 +295,7 @@ public class UIManager : MonoBehaviour
     public void ResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
-        StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
     }
@@ -301,14 +303,14 @@ public class UIManager : MonoBehaviour
     public void UnUsedCardsResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
-        StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
     }
 
     public void UsedCardsResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
-        StartCoroutine(MoveUIElement(turnEndButton.GetComponent<RectTransform>(), originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
     }
 

@@ -46,7 +46,8 @@ public class SceneFader : MonoBehaviour
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began));
 
         PlayClickSound();
-        StartCoroutine(FadeOutAndLoad(1)); // æ¿ ¿Œµ¶Ω∫ 1∑Œ ¿¸»Ø
+        LoadingSceneManager.LoadScene(1);
+        //StartCoroutine(FadeOutAndLoad(1)); // æ¿ ¿Œµ¶Ω∫ 1∑Œ ¿¸»Ø
     }
 
     private void PlayClickSound()

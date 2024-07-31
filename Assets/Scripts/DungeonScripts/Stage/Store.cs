@@ -10,6 +10,6 @@ public class Store : Stage
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
         SaveManager.Instance.playerPosition = stagePosition;
-        SceneManager.LoadScene(4);
+        LoadingSceneManager.LoadScene(4);
     }
 }

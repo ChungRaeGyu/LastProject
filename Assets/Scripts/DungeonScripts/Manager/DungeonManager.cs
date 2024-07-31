@@ -29,7 +29,6 @@ public class DungeonManager : MonoBehaviour
     public GameObject player;
     public GameObject stage;
     public GameObject eventScene;
-    public GameObject storeScene;
 
     public Vector3 stage01;
 
@@ -39,7 +38,6 @@ public class DungeonManager : MonoBehaviour
     private void Start()
     {
         eventScene.SetActive(false);
-        storeScene.SetActive(false);
 
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
     }

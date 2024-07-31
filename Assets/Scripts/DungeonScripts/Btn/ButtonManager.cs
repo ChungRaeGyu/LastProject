@@ -26,6 +26,5 @@ public class ButtonManager : MonoBehaviour
     public void StageClear()
     {
         DungeonManager.Instance.eventScene.SetActive(false);
-        DungeonManager.Instance.storeScene.SetActive(false);
     }
 }
