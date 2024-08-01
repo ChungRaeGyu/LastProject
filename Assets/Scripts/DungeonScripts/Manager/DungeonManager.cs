@@ -42,6 +42,8 @@ public class DungeonManager : MonoBehaviour
 
     public Player Player;
 
+    public Transform startPosition;
+
     private void Start()
     {
         eventScene.SetActive(false);
@@ -49,6 +51,10 @@ public class DungeonManager : MonoBehaviour
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
         currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
+
+        if (!SaveManager.Instance.isStartPoint)
+            player.transform.position = SaveManager.Instance.playerPosition; // 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
+        // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
     }
 
     private void Update()
@@ -71,6 +77,5 @@ public class DungeonManager : MonoBehaviour
 
             stage.SetActive(false);
         }
-        player.transform.position = SaveManager.Instance.playerPosition;
     }
 }

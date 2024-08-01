@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageSet : MonoBehaviour
 {
-    public GameObject outline;
+    //public GameObject outline;
     public GameObject entryBtn;
 
     public Vector3 entry1;
@@ -19,22 +20,22 @@ public class StageSet : MonoBehaviour
 
         if (this.gameObject.transform.position == entry1)
         {
-            outline.SetActive(true);
+            //outline.SetActive(true);
             entryBtn.SetActive(true);
-        }   
+        }
         else if (this.gameObject.transform.position == entry2)
         {
-            outline.SetActive(true);
+            //outline.SetActive(true);
             entryBtn.SetActive(true);
         }
         else if (this.gameObject.transform.position == entry3)
         {
-            outline.SetActive(true);
+            //outline.SetActive(true);
             entryBtn.SetActive(true);
         }
         else
         {
-            outline.SetActive(false);
+            //outline.SetActive(false);
             entryBtn.SetActive(false);
         }
     }
