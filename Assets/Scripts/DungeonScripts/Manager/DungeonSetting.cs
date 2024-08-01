@@ -8,8 +8,6 @@ public class DungeonSetting : MonoBehaviour
     public GameObject lockDungeon;
     public GameObject explain;
 
-    public GameObject dungeonInfo;
-
     void Start()
     {
         if (gameObject.name == "02_Dungeon" && SaveManager.Instance.accessibleDungeon[1] == true)
@@ -49,11 +47,6 @@ public class DungeonSetting : MonoBehaviour
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
-
-        if (SaveManager.Instance.showInfo)
-            dungeonInfo.SetActive(true);
-        else
-            dungeonInfo.SetActive(false);
     }
 
     //던전으로 들어가는 버튼
@@ -66,17 +59,15 @@ public class DungeonSetting : MonoBehaviour
         SaveManager.Instance.isStartPoint = true;
         SettingManager.Instance.UpdateButtonVisibility();
 
-        DataManager.Instance.ResetPlayerHealth(); // 플레이어 체력 초기화 (임시)
         // 스탯 초기화 메서드 호출 예정
+        DataManager.Instance.maxHealth = DungeonManager.Instance.Player.playerStats.maxhealth;
+        DataManager.Instance.currenthealth = DungeonManager.Instance.Player.playerStats.maxhealth;
+
+        DungeonManager.Instance.currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
         // 기록 초기화 메서드
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
-
-        SaveManager.Instance.showInfo = true;
-
-        if (!dungeonInfo.activeSelf)
-        dungeonInfo.SetActive(true);
 
         foreach (var card in DataManager.Instance.LobbyDeck)
         {

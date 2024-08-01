@@ -50,8 +50,6 @@ public class SaveManager : MonoBehaviour
 
     public Stopwatch stopwatch; // 시간 측정을 위한 Stopwatch
 
-    public bool showInfo; // 던전 진행 정보에 대한 오브젝트 활성화 여부
-
     void Start()
     {
         accessDungeon = false;

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public abstract class PlayerCharacter : MonoBehaviour
 {
     public PlayerStats playerStats;
+    public int maxhealth;
     public int currenthealth;
     public int currentDefense;
     public Animator animator;
@@ -16,6 +17,9 @@ public abstract class PlayerCharacter : MonoBehaviour
     private void Awake()
     {
         currentDefense = playerStats.defense;
+        maxhealth = playerStats.maxhealth;
+        if (DataManager.Instance.maxHealth != 0)
+
         currenthealth = playerStats.maxhealth;
         animator = GetComponentInChildren<Animator>();
     }
