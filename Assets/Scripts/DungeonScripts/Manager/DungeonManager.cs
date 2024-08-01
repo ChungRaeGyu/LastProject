@@ -34,12 +34,21 @@ public class DungeonManager : MonoBehaviour
 
     [Header("TextUI")]
     public TMP_Text currentCoinText;
+    public TMP_Text currentHpText;
+
+    [Header("Info")]
+    public GameObject DungeonCoin;
+    public GameObject DungeonHp;
+
+    public Player Player;
 
     private void Start()
     {
         eventScene.SetActive(false);
 
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
+
+        currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
     }
 
     private void Update()
@@ -49,12 +58,16 @@ public class DungeonManager : MonoBehaviour
             player.SetActive(true);
             int num = SaveManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
+            DungeonCoin.SetActive(true);
+            DungeonHp.SetActive(true);
 
             stage.SetActive(true);
         }
         if (SaveManager.Instance.accessDungeon == false)
         {
             player.SetActive(false);
+            DungeonCoin.SetActive(false);
+            DungeonHp.SetActive(false);
 
             stage.SetActive(false);
         }

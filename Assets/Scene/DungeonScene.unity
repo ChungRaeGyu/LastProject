@@ -1946,6 +1946,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bcf63d1a275324687e02de84de9cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Dungeon: {fileID: 2070731564}
+  mimicEvent: {fileID: 744189749}
+  RandomCardEvent: {fileID: 573018879}
+  Box1: {fileID: 0}
+  Box2: {fileID: 0}
+  Box3: {fileID: 0}
+  aaaaa: {fileID: 0}
 --- !u!4 &433230345
 Transform:
   m_ObjectHideFlags: 0
@@ -2698,7 +2705,6 @@ MonoBehaviour:
   isBossStage: 0
   timeText: {fileID: 4208368720465747226}
   dungeonTimer: {fileID: 3381384542263269755}
-  showInfo: 0
 --- !u!4 &569416015
 Transform:
   m_ObjectHideFlags: 0
@@ -3426,6 +3432,10 @@ MonoBehaviour:
   eventScene: {fileID: 1322136608}
   stage01: {x: 0, y: 0, z: 0}
   currentCoinText: {fileID: 1368251039}
+  currentHpText: {fileID: 856141976}
+  DungeonCoin: {fileID: 1368251040}
+  DungeonHp: {fileID: 2057580682}
+  Player: {fileID: 4224354992257849490, guid: 51779a941770b954389f123ade21778c, type: 3}
 --- !u!1 &740582196
 GameObject:
   m_ObjectHideFlags: 0
@@ -3516,7 +3526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &744189750
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4389,7 +4399,7 @@ GameObject:
   - component: {fileID: 977311675}
   - component: {fileID: 977311674}
   m_Layer: 5
-  m_Name: DungeonHp (1)
+  m_Name: CurrentHpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5103,7 +5113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8698932189957242645, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5126,6 +5136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1368251040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698932189957242645, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
+  m_PrefabInstance: {fileID: 1368251037}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1368490623
 GameObject:
   m_ObjectHideFlags: 0
@@ -7164,7 +7179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1806025890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7868,7 +7883,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2057580683
 RectTransform:
   m_ObjectHideFlags: 0

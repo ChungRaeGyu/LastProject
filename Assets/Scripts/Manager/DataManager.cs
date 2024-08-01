@@ -68,6 +68,7 @@ public class DataManager : MonoBehaviour
     public List<GameObject> Monsters = new List<GameObject>();
 
     //플레이어의 스탯을 저장하는 변수들
+    public int maxHealth;
     public int currenthealth { get; set; }
 
     // 던전 클리어 기록들
