@@ -10,6 +10,6 @@ public class StoreBtn : MonoBehaviour
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
         SaveManager.Instance.playerPosition = this.gameObject.transform.position;
-        SceneManager.LoadScene(4);
+        LoadingSceneManager.LoadScene(4);
     }
 }
