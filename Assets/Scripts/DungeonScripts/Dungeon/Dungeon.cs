@@ -29,7 +29,7 @@ public class Dungeon : MonoBehaviour
 
     public Transform stageBoard;
 
-    public int[,] isStage;
+    public bool[,] isStage;
 
     public int x;
     public int y;
@@ -57,6 +57,7 @@ public class Dungeon : MonoBehaviour
     void Start()
     {
         stage = new GameObject[x, y];
+        isStage = new bool[x, y];
 
         for (int i = 0; i < x; i++)
         {
@@ -69,8 +70,13 @@ public class Dungeon : MonoBehaviour
                         //여기다가 생성 로직을 짜면 된다.
                         stage[i, j] = Instantiate(stagePrefab, stageBoard);
                         stage[i, j].transform.position = new Vector2(j * 0.75f - 5.25f, i * 1.3f - 3.9f);
+                        isStage[i, j] = true;
                     }
+                    else
+                        isStage[i, j] = false;
                 }
+                else
+                    isStage[i, j] = false;
             }
         }
 

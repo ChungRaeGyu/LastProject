@@ -41,28 +41,32 @@ public class Stage : MonoBehaviour
         }
         else
         {
-            int rand = random.Next(0, 100);
-            switch (rand)
+            for(int i = 0; i<Dungeon.Instance.x; i++)
             {
-                case 0:
-                    eliteMob.SetActive(true);
-                    break;
-                case 1:
-                case 2:
-                case 3:
-                    store.SetActive(true);
-                    break;
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                    eventStage.SetActive(true);
-                    break;
-                default:
-                    battle.SetActive(true);
-                    break;
+                for(int j = 0; j<Dungeon.Instance.y; j++)
+                {
+                    if(Dungeon.Instance.isStage[i, j] && stagePosition == Dungeon.Instance.stage[i, j].transform.position)
+                    {
+                        switch (SaveManager.Instance.num[i, j])
+                        {
+                            case 0:
+                                eliteMob.SetActive(true);
+                                break;
+                            case 1:
+                            case 2:
+                                store.SetActive(true);
+                                break;
+                            case 3:
+                            case 4:
+                            case 5:
+                                eventStage.SetActive(true);
+                                break;
+                            default:
+                                battle.SetActive(true);
+                                break;
+                        }
+                    }
+                }
             }
         }
     }

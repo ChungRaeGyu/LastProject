@@ -44,11 +44,16 @@ public class SaveManager : MonoBehaviour
     //현재 보스던전인지 체크
     public bool isBossStage;
 
+    public int[,] num;
+
     [Header("UI")]
     public TMP_Text timeText; // UI 텍스트 컴포넌트
     public GameObject dungeonTimer; // 타이머가 든 UI 오브젝트
 
     public Stopwatch stopwatch; // 시간 측정을 위한 Stopwatch
+
+
+    public System.Random random = new System.Random();
 
     void Start()
     {
@@ -113,5 +118,19 @@ public class SaveManager : MonoBehaviour
     public void StopTrackingTime()
     {
         stopwatch.Stop(); // 시간 측정 중지
+    }
+    
+    public void RandomStageNum()
+    {
+        num = new int[Dungeon.Instance.x, Dungeon.Instance.y];
+
+        for(int i =0; i < Dungeon.Instance.x; i++)
+        {
+            for(int j = 0; j < Dungeon.Instance.y; j++)
+            {
+                int rand = random.Next(0, 20);
+                num[i, j] = rand;
+            }
+        }
     }
 }

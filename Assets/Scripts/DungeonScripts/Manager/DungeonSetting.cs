@@ -69,6 +69,9 @@ public class DungeonSetting : MonoBehaviour
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
 
+
+
+
         foreach (var card in DataManager.Instance.LobbyDeck)
         {
             DataManager.Instance.deckList.Add(card);
@@ -81,6 +84,7 @@ public class DungeonSetting : MonoBehaviour
                     if (i == 0)
                     {
                         DungeonManager.Instance.dungeonNum[i].SetActive(true);
+                        SaveManager.Instance.RandomStageNum();
                     }
                     else
                     {
@@ -97,6 +101,7 @@ public class DungeonSetting : MonoBehaviour
                     if (i == 1)
                     {
                         DungeonManager.Instance.dungeonNum[i].SetActive(true);
+                        SaveManager.Instance.RandomStageNum();
                     }
                     else
                     {
@@ -113,6 +118,7 @@ public class DungeonSetting : MonoBehaviour
                     if (i == 2)
                     {
                         DungeonManager.Instance.dungeonNum[i].SetActive(true);
+                        SaveManager.Instance.RandomStageNum();
                     }
                     else
                     {
@@ -129,6 +135,7 @@ public class DungeonSetting : MonoBehaviour
                     if (i == 3)
                     {
                         DungeonManager.Instance.dungeonNum[i].SetActive(true);
+                        SaveManager.Instance.RandomStageNum();
                     }
                     else
                     {
