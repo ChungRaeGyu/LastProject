@@ -14,7 +14,6 @@ public class BattleBtn : MonoBehaviour
             SaveManager.Instance.isBossStage = true;
         }
         SaveManager.Instance.playerPosition = this.gameObject.transform.position;
-        //DungeonManager.Instance.battleScene.SetActive(true);
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
         SceneManager.LoadScene(3);
