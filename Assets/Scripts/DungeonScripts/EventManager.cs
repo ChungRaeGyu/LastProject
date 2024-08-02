@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
@@ -10,15 +11,14 @@ public class EventManager : MonoBehaviour
 
     [Header("Event")]
     public GameObject mimicEvent;
-    public GameObject RandomCardEvent;
+    public GameObject randomCardEvent;
+    public GameObject healEvent;
 
     [Header("MimicEvent")]
-    public GameObject Box1;
-    public GameObject Box2;
-    public GameObject Box3;
+    public List<GameObject> boxes;
 
     [Header("RandomCardEvent")]
-    public GameObject aaaaa;
+    public List<CardBasic> randomCardList;
 
     public void ShowMimicEvent()
     {
@@ -29,12 +29,17 @@ public class EventManager : MonoBehaviour
 
     private void ShuffleBoxes()
     {
-        List<Transform> boxPositions = new List<Transform> { Box1.transform, Box2.transform, Box3.transform };
+        List<Transform> boxPositions = new List<Transform>();
+
+        foreach (var box in boxes)
+        {
+            boxPositions.Add(box.transform);
+        }
 
         for (int i = boxPositions.Count - 1; i > 0; i--)
         {
             int randomIndex = Random.Range(0, i + 1);
-            // 위치를 스왑
+            // 상자의 위치를 바꿔준다
             Vector3 tempPosition = boxPositions[i].position;
             boxPositions[i].position = boxPositions[randomIndex].position;
             boxPositions[randomIndex].position = tempPosition;
@@ -51,6 +56,13 @@ public class EventManager : MonoBehaviour
     {
         int randomCoin = Random.Range(20, 41);
         DataManager.Instance.currentCoin += randomCoin;
+
+        // 이 메서드가 호출된 버튼 오브젝트가 제거됨
+        GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
+        if (clickedButton != null)
+        {
+            Destroy(clickedButton);
+        }
     }
 
     public void HideMimicEvent()
@@ -62,12 +74,12 @@ public class EventManager : MonoBehaviour
     public void ShowRandomCardEvent()
     {
         HideDungeon();
-        RandomCardEvent.SetActive(true);
+        randomCardEvent.SetActive(true);
     }
 
     public void HideRandomCardEvent()
     {
-        RandomCardEvent.SetActive(false);
+        randomCardEvent.SetActive(false);
         ShowDungeon();
     }
 
@@ -79,5 +91,18 @@ public class EventManager : MonoBehaviour
     public void ShowDungeon()
     {
         Dungeon.SetActive(true);
+    }
+
+    // randomCardList에서 카드를 1장 랜덤으로 반환
+    public CardBasic GetRandomCard()
+    {
+        if (randomCardList == null || randomCardList.Count == 0)
+        {
+            Debug.Log("랜덤 카드 리스트가 비어있습니다.");
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, randomCardList.Count);
+        return randomCardList[randomIndex];
     }
 }
