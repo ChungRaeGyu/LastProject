@@ -36,9 +36,6 @@ public class DungeonManager : MonoBehaviour
     [Header("Player")]
     public GameObject player;
 
-    [Header("Stage")]
-    public GameObject stage;
-
     [Header("TextUI")]
     public TMP_Text currentCoinText;
     public TMP_Text currentHpText;
@@ -67,8 +64,6 @@ public class DungeonManager : MonoBehaviour
             dungeonNum[num].SetActive(true);
             DungeonCoin.SetActive(true);
             DungeonHp.SetActive(true);
-
-            stage.SetActive(true);
         }
         //던전에 입장하지 않았을때
         else
@@ -78,8 +73,6 @@ public class DungeonManager : MonoBehaviour
 
             DungeonCoin.SetActive(false);
             DungeonHp.SetActive(false);
-
-            stage.SetActive(false); //스테이지 비활성화
         }
 
         //플레이어가 스타트 지점에서 벗어났을 경우

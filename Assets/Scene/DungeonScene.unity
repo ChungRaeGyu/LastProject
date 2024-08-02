@@ -3414,8 +3414,8 @@ Transform:
   m_GameObject: {fileID: 973764764}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1098.2941, y: 0, z: 0}
-  m_LocalScale: {x: 58.575684, y: 58.575684, z: 1.4643921}
+  m_LocalPosition: {x: -743, y: 0, z: 0}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 851263011}
@@ -5204,7 +5204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -575, y: 0}
+  m_AnchoredPosition: {x: -530, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1608935960
@@ -5480,7 +5480,6 @@ MonoBehaviour:
   - {fileID: 972360263}
   - {fileID: 1060999375}
   player: {fileID: 973764764}
-  stage: {fileID: 933974319}
   currentCoinText: {fileID: 1842822190}
   currentHpText: {fileID: 1184987124}
   DungeonCoin: {fileID: 1842822191}
@@ -7191,7 +7190,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 0.75, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 963368535}
