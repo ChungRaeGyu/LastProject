@@ -104,7 +104,7 @@ public class StoreManager : MonoBehaviour
         {
             // 동전 소리
             DataManager.Instance.currentCoin -= price;
-            DataManager.Instance.deckList.Add(cardBasic); // 카드 추가
+            DataManager.Instance.AddCard(cardBasic); // 카드 추가
 
             // 구매한 카드 부모 오브젝트의 자식 카드들만 제거
             RemoveChildren(parent);

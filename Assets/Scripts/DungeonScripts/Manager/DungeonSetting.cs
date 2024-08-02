@@ -74,7 +74,7 @@ public class DungeonSetting : MonoBehaviour
 
         foreach (var card in DataManager.Instance.LobbyDeck)
         {
-            DataManager.Instance.deckList.Add(card);
+            DataManager.Instance.AddCard(card);
         }
         switch (gameObject.name)
         {

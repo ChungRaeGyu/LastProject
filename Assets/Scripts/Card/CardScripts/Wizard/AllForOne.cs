@@ -40,7 +40,7 @@ public class AllForOne : CardBasic
 
             descriptionText.text = color == ""
                 ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다. 카드더미에 코스트가 0인카드를 모두 손으로 가져옵니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 번개 피해를 줍니다.만큼 피해를 줍니다. 카드더미에 코스트가 0인카드를 모두 손으로 가져옵니다.";
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 카드더미에 코스트가 0인카드를 모두 손으로 가져옵니다.";
         }
     }
 
