@@ -3600,7 +3600,7 @@ GameObject:
   - component: {fileID: 706902556}
   - component: {fileID: 706902553}
   m_Layer: 5
-  m_Name: TurnEndButton (1)
+  m_Name: TurnEndButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3623,11 +3623,11 @@ RectTransform:
   - {fileID: 2137105240}
   m_Father: {fileID: 1490520907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -220, y: 1100}
-  m_SizeDelta: {x: 1.5, y: 0.8}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 300, y: -110}
+  m_SizeDelta: {x: 1, y: 0.5}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &706902553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7826,8 +7826,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.25
-  m_fontSizeBase: 0.25
+  m_fontSize: 0.18
+  m_fontSizeBase: 0.18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13012,7 +13012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3881166557743384961 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9102485701366716436, guid: d809e10ba3a6a1a498b341f4e124b7e5, type: 3}
