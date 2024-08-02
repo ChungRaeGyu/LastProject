@@ -36,17 +36,33 @@ public class CardData : MonoBehaviour
     }
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1) this.enabled = true;
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            this.enabled = true;
+            CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
+        }
         else this.enabled = false;
 
     }
-    private float ConvertRange(float x, int minOrig, int maxOrig, int minNew, int maxNew)
+    public void CardOpenControl(CardBasic tempCardBasic, bool check)
     {
-        float abs = Mathf.Abs(x - 1604) + 1604;
+        tempCardBasic.nameText.gameObject.SetActive(check);
+        tempCardBasic.costText.gameObject.SetActive(check);
+        tempCardBasic.descriptionText.gameObject.SetActive(check);
+        if (check)
+        {
+            image[1].sprite = cardBasic.image;
+        }
+        else
+        {
+            image[1].sprite = DataManager.Instance.cardBackImage;
+        }
+    }
+    private float ConvertRange(float x, float length)
+    {
+        float abs = Mathf.Abs(x - 1000) + 1000;
 
-        float xNorm = (maxOrig - minOrig) / abs;
-
-        // 2단계: 정규화된 값을 새로운 범위로 변환
+        float xNorm = length / abs; //maxOrig-minOrig가 전체크기다
 
         return xNorm;
     }
@@ -54,11 +70,11 @@ public class CardData : MonoBehaviour
     private void Update()
     {
         if (!LobbyManager.instance.isDrawing) return;
-        float newValue = ConvertRange(transform.position.x, -1178, 4386, 3, 5) * 1.5f;
+        float newValue = ConvertRange(transform.position.x, 2000);
 
-        transform.localScale = new Vector2(1 * newValue, 1.5f * newValue);
+        transform.localScale = new Vector2(2.5f * newValue, 3.75f * newValue);
 
-        if (transform.localScale.x > 5)
+        if (transform.localScale.x > 4.9f)
         {
             if (coroutine == null && image[1].sprite == DataManager.Instance.cardBackImage)
             {

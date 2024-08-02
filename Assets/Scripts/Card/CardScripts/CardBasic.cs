@@ -52,6 +52,9 @@ public class CardBasic : MonoBehaviour
     public bool dragLineCard;
     public GameObject deckCardImage;
 
+    [Header("FindCheck")]
+    public bool isFind = false;
+
     [Header("EffectPrefab")]
     public GameObject playerEffect;
     public GameObject attackEffect = null;

@@ -222,7 +222,7 @@ public class UIManager : MonoBehaviour
 
             // 클릭한 카드를 추가
             CardBasic cardToAdd = rewardCardPrefabs[cardIndex].GetComponent<CardBasic>();
-            DataManager.Instance.deckList.Add(cardToAdd);
+            DataManager.Instance.AddCard(cardToAdd);
 
             // 다른 두 카드 삭제
             for (int i = 0; i < rewardCardPrefabs.Count; i++)

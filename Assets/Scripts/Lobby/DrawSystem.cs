@@ -9,6 +9,8 @@ public class DrawSystem : MonoBehaviour
     List<CardBasic> normalCards = new List<CardBasic>(); //º¸Åë;
     List<CardBasic> rarityCards = new List<CardBasic>(); //Èñ±Í;
     List<CardBasic> heroCards = new List<CardBasic>();//¿µ¿õÄ«µå;
+    List<CardBasic> legendCards = new List<CardBasic>();//Àü¼³Ä«µå
+
 
     Queue<CardBasic> tempCardBasic = new Queue<CardBasic>();
     List<GameObject> tempCardObj = new List<GameObject>();
@@ -38,6 +40,9 @@ public class DrawSystem : MonoBehaviour
                 case Rate.Hero:
                     heroCards.Add(card);
                     break;
+                case Rate.Legend:
+                    legendCards.Add(card);
+                    break;
             }
         }
     }
@@ -58,9 +63,13 @@ public class DrawSystem : MonoBehaviour
             {
                 cardList = rarityCards;
             }
-            else
+            else if(random<99)
             {
                 cardList = heroCards;
+            }
+            else
+            {
+                cardList = legendCards;
             }
 
             int randomCard = Random.Range(0, cardList.Count);
@@ -82,7 +91,9 @@ public class DrawSystem : MonoBehaviour
         //ÃÊ±âÈ­
         foreach (GameObject cardObj in tempCardObj)
         {
-            tempCardBasic.Dequeue().currentCount++;
+            CardBasic temp = tempCardBasic.Dequeue();
+            temp.currentCount++;
+            temp.cardBasic.isFind = true;
             Destroy(cardObj);
         }
         LobbyManager.instance.InvokeCount();

@@ -37,7 +37,6 @@ public class CardDrag : MonoBehaviour
         // BezierDragLine 스크립트 컴포넌트 가져오기
         dragLine = GetComponent<BezierDragLine>();
         originalSiblingIndex = transform.GetSiblingIndex();//Hierarchy에서의 순서
-
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             // 하위 이미지의 RaycastTarget 속성 켜기
@@ -59,6 +58,7 @@ public class CardDrag : MonoBehaviour
     }
     private void Update()
     {
+        if (!cardBasic.cardBasic.isFind) return;
         if (isDragging)
         {
             // 마우스 커서의 화면 좌표를 월드 좌표로 변환
@@ -95,6 +95,7 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (!cardBasic.cardBasic.isFind) return;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (GameManager.instance.player?.IsDead() == true) return;
@@ -187,6 +188,7 @@ public class CardDrag : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if (!cardBasic.cardBasic.isFind) return;
         isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {

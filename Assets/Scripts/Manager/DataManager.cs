@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class DataManager : MonoBehaviour
     public List<CardBasic> LobbyDeck = new List<CardBasic>(); //기본카드로 들고갈 덱
                                                               //게임시작 버튼을 눌렀을 때 deckList에 넣어줘야함)
     [HideInInspector]                                                       //최대 6장 고정 6장 미만시 게임시작 불가능
-    public int[] LobbyDeckRateCheck = new int[(int)Rate.Count];
+    public int[] LobbyDeckRateCheck = new int[(int)Rate.Count];//등급별 개수 제한 변수
 
     [HideInInspector]
     public List<CardBasic> deckList = new List<CardBasic>(); //던전에서 사용할 덱 리스트
@@ -48,15 +49,10 @@ public class DataManager : MonoBehaviour
     public List<CardBasic> cardObjs = new List<CardBasic>();//실제 데이터를 모두 가지고 있는 곳
 
     [Header("CardPiece")]
-    public int[] CardPiece;
+    public int[] CardPiece = new int[4];
 
     [Header("CardBack")]
     public Sprite cardBackImage;
-
-    private void Start()
-    {
-        CardPiece = new int[(int)Rate.Count];
-    }
 
     [Header("current Battle Monsters")]
     public List<GameObject> Monsters = new List<GameObject>();
@@ -81,6 +77,16 @@ public class DataManager : MonoBehaviour
     public int currentCoin; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
     // public int currentCrystal { get; set; } = 0; // 일단 0으로 (임시)
     public int currentCrystal; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
+    private void Start()
+    {
+        RateSort();
+    }
+
+    private void RateSort()
+    {
+        Debug.Log("정리");
+        cardObjs = cardObjs.OrderBy(card => card.rate).ToList();
+    }
 
     public void SuffleDeckList()
     {
@@ -125,13 +131,10 @@ public class DataManager : MonoBehaviour
         usedCards.Clear();
     }
 
-    public void AddCard(List<CardBasic> newCards)
+    public void AddCard(CardBasic newCards)
     {
-        //보상패널에서 획득한 카드 덱에 넣기
-        foreach (CardBasic GameObject in newCards)
-        {
-            deckList.Add(GameObject);
-        }
+        deckList.Add(newCards);
+        newCards.cardBasic.isFind = true;
     }
 
     // TotalCrystal을 계산하는 메서드
