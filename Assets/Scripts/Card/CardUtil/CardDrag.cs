@@ -58,7 +58,7 @@ public class CardDrag : MonoBehaviour
     }
     private void Update()
     {
-        if (!cardBasic.cardBasic.isFind) return;
+        if (!cardBasic.isFind) return;
         if (isDragging)
         {
             // 마우스 커서의 화면 좌표를 월드 좌표로 변환

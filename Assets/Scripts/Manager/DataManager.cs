@@ -134,7 +134,7 @@ public class DataManager : MonoBehaviour
     public void AddCard(CardBasic newCards)
     {
         deckList.Add(newCards);
-        newCards.cardBasic.isFind = true;
+        newCards.isFind = true;
     }
 
     // TotalCrystal을 계산하는 메서드
