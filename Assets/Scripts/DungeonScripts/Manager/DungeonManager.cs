@@ -38,8 +38,6 @@ public class DungeonManager : MonoBehaviour
 
     [Header("Stage")]
     public GameObject stage;
-    public GameObject eventScene;
-    //public Vector3 stage01;
 
     [Header("TextUI")]
     public TMP_Text currentCoinText;
@@ -89,7 +87,6 @@ public class DungeonManager : MonoBehaviour
             player.transform.position = SaveManager.Instance.playerPosition;// 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
                                                                             // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
 
-        eventScene.SetActive(false);
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
         currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
     }
