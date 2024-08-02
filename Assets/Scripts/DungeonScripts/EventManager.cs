@@ -84,6 +84,7 @@ public class EventManager : MonoBehaviour
 
     public void MimicSurprise()
     {
+        DataManager.Instance.SuffleDeckList();
         // 전투에서 미믹이 나와야 함
         DataManager.Instance.Monsters = mimicMonster;
         LoadingSceneManager.LoadScene(3);
