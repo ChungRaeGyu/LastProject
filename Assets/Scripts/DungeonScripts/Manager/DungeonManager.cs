@@ -49,9 +49,12 @@ public class DungeonManager : MonoBehaviour
     public GameObject DungeonCoin;
     public GameObject DungeonHp;
 
+    [Header("Player")]
     public Player Player;
-
     public Transform startPosition;
+
+    [Header("Manager")]
+    public EventManager eventManager;
 
 
     void Start()

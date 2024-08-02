@@ -105,8 +105,8 @@ public class Stage : MonoBehaviour
 
         SaveManager.Instance.playerPosition = this.gameObject.transform.position;
 
-        // 이벤트 패널을 띄워줌
-        DungeonManager.Instance.eventScene.SetActive(true);
+        // 랜덤으로 이벤트 패널을 띄워줌
+        DungeonManager.Instance.eventManager.ShowRandomEvent();
     }
 
 
