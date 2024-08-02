@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using TreeEditor;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class DeckListObj : MonoBehaviour
