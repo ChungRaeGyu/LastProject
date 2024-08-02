@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class DungeonManager : MonoBehaviour
 {
+    //인스턴스
     public static DungeonManager Instance = null;
 
     private void Awake()
@@ -24,13 +21,25 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
+    [Header("DungeonScene")]
+    public GameObject dungeonBoard;
+    public GameObject dungeon;
+
+    [Header("DungeonBoard")]
+    public GameObject dungeonBoardBackground;
+    public GameObject[] dungeonEntrance = new GameObject[5];
+    //public int accessDungeon = 1;
+
+    [Header("Dungeon")]
     public GameObject[] dungeonNum = new GameObject[5];
 
+    [Header("Player")]
     public GameObject player;
+
+    [Header("Stage")]
     public GameObject stage;
     public GameObject eventScene;
-
-    public Vector3 stage01;
+    //public Vector3 stage01;
 
     [Header("TextUI")]
     public TMP_Text currentCoinText;
@@ -42,26 +51,17 @@ public class DungeonManager : MonoBehaviour
 
     public Player Player;
 
-    public Transform startPosition;
+    public Transform stagePosition;
 
-    private void Start()
+
+    void Start()
     {
-        eventScene.SetActive(false);
-
-        currentCoinText.text = DataManager.Instance.currentCoin.ToString();
-
-        currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
-
-        if (!SaveManager.Instance.isStartPoint)
-            player.transform.position = SaveManager.Instance.playerPosition; // 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
-        // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
-    }
-
-    private void Update()
-    {
+        //던전에 입장했을 때
         if (SaveManager.Instance.accessDungeon == true)
         {
-            player.SetActive(true);
+            dungeonBoard.SetActive(false); //던전 보드 비활성화
+            dungeon.SetActive(true); //던전 활성화
+
             int num = SaveManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
             DungeonCoin.SetActive(true);
@@ -69,13 +69,25 @@ public class DungeonManager : MonoBehaviour
 
             stage.SetActive(true);
         }
-        if (SaveManager.Instance.accessDungeon == false)
+        //던전에 입장하지 않았을때
+        else
         {
-            player.SetActive(false);
+            dungeonBoard.SetActive(true); //던전 보드 활성화
+            dungeon.SetActive(false); //던전 보드 비활성화
+
             DungeonCoin.SetActive(false);
             DungeonHp.SetActive(false);
 
-            stage.SetActive(false);
+            stage.SetActive(false); //스테이지 비활성화
         }
+
+        //플레이어가 스타트 지점에서 벗어났을 경우
+        if (!SaveManager.Instance.isStartPoint) 
+            player.transform.position = SaveManager.Instance.playerPosition;// 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
+                                                                            // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
+
+        eventScene.SetActive(false);
+        currentCoinText.text = DataManager.Instance.currentCoin.ToString();
+        currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
     }
 }

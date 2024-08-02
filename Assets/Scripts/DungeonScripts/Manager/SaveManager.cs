@@ -79,7 +79,7 @@ public class SaveManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            if (DungeonBoardManager.Instance != null && DungeonBoardManager.Instance.dungeon.activeSelf)
+            if (DungeonManager.Instance != null && DungeonManager.Instance.dungeon.activeSelf)
             {
                 dungeonTimer.SetActive(true);
             }
@@ -120,6 +120,7 @@ public class SaveManager : MonoBehaviour
         stopwatch.Stop(); // 시간 측정 중지
     }
     
+    //던전 스테이지 랜덤 생성
     public void RandomStageNum()
     {
         num = new int[Dungeon.Instance.x, Dungeon.Instance.y];
@@ -128,7 +129,7 @@ public class SaveManager : MonoBehaviour
         {
             for(int j = 0; j < Dungeon.Instance.y; j++)
             {
-                int rand = random.Next(0, 20);
+                int rand = random.Next(0, 50);
                 num[i, j] = rand;
             }
         }

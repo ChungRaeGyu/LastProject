@@ -25,7 +25,7 @@ public class PauseBtn : MonoBehaviour
         Time.timeScale = 1.0f;
         pause.SetActive(false);
         SaveManager.Instance.accessDungeon = false;
-        DungeonBoardManager.Instance.dungeonBoard.SetActive(true);
-        DungeonBoardManager.Instance.dungeon.SetActive(false);
+        DungeonManager.Instance.dungeonBoard.SetActive(true);
+        DungeonManager.Instance.dungeon.SetActive(false);
     }
 }

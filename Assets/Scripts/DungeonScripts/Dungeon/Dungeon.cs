@@ -83,7 +83,7 @@ public class Dungeon : MonoBehaviour
         if (SaveManager.Instance.isStartPoint)
         {
             SaveManager.Instance.playerPosition = stage[(x - 1) / 2, 0].transform.position;
-            DungeonManager.Instance.player.transform.position = DungeonManager.Instance.startPosition.position;
+            DungeonManager.Instance.player.transform.position = DungeonManager.Instance.stagePosition.transform.position;
             SaveManager.Instance.isStartPoint = false;
         }
     }

@@ -53,8 +53,8 @@ public class DungeonSetting : MonoBehaviour
     public void GoToDungeon()
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
-        DungeonBoardManager.Instance.dungeonBoard.SetActive(false);
-        DungeonBoardManager.Instance.dungeon.SetActive(true);
+        DungeonManager.Instance.dungeonBoard.SetActive(false);
+        DungeonManager.Instance.dungeon.SetActive(true);
         SaveManager.Instance.accessDungeon = true;
         SaveManager.Instance.isStartPoint = true;
         SettingManager.Instance.UpdateButtonVisibility();
@@ -69,9 +69,6 @@ public class DungeonSetting : MonoBehaviour
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
 
-
-
-
         foreach (var card in DataManager.Instance.LobbyDeck)
         {
             DataManager.Instance.deckList.Add(card);
@@ -79,85 +76,36 @@ public class DungeonSetting : MonoBehaviour
         switch (gameObject.name)
         {
             case "01_Start_Dungeon":
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i == 0)
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(true);
-                        SaveManager.Instance.RandomStageNum();
-                    }
-                    else
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(false);
-                    }
-                }
+                DungeonManager.Instance.dungeonNum[0].SetActive(true);
+                SaveManager.Instance.RandomStageNum();
                 SaveManager.Instance.accessDungeonNum = 0;
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 
             case "02_Dungeon":
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i == 1)
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(true);
-                        SaveManager.Instance.RandomStageNum();
-                    }
-                    else
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(false);
-                    }
-                }
+                DungeonManager.Instance.dungeonNum[1].SetActive(true);
+                SaveManager.Instance.RandomStageNum();
                 SaveManager.Instance.accessDungeonNum = 1;
                 Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;
 
             case "03_Dungeon":
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i == 2)
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(true);
-                        SaveManager.Instance.RandomStageNum();
-                    }
-                    else
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(false);
-                    }
-                }
+                DungeonManager.Instance.dungeonNum[2].SetActive(true);
+                SaveManager.Instance.RandomStageNum();
                 SaveManager.Instance.accessDungeonNum = 2;
                 Debug.Log("3번째 던전에 입장하셨습니다.");
                 break;
 
             case "04_Dungeon":
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i == 3)
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(true);
-                        SaveManager.Instance.RandomStageNum();
-                    }
-                    else
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(false);
-                    }
-                }
+                DungeonManager.Instance.dungeonNum[3].SetActive(true);
+                SaveManager.Instance.RandomStageNum();
                 SaveManager.Instance.accessDungeonNum = 3;
                 Debug.Log("4번째 던전에 입장하셨습니다.");
                 break;
 
             case "05_Dungeon":
-                for (int i = 0; i < 5; i++)
-                {
-                    if (i == 4)
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(true);
-                    }
-                    else
-                    {
-                        DungeonManager.Instance.dungeonNum[i].SetActive(false);
-                    }
-                }
+                DungeonManager.Instance.dungeonNum[4].SetActive(true);
+                SaveManager.Instance.RandomStageNum();
                 SaveManager.Instance.accessDungeonNum = 4;
                 Debug.Log("5번째 던전에 입장하셨습니다.");
                 break;
