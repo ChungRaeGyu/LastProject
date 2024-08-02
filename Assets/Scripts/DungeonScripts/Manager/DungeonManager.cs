@@ -51,7 +51,7 @@ public class DungeonManager : MonoBehaviour
 
     public Player Player;
 
-    public Transform stagePosition;
+    public Transform startPosition;
 
 
     void Start()
