@@ -503,11 +503,13 @@ MonoBehaviour:
   damageAbility: 0
   utilAbility: 5
   currentCount: 0
-  image: {fileID: 21300000, guid: 1cb9197cc86d4ee41b57a81431fe3352, type: 3}
   job: 0
   rate: 1
   dragLineCard: 0
   deckCardImage: {fileID: 3136015016114371348, guid: 85294776561a61f428b3486e0e0ab2c1, type: 3}
+  image: {fileID: 21300000, guid: 1cb9197cc86d4ee41b57a81431fe3352, type: 3}
+  firstEnhanceImage: {fileID: 21300000, guid: 3e04facf57ad8414ca0c3037080bfa17, type: 3}
+  secondEnhanceImage: {fileID: 21300000, guid: 0f77378a43be6f448a4240bd76d1e9fc, type: 3}
   isFind: 1
   playerEffect: {fileID: 6336157165836246662, guid: b5954fdee60c5ec4ebd03889c4fd14a1, type: 3}
   attackEffect: {fileID: 0}
@@ -516,6 +518,7 @@ MonoBehaviour:
   costText: {fileID: 6794821868858011651}
   descriptionText: {fileID: 320888928599249707}
   audioSource: {fileID: 0}
+  enhancementLevel: 0
 --- !u!95 &-1598070861796313375
 Animator:
   serializedVersion: 5

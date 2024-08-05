@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 893644846}
   - component: {fileID: 893644848}
   - component: {fileID: 893644847}
+  - component: {fileID: 893644849}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -437,7 +438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now loading ...
+  m_text: Now loading . . .
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 69842bf1241052d4a9e99564070da842, type: 2}
   m_sharedMaterial: {fileID: -5010619485028044458, guid: 69842bf1241052d4a9e99564070da842, type: 2}
@@ -514,6 +515,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893644845}
   m_CullTransparentMesh: 1
+--- !u!95 &893644849
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893644845}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ad9ae1e229489747869793528adccb7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &973956145
 GameObject:
   m_ObjectHideFlags: 0

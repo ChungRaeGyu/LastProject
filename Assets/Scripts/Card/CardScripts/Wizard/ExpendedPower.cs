@@ -17,8 +17,10 @@ public class ExpendedPower : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color = "#FFFFFF";
@@ -77,5 +79,24 @@ public class ExpendedPower : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                cost -= 1; // 코스트 감소
+                break;
+            case 2:
+                cost -= 2; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

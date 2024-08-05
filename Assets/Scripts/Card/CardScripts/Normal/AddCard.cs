@@ -13,8 +13,10 @@ public class AddCard : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -74,5 +76,25 @@ public class AddCard : CardBasic
         Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
         GameManager.instance.CheckAllMonstersDead();
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 1; // 카드 1장더
+                break;
+            case 2:
+                utilAbility += 1;
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

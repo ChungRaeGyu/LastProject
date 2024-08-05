@@ -15,18 +15,20 @@ public class FrozenMagic : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
 
             // 초기 ability와 현재 ability 비교
-            if (damageAbility > initialDamageAbility)
+            if (utilAbility > initialUtilAbility)
             {
                 color = "#00FF00"; // 초록색
             }
-            else if (damageAbility < initialDamageAbility)
+            else if (utilAbility < initialUtilAbility)
             {
                 color = "#FF0000"; // 빨간색
             }
@@ -86,5 +88,23 @@ public class FrozenMagic : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                break; // 아무것도 없음
+            case 2:
+                utilAbility += 1; // 턴 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

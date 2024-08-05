@@ -18,8 +18,10 @@ public class AddCost : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -73,5 +75,25 @@ public class AddCost : CardBasic
     {
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 1; // 데미지 증가
+                break;
+            case 2:
+                utilAbility += 1; // 데미지 증가
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

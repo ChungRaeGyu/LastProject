@@ -25,8 +25,10 @@ public class Blood : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -96,5 +98,22 @@ public class Blood : CardBasic
         }
     }
 
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
 
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+                break;
+            case 2:
+                utilAbility += 3; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
+    }
 }
