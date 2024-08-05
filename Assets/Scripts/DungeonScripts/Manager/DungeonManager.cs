@@ -26,9 +26,7 @@ public class DungeonManager : MonoBehaviour
     public GameObject dungeon;
 
     [Header("DungeonBoard")]
-    public GameObject dungeonBoardBackground;
     public GameObject[] dungeonEntrance = new GameObject[5];
-    //public int accessDungeon = 1;
 
     [Header("Dungeon")]
     public GameObject[] dungeonNum = new GameObject[5];

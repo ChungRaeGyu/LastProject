@@ -33,6 +33,8 @@ public class Dungeon : MonoBehaviour
 
     public int x;
     public int y;
+    public float a;
+    public float b;
 
     public List<GameObject> monsters = new List<GameObject>();
     public List<List<GameObject>> setList = new List<List<GameObject>>();
@@ -69,7 +71,7 @@ public class Dungeon : MonoBehaviour
                     {
                         //여기다가 생성 로직을 짜면 된다.
                         stage[i, j] = Instantiate(stagePrefab, stageBoard);
-                        stage[i, j].transform.position = new Vector2(j * 0.75f - 5.25f, i * 1.3f - 3.9f);
+                        stage[i, j].transform.position = new Vector2(j * 0.75f - a, i * 1.3f - b);
                         isStage[i, j] = true;
                     }
                     else

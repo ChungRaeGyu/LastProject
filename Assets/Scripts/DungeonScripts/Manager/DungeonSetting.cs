@@ -79,6 +79,7 @@ public class DungeonSetting : MonoBehaviour
                 DungeonManager.Instance.dungeonNum[0].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
                 SaveManager.Instance.accessDungeonNum = 0;
+                DungeonManager.Instance.startPosition.transform.position += new Vector3(3, 0, 0);
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 
