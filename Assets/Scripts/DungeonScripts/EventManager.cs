@@ -6,10 +6,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class EventManager : MonoBehaviour
 {
     public GameObject Dungeon;
+
+    [Header("FadeImage")]
+    public Image fadeImage;
 
     [Header("Event")]
     public GameObject mimicEvent;
@@ -36,6 +40,9 @@ public class EventManager : MonoBehaviour
     // 랜덤 값 변수 돌려쓰기
     private int randomCoin;
 
+    // 페이드 스피드
+    private float fadeSpeed = 1f;
+
     public void ShowRandomEvent()
     {
         // 랜덤 숫자 생성기 초기화
@@ -52,6 +59,8 @@ public class EventManager : MonoBehaviour
                 break;
             case 2:
                 ShowHealEvent();
+                break;
+            default:
                 break;
         }
     }
@@ -99,7 +108,32 @@ public class EventManager : MonoBehaviour
         // 이 메서드가 호출된 버튼이 있는 오브젝트가 제거됨
         GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
         if (clickedButton != null)
-            Destroy(clickedButton);
+        {
+            StartCoroutine(FadeOutAndDestroy(clickedButton));
+        }
+    }
+
+    private IEnumerator FadeOutAndDestroy(GameObject buttonObject)
+    {
+        Transform childTransform = buttonObject.transform.GetChild(0);
+        Image childImage = childTransform.GetComponent<Image>();
+
+        if (childImage != null)
+        {
+            Color originalColor = childImage.color;
+            float duration = 0.5f; // 페이드 아웃 시간
+            float elapsed = 0.0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(1, 0, elapsed / duration);
+                childImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+                yield return null;
+            }
+        }
+
+        Destroy(buttonObject);
     }
 
     public void HideMimicEvent()
@@ -146,7 +180,7 @@ public class EventManager : MonoBehaviour
 
         randomCardEventDescription.text = $"노인이 알 수 없는 표정을 지으며 카드를 건네줍니다. \n" +
             $"이 카드는 당신에게 도움이 될 것입니다. \n" +
-            $"<color=#8A2BE2>{selectedCard.name}</color>카드를 받았습니다.";
+            $"<color=#8A2BE2>{selectedCard.cardName}</color>카드를 받았습니다.";
 
         closeRandomCardEventText.text = "던전을 계속 진행한다.";
 
@@ -220,4 +254,38 @@ public class EventManager : MonoBehaviour
     {
         Dungeon.SetActive(true);
     }
+
+    //// 알파값을 천천히 올리는 메서드
+    //public void IncreaseAlpha()
+    //{
+    //    StartCoroutine(FadeIn());
+    //}
+
+    //private IEnumerator FadeIn()
+    //{
+    //    while (fadeImage.color.a < 1f)
+    //    {
+    //        Color color = fadeImage.color;
+    //        color.a += Time.deltaTime * fadeSpeed;
+    //        fadeImage.color = color;
+    //        yield return null;
+    //    }
+    //}
+
+    //// 알파값을 천천히 줄이는 메서드
+    //public void DecreaseAlpha()
+    //{
+    //    StartCoroutine(FadeOut());
+    //}
+
+    //private IEnumerator FadeOut()
+    //{
+    //    while (fadeImage.color.a > 0f)
+    //    {
+    //        Color color = fadeImage.color;
+    //        color.a -= Time.deltaTime * fadeSpeed;
+    //        fadeImage.color = color;
+    //        yield return null;
+    //    }
+    //}
 }

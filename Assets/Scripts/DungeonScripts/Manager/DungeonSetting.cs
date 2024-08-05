@@ -58,6 +58,8 @@ public class DungeonSetting : MonoBehaviour
         SaveManager.Instance.accessDungeon = true;
         SaveManager.Instance.isStartPoint = true;
         SettingManager.Instance.UpdateButtonVisibility();
+        DungeonManager.Instance.DungeonCoin.SetActive(true);
+        DungeonManager.Instance.DungeonHp.SetActive(true);
 
         // 스탯 초기화 메서드 호출 예정
         DataManager.Instance.maxHealth = DungeonManager.Instance.Player.playerStats.maxhealth;
