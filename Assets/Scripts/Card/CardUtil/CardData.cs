@@ -39,7 +39,8 @@ public class CardData : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             this.enabled = true;
-            CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
+            if (cardBasic.cardBasic != null)
+                CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
         }
         else this.enabled = false;
 

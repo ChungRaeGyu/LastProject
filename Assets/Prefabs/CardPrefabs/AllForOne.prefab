@@ -314,11 +314,13 @@ MonoBehaviour:
   damageAbility: 10
   utilAbility: 0
   currentCount: 0
-  image: {fileID: 21300000, guid: a63ab91a7b7d37d488baec3b460c1da3, type: 3}
   job: 3
   rate: 2
   dragLineCard: 1
   deckCardImage: {fileID: 3136015016114371348, guid: 975286c07fbe2d14798ea6816a8192a3, type: 3}
+  image: {fileID: 21300000, guid: a63ab91a7b7d37d488baec3b460c1da3, type: 3}
+  firstEnhanceImage: {fileID: 21300000, guid: 0949103cb4e451041bfa326e59bc8bb2, type: 3}
+  secondEnhanceImage: {fileID: 21300000, guid: 11b4907b8a1332544ba40da838d27014, type: 3}
   isFind: 0
   playerEffect: {fileID: 0}
   attackEffect: {fileID: 0}
@@ -327,6 +329,7 @@ MonoBehaviour:
   costText: {fileID: 2534594926307945825}
   descriptionText: {fileID: 2581341808501073629}
   audioSource: {fileID: 0}
+  enhancementLevel: 0
   bezierDragLine: {fileID: 0}
 --- !u!120 &-6128813661473196628
 LineRenderer:

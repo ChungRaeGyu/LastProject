@@ -18,8 +18,10 @@ public class FireBall : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -39,8 +41,8 @@ public class FireBall : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 주고 3턴동안 3의피해를 입힙니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 주고 3턴동안 3의피해를 입힙니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 주고 {utilAbility}턴동안 3의피해를 입힙니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 주고 {utilAbility}턴동안 3의피해를 입힙니다.";
         }
     }
 
@@ -85,5 +87,25 @@ public class FireBall : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 3; // 데미지 증가
+                utilAbility += 1;
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

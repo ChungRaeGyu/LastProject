@@ -11,8 +11,10 @@ public class Heal : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -65,5 +67,24 @@ public class Heal : CardBasic
     {
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.Heal(utilAbility);
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 3; // 데미지 증가
+                break;
+            case 2:
+                utilAbility += 6; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

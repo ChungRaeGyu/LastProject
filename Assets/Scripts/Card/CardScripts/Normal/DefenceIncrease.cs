@@ -15,8 +15,10 @@ public class DefenceIncrease : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -72,5 +74,25 @@ public class DefenceIncrease : CardBasic
 
         // 방어력 Condition의 스택을 증가시킵니다.
         GameManager.instance.player.IncrementDefenseConditionStack(utilAbility);
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 1; // 데미지 증가
+                break;
+            case 2:
+                utilAbility += 1; // 데미지 증가
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

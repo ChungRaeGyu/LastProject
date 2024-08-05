@@ -143,7 +143,7 @@ public class DescriptionManager : MonoBehaviour
         NumUpdate();
         LobbyManager.instance.InvokeCount();
     }
-    
+
     //제작 버튼
     public void MakingCard()
     {
@@ -168,4 +168,54 @@ public class DescriptionManager : MonoBehaviour
         MakingCardPanel.SetActive(false);
     }
 
+    public void EnhanceCard()
+    {
+        switch (currentCard.cardBasic.enhancementLevel)
+        {
+            case 0:
+                if (DataManager.Instance.currentCrystal < 300)
+                {
+                    Debug.Log("크리스탈이 부족합니다.");
+                    return;
+                }
+                DataManager.Instance.currentCrystal -= 300;
+                LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
+                currentCard.EnhanceCard();
+                UpdateCardUI();
+                break;
+            case 1:
+                if (DataManager.Instance.currentCrystal < 500)
+                {
+                    Debug.Log("크리스탈이 부족합니다.");
+                    return;
+                }
+                DataManager.Instance.currentCrystal -= 500;
+                LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
+                currentCard.EnhanceCard();
+                UpdateCardUI();
+                break;
+            case 2:
+                Debug.Log("이미 최대 강화가 완료된 카드입니다.");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpdateCardUI()
+    {
+        // 기존에 표시된 카드를 파괴
+        Destroy(tempCard);
+
+        // 강화된 카드 정보를 UI에 새로 표시
+        tempCard = Instantiate(currentCard.cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
+        RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
+        tempCardRect.localScale = new Vector2(3, 4.5f);
+
+        tempCardRect.localPosition = targetEmptyObject.transform.localPosition; // 카드 위치 지정
+
+        tempCardRect.sizeDelta = new Vector2(90, 90);
+
+        LobbyManager.instance.ReplaceCard(currentCard);
+    }
 }

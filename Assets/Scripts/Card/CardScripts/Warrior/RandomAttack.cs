@@ -25,8 +25,10 @@ public class RandomAttack : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -46,8 +48,8 @@ public class RandomAttack : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"무작위 적들에게 <b>{damageAbility}</b> 만큼 {initialUtilAbility}번 피해를 줍니다."
-                : $"무작위 적들에게 <color={color}><b>{damageAbility}</b></color> 만큼 {initialUtilAbility}번 피해를 줍니다.";
+                ? $"무작위 적들에게 <b>{damageAbility}</b> 만큼 {utilAbility}번 피해를 줍니다."
+                : $"무작위 적들에게 <color={color}><b>{damageAbility}</b></color> 만큼 {utilAbility}번 피해를 줍니다.";
         }
     }
 
@@ -95,5 +97,24 @@ public class RandomAttack : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 2; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 3; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }
