@@ -93,7 +93,7 @@ public class DrawSystem : MonoBehaviour
         {
             CardBasic temp = tempCardBasic.Dequeue();
             temp.currentCount++;
-            temp.cardBasic.isFind = true;
+            temp.isFind = true;
             Destroy(cardObj);
         }
         LobbyManager.instance.InvokeCount();

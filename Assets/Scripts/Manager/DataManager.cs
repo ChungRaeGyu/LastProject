@@ -49,7 +49,7 @@ public class DataManager : MonoBehaviour
     public List<CardBasic> cardObjs = new List<CardBasic>();//실제 데이터를 모두 가지고 있는 곳
 
     [Header("CardPiece")]
-    public int[] CardPiece = new int[4];
+    public int[] CardPiece;
 
     [Header("CardBack")]
     public Sprite cardBackImage;
@@ -79,6 +79,7 @@ public class DataManager : MonoBehaviour
     public int currentCrystal; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
     private void Start()
     {
+        CardPiece = new int[(int)Rate.Count];
         RateSort();
     }
 

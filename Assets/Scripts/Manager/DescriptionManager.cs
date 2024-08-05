@@ -89,6 +89,7 @@ public class DescriptionManager : MonoBehaviour
     {
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         currentCard = cardBasic;
+        currentCard.cardBasic = cardBasic;
         tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
         Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();

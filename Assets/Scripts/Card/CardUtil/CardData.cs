@@ -63,7 +63,7 @@ public class CardData : MonoBehaviour
     {
         float abs = Mathf.Abs(x - 1000) + 1000;
 
-        float xNorm = length / abs; //maxOrig-minOrig가 전체크기다
+        float xNorm = length / abs; //length전체 크기
 
         return xNorm;
     }
