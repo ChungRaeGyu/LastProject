@@ -43,6 +43,11 @@ public class EventManager : MonoBehaviour
     // 페이드 스피드
     private float fadeSpeed = 1f;
 
+    private void Start()
+    {
+        fadeImage.gameObject.SetActive(false);
+    }
+
     public void ShowRandomEvent()
     {
         // 랜덤 숫자 생성기 초기화
