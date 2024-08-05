@@ -2578,20 +2578,23 @@ MonoBehaviour:
   y: 23
   a: 8.25
   b: 3.9
-  monsters: []
-  set2_1: []
-  set2_2: []
-  set2_3: []
-  set2_4: []
-  set3_1: []
-  set3_2: []
-  set3_3: []
-  set4_1: []
-  set4_2: []
-  set4_goblins: []
-  Elite1: []
-  Elite2: []
-  Boss: []
+  normalMob:
+  - {fileID: 7637313569220852800, guid: b0cf1d8d20c6a8845b065eda6c1da4f1, type: 3}
+  - {fileID: 6648069923209046628, guid: a164e846c2f491b46a941aba1d8ea355, type: 3}
+  - {fileID: 4963561677188809084, guid: 984aae5f60d9ae844add6043f7905aa0, type: 3}
+  - {fileID: 5539310942435981344, guid: 35e44f42b3a9ac64c817092efdb7d0a6, type: 3}
+  - {fileID: 2176415540352210496, guid: d9cbf74385defb84aa9f99e03e8dc5da, type: 3}
+  goblins:
+  - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
+  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
+  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
+  MobList: []
+  eliteMob:
+  - {fileID: 3035964298118269201, guid: 1d082c11e6d761d47ac9d96eb5f8b756, type: 3}
+  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
+  EliteMobList: []
+  Boss:
+  - {fileID: 7879342307325802439, guid: 2fe9da0005aa9f14d9b7ba23052390f2, type: 3}
 --- !u!1 &785298678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3382,19 +3385,11 @@ MonoBehaviour:
   y: 23
   a: 8.25
   b: 3.9
-  monsters: []
-  set2_1: []
-  set2_2: []
-  set2_3: []
-  set2_4: []
-  set3_1: []
-  set3_2: []
-  set3_3: []
-  set4_1: []
-  set4_2: []
-  set4_goblins: []
-  Elite1: []
-  Elite2: []
+  normalMob: []
+  goblins: []
+  MobList: []
+  eliteMob: []
+  EliteMobList: []
   Boss: []
 --- !u!1 &973764764
 GameObject:
@@ -3663,19 +3658,11 @@ MonoBehaviour:
   y: 23
   a: 8.25
   b: 3.9
-  monsters: []
-  set2_1: []
-  set2_2: []
-  set2_3: []
-  set2_4: []
-  set3_1: []
-  set3_2: []
-  set3_3: []
-  set4_1: []
-  set4_2: []
-  set4_goblins: []
-  Elite1: []
-  Elite2: []
+  normalMob: []
+  goblins: []
+  MobList: []
+  eliteMob: []
+  EliteMobList: []
   Boss: []
 --- !u!1 &1085762700
 GameObject:
@@ -5214,7 +5201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -830, y: 0}
+  m_AnchoredPosition: {x: -835, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1608935960
@@ -5329,15 +5316,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1610142721}
   - component: {fileID: 1610142722}
-  - component: {fileID: 1610142724}
-  - component: {fileID: 1610142723}
   m_Layer: 0
   m_Name: Dungeon 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1610142721
 Transform:
   m_ObjectHideFlags: 0
@@ -5371,85 +5356,21 @@ MonoBehaviour:
   y: 15
   a: 5.25
   b: 3.9
-  monsters:
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
+  normalMob:
+  - {fileID: 4963561677188809084, guid: 984aae5f60d9ae844add6043f7905aa0, type: 3}
   - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
-  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
-  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
-  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
-  - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
-  set2_1:
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  set2_2:
-  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
-  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
-  set2_3:
-  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  set2_4:
-  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
-  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
-  set3_1:
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  set3_2:
-  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
+  - {fileID: 6648069923209046628, guid: a164e846c2f491b46a941aba1d8ea355, type: 3}
+  goblins:
   - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
   - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
-  set3_3:
-  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  set4_1:
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  - {fileID: 1251262228192278890, guid: 34dccee910b6aae43adc393b47d3d174, type: 3}
-  set4_2:
-  - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
-  - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
-  - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
-  - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
-  set4_goblins:
   - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
-  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
-  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
-  - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
-  Elite1:
+  MobList: []
+  eliteMob:
   - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
-  Elite2:
-  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
+  - {fileID: 7879342307325802439, guid: 2fe9da0005aa9f14d9b7ba23052390f2, type: 3}
+  EliteMobList: []
   Boss:
   - {fileID: 1251262228192278890, guid: 5072fe4041effa143b2029bb9f572a5f, type: 3}
---- !u!114 &1610142723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610142720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb383d55ddfe4aa4b9ef506b64c4a9e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  beeSet: []
---- !u!114 &1610142724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1610142720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61675b340ba4a774fa266ac8a1dab96b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goblinSet: []
 --- !u!1 &1635272311
 GameObject:
   m_ObjectHideFlags: 0
@@ -6820,19 +6741,11 @@ MonoBehaviour:
   y: 23
   a: 8.25
   b: 3.9
-  monsters: []
-  set2_1: []
-  set2_2: []
-  set2_3: []
-  set2_4: []
-  set3_1: []
-  set3_2: []
-  set3_3: []
-  set4_1: []
-  set4_2: []
-  set4_goblins: []
-  Elite1: []
-  Elite2: []
+  normalMob: []
+  goblins: []
+  MobList: []
+  eliteMob: []
+  EliteMobList: []
   Boss: []
 --- !u!1 &1924552574
 GameObject:

@@ -77,7 +77,7 @@ public class Stage : MonoBehaviour
         {
             SaveManager.Instance.isBossStage = true;
         }
-        SaveManager.Instance.playerPosition = this.gameObject.transform.position - transform.parent.position;
+        SaveManager.Instance.playerPosition = stagePosition - transform.parent.position;
         SaveManager.Instance.playerPosition.z = 0;
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
@@ -87,21 +87,23 @@ public class Stage : MonoBehaviour
 
     public void WarpBtn()
     {
-        if (this.gameObject.transform.position == Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position)
+        SaveManager.Instance.playerPosition = stagePosition;
+        /*
+        if (stagePosition == Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position)
         {
             SaveManager.Instance.playerPosition = Dungeon.Instance.stage[Dungeon.Instance.x - 1, ((Dungeon.Instance.y - 1) / 2)].transform.position;
         }
-        else if (this.gameObject.transform.position == Dungeon.Instance.stage[Dungeon.Instance.x - 1, ((Dungeon.Instance.y - 1) / 2)].transform.position)
+        else if (stagePosition == Dungeon.Instance.stage[Dungeon.Instance.x - 1, ((Dungeon.Instance.y - 1) / 2)].transform.position)
         {
             SaveManager.Instance.playerPosition = Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position;
-        }
+        }*/
     }
 
     public void EventBtn()
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
-        SaveManager.Instance.playerPosition = this.gameObject.transform.position;
+        SaveManager.Instance.playerPosition = stagePosition;
 
         // 랜덤으로 이벤트 패널을 띄워줌
         DungeonManager.Instance.eventManager.ShowRandomEvent();
@@ -112,7 +114,7 @@ public class Stage : MonoBehaviour
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
-        SaveManager.Instance.playerPosition = this.gameObject.transform.position;
+        SaveManager.Instance.playerPosition = stagePosition;
         LoadingSceneManager.LoadScene(4);
     }
 
@@ -123,7 +125,7 @@ public class Stage : MonoBehaviour
         // 엘리트 스테이지를 확인
         SaveManager.Instance.isEliteStage = true;
 
-        SaveManager.Instance.playerPosition = this.gameObject.transform.position;
+        SaveManager.Instance.playerPosition = stagePosition;
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
         LoadingSceneManager.LoadScene(3);
@@ -137,7 +139,7 @@ public class Stage : MonoBehaviour
         // 보스 스테이지를 확인
         SaveManager.Instance.isBossStage = true;
 
-        SaveManager.Instance.playerPosition = this.gameObject.transform.position;
+        SaveManager.Instance.playerPosition = stagePosition;
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
         LoadingSceneManager.LoadScene(3);

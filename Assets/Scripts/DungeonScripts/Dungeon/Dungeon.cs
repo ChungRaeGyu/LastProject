@@ -36,26 +36,14 @@ public class Dungeon : MonoBehaviour
     public float a;
     public float b;
 
-
-    public List<GameObject> monsters = new List<GameObject>();
-    public List<List<GameObject>> setList = new List<List<GameObject>>();
-
     [Header("NormalMob")]
-    public List<GameObject> set2_1 = new List<GameObject>();
-    public List<GameObject> set2_2 = new List<GameObject>();
-    public List<GameObject> set2_3 = new List<GameObject>();
-    public List<GameObject> set2_4 = new List<GameObject>();
-    public List<GameObject> set3_1 = new List<GameObject>();
-    public List<GameObject> set3_2 = new List<GameObject>();
-    public List<GameObject> set3_3 = new List<GameObject>();
-    public List<GameObject> set4_1 = new List<GameObject>();
-    public List<GameObject> set4_2 = new List<GameObject>();
-    public List<GameObject> set4_goblins = new List<GameObject>();
+    public GameObject[] normalMob;
+    public GameObject[] goblins;
+    public List<GameObject> MobList = new List<GameObject>();
 
     [Header("EliteMob")]
-    public List<List<GameObject>> Elite = new List<List<GameObject>>();
-    public List<GameObject> Elite1 = new List<GameObject>();
-    public List<GameObject> Elite2 = new List<GameObject>();
+    public GameObject[] eliteMob;
+    public List<GameObject> EliteMobList = new List<GameObject>();
 
     [Header("Boss")]
     public List<GameObject> Boss = new List<GameObject>();
@@ -102,38 +90,42 @@ public class Dungeon : MonoBehaviour
         MonsterSet();
         EliteSet();
 
-        int respawn = random.Next(0, setList.Count - 1);
-
         if (SaveManager.Instance.isBossStage)
             DataManager.Instance.Monsters = Boss;
         else if (SaveManager.Instance.isEliteStage)
-        {
-            int eliteNum = random.Next(0, 1);
-            DataManager.Instance.Monsters = Elite[eliteNum];
-        }
-            
+            DataManager.Instance.Monsters = EliteMobList;
         else
-            DataManager.Instance.Monsters = setList[respawn];
+            DataManager.Instance.Monsters = MobList;
         Debug.Log("몬스터 스폰");
     }
 
     public void MonsterSet()
     {
-        setList.Add(set2_1);
-        setList.Add(set2_2);
-        setList.Add(set2_3);
-        setList.Add(set2_4);
-        setList.Add(set3_1);
-        setList.Add(set3_2);
-        setList.Add(set3_3);
-        setList.Add(set4_1);
-        setList.Add(set4_2);
-        setList.Add(set4_goblins);
+        int randomBattle = random.Next(0, normalMob.Length); //고블린이 나올지 몬스터가 나올지에 대한 확률
+        int mob = random.Next(0, normalMob.Length - 1); //몬스터 종류
+        int num = random.Next(1, 4); //몬스터 수
+        if (num == normalMob.Length)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                int goblin = random.Next(0, goblins.Length - 1);
+                MobList.Add(goblins[goblin]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < num; i++)
+            {
+                MobList.Add(normalMob[mob]);
+            }
+        }
     }
 
     public void EliteSet()
     {
-        Elite.Add(Elite1);
-        Elite.Add(Elite2);
+        int mob = random.Next(1, 2); //몬스터 종류
+        int num = random.Next(1, 2); //몬스터 수
+        for (int i = 0; i < num; i++)
+            EliteMobList.Add(eliteMob[mob]);
     }
 }

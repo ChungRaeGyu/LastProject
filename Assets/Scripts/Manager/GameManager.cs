@@ -295,6 +295,7 @@ public class GameManager : MonoBehaviour
         else
         {
             SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
+            SaveManager.Instance.isEliteStage = false; //엘리트몹 잡았을 시 초기화
             SceneManager.LoadScene(2);
         }
     }
