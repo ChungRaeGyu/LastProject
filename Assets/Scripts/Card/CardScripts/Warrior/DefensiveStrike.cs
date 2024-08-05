@@ -18,8 +18,10 @@ public class DefensiveStrike : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color = "#FFFFFF";
@@ -78,5 +80,25 @@ public class DefensiveStrike : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                cost -= 1; // 코스트 감소
+                break;
+            case 2:
+                cost -= 1; // 코스트 감소
+                damageAbility += 3; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

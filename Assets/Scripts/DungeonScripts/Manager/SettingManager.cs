@@ -36,6 +36,7 @@ public class SettingManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject lobbyReturnBtn;
     [SerializeField] private GameObject dungeonReturnBtn;
+    [SerializeField] private GameObject settingCanvas;
 
     private void Awake()
     {
@@ -65,6 +66,11 @@ public class SettingManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (SceneManager.GetActiveScene().buildIndex == 5)
+            settingCanvas.SetActive(false);
+        else
+            settingCanvas.SetActive(true);
+
         SoundPanel.gameObject.SetActive(false);
         SetBackgroundMusicForCurrentScene();
         UpdateButtonVisibility();

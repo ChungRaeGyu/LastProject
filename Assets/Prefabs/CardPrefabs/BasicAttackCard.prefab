@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9\uB0B4\uC6A9"
+  m_text: "<color=#00FF00><b>6</b></color> \uB9CC\uD07C \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0bbc2c83f2f18bb488d73b7f23805fd0, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 57618236739646340ab22dcd93be20c6, type: 2}
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0bbc2c83f2f18bb488d73b7f23805fd0, type: 2}
   m_sharedMaterial: {fileID: 4959029791396565224, guid: 0bbc2c83f2f18bb488d73b7f23805fd0, type: 2}
@@ -717,11 +717,13 @@ MonoBehaviour:
   damageAbility: 3
   utilAbility: 0
   currentCount: 2
-  image: {fileID: 21300000, guid: 583c513c841b2f04b8f8a8407b7a10cb, type: 3}
   job: 1
   rate: 0
   dragLineCard: 1
   deckCardImage: {fileID: 3136015016114371348, guid: d48a56fe843a1604caa177844ca4e985, type: 3}
+  image: {fileID: 21300000, guid: 583c513c841b2f04b8f8a8407b7a10cb, type: 3}
+  firstEnhanceImage: {fileID: 21300000, guid: 0fe11e5843099f345a7192c8a08f8016, type: 3}
+  secondEnhanceImage: {fileID: 21300000, guid: 9956c1782fe5a6c4599ff260e0fe0c01, type: 3}
   isFind: 1
   playerEffect: {fileID: 0}
   attackEffect: {fileID: 0}
@@ -730,6 +732,7 @@ MonoBehaviour:
   costText: {fileID: 5789303704972573939}
   descriptionText: {fileID: 4450855068073631251}
   audioSource: {fileID: 0}
+  enhancementLevel: 0
 --- !u!114 &6533821262809756158
 MonoBehaviour:
   m_ObjectHideFlags: 0

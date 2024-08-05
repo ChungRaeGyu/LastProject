@@ -19,8 +19,10 @@ public class BasicAttack : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -88,5 +90,27 @@ public class BasicAttack : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    // 강화 단계에 따른 능력치 적용
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+
+                break;
+            case 2:
+                damageAbility += 6; // 데미지 증가
+
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

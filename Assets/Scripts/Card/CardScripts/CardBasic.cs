@@ -46,11 +46,13 @@ public class CardBasic : MonoBehaviour
     public int damageAbility;
     public int utilAbility;
     public int currentCount;
-    public Sprite image;
     public JOB job;
     public Rate rate;
     public bool dragLineCard;
     public GameObject deckCardImage;
+    public Sprite image;
+    public Sprite firstEnhanceImage;
+    public Sprite secondEnhanceImage;
 
     [Header("FindCheck")]
     public bool isFind = false;
@@ -71,6 +73,10 @@ public class CardBasic : MonoBehaviour
     // 초기 ability 값 저장
     protected int initialDamageAbility;
     protected int initialUtilAbility;
+    protected int initialCost;
+
+    // 강화 단계
+    public int enhancementLevel = 0;
 
     public virtual void CardUse(Monster targetMonster, Player player)
     {
@@ -88,6 +94,9 @@ public class CardBasic : MonoBehaviour
         // 초기 ability 값 저장
         initialDamageAbility = damageAbility;
         initialUtilAbility = utilAbility;
+        initialCost = cost;
+
+        ApplyEnhancements();
 
         if (costText != null)
         {
@@ -100,9 +109,17 @@ public class CardBasic : MonoBehaviour
     }
 
     // 설명을 설정하는 메서드
-    protected virtual void SetDescription()
+    public virtual void SetDescription()
     {
+        if (costText != null)
+        {
+            costText.text = cost.ToString();
+        }
 
+        if (enhancementLevel > 0)
+        {
+            nameText.text = $"{cardName} +{enhancementLevel}";
+        }
     }
 
     public void PlaySound(AudioClip clip)
@@ -110,6 +127,34 @@ public class CardBasic : MonoBehaviour
         if (audioSource != null && audioSource.enabled)
         {
             audioSource.PlayOneShot(clip);
+        }
+    }
+
+    // 강화 메서드
+    public void EnhanceCard()
+    {
+        cardBasic.enhancementLevel++;
+    }
+
+    // 강화 단계에 따른 능력치 적용
+    public virtual void ApplyEnhancements()
+    {
+        Image childImage = null;
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+                childImage = transform.GetChild(1).GetComponent<Image>();
+                if (childImage != null) childImage.sprite = firstEnhanceImage;
+                break;
+            case 2:
+                damageAbility += 6; // 데미지 증가
+                childImage = transform.GetChild(1).GetComponent<Image>();
+                if (childImage != null) childImage.sprite = secondEnhanceImage;
+                break;
+            default:
+                break;
         }
     }
 }
