@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
     // 카드 드래그나 버튼작동을 멈추는 딜레이를 스킵하게 하는 값
     public bool skip;
 
+    [Header("Effect")]
+    public GameObject hitEffect;
     private void Awake()
     {
         if (instance == null)
