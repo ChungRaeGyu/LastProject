@@ -2144,6 +2144,7 @@ MonoBehaviour:
   accessDungeonNum: 0
   isStartPoint: 0
   playerPosition: {x: 0, y: 0, z: 0}
+  isEliteStage: 0
   isBossStage: 0
   timeText: {fileID: 4208368720465747226}
   dungeonTimer: {fileID: 3381384542263269755}
@@ -2588,8 +2589,9 @@ MonoBehaviour:
   set4_1: []
   set4_2: []
   set4_goblins: []
+  Elite1: []
+  Elite2: []
   Boss: []
-  spawnMonsters: []
 --- !u!1 &785298678
 GameObject:
   m_ObjectHideFlags: 0
@@ -3391,8 +3393,9 @@ MonoBehaviour:
   set4_1: []
   set4_2: []
   set4_goblins: []
+  Elite1: []
+  Elite2: []
   Boss: []
-  spawnMonsters: []
 --- !u!1 &973764764
 GameObject:
   m_ObjectHideFlags: 0
@@ -3671,8 +3674,9 @@ MonoBehaviour:
   set4_1: []
   set4_2: []
   set4_goblins: []
+  Elite1: []
+  Elite2: []
   Boss: []
-  spawnMonsters: []
 --- !u!1 &1085762700
 GameObject:
   m_ObjectHideFlags: 0
@@ -3708,7 +3712,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2500, y: 1000}
+  m_SizeDelta: {x: 2000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1093511212
 GameObject:
@@ -5210,7 +5214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -825, y: 0}
+  m_AnchoredPosition: {x: -830, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1608935960
@@ -5333,7 +5337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1610142721
 Transform:
   m_ObjectHideFlags: 0
@@ -5414,9 +5418,12 @@ MonoBehaviour:
   - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
   - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
   - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
+  Elite1:
+  - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
+  Elite2:
+  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
   Boss:
   - {fileID: 1251262228192278890, guid: 5072fe4041effa143b2029bb9f572a5f, type: 3}
-  spawnMonsters: []
 --- !u!114 &1610142723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6824,8 +6831,9 @@ MonoBehaviour:
   set4_1: []
   set4_2: []
   set4_goblins: []
+  Elite1: []
+  Elite2: []
   Boss: []
-  spawnMonsters: []
 --- !u!1 &1924552574
 GameObject:
   m_ObjectHideFlags: 0

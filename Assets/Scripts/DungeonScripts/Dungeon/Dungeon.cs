@@ -36,9 +36,11 @@ public class Dungeon : MonoBehaviour
     public float a;
     public float b;
 
+
     public List<GameObject> monsters = new List<GameObject>();
     public List<List<GameObject>> setList = new List<List<GameObject>>();
 
+    [Header("NormalMob")]
     public List<GameObject> set2_1 = new List<GameObject>();
     public List<GameObject> set2_2 = new List<GameObject>();
     public List<GameObject> set2_3 = new List<GameObject>();
@@ -50,8 +52,13 @@ public class Dungeon : MonoBehaviour
     public List<GameObject> set4_2 = new List<GameObject>();
     public List<GameObject> set4_goblins = new List<GameObject>();
 
+    [Header("EliteMob")]
+    public List<List<GameObject>> Elite = new List<List<GameObject>>();
+    public List<GameObject> Elite1 = new List<GameObject>();
+    public List<GameObject> Elite2 = new List<GameObject>();
+
+    [Header("Boss")]
     public List<GameObject> Boss = new List<GameObject>();
-    public List<GameObject> spawnMonsters = new List<GameObject>();
 
     public System.Random random = new System.Random();
 
@@ -93,10 +100,17 @@ public class Dungeon : MonoBehaviour
     public void MonsterSpawn()
     {
         MonsterSet();
+
         int respawn = random.Next(0, setList.Count - 1);
 
         if (SaveManager.Instance.isBossStage)
             DataManager.Instance.Monsters = Boss;
+        else if (SaveManager.Instance.isEliteStage)
+        {
+            int eliteNum = random.Next(0, Elite.Count - 1);
+            DataManager.Instance.Monsters = Elite[0];
+        }
+            
         else
             DataManager.Instance.Monsters = setList[respawn];
         Debug.Log("몬스터 스폰");
@@ -104,15 +118,6 @@ public class Dungeon : MonoBehaviour
 
     public void MonsterSet()
     {
-        setList.Add(set2_1);
-        setList.Add(set2_2);
-        setList.Add(set2_3);
-        setList.Add(set2_4);
-        setList.Add(set3_1);
-        setList.Add(set3_2);
-        setList.Add(set3_3);
-        setList.Add(set4_1);
-        setList.Add(set4_2);
-        setList.Add(set4_goblins);
+
     }
 }

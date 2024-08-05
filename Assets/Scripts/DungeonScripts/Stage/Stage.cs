@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -123,6 +121,7 @@ public class Stage : MonoBehaviour
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
         // 엘리트 스테이지를 확인
+        SaveManager.Instance.isEliteStage = true;
 
         SaveManager.Instance.playerPosition = this.gameObject.transform.position;
         Dungeon.Instance.MonsterSpawn();
