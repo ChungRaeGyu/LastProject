@@ -100,6 +100,7 @@ public class Dungeon : MonoBehaviour
     public void MonsterSpawn()
     {
         MonsterSet();
+        EliteSet();
 
         int respawn = random.Next(0, setList.Count - 1);
 
@@ -107,8 +108,8 @@ public class Dungeon : MonoBehaviour
             DataManager.Instance.Monsters = Boss;
         else if (SaveManager.Instance.isEliteStage)
         {
-            int eliteNum = random.Next(0, Elite.Count - 1);
-            DataManager.Instance.Monsters = Elite[0];
+            int eliteNum = random.Next(0, 1);
+            DataManager.Instance.Monsters = Elite[eliteNum];
         }
             
         else
@@ -118,6 +119,21 @@ public class Dungeon : MonoBehaviour
 
     public void MonsterSet()
     {
+        setList.Add(set2_1);
+        setList.Add(set2_2);
+        setList.Add(set2_3);
+        setList.Add(set2_4);
+        setList.Add(set3_1);
+        setList.Add(set3_2);
+        setList.Add(set3_3);
+        setList.Add(set4_1);
+        setList.Add(set4_2);
+        setList.Add(set4_goblins);
+    }
 
+    public void EliteSet()
+    {
+        Elite.Add(Elite1);
+        Elite.Add(Elite2);
     }
 }
