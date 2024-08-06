@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
@@ -47,6 +45,8 @@ public class SaveManager : MonoBehaviour
     //현재 보스던전인지 체크
     public bool isBossStage;
 
+
+    //스테이지 랜덤 생성
     public int[,] num;
 
     [Header("UI")]
