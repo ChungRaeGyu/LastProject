@@ -2,26 +2,27 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public abstract class PlayerCharacter : MonoBehaviour
+public abstract class PlayerCharacter : Character
 {
     public PlayerStats playerStats;
     public int maxhealth;
     public int currenthealth;
     public int currentDefense;
-    public Animator animator;
+    public int currentAttack;
+    public float defdown;
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int attack = Animator.StringToHash("Attack");
     private static readonly int die = Animator.StringToHash("Die");
     protected bool isDying = false; // 죽는 중인지 여부를 저장하는 변수
 
-    private void Awake()
+    private void Start()
     {
+        currentAttack = playerStats.attack;
         currentDefense = playerStats.defense;
         maxhealth = playerStats.maxhealth;
         if (DataManager.Instance.maxHealth != 0)
 
         currenthealth = playerStats.maxhealth;
-        animator = GetComponentInChildren<Animator>();
     }
 
     public virtual void InitializeStats(int currenthealthData)
@@ -37,6 +38,7 @@ public abstract class PlayerCharacter : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - currentDefense, 0);
+        actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defdown) : actualDamage);
         currenthealth -= actualDamage;
 
         if (animator != null)
@@ -57,22 +59,6 @@ public abstract class PlayerCharacter : MonoBehaviour
         currenthealth += amount;
 
         SpawnDamageText(amount, transform.position);
-    }
-
-    private void SpawnDamageText(int damageAmount, Vector3 position)
-    {
-        if (GameManager.instance.damageTextPrefab != null)
-        {
-            GameObject damageTextInstance = Instantiate(GameManager.instance.damageTextPrefab, position, Quaternion.identity);
-            DamageText damageText = damageTextInstance.GetComponent<DamageText>();
-            damageText.SetText(damageAmount.ToString());
-
-            // 위치를 화면 좌표로
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            float yOffset = 200f; // 얼마나 위로 위치할지 설정
-            Vector3 newScreenPosition = new Vector3(screenPosition.x, screenPosition.y + yOffset, 10f);
-            damageTextInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
-        }
     }
 
     public bool IsDead()
@@ -97,5 +83,28 @@ public abstract class PlayerCharacter : MonoBehaviour
         UIManager.instance.ShowDefeatPanel();
         //UIManager.instance.ApplyDeathPenalty(); //카드 랜덤 삭제 일단 보류
         //덱 초기화는 LobbyManager에 있습니다.
+    }
+
+    protected override void TakedamageCharacter(int damage)
+    {
+        //지속 딜을 위한
+        TakeDamage(damage);
+    }
+
+    protected override void BaseWeakerMethod()
+    {
+        currentAttack = playerStats.attack;
+    }
+    protected override void WeakingMethod(float ability)
+    {
+        currentAttack = (int)(playerStats.attack * (1 - ability));
+    }
+    protected override void BasedefMethod()
+    {
+        defdown = 0;
+    }
+    protected override void DefDownValue(float ability)
+    {
+        defdown = ability;
     }
 }

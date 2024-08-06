@@ -69,7 +69,8 @@ public class LatentPotential : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(DataManager.Instance.deck.Count);
+        damageAbility = DataManager.Instance.deck.Count;
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }
 

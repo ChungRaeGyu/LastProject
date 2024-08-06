@@ -54,7 +54,6 @@ public class FullPower: CardBasic
         {
             bezierDragLine.DestroyAimingImage();
 
-            GameManager.instance.player.UseCost(cost);
 
             CardUse(targetMonster);
             if (GameManager.instance.volumeUp)
@@ -63,6 +62,7 @@ public class FullPower: CardBasic
                 GameManager.instance.volumeUp = false;
             }
 
+            GameManager.instance.player.UseCost(GameManager.instance.player.currentCost);
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
@@ -76,7 +76,9 @@ public class FullPower: CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(damageAbility*GameManager.instance.player.currentCost);
+        //이게 아마도 근본을 바꾸는게 아니라서 괜찮을 것이다. 일회용으로 늘어나는 느낌?
+        damageAbility *= GameManager.instance.player.currentCost;
+        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }
 

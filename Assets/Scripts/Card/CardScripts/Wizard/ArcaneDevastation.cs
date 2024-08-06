@@ -77,8 +77,8 @@ public class ArcaneDevastation : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-{        targetMonster.TakeDamage(damageAbility);
-        PlayPlayerAttackAnimation();}
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
+        PlayPlayerAttackAnimation();
     }
 
     private void RecoverCost()

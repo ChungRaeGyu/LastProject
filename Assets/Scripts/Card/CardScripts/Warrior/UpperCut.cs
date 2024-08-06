@@ -77,7 +77,7 @@ public class UpperCut : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         targetMonster.WeakForTurns(utilAbility, 0.25f);
-        targetMonster.TakeDamage(damageAbility);
+        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }
 

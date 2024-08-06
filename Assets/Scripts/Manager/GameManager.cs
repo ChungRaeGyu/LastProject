@@ -173,6 +173,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
+            StartCoroutine(player.Turn());
             UIManager.instance.UpdatePlayerTurnCount(turnCount);
             UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
 
@@ -209,7 +210,7 @@ public class GameManager : MonoBehaviour
                 if (monster.currenthealth > 0)
                 {
                     Debug.Log($"----- 몬스터의 턴 시작 -----");
-                    yield return StartCoroutine(monster.MonsterTurn());
+                    yield return StartCoroutine(monster.Turn());
                     yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
             }
@@ -258,7 +259,6 @@ public class GameManager : MonoBehaviour
         if (monsters.Count == 0)
             return true;
 
-        Debug.Log($"몬스터 수: {monsters.Count}");
         return false;
     }
 

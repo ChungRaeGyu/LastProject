@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class RandomAttack : CardBasic
 {
@@ -79,15 +80,11 @@ public class RandomAttack : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster=null)
     {
-        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
-        for(int i=0; i< initialUtilAbility; i++)
-        {
-            int num = Random.Range(0, monsters.Count);
-            monsters[num].TakeDamage(damageAbility);
-        }
+        GameManager.instance.effectManager.RandomAttackCoroutine(this);
         PlayPlayerAttackAnimation();
-    }
 
+
+    }
     #region 특수카드 사용
 
     #endregion

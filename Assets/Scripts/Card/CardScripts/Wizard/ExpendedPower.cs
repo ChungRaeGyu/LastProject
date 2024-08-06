@@ -69,7 +69,7 @@ public class ExpendedPower : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(DataManager.Instance.usedCards.Count);
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }
 

@@ -69,6 +69,8 @@ public class DefenceIncrease : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
+        //이펙트
+        GameManager.instance.effectManager.Buff(this);
         // 방어력이 일시적(?)으로 증가
         GameManager.instance.player.currentDefense += utilAbility;
 

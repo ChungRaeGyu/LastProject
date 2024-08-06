@@ -85,7 +85,7 @@ public class AllForOne : CardBasic
             DataManager.Instance.usedCards.Remove(temp);
             GameManager.instance.AddCard(temp);
         }
-
+        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }
 
