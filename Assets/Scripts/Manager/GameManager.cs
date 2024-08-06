@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
                 if (monster.currenthealth > 0)
                 {
                     Debug.Log($"----- 몬스터의 턴 시작 -----");
-                    yield return StartCoroutine(monster.MonsterTurn());
+                    yield return StartCoroutine(monster.Turn());
                     yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
             }

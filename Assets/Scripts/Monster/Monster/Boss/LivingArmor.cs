@@ -48,16 +48,16 @@ public class LivingArmor : MonsterCharacter
 
     public void StartMonsterTurn()
     {
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         Debug.Log("----- 보스의 " + monsterTurn + "턴 째 -----");
 
-        yield return base.MonsterTurn();
+        yield return base.Turn();
 
         if (!isFrozen)
         {

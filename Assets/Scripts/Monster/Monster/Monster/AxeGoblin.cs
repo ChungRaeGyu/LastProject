@@ -48,16 +48,16 @@ public class AxeGoblin : MonsterCharacter
 
     public void StartMonsterTurn()
     {
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
         Debug.Log("StartMonsterTurn 실행 ");
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
-        yield return base.MonsterTurn();
+        yield return base.Turn();
 
         if (!isFrozen)
         {

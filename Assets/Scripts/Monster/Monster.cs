@@ -37,10 +37,10 @@ public class Monster : MonsterCharacter
         //지워도 되는 건가?
         Debug.Log("StartMonsterTurn실행 : " + IsDead());
 
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
