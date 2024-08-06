@@ -87,8 +87,8 @@ public class Stage : MonoBehaviour
 
     public void WarpBtn()
     {
-        SaveManager.Instance.playerPosition = stagePosition;
-        /*
+        //SaveManager.Instance.playerPosition = stagePosition;
+
         if (stagePosition == Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position)
         {
             SaveManager.Instance.playerPosition = Dungeon.Instance.stage[Dungeon.Instance.x - 1, ((Dungeon.Instance.y - 1) / 2)].transform.position;
@@ -96,7 +96,9 @@ public class Stage : MonoBehaviour
         else if (stagePosition == Dungeon.Instance.stage[Dungeon.Instance.x - 1, ((Dungeon.Instance.y - 1) / 2)].transform.position)
         {
             SaveManager.Instance.playerPosition = Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position;
-        }*/
+        }
+
+        LoadingSceneManager.LoadScene(2);
     }
 
     public void EventBtn()
