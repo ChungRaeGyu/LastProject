@@ -83,12 +83,6 @@ public class RandomAttack : CardBasic
         GameManager.instance.effectManager.RandomAttackCoroutine(this);
         SettingManager.Instance.PlaySound(CardClip1);
 
-        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
-        for(int i=0; i< initialUtilAbility; i++)
-        {
-            int num = Random.Range(0, monsters.Count);
-            monsters[num].TakeDamage(damageAbility);
-        }
         PlayPlayerAttackAnimation();
     }
     #region 특수카드 사용
