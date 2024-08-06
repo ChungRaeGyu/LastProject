@@ -70,7 +70,7 @@ public class DefensiveStrike : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(GameManager.instance.player.currentDefense);
+        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }
 

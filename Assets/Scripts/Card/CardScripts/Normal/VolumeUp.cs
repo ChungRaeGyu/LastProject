@@ -62,6 +62,7 @@ public class VolumeUp : CardBasic
     public void CardUse(MonsterCharacter targetMonster = null)
     {
         GameManager.instance.volumeUp = true;
+        GameManager.instance.effectManager.Buff(this);
         PlayPlayerAttackAnimation();
     }
 

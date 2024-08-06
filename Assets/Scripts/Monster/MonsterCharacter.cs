@@ -132,7 +132,7 @@ public class MonsterCharacter : MonoBehaviour
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
         currenthealth -= actualDamage;
-        Instantiate(GameManager.instance.hitEffect,transform.position,Quaternion.identity);
+
         if (animator != null)
         {
             animator.SetTrigger(takeDamage);

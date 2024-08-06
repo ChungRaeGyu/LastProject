@@ -14691,6 +14691,7 @@ GameObject:
   - component: {fileID: 1957641271568696154}
   - component: {fileID: 3523096811187711468}
   - component: {fileID: 4767584086123048938}
+  - component: {fileID: 5266231148769495489}
   m_Layer: 0
   m_Name: FireBall
   m_TagString: Untagged
@@ -19495,7 +19496,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -147
+  m_SortingOrder: 20
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -19540,6 +19541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148bfe64c95b6c749881d5f2c3308b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 3096708064074397679, guid: f1158f54b1ec64940a3132fcec1f079b, type: 3}
 --- !u!50 &4767584086123048938
 Rigidbody2D:
   serializedVersion: 4
@@ -19567,6 +19569,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &5266231148769495489
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818314188445725681}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.12597418, y: 5.4765215}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.665432, y: 1.7471256}
+  m_EdgeRadius: 0
 --- !u!1 &3603470937850839014
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class EffectManager : MonoBehaviour
 
     public void PhysicalAttack(CardBasic cardBasic, MonsterCharacter targetMonster=null)
     {
-        //호출될 메소드
+        //호출될 메소드 //범위공격, 단일공격 포함
         tempCardInfo = cardBasic;
         PlayerEffectMethod(GetPos()); //플레이어의 공격 이펙트
         if(targetMonster == null)
@@ -29,6 +29,7 @@ public class EffectManager : MonoBehaviour
         else
         {
             //단일 공격
+            AttackEffectMethod(targetMonster.transform.position);
             targetMonster.TakeDamage(tempCardInfo.damageAbility);
         }
     }
@@ -116,7 +117,7 @@ public class EffectManager : MonoBehaviour
         GameObject tempPrefab = Instantiate(prefab, position, prefab.transform.rotation);
     }
 
-    private void AttackEffectMethod(Vector2 position)
+    public void AttackEffectMethod(Vector2 position)
     {
         //공격 이펙트 소환
         GameObject prefab = tempCardInfo.attackEffect;
@@ -126,5 +127,24 @@ public class EffectManager : MonoBehaviour
     private Vector2 GetPos()
     {
         return new Vector2(GameManager.instance.player.transform.position.x, -2.4f);
+    }
+
+
+    //코루틴 받아와서 사용하기
+    public void RandomAttackCoroutine(CardBasic card)
+    {
+        StartCoroutine(Coroutine(card));
+    }
+    IEnumerator Coroutine(CardBasic cardBasic)
+    {
+        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
+        for (int i = 0; i < cardBasic.utilAbility; i++)
+        {
+            int num = Random.Range(0, monsters.Count);
+            GameObject tempPrefab = Instantiate(cardBasic.attackEffect, monsters[num].transform.position, cardBasic.attackEffect.transform.rotation);
+            monsters[num].TakeDamage(cardBasic.damageAbility);
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
+
     }
 }
