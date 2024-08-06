@@ -19,19 +19,22 @@ public class Stage : MonoBehaviour
     {
         stagePosition = this.gameObject.transform.position;
 
+        if (stagePosition == Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position)
+        {
+            warp.SetActive(true);
+            return;
+        }
+
+        if (stagePosition == Dungeon.Instance.stage[(Dungeon.Instance.x - 1), ((Dungeon.Instance.y - 1) / 2)].transform.position)
+        {
+            warp.SetActive(true);
+            return;
+        }
 
         //위치에 따라 각종 스테이지 개방
         if (stagePosition == Dungeon.Instance.stage[((Dungeon.Instance.x - 1) / 2), 0].transform.position)
         {
             start.SetActive(true);
-        }
-        else if (stagePosition == Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position)
-        {
-            warp.SetActive(true);
-        }
-        else if (stagePosition == Dungeon.Instance.stage[(Dungeon.Instance.x - 1), ((Dungeon.Instance.y - 1) / 2)].transform.position)
-        {
-            warp.SetActive(true);
         }
         else if (stagePosition == Dungeon.Instance.stage[((Dungeon.Instance.x - 1) / 2), (Dungeon.Instance.y - 1)].transform.position)
         {
