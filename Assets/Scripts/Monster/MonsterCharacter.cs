@@ -142,7 +142,7 @@ public class MonsterCharacter : Character
     }
     protected override void BasedefMethod()
     {
-
+        defDownValue = 0;
     }
     protected override void DefDownValue(float ability)
     {

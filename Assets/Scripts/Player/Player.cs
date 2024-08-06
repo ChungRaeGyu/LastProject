@@ -10,7 +10,6 @@ public class Player : PlayerCharacter
 
     public int currentCost { get; private set; }
     private HpBar healthBarInstance;
-    private List<Condition> conditionInstances = new List<Condition>();
 
     private Transform hpBarPos;
     private Transform conditionPos;
@@ -114,6 +113,7 @@ public class Player : PlayerCharacter
     }
 
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
+    /*
     public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
     {
         if (conditionPrefab != null)
@@ -123,7 +123,7 @@ public class Player : PlayerCharacter
             //UpdateConditionPositions();
             newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
         }
-    }
+    }*/
 
     // 리스트에서 Condition 인스턴스를 제거하고 위치를 업데이트
     public void RemoveCondition(Condition condition)
@@ -151,9 +151,18 @@ public class Player : PlayerCharacter
         {
             if (condition.conditionType == ConditionType.Defense)
             {
-                condition.IncrementStackCount(amount);
+                condition.IncrementStackCount(amount); 
                 break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
             }
         }
+    }
+
+    protected override Transform GetConditionPos()
+    {
+        return playerCondition;
+    }
+    protected override Transform GetConditionTransfrom()
+    {
+        return conditionPos;
     }
 }

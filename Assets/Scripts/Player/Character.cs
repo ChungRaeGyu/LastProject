@@ -103,6 +103,7 @@ public class Character : MonoBehaviour
         if (bleedingTurnsRemaining > 0)
         {
             bleedingTurnsRemaining--;
+            Debug.Log("ÃâÇ÷Áß");
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
             if (existingFrozenCondition != null)
             {
@@ -112,15 +113,18 @@ public class Character : MonoBehaviour
         }
         yield return null;
     }
+
     private void SpawnConditionText(string conditionText, Vector3 position)
     {
         Color? textColor = conditionText == "ºù°á" ? new Color(0.53f, 0.81f, 0.92f) : (Color?)null;
         SpawnText(conditionText, position, textColor);
     }
+
     protected void SpawnDamageText(int damageAmount, Vector3 position)
     {
         SpawnText(damageAmount.ToString(), position);
     }
+
     private void SpawnText(string text, Vector3 position, Color? color = null)
     {
         if (GameManager.instance.damageTextPrefab != null)
@@ -220,12 +224,13 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Poison);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.poisonConditionPrefab, ConditionType.Poison);
         }
 
     }
     public void BleedingForTunrs(int turns)
     {
+        Debug.Log("¿©±â");
         //µµÆ® µô
         burnTurnsRemaining += turns;
         Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
@@ -235,7 +240,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.poisonConditionPrefab, ConditionType.Bleeding);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Bleeding);
         }
 
     }

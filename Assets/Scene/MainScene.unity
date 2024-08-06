@@ -3625,7 +3625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 300.00003, y: -110}
+  m_AnchoredPosition: {x: 300, y: -110}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &706902553
@@ -8442,7 +8442,7 @@ MonoBehaviour:
   defDownConditionPrefab: {fileID: 2555176015284709196, guid: 2acce98b99b9f8a4f862de22c007fc39, type: 3}
   burnConditionPrefab: {fileID: 2555176015284709196, guid: 5b98278ccbcf61941b4b326c30c206ac, type: 3}
   poisonConditionPrefab: {fileID: 0}
-  bleedingConditioinPrefab: {fileID: 0}
+  bleedingConditioinPrefab: {fileID: 2555176015284709196, guid: 60bccbefa3f676e4fb59be3b5d479dfb, type: 3}
   damageTextPrefab: {fileID: 6432546005034643815, guid: e80ef2b27cae0d8468c199c2af8e327d, type: 3}
   audioSource: {fileID: 1587527352}
   CardDrawClip: {fileID: 8300000, guid: a4e61f7ccbaa6e843901259ae17270ab, type: 3}
