@@ -49,7 +49,12 @@ public class Player : PlayerCharacter
     {
         playerCondition.position = conditionPos.position;
     }
-
+    /*
+    protected override Transform GetConditionTransfrom()
+    {
+        return conditionPos;
+    }
+    */
     public override void InitializeStats(int currenthealthData)
     {
         base.InitializeStats(currenthealthData);

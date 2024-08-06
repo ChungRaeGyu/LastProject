@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.EditorUtilities;
+using UnityEditor.Playables;
 using UnityEngine;
 
 public class MonsterCharacter : Character
@@ -13,9 +15,8 @@ public class MonsterCharacter : Character
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int Attack = Animator.StringToHash("Attack");
 
-
+    public Transform conditionPos;
     public Transform hpBarPos; // HP 바 위치
-    public Transform conditionPos; // 컨디션 위치
     public Transform monsterNextActionPos; // 다음 행동을 나타낼 위치
     public Transform monsterNamePos; // 이름 위치
 
@@ -104,10 +105,11 @@ public class MonsterCharacter : Character
 
     protected virtual void Update()
     {
-        MonsterCondition.position = conditionPos.position;
         monsterNextAction.position = monsterNextActionPos.position;
         monsterName.position = monsterNamePos.position;
         monsterNextActionList.position = transform.position;
+        MonsterCondition.position = conditionPos.position;
+
     }
 
     public virtual void TakeDamage(int damage)
@@ -130,12 +132,22 @@ public class MonsterCharacter : Character
         TakeDamage(damage);
     }
 
-    protected override void WeakerMethod()
+    protected override void BaseWeakerMethod()
     {
         monsterStats.attackPower = baseAttackPower;
     }
- 
+    protected override void WeakingMethod(float ability)
+    {
+        monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
+    }
+    protected override void BasedefMethod()
+    {
 
+    }
+    protected override void DefDownValue(float ability)
+    {
+        defDownValue = ability;
+    }
 
     public void DieAction()
     {
@@ -199,7 +211,10 @@ public class MonsterCharacter : Character
     {
         return MonsterCondition;
     }
-
+    protected override Transform GetConditionTransfrom()
+    {
+        return conditionPos;
+    }
 
     #region 안쓰는 것
     // 리스트에서 Condition 인스턴스를 제거하고 위치를 업데이트

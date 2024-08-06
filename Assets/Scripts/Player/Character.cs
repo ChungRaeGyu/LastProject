@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,17 +64,21 @@ public class Character : MonoBehaviour
         }
         else
         {
-            WeakerMethod();
+            BaseWeakerMethod();
         }
         if (defDownTurnsRemaining > 0)
         {
-            weakerTurnsRemaining--;
+            defDownTurnsRemaining--;
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
             if (existingFrozenCondition != null)
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
             yield break;
+        }
+        else
+        {
+            BasedefMethod();
         }
         if (burnTurnsRemaining > 0)
         {
@@ -151,7 +156,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
         }
         Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
     }
@@ -167,9 +172,9 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
             //약화 
-            monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
+            WeakingMethod(ability);
         }
     }
     public void DefDownForTurns(int turns, float ability)
@@ -184,8 +189,8 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, GameManager.instance.defDownConditionPrefab, ConditionType.DefDown);
-            defDownValue = ability;
+            AddCondition(GetConditionPos(), turns, GameManager.instance.defDownConditionPrefab, ConditionType.DefDown);
+            DefDownValue(ability);
         }
     }
 
@@ -200,7 +205,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, GameManager.instance.burnConditionPrefab, ConditionType.Burn);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.burnConditionPrefab, ConditionType.Burn);
         }
 
     }
@@ -215,7 +220,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Poison);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Poison);
         }
 
     }
@@ -230,7 +235,7 @@ public class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(MonsterCondition, turns, GameManager.instance.poisonConditionPrefab, ConditionType.Bleeding);
+            AddCondition(GetConditionPos(), turns, GameManager.instance.poisonConditionPrefab, ConditionType.Bleeding);
         }
 
     }
@@ -246,7 +251,7 @@ public class Character : MonoBehaviour
             Condition newCondition = Instantiate(conditionPrefab, parent);
             conditionInstances.Add(newCondition);
             //UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
+            newCondition.Initialized(initialStackCount, GetConditionTransfrom(), type); // 위치 초기화 후에 스택 값 설정
         }
     }
     #region 상속을 위한 메소드들
@@ -254,11 +259,26 @@ public class Character : MonoBehaviour
     {
         return null;
     }
-    protected virtual void WeakerMethod()
+    protected virtual Transform GetConditionTransfrom()
+    {
+        return null;
+    }
+    protected virtual void BaseWeakerMethod()
     {
 
     }
+    protected virtual void WeakingMethod(float ability)
+    {
 
+    }
+    protected virtual void BasedefMethod()
+    {
+
+    }
+    protected virtual void DefDownValue(float ability)
+    {
+
+    }
     protected virtual void TakedamageCharacter(int damage)
     {
 

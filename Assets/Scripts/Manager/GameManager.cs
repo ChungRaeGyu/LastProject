@@ -258,7 +258,6 @@ public class GameManager : MonoBehaviour
         if (monsters.Count == 0)
             return true;
 
-        Debug.Log($"몬스터 수: {monsters.Count}");
         return false;
     }
 
