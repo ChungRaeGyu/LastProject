@@ -24,17 +24,19 @@ public class Dungeon : MonoBehaviour
         }
     }
 
+    [Header("Stage")]
     public GameObject[,] stage;
     public GameObject stagePrefab;
-
     public Transform stageBoard;
-
     public bool[,] isStage;
 
+    [Header("DungeonArea")]
     public int x;
     public int y;
     public float a;
     public float b;
+    public float dungeonLength;
+    public float dungeonProgress; //던전 진행도
 
     [Header("NormalMob")]
     public GameObject[] normalMob;
@@ -83,6 +85,9 @@ public class Dungeon : MonoBehaviour
             DungeonManager.Instance.player.transform.position = DungeonManager.Instance.startPosition.transform.position;
             SaveManager.Instance.isStartPoint = false;
         }
+
+        dungeonLength = stage[(x-1)/2, 0].transform.position.x - stage[(x-1)/2, y-1].transform.position.x;
+        Debug.Log(dungeonLength);
     }
 
     public void MonsterSpawn()
