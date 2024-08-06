@@ -49,6 +49,7 @@ public class AxeGoblin : MonsterCharacter
     public void StartMonsterTurn()
     {
         StartCoroutine(MonsterTurn());
+        Debug.Log("StartMonsterTurn ½ÇÇà ");
     }
 
     public override IEnumerator MonsterTurn()
