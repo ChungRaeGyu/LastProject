@@ -46,7 +46,7 @@ public class EventManager : MonoBehaviour
     private int randomCoin;
 
     // 페이드 스피드
-    private float fadeSpeed = 1f;
+    //private float fadeSpeed = 1f;
 
     private void Start()
     {
