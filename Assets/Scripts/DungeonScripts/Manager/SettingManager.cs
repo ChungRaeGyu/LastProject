@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -180,5 +181,20 @@ public class SettingManager : MonoBehaviour
 
         // Lobby 씬이 아닌 경우에만 lobbyReturnBtn 활성화
         lobbyReturnBtn.SetActive(sceneIndex != 1);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        AudioSource audioSource = AudioSourcePool.Instance.GetAudioSource();
+        audioSource.clip = clip;
+        audioSource.Play();
+
+        StartCoroutine(ReturnToPoolAfterPlay(audioSource, clip.length));
+    }
+
+    private IEnumerator ReturnToPoolAfterPlay(AudioSource audioSource, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        AudioSourcePool.Instance.ReturnAudioSource(audioSource);
     }
 }

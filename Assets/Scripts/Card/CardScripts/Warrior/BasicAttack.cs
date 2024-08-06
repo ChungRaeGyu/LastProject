@@ -76,6 +76,7 @@ public class BasicAttack : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
         targetMonster.TakeDamage(damageAbility);
         PlayPlayerAttackAnimation();
     }

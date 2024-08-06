@@ -64,6 +64,9 @@ public class DescriptionManager : MonoBehaviour
     [Header("Position")]
     [SerializeField] private GameObject targetEmptyObject;
 
+    [Header("Manager")]
+    [SerializeField] private LobbyButtonManager lobbyButtonManager;
+
     GameObject tempCard;
     int num = 1;
     public void ClosePanel()
@@ -148,6 +151,8 @@ public class DescriptionManager : MonoBehaviour
     //제작 버튼
     public void MakingCard()
     {
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+
         if (DataManager.Instance.CardPiece[(int)currentCard.rate] >= 100)
         {
             DataManager.Instance.CardPiece[(int)currentCard.rate] -= 100;
@@ -159,6 +164,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void MakingCardPanelControl()
     {
+        audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         MakingCardPanel.SetActive(!MakingCardPanel.activeInHierarchy);
         CurrentpieceSubject.text = DataManager.Instance.CardPiece[(int)currentCard.cardBasic.rate].ToString();
     }
@@ -171,11 +177,15 @@ public class DescriptionManager : MonoBehaviour
 
     public void EnhanceCard()
     {
+        audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+
         switch (currentCard.cardBasic.enhancementLevel)
         {
             case 0:
                 if (DataManager.Instance.currentCrystal < 300)
                 {
+                    lobbyButtonManager.BlinkText(LobbyManager.instance.currentCrystal, Color.red, 0.5f, 0.2f);
+
                     Debug.Log("크리스탈이 부족합니다.");
                     return;
                 }

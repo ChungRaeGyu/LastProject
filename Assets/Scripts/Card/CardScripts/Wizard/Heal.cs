@@ -65,6 +65,8 @@ public class Heal : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.Heal(utilAbility);
     }

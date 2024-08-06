@@ -71,6 +71,9 @@ public class DungeonSetting : MonoBehaviour
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
 
+        // 제거한 카드 수 초기화
+        DataManager.Instance.removeCardCount = 0;
+
         foreach (var card in DataManager.Instance.LobbyDeck)
         {
             DataManager.Instance.AddCard(card);

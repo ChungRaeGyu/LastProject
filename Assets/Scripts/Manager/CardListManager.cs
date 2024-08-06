@@ -93,6 +93,8 @@ public class CardListManager : MonoBehaviour
     // 정렬 순서 변경 및 덱 정렬
     public void ToggleSortOrderAndSortDeck()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         isDeckAscending = !isDeckAscending;
         SortDeckByCost();
     }
@@ -100,6 +102,8 @@ public class CardListManager : MonoBehaviour
     // 정렬 순서 변경 및 사용된 카드 리스트 정렬
     public void ToggleSortOrderAndSortUsedCards()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         isUsedCardsAscending = !isUsedCardsAscending;
         SortUsedCardsByCost();
     }

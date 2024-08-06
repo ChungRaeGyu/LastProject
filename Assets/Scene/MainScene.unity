@@ -3625,7 +3625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 300.00003, y: -110}
+  m_AnchoredPosition: {x: 300, y: -110}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &706902553
@@ -8453,6 +8453,9 @@ MonoBehaviour:
   cardListManager: {fileID: 0}
   skip: 0
   hitEffect: {fileID: 7196586892533426777, guid: b7f9cdca53f3652439e9db86e4e81bd3, type: 3}
+  turnClip: {fileID: 8300000, guid: 7b3cd6ed1b1d1784687771f6235b9da3, type: 3}
+  showRewardClip: {fileID: 8300000, guid: 4540a73bae41c454a87de1fbb690fdaf, type: 3}
+  rewardCardClip: {fileID: 8300000, guid: 1b2b56f4e64be354f8c32e978867639a, type: 3}
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0

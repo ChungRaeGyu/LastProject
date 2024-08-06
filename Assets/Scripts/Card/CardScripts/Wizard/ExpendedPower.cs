@@ -69,6 +69,8 @@ public class ExpendedPower : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         targetMonster.TakeDamage(DataManager.Instance.usedCards.Count);
         PlayPlayerAttackAnimation();
     }

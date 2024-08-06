@@ -70,6 +70,8 @@ public class DefensiveStrike : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         targetMonster.TakeDamage(GameManager.instance.player.currentDefense);
         PlayPlayerAttackAnimation();
     }

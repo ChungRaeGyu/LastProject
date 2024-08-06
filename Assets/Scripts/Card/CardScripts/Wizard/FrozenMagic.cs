@@ -72,6 +72,8 @@ public class FrozenMagic : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         targetMonster.FreezeForTurns(utilAbility);
         GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
         targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.

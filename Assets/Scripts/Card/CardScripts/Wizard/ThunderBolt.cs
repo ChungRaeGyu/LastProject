@@ -73,6 +73,8 @@ public class ThunderBolt : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.effectManager.MagicAttack(cardBasic,targetMonster);
         PlayPlayerAttackAnimation();
     }

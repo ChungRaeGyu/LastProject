@@ -70,6 +70,10 @@ public class CardBasic : MonoBehaviour
     [Header("UI Components")]
     public AudioSource audioSource;
 
+    [Header("AudioClip")]
+    public AudioClip CardClip1;
+    public AudioClip CardClip2;
+
     // 초기 ability 값 저장
     protected int initialDamageAbility;
     protected int initialUtilAbility;

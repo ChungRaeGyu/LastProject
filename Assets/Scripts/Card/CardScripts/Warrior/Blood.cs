@@ -82,6 +82,8 @@ public class Blood : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         targetMonster.TakeDamage(damageAbility);
         GameManager.instance.player.Heal(utilAbility);
         PlayPlayerAttackAnimation();

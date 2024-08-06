@@ -79,6 +79,8 @@ public class RandomAttack : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster=null)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
         for(int i=0; i< initialUtilAbility; i++)
         {

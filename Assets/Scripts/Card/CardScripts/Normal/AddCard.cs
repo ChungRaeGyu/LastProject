@@ -59,6 +59,8 @@ public class AddCard : CardBasic
 
     public void CardUse(Monster targetMonster = null)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.UseCost(cost);
         if (GameManager.instance.volumeUp)

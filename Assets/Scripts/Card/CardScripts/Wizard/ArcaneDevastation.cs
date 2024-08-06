@@ -77,8 +77,10 @@ public class ArcaneDevastation : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-{        targetMonster.TakeDamage(damageAbility);
-        PlayPlayerAttackAnimation();}
+        SettingManager.Instance.PlaySound(CardClip1);
+
+        targetMonster.TakeDamage(damageAbility);
+        PlayPlayerAttackAnimation();
     }
 
     private void RecoverCost()

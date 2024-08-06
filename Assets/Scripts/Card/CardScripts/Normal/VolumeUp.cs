@@ -61,6 +61,8 @@ public class VolumeUp : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.volumeUp = true;
         PlayPlayerAttackAnimation();
     }

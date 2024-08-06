@@ -72,11 +72,15 @@ public class DataManager : MonoBehaviour
     public int adjustedCurrentCoin { get; set; }
     public int adjustedClearTime { get; set; }
 
+    // 던전 진행 중 제거한 카드 수
+    public int removeCardCount;
+
     // 게임 재화
     //public int currentCoin { get; set; }
     public int currentCoin; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
     // public int currentCrystal { get; set; } = 0; // 일단 0으로 (임시)
     public int currentCrystal; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
+
     private void Start()
     {
         CardPiece = new int[(int)Rate.Count];

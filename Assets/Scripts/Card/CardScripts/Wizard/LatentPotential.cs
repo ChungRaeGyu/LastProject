@@ -69,6 +69,8 @@ public class LatentPotential : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         targetMonster.TakeDamage(DataManager.Instance.deck.Count);
         PlayPlayerAttackAnimation();
     }
