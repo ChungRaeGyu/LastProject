@@ -77,6 +77,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Effect")]
     public GameObject hitEffect;
+
+    [Header("AudioClip")]
+    public AudioClip turnClip;
+    public AudioClip showRewardClip;
+    public AudioClip rewardCardClip;
+
     private void Awake()
     {
         if (instance == null)
@@ -251,6 +257,8 @@ public class GameManager : MonoBehaviour
         // 잠깐 기다림
         yield return new WaitForSeconds(1.0f);
 
+        // 보상 패널 켜질때
+        SettingManager.Instance.PlaySound(GameManager.instance.showRewardClip);
         UIManager.instance.UIClear(true, false, true, true, true);
     }
 
@@ -403,6 +411,7 @@ public class GameManager : MonoBehaviour
     // unUsedScrollView 활성화/비활성화 메서드
     public void ToggleUnUsedScrollView()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         ToggleScrollView(
             unUsedScrollView,
             handManager.ShowAllCardsActive,  // 카드 표시
@@ -416,6 +425,7 @@ public class GameManager : MonoBehaviour
     // usedScrollView 활성화/비활성화 메서드
     public void ToggleUsedScrollView()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         ToggleScrollView(
             usedScrollView,
             handManager.ShowAllCardsActive,  // 카드 표시

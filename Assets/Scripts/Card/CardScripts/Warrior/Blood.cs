@@ -83,6 +83,8 @@ public class Blood : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.player.Heal(utilAbility);
         PlayPlayerAttackAnimation();
     }

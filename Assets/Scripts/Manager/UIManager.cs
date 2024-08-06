@@ -137,7 +137,6 @@ public class UIManager : MonoBehaviour
     {
         DataManager.Instance.currentCoin += GameManager.instance.monsterTotalRewardCoin;
 
-        // 동전소리? 같은거 나게함
         SFXAudioSource.PlayOneShot(CoinClip);
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
@@ -147,6 +146,7 @@ public class UIManager : MonoBehaviour
     public void SpawnRewardCards()
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(GameManager.instance.rewardCardClip);
 
         cardSelectPanel.SetActive(true);
 
@@ -446,6 +446,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.player?.IsDead() == true) return;
 
+        SettingManager.Instance.PlaySound(GameManager.instance.turnClip);
         StartCoroutine(AnimateTurnCount(PlayerTurnCountText, $"플레이어 {turnNumber}번째 턴"));
     }
 

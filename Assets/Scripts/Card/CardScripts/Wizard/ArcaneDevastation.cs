@@ -78,6 +78,8 @@ public class ArcaneDevastation : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         GameManager.instance.effectManager.MagicAttack(this, targetMonster);
+
+        SettingManager.Instance.PlaySound(CardClip1);
         PlayPlayerAttackAnimation();
     }
 

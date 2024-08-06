@@ -73,6 +73,8 @@ public class AddCost : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);
     }

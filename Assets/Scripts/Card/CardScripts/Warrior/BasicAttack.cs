@@ -77,6 +77,7 @@ public class BasicAttack : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
+        SettingManager.Instance.PlaySound(CardClip1);
         PlayPlayerAttackAnimation();
     }
 

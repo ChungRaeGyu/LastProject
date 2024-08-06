@@ -7,20 +7,51 @@ using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
+    public static StoreManager Instance;
+
     public List<GameObject> CardParents; // 카드 부모 오브젝트를 담을 리스트
     public List<GameObject> Cards; // 생성할 카드를 담을 리스트
-    public TMP_Text dungeonCoin; // 화면에 보여줄 던전코인의 개수
     public GameObject storePanel; // 상점 패널
     public RectTransform backButton;
     public RectTransform lobbyButton;
+
+    public int needCoinAmount;
+    public int healthprice;
+
+    [Header("TMP_Text")]
+    public TMP_Text dungeonCoin; // 화면에 보여줄 던전코인의 개수
+    public TMP_Text cardRemovePriceText; // 카드를 제거하는데에 드는 비용을 나타내는 TMP_Text
+    public TMP_Text healthItemPriceText; // 카드를 제거하는데에 드는 비용을 나타내는 TMP_Text
 
     private Vector2 backButtonOriginalPos;
     private Vector2 lobbyButtonOriginalPos;
     private Vector2 backButtonTargetPos = new Vector2(0, 100);
     private Vector2 lobbyButtonTargetPos = new Vector2(550, 100);
 
+    [Header("Manager")]
+    public RemoveListManager removeListManager;
+
+    [Header("DeletePanel")]
+    public GameObject removePanel;
+
+    [Header("AudioClip")]
+    public AudioClip StoreUseCoinClip;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
+        needCoinAmount = 65 + (DataManager.Instance.removeCardCount * 25);
+        cardRemovePriceText.text = needCoinAmount.ToString();
+
+        healthItemPriceText.text = healthprice.ToString();
+
         backButtonOriginalPos = backButton.anchoredPosition;
         lobbyButtonOriginalPos = lobbyButton.anchoredPosition;
 
@@ -78,7 +109,7 @@ public class StoreManager : MonoBehaviour
                 break;
         }
 
-        TMP_Text priceText = parent.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
+        TMP_Text priceText = parent.transform.GetChild(1).GetComponentInChildren<TMP_Text>();
         if (priceText != null)
         {
             priceText.text = $"{price}";
@@ -100,8 +131,11 @@ public class StoreManager : MonoBehaviour
 
     private void OnCardClicked(CardBasic cardBasic, int price, GameObject parent)
     {
+
         if (DataManager.Instance.currentCoin >= price)
         {
+            SettingManager.Instance.PlaySound(StoreUseCoinClip);
+
             // 동전 소리
             DataManager.Instance.currentCoin -= price;
             DataManager.Instance.AddCard(cardBasic); // 카드 추가
@@ -113,7 +147,9 @@ public class StoreManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("코인이 부족합니다!");
+            SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
+            Debug.LogError("코인이 부족합니다!");
         }
     }
 
@@ -132,12 +168,16 @@ public class StoreManager : MonoBehaviour
 
     public void ShowStorePanel()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         storePanel.SetActive(true);
         StartCoroutine(MoveButtonsCoroutine(backButton.anchoredPosition, backButtonTargetPos, lobbyButton.anchoredPosition, lobbyButtonTargetPos));
     }
 
     public void CloseStorePanel()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         StartCoroutine(MoveButtonsCoroutine(backButton.anchoredPosition, backButtonOriginalPos, lobbyButton.anchoredPosition, lobbyButtonOriginalPos));
         storePanel.SetActive(false);
     }
@@ -165,9 +205,49 @@ public class StoreManager : MonoBehaviour
 
     public void OnLobbyButtonClick()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.CardPassClip);
+
         DataManager.Instance.stageClearCount++;
 
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
         SceneManager.LoadScene(2);
+    }
+
+    public void ShowDeleteList()
+    {
+        if (DataManager.Instance.currentCoin >= needCoinAmount)
+        {
+            DataManager.Instance.currentCoin -= needCoinAmount;
+            dungeonCoin.text = DataManager.Instance.currentCoin.ToString();
+            DataManager.Instance.removeCardCount++;
+            SettingManager.Instance.PlaySound(StoreUseCoinClip);
+            removePanel.SetActive(true);
+            removeListManager.UpdateDeckList();
+        }
+        else
+        {
+            SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
+            Debug.LogError("코인이 부족합니다!");
+        }
+    }
+
+    // 코인을 지불하고 체력을 회복시키는 메서드
+    public void HealPlayer()
+    {
+        if (DataManager.Instance.currentCoin >= healthprice)
+        {
+            DataManager.Instance.currentCoin -= healthprice;
+            dungeonCoin.text = DataManager.Instance.currentCoin.ToString();
+            DataManager.Instance.currenthealth = DataManager.Instance.maxHealth;
+            SettingManager.Instance.PlaySound(StoreUseCoinClip);
+            UpdateCoin();
+        }
+        else
+        {
+            SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
+            Debug.LogError("코인이 부족합니다!");
+        }
     }
 }

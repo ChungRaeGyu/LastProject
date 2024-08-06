@@ -73,6 +73,8 @@ public class AllForOne : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         List<CardBasic> tempCards = new List<CardBasic>();
         targetMonster.TakeDamage(damageAbility);
         foreach(CardBasic temp in DataManager.Instance.usedCards)

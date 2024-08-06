@@ -73,6 +73,8 @@ public class FireBall : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         targetMonster.burnForTunrs(utilAbility);
         GameManager.instance.effectManager.MagicAttack(cardBasic,targetMonster);
         PlayPlayerAttackAnimation();

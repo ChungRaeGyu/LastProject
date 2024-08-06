@@ -30,12 +30,17 @@ public class EventManager : MonoBehaviour
     public TMP_Text randomCardCoinText;
     public GameObject randomCardEventSelectBtn;
     public TMP_Text closeRandomCardEventText;
+    public GameObject randomCardEventImage;
 
     [Header("HealEvent")]
     public TMP_Text healEventDescription;
     public TMP_Text healCoinText;
     public GameObject healEventSelectBtn;
     public TMP_Text closeHealEventText;
+    public GameObject healEventImage;
+
+    [Header("AudioClip")]
+    public AudioClip CoinClip;
 
     // 랜덤 값 변수 돌려쓰기
     private int randomCoin;
@@ -98,6 +103,8 @@ public class EventManager : MonoBehaviour
 
     public void MimicSurprise()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         DataManager.Instance.SuffleDeckList();
         // 전투에서 미믹이 나와야 함
         DataManager.Instance.Monsters = mimicMonster;
@@ -106,6 +113,8 @@ public class EventManager : MonoBehaviour
 
     public void GetCoin()
     {
+        SettingManager.Instance.PlaySound(CoinClip);
+
         int randomCoin = Random.Range(20, 41);
         DataManager.Instance.currentCoin += randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
@@ -143,6 +152,8 @@ public class EventManager : MonoBehaviour
 
     public void HideMimicEvent()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         mimicEvent.SetActive(false);
         ShowDungeon();
         LoadingSceneManager.LoadScene(2);
@@ -169,6 +180,8 @@ public class EventManager : MonoBehaviour
     // randomCardList에서 카드를 1장 랜덤으로 내 덱에 추가
     public void GetRandomCard()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         if (DataManager.Instance.currentCoin < randomCoin)
         {
             Debug.Log("코인이 부족합니다.");
@@ -190,10 +203,13 @@ public class EventManager : MonoBehaviour
         closeRandomCardEventText.text = "던전을 계속 진행한다.";
 
         randomCardEventSelectBtn.SetActive(false);
+        randomCardEventImage.SetActive(false);
     }
 
     public void HideRandomCardEvent()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         randomCardEvent.SetActive(false);
         ShowDungeon();
         LoadingSceneManager.LoadScene(2);
@@ -219,6 +235,8 @@ public class EventManager : MonoBehaviour
 
     public void HealAndUseCoin()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         if (DataManager.Instance.currentCoin < randomCoin)
         {
             Debug.Log("코인이 부족합니다.");
@@ -240,10 +258,13 @@ public class EventManager : MonoBehaviour
         closeHealEventText.text = "던전을 계속 진행한다.";
 
         healEventSelectBtn.SetActive(false);
+        healEventImage.SetActive(false);
     }
 
     public void HideHealEvent()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         healEvent.SetActive(false);
         ShowDungeon();
         LoadingSceneManager.LoadScene(2);
