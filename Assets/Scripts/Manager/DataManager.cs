@@ -77,6 +77,9 @@ public class DataManager : MonoBehaviour
     // 던전 진행 중 제거한 카드 수
     public int removeCardCount;
 
+    //입장한 던전
+    public int accessDungeonNum;
+
     // 게임 재화
     //public int currentCoin { get; set; }
     public int currentCoin; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
@@ -208,18 +211,19 @@ public class DataManager : MonoBehaviour
         saveData.currentCrystal = currentCrystal;
         saveData.currentHealth = currenthealth;
         saveData.maxHealth = maxHealth;
+        saveData.accessibleDungeonNum = accessDungeonNum;
         //saveData.dataManager = DataManager.Instance;
         //PlayerCharacter
+        /*
         if (saveData.activeScenebuildindex == 3)
         {
             saveData.activeScenebuildindex = SceneManager.GetActiveScene().buildIndex;
-            saveData.accessibleDungeonNum = SaveManager.Instance.accessDungeonNum;
             saveData.currenthealth = GameManager.instance.player.currenthealth;
             saveData.currentAttack = GameManager.instance.player.currentAttack;
             saveData.currentDefense = GameManager.instance.player.currentDefense;
             saveData.defdown = GameManager.instance.player.defdown;
             saveData.playerStat = GameManager.instance.player.playerStats;
-        }
+        }*/
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
         Debug.Log("저장");
@@ -239,10 +243,10 @@ public class DataManager : MonoBehaviour
         currentCrystal = saveData.currentCrystal;
         currenthealth = saveData.currentHealth;
         maxHealth = saveData.maxHealth;
-
+        accessDungeonNum = saveData.accessibleDungeonNum;
+        /*
         if (saveData.activeScenebuildindex == 3)
         {
-            SaveManager.Instance.accessDungeonNum = saveData.accessibleDungeonNum;
             SceneManager.LoadScene(saveData.activeScenebuildindex);
             GameManager.instance.player.currenthealth = saveData.currenthealth;
             GameManager.instance.player.currentAttack = saveData.currentAttack;
@@ -250,7 +254,7 @@ public class DataManager : MonoBehaviour
             GameManager.instance.player.defdown = saveData.defdown;
             GameManager.instance.player.playerStats = saveData.playerStat;
             //Todo : 상태이상 넣기 언젠간 해봐야지....
-        }
+        }*/
         Debug.Log("로드완료");
     }
 }

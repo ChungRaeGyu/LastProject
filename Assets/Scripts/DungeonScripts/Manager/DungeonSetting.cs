@@ -83,7 +83,7 @@ public class DungeonSetting : MonoBehaviour
             case "01_Start_Dungeon":
                 DungeonManager.Instance.dungeonNum[0].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 0;
+                DataManager.Instance.accessDungeonNum = 0;
                 DungeonManager.Instance.startPosition.transform.position += new Vector3(3, 0, 0);
                 Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
@@ -91,28 +91,28 @@ public class DungeonSetting : MonoBehaviour
             case "02_Dungeon":
                 DungeonManager.Instance.dungeonNum[1].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 1;
+                DataManager.Instance.accessDungeonNum = 1;
                 Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;
 
             case "03_Dungeon":
                 DungeonManager.Instance.dungeonNum[2].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 2;
+                DataManager.Instance.accessDungeonNum = 2;
                 Debug.Log("3번째 던전에 입장하셨습니다.");
                 break;
 
             case "04_Dungeon":
                 DungeonManager.Instance.dungeonNum[3].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 3;
+                DataManager.Instance.accessDungeonNum = 3;
                 Debug.Log("4번째 던전에 입장하셨습니다.");
                 break;
 
             case "05_Dungeon":
                 DungeonManager.Instance.dungeonNum[4].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 4;
+                DataManager.Instance.accessDungeonNum = 4;
                 Debug.Log("5번째 던전에 입장하셨습니다.");
                 break;
         }

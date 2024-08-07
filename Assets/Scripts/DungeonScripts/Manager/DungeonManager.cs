@@ -58,7 +58,7 @@ public class DungeonManager : MonoBehaviour
             dungeonBoard.SetActive(false); //던전 보드 비활성화
             dungeon.SetActive(true); //던전 활성화
 
-            int num = SaveManager.Instance.accessDungeonNum;
+            int num =   DataManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
             DungeonCoin.SetActive(true);
             DungeonHp.SetActive(true);

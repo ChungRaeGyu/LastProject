@@ -346,9 +346,9 @@ public class GameManager : MonoBehaviour
     {
         SaveManager.Instance.isBossStage = false;
         SaveManager.Instance.accessDungeon = false;
-        if (SaveManager.Instance.accessDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
+        if (DataManager.Instance.accessDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
         {
-            SaveManager.Instance.accessibleDungeon[SaveManager.Instance.accessDungeonNum + 1] = true;
+            SaveManager.Instance.accessibleDungeon[DataManager.Instance.accessDungeonNum + 1] = true;
         }
     }
     public void EndMonsterTurn()

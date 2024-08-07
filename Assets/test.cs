@@ -14,7 +14,7 @@ public class test : MonoBehaviour
     {
         SaveData saveData = new SaveData();
         saveData.activeScenebuildindex = SceneManager.GetActiveScene().buildIndex;
-        saveData.accessibleDungeonNum = SaveManager.Instance.accessDungeonNum;
+        saveData.accessibleDungeonNum = DataManager.Instance.accessDungeonNum;
         saveData.cardObjs = DataManager.Instance.cardObjs;
         saveData.LobbyDeck= DataManager.Instance.LobbyDeck;
         saveData.currentCrystal = DataManager.Instance.currentCrystal;
@@ -43,7 +43,7 @@ public class test : MonoBehaviour
 
         SceneManager.LoadScene(saveData.activeScenebuildindex);
         //Todo: ·Îµù ¾À ³Ö±â
-        SaveManager.Instance.accessDungeonNum = saveData.accessibleDungeonNum;
+        DataManager.Instance.accessDungeonNum = saveData.accessibleDungeonNum;
         DataManager.Instance.cardObjs = saveData.cardObjs;
         DataManager.Instance.LobbyDeck= saveData.LobbyDeck;
         DataManager.Instance.currentCrystal = saveData.currentCrystal;

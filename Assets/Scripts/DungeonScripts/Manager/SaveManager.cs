@@ -30,8 +30,7 @@ public class SaveManager : MonoBehaviour
     //던전 입장 여부
     public bool accessDungeon;
 
-    //입장한 던전
-    public int accessDungeonNum;
+
 
     //현 위치가 던전 시작 지점인지에 대한 여부
     public bool isStartPoint;
@@ -64,7 +63,7 @@ public class SaveManager : MonoBehaviour
         isStartPoint = false;
 
         accessibleDungeon[0] = true;
-        for(int i = 1; i< accessDungeonNum; i++)
+        for(int i = 1; i< DataManager.Instance.accessDungeonNum; i++)
         {
             accessibleDungeon[i] = false;
         }

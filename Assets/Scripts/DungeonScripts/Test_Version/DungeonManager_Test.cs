@@ -46,7 +46,7 @@ public class DungeonManager_Test : MonoBehaviour
         if (SaveManager.Instance.accessDungeon == true)
         {
             player.SetActive(true);
-            int num = SaveManager.Instance.accessDungeonNum;
+            int num = DataManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
 
             stage.SetActive(true);
