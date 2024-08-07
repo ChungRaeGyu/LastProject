@@ -1744,12 +1744,12 @@ MonoBehaviour:
   randomCardCoinText: {fileID: 195271236}
   randomCardEventSelectBtn: {fileID: 945610605}
   closeRandomCardEventText: {fileID: 1479542499}
-  randomCardEventImage: {fileID: 0}
+  randomCardEventImage: {fileID: 717049302}
   healEventDescription: {fileID: 1653320626}
   healCoinText: {fileID: 1161424892}
   healEventSelectBtn: {fileID: 120965879}
   closeHealEventText: {fileID: 769451002}
-  healEventImage: {fileID: 0}
+  healEventImage: {fileID: 451472874}
   CoinClip: {fileID: 8300000, guid: 68bca5db9f0a8094fbfc7547e2b8747d, type: 3}
 --- !u!4 &433230345
 Transform:
@@ -2334,7 +2334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accessibleDungeon: 0000000000
   accessDungeon: 0
-  accessDungeonNum: 0
   isStartPoint: 0
   playerPosition: {x: 0, y: 0, z: 0}
   isEliteStage: 0
@@ -2915,7 +2914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6457902298fee04b8eec60c0fff154d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagePrefab: {fileID: 697061062514650400, guid: dd8c77a6f3eb548478a954818c1aac63, type: 3}
   stageBoard: {fileID: 1085762701}
   x: 7
   y: 23
@@ -3802,7 +3800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6457902298fee04b8eec60c0fff154d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagePrefab: {fileID: 697061062514650400, guid: dd8c77a6f3eb548478a954818c1aac63, type: 3}
   stageBoard: {fileID: 1085762701}
   x: 7
   y: 23
@@ -4352,7 +4349,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6457902298fee04b8eec60c0fff154d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagePrefab: {fileID: 697061062514650400, guid: dd8c77a6f3eb548478a954818c1aac63, type: 3}
   stageBoard: {fileID: 1085762701}
   x: 7
   y: 23
@@ -6517,7 +6513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6457902298fee04b8eec60c0fff154d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagePrefab: {fileID: 697061062514650400, guid: dd8c77a6f3eb548478a954818c1aac63, type: 3}
   stageBoard: {fileID: 1085762701}
   x: 7
   y: 15
@@ -6587,7 +6582,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1635272311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d2b43e1202d3fd4a85044860d501cbb, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb2510136172e546a8b3d9654f99a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonBoard: {fileID: 963368534}
@@ -6605,8 +6600,8 @@ MonoBehaviour:
   - {fileID: 972360263}
   - {fileID: 1060999375}
   player: {fileID: 973764764}
-  currentCoinText: {fileID: 1877342656}
-  currentHpText: {fileID: 1877342656}
+  currentCoinText: {fileID: 1842822190}
+  currentHpText: {fileID: 1184987124}
   DungeonCoin: {fileID: 1842822191}
   DungeonHp: {fileID: 593537178}
   Player: {fileID: 4224354992257849490, guid: 51779a941770b954389f123ade21778c, type: 3}
@@ -7284,6 +7279,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3077438268257331052, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
   m_PrefabInstance: {fileID: 1842822188}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1842822190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2222034038475091152, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
+  m_PrefabInstance: {fileID: 1842822188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842822191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8698932189957242645, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
@@ -8033,7 +8039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6457902298fee04b8eec60c0fff154d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stagePrefab: {fileID: 697061062514650400, guid: dd8c77a6f3eb548478a954818c1aac63, type: 3}
   stageBoard: {fileID: 1085762701}
   x: 7
   y: 23
