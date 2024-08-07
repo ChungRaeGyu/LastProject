@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class DataManager : MonoBehaviour
 {
     #region 싱글톤
@@ -35,7 +37,7 @@ public class DataManager : MonoBehaviour
     [Header("Deck")]
     public List<CardBasic> LobbyDeck = new List<CardBasic>(); //기본카드로 들고갈 덱
                                                               //게임시작 버튼을 눌렀을 때 deckList에 넣어줘야함)
-    [HideInInspector]                                                       //최대 6장 고정 6장 미만시 게임시작 불가능
+                                                          //최대 6장 고정 6장 미만시 게임시작 불가능
     public int[] LobbyDeckRateCheck = new int[(int)Rate.Count];//등급별 개수 제한 변수
 
     [HideInInspector]
@@ -81,10 +83,32 @@ public class DataManager : MonoBehaviour
     // public int currentCrystal { get; set; } = 0; // 일단 0으로 (임시)
     public int currentCrystal; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
 
+    string path;
     private void Start()
     {
+        Init();
+    }
+    private void OnApplicationQuit()
+    {
+        //앱이 꺼질때 저장
+        Save();
+    }
+    private void Init()
+    {
+        path = Path.Combine(Application.dataPath, "database.json");
+        Load();
         CardPiece = new int[(int)Rate.Count];
         RateSort();
+        LobbyDeckRateCheckInit();
+    }
+
+    private void LobbyDeckRateCheckInit()
+    {
+        if (LobbyDeck.Count == 0) return;
+        foreach (CardBasic cardBasic in LobbyDeck)
+        {
+            LobbyDeckRateCheck[(int)(cardBasic.rate)]++;
+        }
     }
 
     private void RateSort()
@@ -174,5 +198,59 @@ public class DataManager : MonoBehaviour
     public void ResetPlayerHealth()
     {
         currenthealth = 0; // 일단 0으로 초기화 (0일때 최대값으로 들어가게 해놓은 로직이 player에 존재함)
+    }
+
+    public void Save()
+    {
+        SaveData saveData = new SaveData();
+        saveData.cardObjs = cardObjs;
+        saveData.LobbyDeck = LobbyDeck;
+        saveData.currentCrystal = currentCrystal;
+        saveData.currentHealth = currenthealth;
+        saveData.maxHealth = maxHealth;
+        //saveData.dataManager = DataManager.Instance;
+        //PlayerCharacter
+        if (saveData.activeScenebuildindex == 3)
+        {
+            saveData.activeScenebuildindex = SceneManager.GetActiveScene().buildIndex;
+            saveData.accessibleDungeonNum = SaveManager.Instance.accessDungeonNum;
+            saveData.currenthealth = GameManager.instance.player.currenthealth;
+            saveData.currentAttack = GameManager.instance.player.currentAttack;
+            saveData.currentDefense = GameManager.instance.player.currentDefense;
+            saveData.defdown = GameManager.instance.player.defdown;
+            saveData.playerStat = GameManager.instance.player.playerStats;
+        }
+        string json = JsonUtility.ToJson(saveData, true);
+        File.WriteAllText(path, json);
+        Debug.Log("저장");
+    }
+
+    public void Load()
+    {
+        if (!File.Exists(path)) return;
+
+        SaveData saveData = new SaveData();
+        string loadJson = File.ReadAllText(path);
+        saveData = JsonUtility.FromJson<SaveData>(loadJson);
+
+        //Todo: 로딩 씬 넣기
+        cardObjs = saveData.cardObjs;
+        LobbyDeck = saveData.LobbyDeck;
+        currentCrystal = saveData.currentCrystal;
+        currenthealth = saveData.currentHealth;
+        maxHealth = saveData.maxHealth;
+
+        if (saveData.activeScenebuildindex == 3)
+        {
+            SaveManager.Instance.accessDungeonNum = saveData.accessibleDungeonNum;
+            SceneManager.LoadScene(saveData.activeScenebuildindex);
+            GameManager.instance.player.currenthealth = saveData.currenthealth;
+            GameManager.instance.player.currentAttack = saveData.currentAttack;
+            GameManager.instance.player.currentDefense = saveData.currentDefense;
+            GameManager.instance.player.defdown = saveData.defdown;
+            GameManager.instance.player.playerStats = saveData.playerStat;
+            //Todo : 상태이상 넣기 언젠간 해봐야지....
+        }
+        Debug.Log("로드완료");
     }
 }

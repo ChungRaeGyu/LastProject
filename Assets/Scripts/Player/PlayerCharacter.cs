@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,7 +6,6 @@ using UnityEngine.SceneManagement;
 public abstract class PlayerCharacter : Character
 {
     public PlayerStats playerStats;
-    public int maxhealth;
     public int currenthealth;
     public int currentDefense;
     public int currentAttack;
@@ -19,9 +19,6 @@ public abstract class PlayerCharacter : Character
     {
         currentAttack = playerStats.attack;
         currentDefense = playerStats.defense;
-        maxhealth = playerStats.maxhealth;
-        if (DataManager.Instance.maxHealth != 0)
-
         currenthealth = playerStats.maxhealth;
     }
 

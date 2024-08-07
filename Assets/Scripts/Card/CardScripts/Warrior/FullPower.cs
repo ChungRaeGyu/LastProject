@@ -78,7 +78,7 @@ public class FullPower: CardBasic
     {
         //이게 아마도 근본을 바꾸는게 아니라서 괜찮을 것이다. 일회용으로 늘어나는 느낌?
         damageAbility *= GameManager.instance.player.currentCost;
-        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
         SettingManager.Instance.PlaySound(CardClip1);
 
         PlayPlayerAttackAnimation();
