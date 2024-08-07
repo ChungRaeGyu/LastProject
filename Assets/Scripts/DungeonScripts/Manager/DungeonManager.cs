@@ -80,5 +80,6 @@ public class DungeonManager : MonoBehaviour
 
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
         currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
+
     }
 }
