@@ -2923,16 +2923,19 @@ MonoBehaviour:
   b: 3.9
   dungeonLength: 0
   dungeonProgress: 0
+  startStage: {fileID: 7479706897684814572, guid: a41d5d6ec55d4b4478108d88d6ae4626, type: 3}
+  battleStage: {fileID: 349022240116729459, guid: c393381b219bd2947b08a87bb5a7e5a3, type: 3}
+  warpStage: {fileID: 7053118258863470708, guid: 728844fca33680548a165addff87fb40, type: 3}
+  eventStage: {fileID: 3183448016668850049, guid: 25380c0656fd33d4d843b4563fec1dad, type: 3}
+  storeStage: {fileID: 1160365116460895799, guid: 2e0abc630966f834e892d65390f315e2, type: 3}
+  eliteStage: {fileID: 6484876229282022390, guid: 8fffee8fdb9bc2a479c5f051fc1c3e75, type: 3}
+  bossStage: {fileID: 5047573102431700626, guid: 480a120650f7b564582c0ad5bdad51a1, type: 3}
   normalMob:
   - {fileID: 7637313569220852800, guid: b0cf1d8d20c6a8845b065eda6c1da4f1, type: 3}
   - {fileID: 6648069923209046628, guid: a164e846c2f491b46a941aba1d8ea355, type: 3}
   - {fileID: 4963561677188809084, guid: 984aae5f60d9ae844add6043f7905aa0, type: 3}
   - {fileID: 5539310942435981344, guid: 35e44f42b3a9ac64c817092efdb7d0a6, type: 3}
   - {fileID: 2176415540352210496, guid: d9cbf74385defb84aa9f99e03e8dc5da, type: 3}
-  goblins:
-  - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
-  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
-  - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
   MobList: []
   eliteMob:
   - {fileID: 3035964298118269201, guid: 1d082c11e6d761d47ac9d96eb5f8b756, type: 3}
@@ -3807,8 +3810,14 @@ MonoBehaviour:
   b: 3.9
   dungeonLength: 0
   dungeonProgress: 0
+  startStage: {fileID: 0}
+  battleStage: {fileID: 0}
+  warpStage: {fileID: 0}
+  eventStage: {fileID: 0}
+  storeStage: {fileID: 0}
+  eliteStage: {fileID: 0}
+  bossStage: {fileID: 0}
   normalMob: []
-  goblins: []
   MobList: []
   eliteMob: []
   EliteMobList: []
@@ -4351,8 +4360,14 @@ MonoBehaviour:
   b: 3.9
   dungeonLength: 0
   dungeonProgress: 0
+  startStage: {fileID: 0}
+  battleStage: {fileID: 0}
+  warpStage: {fileID: 0}
+  eventStage: {fileID: 0}
+  storeStage: {fileID: 0}
+  eliteStage: {fileID: 0}
+  bossStage: {fileID: 0}
   normalMob: []
-  goblins: []
   MobList: []
   eliteMob: []
   EliteMobList: []
@@ -6510,14 +6525,20 @@ MonoBehaviour:
   b: 3.9
   dungeonLength: 0
   dungeonProgress: 0
+  startStage: {fileID: 7479706897684814572, guid: a41d5d6ec55d4b4478108d88d6ae4626, type: 3}
+  battleStage: {fileID: 349022240116729459, guid: c393381b219bd2947b08a87bb5a7e5a3, type: 3}
+  warpStage: {fileID: 7053118258863470708, guid: 728844fca33680548a165addff87fb40, type: 3}
+  eventStage: {fileID: 3183448016668850049, guid: 25380c0656fd33d4d843b4563fec1dad, type: 3}
+  storeStage: {fileID: 1160365116460895799, guid: 2e0abc630966f834e892d65390f315e2, type: 3}
+  eliteStage: {fileID: 6484876229282022390, guid: 8fffee8fdb9bc2a479c5f051fc1c3e75, type: 3}
+  bossStage: {fileID: 5047573102431700626, guid: 480a120650f7b564582c0ad5bdad51a1, type: 3}
   normalMob:
   - {fileID: 4963561677188809084, guid: 984aae5f60d9ae844add6043f7905aa0, type: 3}
   - {fileID: 5849845872734534687, guid: 63cbd499c808cdc48b9278b176924d4d, type: 3}
   - {fileID: 6648069923209046628, guid: a164e846c2f491b46a941aba1d8ea355, type: 3}
-  goblins:
   - {fileID: 3987796248568671666, guid: 7640f1d7d16175e44b8f13b173e43dd7, type: 3}
-  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
   - {fileID: 6646281068972376127, guid: 5de180f8198a99d44b2426b7d940b6e8, type: 3}
+  - {fileID: 6772169123071560714, guid: a55d8812cf244174ebb3755f2ccbffe7, type: 3}
   MobList: []
   eliteMob:
   - {fileID: 1227611292470272748, guid: be9e987acbd5272469f2546742f379a4, type: 3}
@@ -6566,7 +6587,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1635272311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb2510136172e546a8b3d9654f99a7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d2b43e1202d3fd4a85044860d501cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonBoard: {fileID: 963368534}
@@ -6584,8 +6605,8 @@ MonoBehaviour:
   - {fileID: 972360263}
   - {fileID: 1060999375}
   player: {fileID: 973764764}
-  currentCoinText: {fileID: 1842822190}
-  currentHpText: {fileID: 1184987124}
+  currentCoinText: {fileID: 1877342656}
+  currentHpText: {fileID: 1877342656}
   DungeonCoin: {fileID: 1842822191}
   DungeonHp: {fileID: 593537178}
   Player: {fileID: 4224354992257849490, guid: 51779a941770b954389f123ade21778c, type: 3}
@@ -7263,17 +7284,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3077438268257331052, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
   m_PrefabInstance: {fileID: 1842822188}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1842822190 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2222034038475091152, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
-  m_PrefabInstance: {fileID: 1842822188}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1842822191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8698932189957242645, guid: 809a258c40ca5494aad56e57ccea7ef7, type: 3}
@@ -8031,8 +8041,14 @@ MonoBehaviour:
   b: 3.9
   dungeonLength: 0
   dungeonProgress: 0
+  startStage: {fileID: 7479706897684814572, guid: a41d5d6ec55d4b4478108d88d6ae4626, type: 3}
+  battleStage: {fileID: 349022240116729459, guid: c393381b219bd2947b08a87bb5a7e5a3, type: 3}
+  warpStage: {fileID: 7053118258863470708, guid: 728844fca33680548a165addff87fb40, type: 3}
+  eventStage: {fileID: 3183448016668850049, guid: 25380c0656fd33d4d843b4563fec1dad, type: 3}
+  storeStage: {fileID: 1160365116460895799, guid: 2e0abc630966f834e892d65390f315e2, type: 3}
+  eliteStage: {fileID: 6484876229282022390, guid: 8fffee8fdb9bc2a479c5f051fc1c3e75, type: 3}
+  bossStage: {fileID: 5047573102431700626, guid: 480a120650f7b564582c0ad5bdad51a1, type: 3}
   normalMob: []
-  goblins: []
   MobList: []
   eliteMob: []
   EliteMobList: []
