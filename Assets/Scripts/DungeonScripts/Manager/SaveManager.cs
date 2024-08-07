@@ -38,7 +38,7 @@ public class SaveManager : MonoBehaviour
 
     //플레이어 위치 저장
     public Vector3 playerPosition;
-
+    
     //현재 엘리트몹인지 체크
     public bool isEliteStage;
 
