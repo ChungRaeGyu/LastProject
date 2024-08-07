@@ -147,6 +147,8 @@ public class DataManager : MonoBehaviour
         if (deck.Count == 0)
         {
             SuffleUsedCards();
+
+            // ¿·±Ò ±‚¥Ÿ∏≤
         }
         return deck.Pop();
     }

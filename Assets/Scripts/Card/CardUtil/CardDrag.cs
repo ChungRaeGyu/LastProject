@@ -93,6 +93,17 @@ public class CardDrag : MonoBehaviour
         }
     }
 
+    // 카드가 큐에 있는지 확인하는 메서드
+    private bool IsCardInQueue()
+    {
+        foreach (CardBasic queuedCard in GameManager.instance.cardQueue)
+        {
+            if (queuedCard == cardBasic)
+                return true;
+        }
+        return false;
+    }
+
     private void OnMouseDown()
     {
         if (!cardBasic.cardBasic.isFind) return;
@@ -101,6 +112,13 @@ public class CardDrag : MonoBehaviour
             if (GameManager.instance.player?.IsDead() == true) return;
 
             if (!GameManager.instance.handManager.setCardEnd) return;
+
+            // 카드가 큐에 있으면 드래그 불가능
+            if (IsCardInQueue())
+            {
+                Debug.Log("큐에 존재함");
+                return;
+            }
 
             // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
             if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
@@ -118,7 +136,7 @@ public class CardDrag : MonoBehaviour
         {
             if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
             clickCoroutine = StartCoroutine(OnClickDetect());
-            
+
         }
     }
 
@@ -153,15 +171,15 @@ public class CardDrag : MonoBehaviour
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             cursorWorldPoint.z = 0;
-            draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint,Quaternion.identity, Canvas.transform);
+            draggedCardPrefab = Instantiate(cardBasic.gameObject, cursorWorldPoint, Quaternion.identity, Canvas.transform);
             Destroy(draggedCardPrefab.transform.GetChild(2).gameObject);
             draggedCardPrefab.GetComponentInChildren<Image>().raycastTarget = false;
 
-            
+
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
             tempRect.sizeDelta = new Vector2(100, 100);
-            tempRect.localScale = new Vector3(2, 3,1);
+            tempRect.localScale = new Vector3(2, 3, 1);
             // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
             /*
             
@@ -177,7 +195,7 @@ public class CardDrag : MonoBehaviour
             if (SettingManager.Instance.SoundPanel.activeInHierarchy) yield break;
             DescriptionManager.Instance.OpenPanel(cardBasic);
 
-                // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
+            // 여기에 1초 미만으로 눌렀을 때의 로직을 만든다.
             Debug.Log("살짝 눌렀다.");
 
             //audioSource.PlayOneShot(AudioManager.Instance.CardPassClip);        
@@ -203,12 +221,12 @@ public class CardDrag : MonoBehaviour
             {
                 if (rectTransform.anchoredPosition.y > dragLimitY)
                 {
-                    cardBasic.TryUseCard(); // 카드 사용 시도
+                    GameManager.instance.cardQueue.Enqueue(cardBasic);
                 }
             }
             else
             {
-                cardBasic.TryUseCard();
+                GameManager.instance.cardQueue.Enqueue(cardBasic);
             }
 
             isDragging = false;
@@ -227,7 +245,7 @@ public class CardDrag : MonoBehaviour
                 Debug.Log("Content에 넣음");
 
                 cardBasic.PlaySound(SettingManager.Instance.CardDrop);
- 
+
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
             Destroy(draggedCardPrefab);

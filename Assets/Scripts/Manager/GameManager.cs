@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public GameObject monsterNextActionListPrefab;
     public GameObject actionDescriptionPrefab;
     public GameObject monsterNamePrefab;
-    
+
     [Header("Condition")]
     public GameObject conditionBoxPrefab;
     public Condition defenseconditionPrefab;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject usedScrollView;
 
     [Header("CardUtil")]
-    public bool volumeUp = false;
+    public int volumeUp = 0;
 
     // 몬스터에 대한 보상 코인 합산
     public int monsterTotalRewardCoin;
@@ -82,6 +82,11 @@ public class GameManager : MonoBehaviour
     public AudioClip turnClip;
     public AudioClip showRewardClip;
     public AudioClip rewardCardClip;
+
+    public CardBasic cardBasic;
+
+    public Queue<CardBasic> cardQueue = new Queue<CardBasic>();
+    public bool isPlayingCard = false;
 
     private void Awake()
     {
@@ -171,6 +176,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayCardCoroutine()
+    {
+        while (cardQueue.Count > 0)
+        {
+            Debug.Log("cardQueue.Count > 0");
+
+            CardBasic card = cardQueue.Dequeue();
+
+            Debug.Log($"{card}");
+
+            card.playCardCompleted = false;
+            StartCoroutine(card.PlayCard());
+            yield return new WaitUntil(() => card.playCardCompleted); // 카드 플레이 완료 대기
+        }
+    }
+
     private IEnumerator Battle()
     {
         int turnCount = 1;
@@ -198,12 +219,25 @@ public class GameManager : MonoBehaviour
                 if (monster.monsterNextAction != null)
                 {
                     if (monster.frozenTurnsRemaining < 1)
-                    monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
+                        monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
                 }
             }
 
-            yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
-            if (volumeUp) volumeUp = false;
+            while (playerTurn)
+            {
+                if (!isPlayingCard && cardQueue.Count > 0)
+                {
+                    isPlayingCard = true;
+
+                    StartCoroutine(PlayCardCoroutine());
+
+                    isPlayingCard = false;
+                }
+                yield return null; // 매 프레임 대기
+            }
+
+            //yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
+            if (volumeUp > 0) volumeUp = 0;
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);
@@ -229,6 +263,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DrawCardFromDeck()
     {
+        if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count == 0) yield break;
+
         CardBasic cardBasic = DataManager.Instance.PopCard();
         AddCard(cardBasic);
         yield return null;

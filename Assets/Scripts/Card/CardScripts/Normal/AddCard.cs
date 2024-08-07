@@ -41,43 +41,47 @@ public class AddCard : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
-            CardUse();
-        }
+            GameManager.instance.player.UseCost(cost);
 
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
+            if (GameManager.instance.volumeUp > 0)
+            {
+                GameManager.instance.volumeUp -= 1;
+                CardUse();
+
+                yield return new WaitForSeconds(1f);
+            }
+
+            CardUse();
+
+            DataManager.Instance.AddUsedCard(cardBasic);
+
+            GameManager.instance.handManager.RemoveCard(transform);
+
+            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+
+            GameManager.instance.CheckAllMonstersDead();
+        }
     }
 
     private IEnumerator DrawCard()
     {
+        if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count == 0) utilAbility = 0;
         // 덱에서 카드 뽑기
         yield return GameManager.instance.StartCoroutine(GameManager.instance.DrawInitialHand(utilAbility));
     }
 
     public void CardUse(Monster targetMonster = null)
     {
-        SettingManager.Instance.PlaySound(CardClip1);
+        //SettingManager.Instance.PlaySound(CardClip1); // 소리 없는게 나음
 
         GameManager.instance.effectManager.Buff(cardBasic);
-        GameManager.instance.player.UseCost(cost);
-        if (GameManager.instance.volumeUp)
-        {
-            GameManager.instance.player.UseCost(cost);
-            GameManager.instance.volumeUp = false;
-        }
-        DataManager.Instance.AddUsedCard(cardBasic);
-
-        GameManager.instance.handManager.RemoveCard(transform);
 
         // 덱에서 카드 뽑기 시작
         GameManager.instance.StartCoroutine(DrawCard());
-
-        Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
-
-        GameManager.instance.CheckAllMonstersDead();
     }
 
     public override void ApplyEnhancements()

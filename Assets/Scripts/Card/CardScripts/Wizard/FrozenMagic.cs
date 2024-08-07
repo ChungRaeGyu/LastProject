@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FrozenMagic : CardBasic
@@ -43,7 +45,7 @@ public class FrozenMagic : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -52,12 +54,15 @@ public class FrozenMagic : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -66,8 +71,6 @@ public class FrozenMagic : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
@@ -99,9 +102,11 @@ public class FrozenMagic : CardBasic
         switch (enhancementLevel)
         {
             case 1:
+                utilAbility += 1; // 빙결 턴 증가
                 break; // 아무것도 없음
             case 2:
-                utilAbility += 1; // 턴 증가
+                utilAbility += 1; // 빙결 턴 증가
+                cost -= 1; // 코스트 감소
                 break;
             default:
                 break;

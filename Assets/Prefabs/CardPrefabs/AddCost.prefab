@@ -513,7 +513,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: deda70cd7690b584184216dce5f3b4b2, type: 3}
   firstEnhanceImage: {fileID: 21300000, guid: 765ed5bd129b0e44bb37d04a0e06ae0e, type: 3}
   secondEnhanceImage: {fileID: 21300000, guid: 9a322a347dd2faf4d89c0b0cace76de3, type: 3}
-  isFind: 0
+  isFind: 1
   playerEffect: {fileID: 1936541313609731422, guid: a2b267517b6c50249a3447f613c6e636, type: 3}
   attackEffect: {fileID: 0}
   debuffEffectPrefab: {fileID: 0}
@@ -521,6 +521,8 @@ MonoBehaviour:
   costText: {fileID: 7268234590579702954}
   descriptionText: {fileID: 7324031270101348650}
   audioSource: {fileID: 0}
+  CardClip1: {fileID: 8300000, guid: f0e15388b5c37f549be397eae46bb20e, type: 3}
+  CardClip2: {fileID: 0}
   enhancementLevel: 0
 --- !u!95 &5820724336138610993
 Animator:

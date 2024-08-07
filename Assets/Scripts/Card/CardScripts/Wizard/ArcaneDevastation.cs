@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ArcaneDevastation : CardBasic
@@ -43,7 +45,7 @@ public class ArcaneDevastation : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -52,12 +54,21 @@ public class ArcaneDevastation : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+                // 몬스터가 죽었는지 확인
+                if (targetMonster.IsDead())
+                {
+                    RecoverCost();
+                }
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
             // 몬스터가 죽었는지 확인
             if (targetMonster.IsDead())
             {
@@ -71,8 +82,6 @@ public class ArcaneDevastation : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
@@ -109,7 +118,7 @@ public class ArcaneDevastation : CardBasic
                 damageAbility += 6; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 6; // 데미지 증가
+                damageAbility += 12; // 데미지 증가
                 cost -= 1; // 코스트 감소
                 break;
             default:
