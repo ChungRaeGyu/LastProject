@@ -47,7 +47,7 @@ public class BasicAttack : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -60,6 +60,8 @@ public class BasicAttack : CardBasic
             {
                 GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
+
+                yield return new WaitForSeconds(1f);
             }
 
             CardUse(targetMonster);
@@ -71,8 +73,6 @@ public class BasicAttack : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)

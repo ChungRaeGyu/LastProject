@@ -82,13 +82,24 @@ public class CardBasic : MonoBehaviour
     // 강화 단계
     public int enhancementLevel = 0;
 
+    // 카드 사용 완료
+    public bool playCardCompleted;
+
     public virtual void CardUse(Monster targetMonster, Player player)
     {
         Debug.Log("CardBasic");
     }
-    public virtual bool TryUseCard()
+
+    public IEnumerator PlayCard()
     {
-        return false;
+        playCardCompleted = false; // 초기화
+        yield return StartCoroutine(TryUseCard());
+        playCardCompleted = true; // 완료 설정
+    }
+
+    public virtual IEnumerator TryUseCard()
+    {
+        yield return null;
     }
 
     protected virtual void Start()

@@ -39,7 +39,7 @@ public class Heal : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
@@ -49,6 +49,8 @@ public class Heal : CardBasic
             {
                 GameManager.instance.volumeUp -= 1;
                 CardUse();
+
+                yield return new WaitForSeconds(1f);
             }
 
             CardUse();
@@ -60,8 +62,6 @@ public class Heal : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster = null)

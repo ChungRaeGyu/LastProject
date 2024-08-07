@@ -42,7 +42,7 @@ public class VolumeUp : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
@@ -56,7 +56,7 @@ public class VolumeUp : CardBasic
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
         }
 
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
+        yield return null;
     }
 
     public void CardUse(MonsterCharacter targetMonster = null)
