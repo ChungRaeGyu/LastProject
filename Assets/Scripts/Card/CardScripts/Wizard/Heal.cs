@@ -45,12 +45,13 @@ public class Heal : CardBasic
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -78,10 +79,10 @@ public class Heal : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                utilAbility += 3; // 데미지 증가
+                utilAbility += 3; // 회복량 증가
                 break;
             case 2:
-                utilAbility += 6; // 데미지 증가
+                utilAbility += 6; // 회복량 증가
                 break;
             default:
                 break;

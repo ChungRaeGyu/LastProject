@@ -50,12 +50,13 @@ public class DefensiveStrike : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -95,7 +96,6 @@ public class DefensiveStrike : CardBasic
                 break;
             case 2:
                 cost -= 1; // 코스트 감소
-                damageAbility += 3; // 데미지 증가
                 break;
             default:
                 break;

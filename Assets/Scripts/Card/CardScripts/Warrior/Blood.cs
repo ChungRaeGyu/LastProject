@@ -62,12 +62,13 @@ public class Blood : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -107,10 +108,10 @@ public class Blood : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                damageAbility += 3; // 데미지 증가
+                damageAbility += 5; // 데미지 증가
                 break;
             case 2:
-                utilAbility += 3; // 데미지 증가
+                utilAbility += 5; // 흡혈량 증가
                 break;
             default:
                 break;

@@ -53,12 +53,13 @@ public class AddCost : CardBasic
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -73,7 +74,7 @@ public class AddCost : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        SettingManager.Instance.PlaySound(CardClip1);
+        //SettingManager.Instance.PlaySound(CardClip1); // 소리 없는게 나음
 
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);
@@ -86,10 +87,10 @@ public class AddCost : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                utilAbility += 1; // 데미지 증가
+                utilAbility += 1; // 코스트 증가량 증가
                 break;
             case 2:
-                utilAbility += 1; // 데미지 증가
+                utilAbility += 1; // 코스트 증가량 증가
                 cost -= 1; // 코스트 감소
                 break;
             default:

@@ -56,12 +56,13 @@ public class BasicAttack : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -101,12 +102,11 @@ public class BasicAttack : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                damageAbility += 3; // 데미지 증가
+                damageAbility += 4; // 데미지 증가
 
                 break;
             case 2:
-                damageAbility += 6; // 데미지 증가
-
+                damageAbility += 8; // 데미지 증가
                 break;
             default:
                 break;

@@ -63,7 +63,7 @@ public class VolumeUp : CardBasic
     {
         SettingManager.Instance.PlaySound(CardClip1);
 
-        GameManager.instance.volumeUp = true;
+        GameManager.instance.volumeUp += utilAbility;
         GameManager.instance.effectManager.Buff(this);
         PlayPlayerAttackAnimation();
     }
@@ -86,8 +86,10 @@ public class VolumeUp : CardBasic
         switch (enhancementLevel)
         {
             case 1:
+                utilAbility += 1; // ÀÜ¿© È½¼ö Áõ°¡
                 break;
             case 2:
+                utilAbility += 1; // ÀÜ¿© È½¼ö Áõ°¡
                 cost -= 1; // ÄÚ½ºÆ® °¨¼Ò
                 break;
             default:

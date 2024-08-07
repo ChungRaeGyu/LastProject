@@ -48,12 +48,13 @@ public class Meteo : CardBasic
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -92,10 +93,10 @@ public class Meteo : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                damageAbility += 2; // 데미지 증가
+                damageAbility += 3; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 2; // 데미지 증가
+                damageAbility += 4; // 데미지 증가
                 cost -= 1; // 코스트 감소
                 break;
             default:

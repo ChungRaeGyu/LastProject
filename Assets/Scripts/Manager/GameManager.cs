@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject usedScrollView;
 
     [Header("CardUtil")]
-    public bool volumeUp = false;
+    public int volumeUp = 0;
 
     // 몬스터에 대한 보상 코인 합산
     public int monsterTotalRewardCoin;
@@ -82,6 +82,9 @@ public class GameManager : MonoBehaviour
     public AudioClip turnClip;
     public AudioClip showRewardClip;
     public AudioClip rewardCardClip;
+
+
+    public bool usingCard;
 
     private void Awake()
     {
@@ -203,7 +206,7 @@ public class GameManager : MonoBehaviour
             }
 
             yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
-            if (volumeUp) volumeUp = false;
+            if (volumeUp > 0) volumeUp = 0;
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);
@@ -229,6 +232,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DrawCardFromDeck()
     {
+        if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count == 0) yield break;
+
         CardBasic cardBasic = DataManager.Instance.PopCard();
         AddCard(cardBasic);
         yield return null;

@@ -55,16 +55,18 @@ public class FireBall : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
+
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
         }
 

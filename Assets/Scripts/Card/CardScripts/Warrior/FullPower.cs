@@ -54,13 +54,13 @@ public class FullPower: CardBasic
         {
             bezierDragLine.DestroyAimingImage();
 
+            if (GameManager.instance.volumeUp > 0)
+            {
+                GameManager.instance.volumeUp -= 1;
+                CardUse(targetMonster);
+            }
 
             CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
-            {
-                CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
-            }
 
             GameManager.instance.player.UseCost(GameManager.instance.player.currentCost);
             DataManager.Instance.AddUsedCard(cardBasic);
@@ -106,7 +106,7 @@ public class FullPower: CardBasic
                 damageAbility += 2; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 2; // 데미지 증가
+                damageAbility += 3; // 데미지 증가
                 cost -= 1; // 코스트 감소
                 break;
             default:

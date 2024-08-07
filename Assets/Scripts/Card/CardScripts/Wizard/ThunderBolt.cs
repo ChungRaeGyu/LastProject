@@ -55,12 +55,13 @@ public class ThunderBolt : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -100,7 +101,7 @@ public class ThunderBolt : CardBasic
                 damageAbility += 4; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 4; // 데미지 증가
+                damageAbility += 5; // 데미지 증가
                 cost -= 1; // 코스트 감소
                 break;
             default:

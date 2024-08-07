@@ -49,12 +49,13 @@ public class DefenceIncrease : CardBasic
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -87,10 +88,10 @@ public class DefenceIncrease : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                utilAbility += 1; // 데미지 증가
+                utilAbility += 1; // 증가 방어력 증가
                 break;
             case 2:
-                utilAbility += 1; // 데미지 증가
+                utilAbility += 1; // 증가 방어력 증가
                 cost -= 1; // 코스트 감소
                 break;
             default:

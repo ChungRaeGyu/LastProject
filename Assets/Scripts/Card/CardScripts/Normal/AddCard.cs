@@ -53,21 +53,24 @@ public class AddCard : CardBasic
 
     private IEnumerator DrawCard()
     {
+        if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count == 0) utilAbility = 0;
         // 덱에서 카드 뽑기
         yield return GameManager.instance.StartCoroutine(GameManager.instance.DrawInitialHand(utilAbility));
     }
 
     public void CardUse(Monster targetMonster = null)
     {
-        SettingManager.Instance.PlaySound(CardClip1);
+        //SettingManager.Instance.PlaySound(CardClip1); // 소리 없는게 나음
 
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.UseCost(cost);
-        if (GameManager.instance.volumeUp)
+
+        if (GameManager.instance.volumeUp > 0)
         {
-            GameManager.instance.player.UseCost(cost);
-            GameManager.instance.volumeUp = false;
+            GameManager.instance.volumeUp -= 1;
+            GameManager.instance.StartCoroutine(DrawCard());
         }
+
         DataManager.Instance.AddUsedCard(cardBasic);
 
         GameManager.instance.handManager.RemoveCard(transform);

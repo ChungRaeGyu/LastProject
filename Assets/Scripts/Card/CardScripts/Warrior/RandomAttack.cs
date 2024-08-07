@@ -60,12 +60,13 @@ public class RandomAttack : CardBasic
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
