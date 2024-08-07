@@ -910,7 +910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7116286303839585273
 Transform:
   m_ObjectHideFlags: 0
@@ -943,15 +943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f911e4487225144bb250b7fedb04f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: da1e10bb6dc0c4c439249afa4f89fb47, type: 2}
-  baseAttackPower: 0
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 1579617384929834439}
-  conditionPos: {fileID: 7558291211405494553}
-  monsterNextActionPos: {fileID: 8281868947138237544}
-  monsterNamePos: {fileID: 1157719054290861350}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -959,8 +950,17 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 0
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: da1e10bb6dc0c4c439249afa4f89fb47, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 7558291211405494553}
+  hpBarPos: {fileID: 1579617384929834439}
+  monsterNextActionPos: {fileID: 8281868947138237544}
+  monsterNamePos: {fileID: 1157719054290861350}
+  boss: 0
   descriptionTransform: {fileID: 0}
   attackDescriptionObject: {fileID: 0}
   defenseDescriptionObject: {fileID: 0}
