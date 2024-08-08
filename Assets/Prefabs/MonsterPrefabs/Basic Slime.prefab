@@ -326,15 +326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93148a2859a47904b9b4f5f84c19539a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: c69e5307084385f4fab3a77ec99bf9aa, type: 2}
-  baseAttackPower: 0
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 819379023940570640}
-  conditionPos: {fileID: 8929711060624500550}
-  monsterNextActionPos: {fileID: 633928069039534128}
-  monsterNamePos: {fileID: 813003797532921315}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -342,8 +333,17 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 0
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: c69e5307084385f4fab3a77ec99bf9aa, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 8929711060624500550}
+  hpBarPos: {fileID: 819379023940570640}
+  monsterNextActionPos: {fileID: 633928069039534128}
+  monsterNamePos: {fileID: 813003797532921315}
+  boss: 0
   descriptionTransform: {fileID: 0}
   attackDescriptionObject: {fileID: 0}
   defenseDescriptionObject: {fileID: 0}
