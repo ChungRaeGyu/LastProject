@@ -89,9 +89,9 @@ public class Dungeon : MonoBehaviour
                     if (i % 2 != j % 2)
                     {
                         //여기다가 생성 로직을 짜면 된다.
-                        if (i == (x - 1) && j == 0)
+                        if (i == (x - 1) / 2 && j == 0)
                             stage[i, j] = Instantiate(startStage, stageBoard);
-                        else if (i == (x - 1) && j == (y - 1))
+                        else if (i == (x - 1) / 2 && j == (y - 1))
                             stage[i, j] = Instantiate(bossStage, stageBoard);
                         else if (i == 0 && j == (y - 1) / 2)
                             stage[i, j] = Instantiate(warpStage, stageBoard);
