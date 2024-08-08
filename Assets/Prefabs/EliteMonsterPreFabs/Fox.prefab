@@ -291,14 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80644491c48d1c748bad38cc9fa4e9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: 04b190098093e6c4e9f68305637cd2d3, type: 2}
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 8644677452201008279}
-  conditionPos: {fileID: 3195870973923627791}
-  monsterNextActionPos: {fileID: 8499966386154244722}
-  monsterNamePos: {fileID: 8246354511317582874}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -306,8 +298,21 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 0
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: 04b190098093e6c4e9f68305637cd2d3, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 3195870973923627791}
+  hpBarPos: {fileID: 8644677452201008279}
+  monsterNextActionPos: {fileID: 8499966386154244722}
+  monsterNamePos: {fileID: 8246354511317582874}
+  boss: 0
+  descriptionTransform: {fileID: 0}
+  attackDescriptionObject: {fileID: 0}
+  defenseDescriptionObject: {fileID: 0}
+  healDescriptionObject: {fileID: 0}
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &3753620071366111822
 BoxCollider2D:
@@ -341,7 +346,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04, y: 1.18}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -352,7 +357,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 1.8}
+  m_Size: {x: 3.12, y: 2.22}
   m_EdgeRadius: 0
 --- !u!50 &439808526547282816
 Rigidbody2D:
@@ -703,7 +708,7 @@ Transform:
   m_GameObject: {fileID: 2606779958302282468}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -797,7 +802,7 @@ Transform:
   m_GameObject: {fileID: 3242949399866233402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 1.65, z: 0}
+  m_LocalPosition: {x: -1, y: 2.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
