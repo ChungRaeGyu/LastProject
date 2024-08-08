@@ -156,7 +156,6 @@ public class UIManager : MonoBehaviour
         centerCard = Instantiate(rewardCardPrefabs[chosenIndexes[0]], CardSelectPanelCanvas);
         SetCardScale(centerCard);
         centerCard.transform.localPosition = Vector3.zero;
-        AddClickEvent(centerCard, chosenIndexes[0]);
         Destroy(centerCard.transform.GetChild(0).gameObject);
         Destroy(centerCard.GetComponent<CardDrag>());
 
@@ -164,7 +163,6 @@ public class UIManager : MonoBehaviour
         leftCard = Instantiate(rewardCardPrefabs[chosenIndexes[1]], CardSelectPanelCanvas);
         SetCardScale(leftCard);
         leftCard.transform.localPosition = Vector3.zero;
-        AddClickEvent(leftCard, chosenIndexes[1]);
         StartCoroutine(MoveCard(leftCard, new Vector3(-400, 0, 0)));
         Destroy(leftCard.transform.GetChild(0).gameObject);
         Destroy(leftCard.GetComponent<CardDrag>());
@@ -172,11 +170,23 @@ public class UIManager : MonoBehaviour
         // 오른쪽 카드 생성
         rightCard = Instantiate(rewardCardPrefabs[chosenIndexes[2]], CardSelectPanelCanvas);
         SetCardScale(rightCard);
-        rightCard.transform.localPosition = Vector3.zero;
-        AddClickEvent(rightCard, chosenIndexes[2]);
         StartCoroutine(MoveCard(rightCard, new Vector3(400, 0, 0)));
+        rightCard.transform.localPosition = Vector3.zero;
         Destroy(rightCard.transform.GetChild(0).gameObject);
         Destroy(rightCard.GetComponent<CardDrag>());
+
+        // 코루틴 실행 및 모든 코루틴이 완료된 후 AddClickEvent 실행
+        StartCoroutine(HandleCardMoveAndAddClickEvent(chosenIndexes));
+    }
+
+    private IEnumerator HandleCardMoveAndAddClickEvent(List<int> chosenIndexes)
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        // 모든 카드의 이동이 끝난 후 클릭 이벤트 추가
+        AddClickEvent(centerCard, chosenIndexes[0]);
+        AddClickEvent(leftCard, chosenIndexes[1]);
+        AddClickEvent(rightCard, chosenIndexes[2]);
     }
 
     private List<int> GetRandomIndexes(int count, int numberOfIndexes)
