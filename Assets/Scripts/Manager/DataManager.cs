@@ -91,11 +91,13 @@ public class DataManager : MonoBehaviour
     {
         Init();
     }
-    private void OnApplicationQuit()
-    {
-        //¾ÛÀÌ ²¨Áú¶§ ÀúÀå
-        Save();
-    }
+
+    //private void OnApplicationQuit()
+    //{
+    //    //¾ÛÀÌ ²¨Áú¶§ ÀúÀå
+    //    Save();
+    //}
+
     private void Init()
     {
         path = Path.Combine(Application.dataPath, "database.json");

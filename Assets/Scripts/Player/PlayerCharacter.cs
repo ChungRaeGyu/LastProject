@@ -15,10 +15,12 @@ public abstract class PlayerCharacter : Character
     private static readonly int die = Animator.StringToHash("Die");
     protected bool isDying = false; // 죽는 중인지 여부를 저장하는 변수
 
-    private void Start()
+    protected virtual void Start()
     {
         currentAttack = playerStats.attack;
+        Debug.Log($"{playerStats.defense}");
         currentDefense = playerStats.defense;
+        Debug.Log($"{currentDefense}");
         currenthealth = playerStats.maxhealth;
     }
 

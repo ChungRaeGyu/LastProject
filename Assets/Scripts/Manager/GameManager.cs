@@ -180,14 +180,10 @@ public class GameManager : MonoBehaviour
     {
         while (cardQueue.Count > 0)
         {
-            Debug.Log("cardQueue.Count > 0");
-
             CardBasic card = cardQueue.Dequeue();
 
-            Debug.Log($"{card}");
-
-            card.playCardCompleted = false;
             StartCoroutine(card.PlayCard());
+
             yield return new WaitUntil(() => card.playCardCompleted); // 카드 플레이 완료 대기
         }
     }
@@ -225,7 +221,7 @@ public class GameManager : MonoBehaviour
 
             while (playerTurn)
             {
-                if (!isPlayingCard && cardQueue.Count > 0)
+                if (!isPlayingCard)
                 {
                     isPlayingCard = true;
 
@@ -236,7 +232,6 @@ public class GameManager : MonoBehaviour
                 yield return null; // 매 프레임 대기
             }
 
-            //yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
             if (volumeUp > 0) volumeUp = 0;
 
             Debug.Log("----- 몬스터들의 턴 시작 -----");

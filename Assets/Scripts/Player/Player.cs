@@ -17,8 +17,10 @@ public class Player : PlayerCharacter
 
     public Transform playerCondition;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         InitializeCost();
 
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당

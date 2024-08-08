@@ -93,18 +93,6 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
         }
     }
 
-    // 카드가 큐에 있는지 확인하는 메서드
-    private bool IsCardInQueue()
-    {
-        foreach (CardBasic queuedCard in GameManager.instance.cardQueue)
-        {
-            if (queuedCard == cardBasic)
-                return true;
-        }
-        return false;
-    }
-
-
     private IEnumerator OnClickDetect()
     {
         float clickTime = 1f; // 클릭 감지 시간 설정 (1초)
@@ -188,13 +176,6 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
             if (!GameManager.instance.handManager.setCardEnd) return;
 
-            // 카드가 큐에 있으면 드래그 불가능
-            if (IsCardInQueue())
-            {
-                Debug.Log("큐에 존재함");
-                return;
-            }
-
             // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
             if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
             {
@@ -233,11 +214,15 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
                 if (rectTransform.anchoredPosition.y > dragLimitY)
                 {
                     GameManager.instance.cardQueue.Enqueue(cardBasic);
+                    transform.GetChild(0).gameObject.SetActive(false);
+                    enabled = false;
                 }
             }
             else
             {
                 GameManager.instance.cardQueue.Enqueue(cardBasic);
+                transform.GetChild(0).gameObject.SetActive(false);
+                enabled = false;
             }
 
             isDragging = false;

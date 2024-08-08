@@ -115,7 +115,7 @@ public class EventManager : MonoBehaviour
     {
         SettingManager.Instance.PlaySound(CoinClip);
 
-        int randomCoin = Random.Range(20, 41);
+        int randomCoin = Random.Range(30, 41);
         DataManager.Instance.currentCoin += randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
