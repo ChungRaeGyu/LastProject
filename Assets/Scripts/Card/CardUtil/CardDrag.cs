@@ -143,6 +143,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
+            Debug.Log("누른 카드 : " + draggedCardPrefab.name);
             tempRect.sizeDelta = new Vector2(100, 100);
             tempRect.localScale = new Vector3(2, 3, 1);
             // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
@@ -257,6 +258,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
                 Debug.Log("Content에 넣음");
 
                 cardBasic.PlaySound(SettingManager.Instance.CardDrop);
+                Debug.Log("넣는 카드  : " + draggedCardPrefab.name);
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
