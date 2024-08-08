@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CardDrag : MonoBehaviour
+public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 {
     private Vector3 offset; // 드래그 시 마우스와 카드 사이의 거리
     public bool isDragging = false; // 드래그 중인지 확인하는 변수
@@ -104,41 +104,6 @@ public class CardDrag : MonoBehaviour
         return false;
     }
 
-    private void OnMouseDown()
-    {
-        if (!cardBasic.cardBasic.isFind) return;
-        if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            if (GameManager.instance.player?.IsDead() == true) return;
-
-            if (!GameManager.instance.handManager.setCardEnd) return;
-
-            // 카드가 큐에 있으면 드래그 불가능
-            if (IsCardInQueue())
-            {
-                Debug.Log("큐에 존재함");
-                return;
-            }
-
-            // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
-            if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
-            {
-                cardBasic.PlaySound(SettingManager.Instance.CardSelect);
-
-                transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
-                Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
-                Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
-                offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
-                isDragging = true; // 드래그 시작
-            }
-        }
-        else
-        {
-            if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
-            clickCoroutine = StartCoroutine(OnClickDetect());
-
-        }
-    }
 
     private IEnumerator OnClickDetect()
     {
@@ -203,10 +168,56 @@ public class CardDrag : MonoBehaviour
             clickCoroutine = null;
         }
     }
-
-    private void OnMouseUp()
+    public void SetOriginalPosition(Vector3 position, Quaternion rotation)
     {
-        if (!cardBasic.cardBasic.isFind) return;
+        originalPosition = position;
+        originalRotation = rotation;
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = originalPosition; // 카드 위치 초기화
+        transform.rotation = originalRotation; // 카드 회전 초기화
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            if (GameManager.instance.player?.IsDead() == true) return;
+
+            if (!GameManager.instance.handManager.setCardEnd) return;
+
+            // 카드가 큐에 있으면 드래그 불가능
+            if (IsCardInQueue())
+            {
+                Debug.Log("큐에 존재함");
+                return;
+            }
+
+            // 플레이어가 충분한 코스트를 가지고 있고, 플레이어의 턴일 때만 드래그 가능
+            if (GameManager.instance.player != null && cardBasic != null && GameManager.instance.player.currentCost >= cardBasic.cost && GameManager.instance.playerTurn)
+            {
+                cardBasic.PlaySound(SettingManager.Instance.CardSelect);
+
+                transform.rotation = Quaternion.Euler(0, 0, 0); // 드래그 시작 시 카드의 회전을 초기화
+                Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
+                Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
+                offset = transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
+                isDragging = true; // 드래그 시작
+            }
+        }
+        else
+        {
+            if (!cardBasic.cardBasic.isFind) return;
+            if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
+            clickCoroutine = StartCoroutine(OnClickDetect());
+
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
         isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
@@ -237,6 +248,7 @@ public class CardDrag : MonoBehaviour
         }
         else
         {
+            if (!cardBasic.cardBasic.isFind) return;
             if (!isLongClick) return;
             isLongClick = false;
             //로비에서 드래그 사용
@@ -250,16 +262,5 @@ public class CardDrag : MonoBehaviour
             }
             Destroy(draggedCardPrefab);
         }
-    }
-    public void SetOriginalPosition(Vector3 position, Quaternion rotation)
-    {
-        originalPosition = position;
-        originalRotation = rotation;
-    }
-
-    public void ResetPosition()
-    {
-        transform.position = originalPosition; // 카드 위치 초기화
-        transform.rotation = originalRotation; // 카드 회전 초기화
     }
 }
