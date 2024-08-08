@@ -2,8 +2,9 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
+public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,IDragHandler
 {
     [SerializeField] TextMeshProUGUI text;
     public CardBasic cardBasic;
@@ -26,14 +27,13 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
     {
         if (isLongClick)
         {
-            Debug.Log("PointerMove");
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
             cursorWorldPoint.z = -1;
             //offset = (Vector2)transform.position - cursorWorldPoint; // 마우스와 카드 사이의 거리 계산
-            rectTransform.position = cursorWorldPoint;
+            transform.position = cursorWorldPoint;
             //transform.position = cursorWorldPoint;
-            transform.SetAsLastSibling(); // 맨 위로 올리기
+            
 
         }
     }
@@ -43,6 +43,15 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             text.text = cardBasic.cardName;
     }
 
+
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
+        
+
+        StartCoroutine(OnClickDetect());
+    }
     private IEnumerator OnClickDetect()
     {
         float clickTime = 1f; // 클릭 감지 시간 설정 (1초)
@@ -57,6 +66,8 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             if (elapsedTime >= clickTime)
             {
                 transform.SetParent(LobbyManager.instance.BookCanvas.transform);
+                transform.GetComponent<Image>().raycastTarget = false;
+                transform.SetAsLastSibling(); // 맨 위로 올리기
                 isLongClick = true;
                 isClick = false;
                 Debug.Log("While");
@@ -65,15 +76,10 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             yield return null; // 한 프레임씩 대기
         }
     }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
-        Debug.Log("OnpointerDown");
-        StartCoroutine(OnClickDetect());
-    }
     public void OnPointerUp(PointerEventData eventData)
-    {
+    { 
+        Debug.Log("PointerUP");
+
         if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
         if (isLongClick)
         {
@@ -82,17 +88,22 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
                 LobbyManager.instance.deckControl.RemoveCardObj(cardBasic);
                 DataManager.Instance.LobbyDeckRateCheck[(int)cardBasic.rate]--;
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
             else
             {
                 //덱 안에 그대로 있을 때 
                 transform.SetParent(LobbyManager.instance.deckContent.transform);
+                transform.GetComponent<Image>().raycastTarget = true;
 
             }
         }
-        Debug.Log("PointerUP");
         isLongClick = false;
         isClick = false;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
     }
 }

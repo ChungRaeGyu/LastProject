@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
+public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     private Vector3 offset; // 드래그 시 마우스와 카드 사이의 거리
     public bool isDragging = false; // 드래그 중인지 확인하는 변수
@@ -183,6 +183,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (GameManager.instance.player?.IsDead() == true) return;
@@ -219,6 +220,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("업");
         isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
@@ -264,5 +266,10 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
             }
             Destroy(draggedCardPrefab);
         }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
     }
 }
