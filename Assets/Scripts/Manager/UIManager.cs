@@ -158,6 +158,7 @@ public class UIManager : MonoBehaviour
         centerCard.transform.localPosition = Vector3.zero;
         AddClickEvent(centerCard, chosenIndexes[0]);
         Destroy(centerCard.transform.GetChild(0).gameObject);
+        Destroy(centerCard.GetComponent<CardDrag>());
 
         // 왼쪽 카드 생성
         leftCard = Instantiate(rewardCardPrefabs[chosenIndexes[1]], CardSelectPanelCanvas);
@@ -166,6 +167,7 @@ public class UIManager : MonoBehaviour
         AddClickEvent(leftCard, chosenIndexes[1]);
         StartCoroutine(MoveCard(leftCard, new Vector3(-400, 0, 0)));
         Destroy(leftCard.transform.GetChild(0).gameObject);
+        Destroy(leftCard.GetComponent<CardDrag>());
 
         // 오른쪽 카드 생성
         rightCard = Instantiate(rewardCardPrefabs[chosenIndexes[2]], CardSelectPanelCanvas);
@@ -174,6 +176,7 @@ public class UIManager : MonoBehaviour
         AddClickEvent(rightCard, chosenIndexes[2]);
         StartCoroutine(MoveCard(rightCard, new Vector3(400, 0, 0)));
         Destroy(rightCard.transform.GetChild(0).gameObject);
+        Destroy(rightCard.GetComponent<CardDrag>());
     }
 
     private List<int> GetRandomIndexes(int count, int numberOfIndexes)
