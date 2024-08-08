@@ -435,14 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5fcb91fea26354aa0ceca6dcf1905e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: b8fd53c1c6bd3614f8e9bc5a333d43d5, type: 2}
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 6460770937837798883}
-  conditionPos: {fileID: 3759383315835030030}
-  monsterNextActionPos: {fileID: 1883919001382873243}
-  monsterNamePos: {fileID: 2226022646024242362}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -450,8 +442,21 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 1
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: b8fd53c1c6bd3614f8e9bc5a333d43d5, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 3759383315835030030}
+  hpBarPos: {fileID: 6460770937837798883}
+  monsterNextActionPos: {fileID: 1883919001382873243}
+  monsterNamePos: {fileID: 2226022646024242362}
+  boss: 1
+  descriptionTransform: {fileID: 0}
+  attackDescriptionObject: {fileID: 0}
+  defenseDescriptionObject: {fileID: 0}
+  healDescriptionObject: {fileID: 0}
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!50 &5144021376417148537
 Rigidbody2D:
