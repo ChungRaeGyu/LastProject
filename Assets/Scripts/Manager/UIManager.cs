@@ -326,6 +326,12 @@ public class UIManager : MonoBehaviour
 
             // 텍스트 업데이트
             UpdateDefeatTexts();
+
+            DataManager.Instance.DefeatCalculateTotalCrystal();
+            if (defeatTotalCrystalText != null)
+            {
+                defeatTotalCrystalText.text = $"{DataManager.Instance.DefeatTotalCrystal}";
+            }
         }
 
         if (fadeRewardPanel != null)
@@ -336,13 +342,13 @@ public class UIManager : MonoBehaviour
 
     private void UpdateDefeatTexts()
     {
-        SetText(defeatMnstersKilledText, $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})");
-        SetText(defeatStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.stageClearCount})");
+        SetText(defeatMnstersKilledText, $"처치한 몬스터 ({DataManager.Instance.ClearMonstersKilledCount})");
+        SetText(defeatStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.ClearStageClearCount})");
 
-        SetText(defeatMnstersKilledPointText, $"{DataManager.Instance.monstersKilledCount}");
-        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.stageClearCount}");
+        SetText(defeatMnstersKilledPointText, $"{DataManager.Instance.ClearMonstersKilledCount}");
+        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.ClearStageClearCount}");
 
-        SetText(defeatTotalCrystalText, $"{DataManager.Instance.monstersKilledCount}");
+        SetText(defeatTotalCrystalText, $"{DataManager.Instance.ClearMonstersKilledCount}");
     }
 
     private void SetText(TMP_Text textComponent, string text)
@@ -503,6 +509,7 @@ public class UIManager : MonoBehaviour
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
 
+        DataManager.Instance.currentCrystal += DataManager.Instance.DefeatTotalCrystal;
         SaveManager.Instance.accessDungeon = false;
         SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
     }

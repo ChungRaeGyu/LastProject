@@ -64,11 +64,16 @@ public class DataManager : MonoBehaviour
     public int currenthealth { get; set; }
 
     // 던전 클리어 기록들
-    public int monstersKilledCount { get; set; }
-    public int stageClearCount { get; set; }
-    public int totalClearTime { get; set; }
-    public int bossesDefeatedCount { get; set; }
-    public int totalCrystal { get; set; }
+    public int ClearMonstersKilledCount { get; set; }
+    public int ClearStageClearCount { get; set; }
+    public int ClearTotalClearTime { get; set; }
+    public int ClearBossesDefeatedCount { get; set; }
+    public int ClearTotalCrystal { get; set; }
+
+    // 던전 패배 기록들
+    public int DefeatMonstersKilledCount { get; set; }
+    public int DefeatStageClearCount { get; set; }
+    public int DefeatTotalCrystal { get; set; }
 
     // 점수 계산 변수들
     public int adjustedCurrentCoin { get; set; }
@@ -174,31 +179,42 @@ public class DataManager : MonoBehaviour
     }
 
     // TotalCrystal을 계산하는 메서드
-    public void CalculateTotalCrystal()
+    public void ClearCalculateTotalCrystal()
     {
         // 반올림
         //int adjustedCoin = Mathf.RoundToInt(currentCoin / 100f);
         // 소수점 아래를 버림 (재화를 1개라도 덜 줌으로서 난이도 상승)
         adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 100f);
-        adjustedClearTime = Mathf.Max(300 - totalClearTime, 0);
+        adjustedClearTime = Mathf.Max(300 - ClearTotalClearTime, 0);
 
         // TotalCrystal 계산
-        totalCrystal = adjustedCurrentCoin
-                     + monstersKilledCount
-                     + stageClearCount
+        ClearTotalCrystal = adjustedCurrentCoin
+                     + ClearMonstersKilledCount
+                     + ClearStageClearCount
                      + adjustedClearTime
-                     + bossesDefeatedCount;
+                     + ClearBossesDefeatedCount;
+    }
+
+    public void DefeatCalculateTotalCrystal()
+    {
+        // TotalCrystal 계산
+        DefeatTotalCrystal = DefeatMonstersKilledCount
+                     + DefeatStageClearCount;
     }
 
     // 기록 초기화
     public void ResetRecord()
     {
         currentCoin = 0;
-        monstersKilledCount = 0;
-        stageClearCount = 0;
-        totalClearTime = 0;
-        bossesDefeatedCount = 0;
-        totalCrystal = 0;
+        ClearMonstersKilledCount = 0;
+        ClearStageClearCount = 0;
+        ClearTotalClearTime = 0;
+        ClearBossesDefeatedCount = 0;
+        ClearTotalCrystal = 0;
+
+        DefeatMonstersKilledCount = 0;
+        DefeatStageClearCount = 0;
+        DefeatTotalCrystal = 0;
     }
 
     // 플레이어 체력 초기화
