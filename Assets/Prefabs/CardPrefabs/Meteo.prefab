@@ -578,9 +578,9 @@ MonoBehaviour:
   cardBasic: {fileID: 0}
   cardName: "\uBA54\uD14C\uC624"
   cost: 2
-  damageAbility: 15
+  damageAbility: 99
   utilAbility: 0
-  currentCount: 3
+  currentCount: 2
   job: 0
   rate: 2
   dragLineCard: 0
@@ -599,6 +599,7 @@ MonoBehaviour:
   CardClip1: {fileID: 8300000, guid: c5c0f4d08369eeb4e9cdd1ebb268e7cc, type: 3}
   CardClip2: {fileID: 0}
   enhancementLevel: 0
+  playCardCompleted: 0
 --- !u!95 &3251595711392501658
 Animator:
   serializedVersion: 5

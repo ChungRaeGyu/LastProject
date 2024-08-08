@@ -47,7 +47,7 @@ public class EffectManager : MonoBehaviour
     {
         //캐스팅 후 공격을 위한 코루틴
         PlayerEffectMethod(GetPos());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         if (targetMonster == null)
         {
 
