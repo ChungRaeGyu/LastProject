@@ -37,6 +37,8 @@ public class StoreManager : MonoBehaviour
     [Header("AudioClip")]
     public AudioClip StoreUseCoinClip;
 
+    [SerializeField]
+    List<GameObject> availableCards;
     private void Awake()
     {
         if (Instance == null)
@@ -69,26 +71,25 @@ public class StoreManager : MonoBehaviour
             return;
         }
 
-        List<GameObject> availableCards = new List<GameObject>(Cards);
+        availableCards = new List<GameObject>(Cards);
 
         // 무작위로 카드를 선택하여 CardParents의 자식으로 생성
         for (int i = 0; i < CardParents.Count; i++)
         {
             int randomIndex = Random.Range(0, availableCards.Count);
             GameObject selectedCard = Instantiate(availableCards[randomIndex], CardParents[i].transform);
-            SetCardPrice(selectedCard, CardParents[i]);
+            CardBasic tempcard = availableCards[randomIndex].GetComponent<CardBasic>();
+            SetCardPrice(tempcard, CardParents[i]);
 
             // 선택된 카드를 리스트에서 제거 (중복 방지용)
             availableCards.RemoveAt(randomIndex);
         }
     }
 
-    private void SetCardPrice(GameObject card, GameObject parent)
+    private void SetCardPrice(CardBasic cardBasic, GameObject parent)
     {
-        CardBasic cardBasic = card.GetComponent<CardBasic>();
         if (cardBasic == null)
         {
-            Debug.LogError("카드에 CardBasic 컴포넌트가 없습니다.");
             return;
         }
 
