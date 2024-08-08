@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
+public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     private Vector3 offset; // 드래그 시 마우스와 카드 사이의 거리
     public bool isDragging = false; // 드래그 중인지 확인하는 변수
@@ -131,6 +131,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
             draggedCardPrefab.GetComponent<CardDrag>().Initialize(true);
             RectTransform tempRect = draggedCardPrefab.GetComponent<RectTransform>();
+            Debug.Log("누른 카드 : " + draggedCardPrefab.name);
             tempRect.sizeDelta = new Vector2(100, 100);
             tempRect.localScale = new Vector3(2, 3, 1);
             // 해당 카드를 복제해서 생성하고 그 복제한 카드를 드래그
@@ -170,6 +171,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (GameManager.instance.player?.IsDead() == true) return;
@@ -199,6 +201,7 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("업");
         isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
@@ -242,10 +245,16 @@ public class CardDrag : MonoBehaviour,IPointerDownHandler,IPointerUpHandler
                 Debug.Log("Content에 넣음");
 
                 cardBasic.PlaySound(SettingManager.Instance.CardDrop);
+                Debug.Log("넣는 카드  : " + draggedCardPrefab.name);
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }
             Destroy(draggedCardPrefab);
         }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
     }
 }

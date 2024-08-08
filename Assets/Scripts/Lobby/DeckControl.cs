@@ -49,7 +49,6 @@ public class DeckControl : MonoBehaviour
         DataManager.Instance.LobbyDeck.Add(cardBasic);
         DataManager.Instance.LobbyDeckRateCheck[(int)cardBasic.rate]++;
         GameObject obj = Instantiate(cardBasic.deckCardImage, Canvas.transform);
-        obj.GetComponent<DeckListObj>().cardBasic = cardBasic;
         obj.SetActive(true); 
     }
     public void RemoveCardObj(CardBasic cardBasic)

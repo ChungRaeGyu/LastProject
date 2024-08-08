@@ -36,7 +36,6 @@ public enum Rate
 }
 public class CardBasic : MonoBehaviour
 {
-    [HideInInspector]
     public CardBasic cardBasic;
 
     [Header("BasicData")]
