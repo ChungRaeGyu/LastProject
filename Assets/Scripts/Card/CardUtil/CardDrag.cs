@@ -58,9 +58,9 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     }
     private void Update()
     {
-        if (!cardBasic.isFind) return;
         if (isDragging)
         {
+
             // 마우스 커서의 화면 좌표를 월드 좌표로 변환
             Vector3 cursorScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.WorldToScreenPoint(transform.position).z);
             Vector3 cursorWorldPoint = Camera.main.ScreenToWorldPoint(cursorScreenPoint);
@@ -190,7 +190,7 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
                 isDragging = true; // 드래그 시작
             }
         }
-        else
+        else if(SceneManager.GetActiveScene().buildIndex==1)
         {
             if (!cardBasic.cardBasic.isFind) return;
             if (DescriptionManager.Instance.descriptionPanel.activeInHierarchy) return;
@@ -237,7 +237,7 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             transform.SetSiblingIndex(originalSiblingIndex); // 초기 순서로 되돌리기
             cardZoom.ZoomOut();
         }
-        else
+        else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             if (!cardBasic.cardBasic.isFind) return;
             if (!isLongClick) return;
