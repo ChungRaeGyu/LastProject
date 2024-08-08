@@ -47,8 +47,21 @@ public class Dungeon : MonoBehaviour
     public GameObject bossStage;
 
     [Header("NormalMob")]
-    public GameObject[] normalMob;
-    public List<GameObject> MobList = new List<GameObject>();
+    public List<GameObject> FirstMob1 = new List<GameObject>();
+    public List<GameObject> FirstMob2 = new List<GameObject>();
+    public List<GameObject> FirstMob3 = new List<GameObject>();
+    public List<GameObject> FirstMob4 = new List<GameObject>();
+    public List<GameObject> SecondMob1 = new List<GameObject>();
+    public List<GameObject> SecondMob2 = new List<GameObject>();
+    public List<GameObject> SecondMob3 = new List<GameObject>();
+    public List<GameObject> SecondMob4 = new List<GameObject>();
+    public List<GameObject> SecondMob5 = new List<GameObject>();
+    public List<GameObject> SecondMob6 = new List<GameObject>();
+    public List<GameObject> ThirdMob1 = new List<GameObject>();
+    public List<GameObject> ThirdMob2 = new List<GameObject>();
+    public List<GameObject> ThirdMob3 = new List<GameObject>();
+    public List<GameObject> ThirdMob4 = new List<GameObject>();
+    public List<List<GameObject>> MobList = new List<List<GameObject>>();
 
     [Header("EliteMob")]
     public GameObject[] eliteMob;
@@ -73,6 +86,8 @@ public class Dungeon : MonoBehaviour
 
         dungeonLength = stage[(x - 1) / 2, y - 1].transform.position.x - stage[(x-1)/2, 0].transform.position.x;
         Debug.Log(dungeonLength);
+
+        ListUp();
     }
 
     public void DungeonMapping()
@@ -133,15 +148,19 @@ public class Dungeon : MonoBehaviour
 
     public void MonsterSpawn()
     {
-        MonsterSet();
-        EliteSet();
-
         if (SaveManager.Instance.isBossStage)
+        {
             DataManager.Instance.Monsters = Boss;
+        }
         else if (SaveManager.Instance.isEliteStage)
+        {
+            EliteSet();
             DataManager.Instance.Monsters = EliteMobList;
+        }
         else
-            DataManager.Instance.Monsters = MobList;
+        {
+            MonsterSet();
+        }
         Debug.Log("몬스터 스폰");
     }
 
@@ -149,19 +168,24 @@ public class Dungeon : MonoBehaviour
     {
         dungeonProgress = (SaveManager.Instance.playerPosition.x - stage[((Dungeon.Instance.x - 1) / 2), 0].transform.position.x) / dungeonLength * 10;
         Debug.Log(dungeonProgress);
-        int randomBattle = random.Next(0, normalMob.Length); //고블린이 나올지 몬스터가 나올지에 대한 확률
-        int mob = random.Next(0, normalMob.Length - 1); //몬스터 종류
-        float num = dungeonProgress * 0.4f;
-        for (int i = 0; i < num; i++)
+        int rand = random.Next(0, 4);
+        int mob;
+
+        if (dungeonProgress < 3.5)
         {
-            MobList.Add(normalMob[mob]);
+            mob = random.Next(1, 4);
+            DataManager.Instance.Monsters = MobList[mob];
         }
-        /*
-        int mob = random.Next(0, (int)(normalMob.Length * dungeonProgress));
-        
-        for (int i = 0; i < num; i++)
-            MobList.Add(normalMob[mob]);
-        */
+        else if(dungeonProgress >=3.5 && dungeonProgress < 7)
+        {
+            mob = random.Next(5, 10);
+            DataManager.Instance.Monsters = MobList[mob];
+        }
+        else
+        {
+            mob = random.Next(11, 14);
+            DataManager.Instance.Monsters = MobList[mob];
+        }
     }
 
     public void EliteSet()
@@ -170,5 +194,21 @@ public class Dungeon : MonoBehaviour
         EliteMobList.Add(eliteMob[mob]);
     }
 
-    
+    public void ListUp()
+    {
+        MobList.Add(FirstMob1);
+        MobList.Add(FirstMob2);
+        MobList.Add(FirstMob3);
+        MobList.Add(FirstMob4);
+        MobList.Add(SecondMob1);
+        MobList.Add(SecondMob2);
+        MobList.Add(SecondMob3);
+        MobList.Add(SecondMob4);
+        MobList.Add(SecondMob5);
+        MobList.Add(SecondMob6);
+        MobList.Add(ThirdMob1);
+        MobList.Add(ThirdMob2);
+        MobList.Add(ThirdMob3);
+        MobList.Add(ThirdMob4);
+    }
 }
