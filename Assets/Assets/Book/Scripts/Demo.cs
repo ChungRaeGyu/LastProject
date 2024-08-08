@@ -74,6 +74,7 @@ public class Demo : MonoBehaviour
     void CreditPage()
     {
         if (currentPage == 4 || isChangePage) return;
+        bookAnim.animator.SetBool("Open", false);
         isChangePage = true;
         audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
         if (currentPage > 4)
