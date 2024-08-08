@@ -208,8 +208,6 @@ public class StoreManager : MonoBehaviour
     {
         SettingManager.Instance.PlaySound(SettingManager.Instance.CardPassClip);
 
-        DataManager.Instance.stageClearCount++;
-
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
         SceneManager.LoadScene(2);
     }

@@ -155,7 +155,8 @@ public class MonsterCharacter : Character
         {
             monsterStats.attackPower = baseAttackPower;
             Die();
-            DataManager.Instance.monstersKilledCount++; // DataManager에서 몬스터 카운트 증가
+            DataManager.Instance.ClearMonstersKilledCount++; // DataManager에서 몬스터 카운트 증가
+            DataManager.Instance.DefeatMonstersKilledCount++; // DataManager에서 몬스터 카운트 증가
 
             // 몬스터가 가진 코인에 -2에서 2 사이의 랜덤 값을 추가
             int randomCoinAdjustment = UnityEngine.Random.Range(-2, 3); // -2에서 2까지의 값 (3은 포함되지 않음)

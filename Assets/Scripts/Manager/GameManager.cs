@@ -309,14 +309,15 @@ public class GameManager : MonoBehaviour
 
     public void OnLobbyButtonClick()
     {
-        DataManager.Instance.stageClearCount++;
+        DataManager.Instance.ClearStageClearCount++;
+        DataManager.Instance.DefeatStageClearCount++;
 
         // 보스 클리어 확인
         if (SaveManager.Instance.isBossStage)
         {
-            DataManager.Instance.bossesDefeatedCount++;
+            DataManager.Instance.ClearBossesDefeatedCount++;
             SaveManager.Instance.StopTrackingTime();
-            DataManager.Instance.totalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
+            DataManager.Instance.ClearTotalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
 
             // 클리어 패널을 띄워 줌
             UIManager.instance.victoryPanel.gameObject.SetActive(true);
@@ -325,10 +326,10 @@ public class GameManager : MonoBehaviour
             UpdateVictoryTexts();
 
             // 획득한 크리스탈 계산 및 표시
-            DataManager.Instance.CalculateTotalCrystal();
+            DataManager.Instance.ClearCalculateTotalCrystal();
             if (UIManager.instance.victoryTotalCrystal != null)
             {
-                UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.totalCrystal}";
+                UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.ClearTotalCrystal}";
             }
         }
         else
@@ -342,18 +343,18 @@ public class GameManager : MonoBehaviour
     private void UpdateVictoryTexts()
     {
         DataManager.Instance.adjustedCurrentCoin = Mathf.FloorToInt(DataManager.Instance.currentCoin / 100f);
-        DataManager.Instance.adjustedClearTime = Mathf.Max(300 - DataManager.Instance.totalClearTime, 0);
+        DataManager.Instance.adjustedClearTime = Mathf.Max(300 - DataManager.Instance.ClearTotalClearTime, 0);
 
-        SetText(UIManager.instance.victoryMonstersKilledText, $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})");
-        SetText(UIManager.instance.victoryStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.stageClearCount})");
+        SetText(UIManager.instance.victoryMonstersKilledText, $"처치한 몬스터 ({DataManager.Instance.ClearMonstersKilledCount})");
+        SetText(UIManager.instance.victoryStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.ClearStageClearCount})");
         SetText(UIManager.instance.victoryTotalClearTimeText, $"던전 클리어 시간 ({SaveManager.Instance.FormatTime(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds)})");
-        SetText(UIManager.instance.victoryBossesDefeatedCountText, $"보스 처치 ({DataManager.Instance.bossesDefeatedCount})");
+        SetText(UIManager.instance.victoryBossesDefeatedCountText, $"보스 처치 ({DataManager.Instance.ClearBossesDefeatedCount})");
         SetText(UIManager.instance.victoryRemainingCoinCountText, $"잔여 코인 ({DataManager.Instance.currentCoin})");
 
-        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.monstersKilledCount}");
-        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.stageClearCount}");
+        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.ClearMonstersKilledCount}");
+        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.ClearStageClearCount}");
         SetText(UIManager.instance.victoryTotalClearTimePointText, $"{DataManager.Instance.adjustedClearTime}");
-        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.bossesDefeatedCount}");
+        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.ClearBossesDefeatedCount}");
         SetText(UIManager.instance.victoryRemainingCoinCountPointText, $"{DataManager.Instance.adjustedCurrentCoin}");
     }
 
@@ -368,7 +369,7 @@ public class GameManager : MonoBehaviour
     // 다음 스테이지 해금과 씬로드, 클리어 했을 때 하단의 진행 버튼
     public void ClearGoToLobbyScene()
     {
-        DataManager.Instance.currentCrystal += DataManager.Instance.totalCrystal;
+        DataManager.Instance.currentCrystal += DataManager.Instance.ClearTotalCrystal;
         StageCheck();
         SceneManager.LoadScene(1);
     }
@@ -379,6 +380,8 @@ public class GameManager : MonoBehaviour
         SaveManager.Instance.accessDungeon = false;
         if (DataManager.Instance.accessDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
         {
+            if (DataManager.Instance.accessDungeonNum + 1 == 4) return;
+
             SaveManager.Instance.accessibleDungeon[DataManager.Instance.accessDungeonNum + 1] = true;
         }
     }

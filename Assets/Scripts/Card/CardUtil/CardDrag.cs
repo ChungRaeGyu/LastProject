@@ -171,7 +171,7 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        
+
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             if (GameManager.instance.player?.IsDead() == true) return;
@@ -223,9 +223,12 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             }
             else
             {
-                GameManager.instance.cardQueue.Enqueue(cardBasic);
-                transform.GetChild(0).gameObject.SetActive(false);
-                enabled = false;
+                if (dragLine.detectedMonster != null)
+                {
+                    GameManager.instance.cardQueue.Enqueue(cardBasic);
+                    transform.GetChild(0).gameObject.SetActive(false);
+                    enabled = false;
+                }
             }
 
             isDragging = false;
@@ -255,6 +258,6 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        
+
     }
 }
