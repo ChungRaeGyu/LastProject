@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -50,6 +51,8 @@ public class DungeonManager : MonoBehaviour
     public EventManager eventManager;
 
 
+
+    
     void Start()
     {
         //던전에 입장했을 때
@@ -82,4 +85,10 @@ public class DungeonManager : MonoBehaviour
         currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
     }
+
+
+
+
+    // Update is called once per frame
+
 }

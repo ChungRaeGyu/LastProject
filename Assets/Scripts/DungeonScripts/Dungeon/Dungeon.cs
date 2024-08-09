@@ -85,7 +85,7 @@ public class Dungeon : MonoBehaviour
         }
 
         dungeonLength = stage[(x - 1) / 2, y - 1].transform.position.x - stage[(x-1)/2, 0].transform.position.x;
-        Debug.Log(dungeonLength);
+        
 
         ListUp();
     }
@@ -161,13 +161,11 @@ public class Dungeon : MonoBehaviour
         {
             MonsterSet();
         }
-        Debug.Log("몬스터 스폰");
     }
 
     public void MonsterSet()
     {
         dungeonProgress = (SaveManager.Instance.playerPosition.x - stage[((Dungeon.Instance.x - 1) / 2), 0].transform.position.x) / dungeonLength * 10;
-        Debug.Log(dungeonProgress);
         int rand = random.Next(0, 4);
         int mob;
 

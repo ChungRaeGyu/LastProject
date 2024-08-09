@@ -72,6 +72,8 @@ public class DaggerGoblin : MonsterCharacter
                 yield return PerformAttack(monsterStats.attackPower);
                 Debug.Log(this.name + "이 강한공격!");
                 yield return PerformAttack(5);
+                GameManager.instance.player.BleedingForTunrs(2);
+
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 //attackDescriptionObject.SetActive(false);
             }

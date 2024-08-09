@@ -122,8 +122,7 @@ public class DataManager : MonoBehaviour
     }
 
     private void RateSort()
-    {
-        Debug.Log("정리");
+    {       
         cardObjs = cardObjs.OrderBy(card => card.rate).ToList();
     }
 
@@ -222,7 +221,6 @@ public class DataManager : MonoBehaviour
     {
         currenthealth = 0; // 일단 0으로 초기화 (0일때 최대값으로 들어가게 해놓은 로직이 player에 존재함)
     }
-
     public void Save()
     {
         SaveData saveData = new SaveData();
@@ -277,4 +275,5 @@ public class DataManager : MonoBehaviour
         }*/
         Debug.Log("로드완료");
     }
+
 }

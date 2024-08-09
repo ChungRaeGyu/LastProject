@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 using System;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -89,6 +88,12 @@ public class GameManager : MonoBehaviour
     public Queue<CardBasic> cardQueue = new Queue<CardBasic>();
     public bool isPlayingCard = false;
 
+
+    [Header("ShakeObject")]
+    float ShakeAmount = 0.2f;
+    float ShakeTime;
+    List<Vector3> initialPosition = new List<Vector3>();
+    public List<Transform> ShakeObject = new List<Transform>();
     private void Awake()
     {
         if (instance == null)
@@ -106,7 +111,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject playerObject = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
             player = playerObject.GetComponent<Player>();
-            Debug.Log($"{player}");
         }
 
         cardListManager = GetComponent<CardListManager>();
@@ -195,7 +199,7 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            Debug.Log("----- 플레이어 턴 시작 -----");
+            //Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
             StartCoroutine(player.Turn());
             UIManager.instance.UpdatePlayerTurnCount(turnCount);
@@ -235,7 +239,7 @@ public class GameManager : MonoBehaviour
 
             if (volumeUp > 0) volumeUp = 0;
 
-            Debug.Log("----- 몬스터들의 턴 시작 -----");
+           // Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
@@ -245,13 +249,13 @@ public class GameManager : MonoBehaviour
                 MonsterCharacter monster = monsters[i];
                 if (monster.currenthealth > 0)
                 {
-                    Debug.Log($"----- 몬스터의 턴 시작 -----");
+                   // Debug.Log($"----- 몬스터의 턴 시작 -----");
                     yield return StartCoroutine(monster.Turn());
                     yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
             }
 
-            Debug.Log("----- 몬스터들의 턴 종료 -----");
+
 
             turnCount++;
         }
@@ -471,4 +475,47 @@ public class GameManager : MonoBehaviour
         );
     }
 
+    public void ShakeCamera()
+    {
+        StartCoroutine(ShakeCameraCoroutine());
+    }
+    IEnumerator ShakeCameraCoroutine()
+    {
+        float shakeValue = 0.2f;
+        float shaketime = 0.2f;
+        Debug.Log("실행");
+        foreach(Transform pos in ShakeObject)
+        {
+            initialPosition.Add(pos.position);
+        }
+        ShakeAmount = shakeValue;
+        ShakeTime = shaketime;
+        while (true)
+        {
+            if (ShakeTime > 0)
+            {
+                ShakeObject[0].position = Random.insideUnitSphere * ShakeAmount + initialPosition[0];
+                ShakeObject[1].position = Random.insideUnitSphere * ShakeAmount + initialPosition[1];
+                ShakeObject[2].position = Random.insideUnitSphere * ShakeAmount + initialPosition[2];
+                ShakeObject[3].position = Random.insideUnitSphere * ShakeAmount + initialPosition[3];
+                ShakeObject[4].position = Random.insideUnitSphere * ShakeAmount + initialPosition[4];
+                ShakeObject[5].position = Random.insideUnitSphere * ShakeAmount + initialPosition[5];
+                Debug.Log("흔들기");
+                ShakeTime -= Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+                ShakeObject[0].position = initialPosition[0];
+                ShakeObject[1].position = initialPosition[1];
+                ShakeObject[2].position = initialPosition[2];
+                ShakeObject[3].position = initialPosition[3];
+                ShakeObject[4].position = initialPosition[4];
+                ShakeObject[5].position = initialPosition[5];
+
+                break;
+            }
+        }
+        initialPosition.Clear();
+    }
 }

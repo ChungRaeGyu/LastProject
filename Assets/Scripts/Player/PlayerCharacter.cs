@@ -15,6 +15,8 @@ public abstract class PlayerCharacter : Character
     private static readonly int die = Animator.StringToHash("Die");
     protected bool isDying = false; // 죽는 중인지 여부를 저장하는 변수
 
+    [SerializeField] GameObject damagedEffect;
+
     protected virtual void Start()
     {
         currentAttack = playerStats.attack;
@@ -38,6 +40,8 @@ public abstract class PlayerCharacter : Character
         actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defdown) : actualDamage);
         currenthealth -= actualDamage;
 
+        GameManager.instance.ShakeCamera();
+        Instantiate(damagedEffect, transform.position, Quaternion.identity);
         if (animator != null)
         {
             animator.SetTrigger(takeDamage);
