@@ -46,7 +46,7 @@ public class EventManager : MonoBehaviour
     private int randomCoin;
 
     // 페이드 스피드
-    //private float fadeSpeed = 1f;
+    private float fadeSpeed = 1f;
 
     private void Start()
     {
@@ -77,9 +77,22 @@ public class EventManager : MonoBehaviour
 
     public void ShowMimicEvent()
     {
+        StartCoroutine(ShowMimicEventCoroutine());
+    }
+
+    private IEnumerator ShowMimicEventCoroutine()
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        // IncreaseAlpha가 완료될 때까지 기다림
+        yield return StartCoroutine(IncreaseAlpha());
+
         HideDungeon();
         ShuffleBoxes();
         mimicEvent.SetActive(true);
+
+        // DecreaseAlpha가 완료될 때까지 기다림
+        yield return StartCoroutine(DecreaseAlpha());
     }
 
     private void ShuffleBoxes()
@@ -108,7 +121,7 @@ public class EventManager : MonoBehaviour
         DataManager.Instance.SuffleDeckList();
         // 전투에서 미믹이 나와야 함
         DataManager.Instance.Monsters = mimicMonster;
-        LoadingSceneManager.LoadScene(3);
+        SceneFader.instance.LoadSceneWithFade(3);
     }
 
     public void GetCoin()
@@ -156,11 +169,20 @@ public class EventManager : MonoBehaviour
 
         mimicEvent.SetActive(false);
         ShowDungeon();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 
     public void ShowRandomCardEvent()
     {
+        StartCoroutine(ShowRandomCardEventCoroutine());
+    }
+
+    private IEnumerator ShowRandomCardEventCoroutine()
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        yield return StartCoroutine(IncreaseAlpha());
+
         HideDungeon();
         randomCardEvent.SetActive(true);
 
@@ -175,6 +197,8 @@ public class EventManager : MonoBehaviour
 
         // 텍스트 설정
         randomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>랜덤한 카드</color>를 받는다.</color>";
+
+        yield return StartCoroutine(DecreaseAlpha());
     }
 
     // randomCardList에서 카드를 1장 랜덤으로 내 덱에 추가
@@ -212,11 +236,20 @@ public class EventManager : MonoBehaviour
 
         randomCardEvent.SetActive(false);
         ShowDungeon();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 
     public void ShowHealEvent()
     {
+        StartCoroutine(ShowHealEventCoroutine());
+    }
+
+    private IEnumerator ShowHealEventCoroutine()
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        yield return StartCoroutine(IncreaseAlpha());
+
         HideDungeon();
         healEvent.SetActive(true);
 
@@ -230,7 +263,9 @@ public class EventManager : MonoBehaviour
         string cardTextColor = insufficientCoins ? "#808080" : "#red";
 
         // 텍스트 설정
-        randomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>체력 20%</color>를 회복한다.</color>";
+        healCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>체력 20%</color>를 회복한다.</color>";
+
+        yield return StartCoroutine(DecreaseAlpha());
     }
 
     public void HealAndUseCoin()
@@ -267,7 +302,9 @@ public class EventManager : MonoBehaviour
 
         healEvent.SetActive(false);
         ShowDungeon();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
+
+        DecreaseAlpha();
     }
 
     // 던전패널 비활성화
@@ -281,37 +318,39 @@ public class EventManager : MonoBehaviour
         Dungeon.SetActive(true);
     }
 
-    //// 알파값을 천천히 올리는 메서드
-    //public void IncreaseAlpha()
-    //{
-    //    StartCoroutine(FadeIn());
-    //}
+    // 알파값을 천천히 올리는 메서드
+    public IEnumerator IncreaseAlpha()
+    {
+        yield return StartCoroutine(FadeIn());
+    }
 
-    //private IEnumerator FadeIn()
-    //{
-    //    while (fadeImage.color.a < 1f)
-    //    {
-    //        Color color = fadeImage.color;
-    //        color.a += Time.deltaTime * fadeSpeed;
-    //        fadeImage.color = color;
-    //        yield return null;
-    //    }
-    //}
+    private IEnumerator FadeIn()
+    {
+        while (fadeImage.color.a < 1f)
+        {
+            Color color = fadeImage.color;
+            color.a += Time.deltaTime * fadeSpeed;
+            fadeImage.color = color;
+            yield return null;
+        }
+    }
 
-    //// 알파값을 천천히 줄이는 메서드
-    //public void DecreaseAlpha()
-    //{
-    //    StartCoroutine(FadeOut());
-    //}
+    // 알파값을 천천히 줄이는 메서드
+    public IEnumerator DecreaseAlpha()
+    {
+        yield return StartCoroutine(FadeOut());
+    }
 
-    //private IEnumerator FadeOut()
-    //{
-    //    while (fadeImage.color.a > 0f)
-    //    {
-    //        Color color = fadeImage.color;
-    //        color.a -= Time.deltaTime * fadeSpeed;
-    //        fadeImage.color = color;
-    //        yield return null;
-    //    }
-    //}
+    private IEnumerator FadeOut()
+    {
+        while (fadeImage.color.a > 0f)
+        {
+            Color color = fadeImage.color;
+            color.a -= Time.deltaTime * fadeSpeed;
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        fadeImage.gameObject.SetActive(false);
+    }
 }

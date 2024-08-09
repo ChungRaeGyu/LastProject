@@ -46,8 +46,7 @@ public class SceneFader : MonoBehaviour
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began));
 
         PlayClickSound();
-        LoadingSceneManager.LoadScene(1);
-        //StartCoroutine(FadeOutAndLoad(1)); // 씬 인덱스 1로 전환
+        yield return StartCoroutine(FadeOutAndLoad(1)); // 씬 인덱스 1로 전환
     }
 
     private void PlayClickSound()
@@ -55,6 +54,14 @@ public class SceneFader : MonoBehaviour
         if (clickSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(clickSound);
+        }
+    }
+
+    public void LoadSceneWithFade(int sceneNum)
+    {
+        if (!isFading)
+        {
+            StartCoroutine(FadeOutAndLoad(sceneNum));
         }
     }
 
@@ -72,21 +79,18 @@ public class SceneFader : MonoBehaviour
         }
 
         // 씬 로드
-        SceneManager.LoadScene(sceneNum);
+        LoadingSceneManager.LoadScene(sceneNum);
 
-        // 씬 로드 후 기다리기
-        yield return new WaitForSeconds(3f); // 짧은 대기 시간으로 씬 로드 대기
-
-        // 페이드 인
-        if (fadeImage != null)
-        {
-            yield return StartCoroutine(FadeIn());
-        }
+        //// 페이드 인
+        //if (fadeImage != null)
+        //{
+        //    yield return StartCoroutine(FadeIn());
+        //}
 
         isFading = false;
     }
 
-    private IEnumerator FadeOut()
+    public IEnumerator FadeOut()
     {
         fadeImage.gameObject.SetActive(true); // 검정색 이미지 활성화
 
@@ -100,7 +104,7 @@ public class SceneFader : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeIn()
+    public IEnumerator FadeIn()
     {
         Color color = fadeImage.color;
         while (fadeImage.color.a > 0.0f)
