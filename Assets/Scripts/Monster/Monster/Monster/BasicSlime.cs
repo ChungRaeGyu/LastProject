@@ -62,7 +62,8 @@ public class BasicSlime : MonsterCharacter
 
         if (!isFrozen)
         {
-            monsterNextAction.gameObject.SetActive(false);
+            if (monsterNextAction != null)
+                monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 

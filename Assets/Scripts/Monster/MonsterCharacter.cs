@@ -109,7 +109,6 @@ public class MonsterCharacter : Character
         monsterName.position = monsterNamePos.position;
         monsterNextActionList.position = transform.position;
         MonsterCondition.position = conditionPos.position;
-
     }
 
     public virtual void TakeDamage(int damage)
@@ -117,7 +116,6 @@ public class MonsterCharacter : Character
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
         currenthealth -= actualDamage;
-
         if (animator != null)
         {
             animator.SetTrigger(takeDamage);
@@ -185,7 +183,7 @@ public class MonsterCharacter : Character
             Destroy(monsterName.gameObject);
         }
 
-        if (monsterNextActionList = null)
+        if (monsterNextActionList != null)
         {
             Destroy(monsterNextActionList.gameObject);
         }

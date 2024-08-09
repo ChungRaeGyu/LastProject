@@ -299,7 +299,7 @@ public class UIManager : MonoBehaviour
 
     public void MoveUIElementsToStartPositions()
     {
-        StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(-725, costImage.rectTransform.anchoredPosition.y), 0.5f));
+        StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(200, costImage.rectTransform.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, new Vector2(-200, turnEndButtonRect.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, new Vector2(40, 40), 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, new Vector2(-40, 40), 0.5f));

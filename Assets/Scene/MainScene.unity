@@ -8456,6 +8456,8 @@ MonoBehaviour:
   turnClip: {fileID: 8300000, guid: 7b3cd6ed1b1d1784687771f6235b9da3, type: 3}
   showRewardClip: {fileID: 8300000, guid: 4540a73bae41c454a87de1fbb690fdaf, type: 3}
   rewardCardClip: {fileID: 8300000, guid: 1b2b56f4e64be354f8c32e978867639a, type: 3}
+  cardBasic: {fileID: 0}
+  isPlayingCard: 0
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0
@@ -11464,11 +11466,11 @@ RectTransform:
   - {fileID: 1994892794}
   m_Father: {fileID: 582998535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1200, y: -330}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -370, y: 130}
   m_SizeDelta: {x: 200, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &2049345851
 MonoBehaviour:
   m_ObjectHideFlags: 0

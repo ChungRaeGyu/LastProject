@@ -111,6 +111,7 @@ public class Character : MonoBehaviour
             }
             TakedamageCharacter(5);
         }
+
         yield return null;
     }
 
