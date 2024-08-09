@@ -62,8 +62,8 @@ public class Crow : MonsterCharacter
 
         if (!isFrozen)
         {
-            if (monsterNextAction != null)
-                monsterNextAction.gameObject.SetActive(false);
+            if (isDead) yield break;
+            monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 

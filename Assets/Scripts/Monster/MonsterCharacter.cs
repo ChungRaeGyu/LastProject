@@ -49,6 +49,7 @@ public class MonsterCharacter : Character
     public GameObject attackDescriptionObject;
     public GameObject defenseDescriptionObject;
     public GameObject healDescriptionObject;
+    public bool isDead;
 
     public void Start()
     {
@@ -187,6 +188,8 @@ public class MonsterCharacter : Character
         {
             Destroy(monsterNextActionList.gameObject);
         }
+
+        isDead = true;
 
         Destroy(gameObject);
     }
