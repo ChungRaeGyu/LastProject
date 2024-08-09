@@ -3641,12 +3641,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LobbyDeck:
+  - {fileID: 1516393449248830274, guid: 8b2bff841566bcf4c92619e84c1dea51, type: 3}
+  - {fileID: 1516393449248830274, guid: 8b2bff841566bcf4c92619e84c1dea51, type: 3}
+  - {fileID: 1516393449248830274, guid: 8b2bff841566bcf4c92619e84c1dea51, type: 3}
   - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
-  - {fileID: 7054661724771687073, guid: 8b14fb52a38e481409f4e945468382cb, type: 3}
-  - {fileID: 4950520056056020530, guid: e804cfd04cb91224c850fdaa0f7edb48, type: 3}
-  - {fileID: 7783122066741445201, guid: be8db2c4f8b45904e8b22df7492b6b60, type: 3}
-  - {fileID: -7698738387562565116, guid: b03b8548b96a91142b0dd192d0dec0b9, type: 3}
-  - {fileID: 1262888803615949085, guid: 0526618fa6d5c96439b6e961dd465454, type: 3}
+  - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
+  - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
   LobbyDeckRateCheck: 00000000000000000000000000000000
   deckList: []
   usedCards: []
@@ -3676,7 +3676,7 @@ MonoBehaviour:
   removeCardCount: 0
   accessDungeonNum: 0
   currentCoin: 0
-  currentCrystal: 100000
+  currentCrystal: 0
 --- !u!4 &594298872
 Transform:
   m_ObjectHideFlags: 0
@@ -7276,7 +7276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.999023, y: -30.000366}
+  m_AnchoredPosition: {x: -28.999023, y: -30.000427}
   m_SizeDelta: {x: -1233.6614, y: -218.1293}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202313863

@@ -758,7 +758,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 1fe39a2a85bd998449cd3f8c3bc3908d, type: 3}
   firstEnhanceImage: {fileID: 21300000, guid: 28a5a5710c053b540bc518a4ed6ef9a2, type: 3}
   secondEnhanceImage: {fileID: 21300000, guid: 83f68cdf41141bc4fb7863599d24afe9, type: 3}
-  isFind: 1
+  isFind: 0
   playerEffect: {fileID: 2355428265014234746, guid: 9153b0874fe4dd8428305061e64279f2, type: 3}
   attackEffect: {fileID: 7196586892533426777, guid: b7f9cdca53f3652439e9db86e4e81bd3, type: 3}
   debuffEffectPrefab: {fileID: 0}
@@ -769,6 +769,7 @@ MonoBehaviour:
   CardClip1: {fileID: 8300000, guid: 3b6efe542ceec7d48afe097fbc206b25, type: 3}
   CardClip2: {fileID: 0}
   enhancementLevel: 0
+  playCardCompleted: 0
 --- !u!82 &1319554652776314229
 AudioSource:
   m_ObjectHideFlags: 0
