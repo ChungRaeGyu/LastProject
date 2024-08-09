@@ -483,7 +483,6 @@ public class GameManager : MonoBehaviour
     {
         float shakeValue = 0.2f;
         float shaketime = 0.2f;
-        Debug.Log("½ÇÇà");
         foreach(Transform pos in ShakeObject)
         {
             initialPosition.Add(pos.position);
@@ -500,7 +499,6 @@ public class GameManager : MonoBehaviour
                 ShakeObject[3].position = Random.insideUnitSphere * ShakeAmount + initialPosition[3];
                 ShakeObject[4].position = Random.insideUnitSphere * ShakeAmount + initialPosition[4];
                 ShakeObject[5].position = Random.insideUnitSphere * ShakeAmount + initialPosition[5];
-                Debug.Log("Èçµé±â");
                 ShakeTime -= Time.deltaTime;
                 yield return null;
             }
