@@ -106,8 +106,10 @@ public class DescriptionManager : MonoBehaviour
 
     public void DeCompositionPanelBtn()
     {
-        if (currentCard.cardBasic.currentCount <= 0) return;
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+
+        if (currentCard.cardBasic.currentCount <= 0) return;
+
         //ºÐÇØÃ¢ ¿ÀÇÂ
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
         num = 1;
@@ -153,9 +155,9 @@ public class DescriptionManager : MonoBehaviour
     {
         audioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
 
-        if (DataManager.Instance.CardPiece[(int)currentCard.rate] >= 100)
+        if (DataManager.Instance.CardPiece[(int)currentCard.rate] >= 10)
         {
-            DataManager.Instance.CardPiece[(int)currentCard.rate] -= 100;
+            DataManager.Instance.CardPiece[(int)currentCard.rate] -= 10;
             currentCard.cardBasic.currentCount++;
             CurrentpieceSubject.text = DataManager.Instance.CardPiece[(int)currentCard.cardBasic.rate].ToString();
             LobbyManager.instance.InvokeCount();

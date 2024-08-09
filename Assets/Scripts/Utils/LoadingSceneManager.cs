@@ -2,14 +2,27 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
+using System.Collections.Generic;
 
 public class LoadingSceneManager : MonoBehaviour
 {
     public static int nextSceneIndex;
     [SerializeField] private Image progressBar;
+    public TMP_Text randomTipText;
+
+    // 에디터에서 텍스트를 입력할 수 있는 리스트
+    [SerializeField] private List<string> tipTexts = new List<string>();
 
     private void Start()
     {
+        // 리스트에서 랜덤으로 하나의 텍스트를 선택하여 적용
+        if (tipTexts.Count > 0)
+        {
+            int randomIndex = Random.Range(0, tipTexts.Count);
+            randomTipText.text = $"- <color=#FFFF00>Tip</color> {tipTexts[randomIndex]} -";
+        }
+
         StartCoroutine(LoadScene());
     }
 

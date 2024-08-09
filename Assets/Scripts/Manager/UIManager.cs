@@ -272,8 +272,10 @@ public class UIManager : MonoBehaviour
         card.transform.localPosition = targetPosition;
     }
 
-    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.5f)
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.6f)
     {
+        if (SaveManager.Instance.isEliteStage) openCardSelectionProbability = 1f;
+
         SetActive(lobbyButton?.gameObject, lobbyBtn);
         SetActive(turnEndButton?.gameObject, turnEndBtn);
         SetActive(rewardPanel, setRewardPanel);
@@ -419,7 +421,6 @@ public class UIManager : MonoBehaviour
         // 이미지 크기 조정
         removedCardObj.transform.localScale = new Vector3(4f, 6f, 1f); // 2배 크기로 설정
     }
-
 
     private IEnumerator FadeOutAndDestroy(Image cardImage, TMP_Text[] textComponents)
     {
