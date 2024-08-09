@@ -371,7 +371,7 @@ public class GameManager : MonoBehaviour
     {
         DataManager.Instance.currentCrystal += DataManager.Instance.ClearTotalCrystal;
         StageCheck();
-        SceneManager.LoadScene(1);
+        SceneFader.instance.LoadSceneWithFade(1);
     }
 
     private void StageCheck()
