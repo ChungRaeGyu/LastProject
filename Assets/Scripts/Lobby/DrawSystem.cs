@@ -15,7 +15,6 @@ public class DrawSystem : MonoBehaviour
     Queue<CardBasic> tempCardBasic = new Queue<CardBasic>();
     List<GameObject> tempCardObj = new List<GameObject>();
 
-    public Button drawButton;
     //등급, 몇번째인지
     [SerializeField] GameObject board;
     [SerializeField] int count;
