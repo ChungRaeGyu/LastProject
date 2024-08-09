@@ -73,8 +73,10 @@ public class DrawSystem : MonoBehaviour
 
             int randomCard = Random.Range(0, cardList.Count);
             GameObject tempObj = Instantiate(cardList[randomCard].gameObject, board.transform);
+            
             Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
             tempObjImage[1].sprite = DataManager.Instance.cardBackImage;
+            tempObjImage[1].raycastTarget = false;
 
             // 텍스트들이 안보이게 한다
             tempObj.GetComponent<CardData>().SetTextVisibility(false);

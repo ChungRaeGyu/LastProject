@@ -61,7 +61,7 @@ public class CardData : MonoBehaviour
     }
     private float ConvertRange(float x, float length)
     {
-        float abs = Mathf.Abs(x - 1000) + 1000;
+        float abs = Mathf.Abs(x - length/2) + length/2;
 
         float xNorm = length / abs; //length전체 크기
 
@@ -71,11 +71,11 @@ public class CardData : MonoBehaviour
     private void Update()
     {
         if (!LobbyManager.instance.isDrawing) return;
-        float newValue = ConvertRange(transform.position.x, 2000);
+        float newValue = ConvertRange(transform.position.x, Camera.main.pixelWidth);
 
         transform.localScale = new Vector2(2.5f * newValue, 3.75f * newValue);
 
-        if (transform.localScale.x > 4.9f)
+        if (transform.localScale.x > 4.0f)
         {
             if (coroutine == null && image[1].sprite == DataManager.Instance.cardBackImage)
             {
