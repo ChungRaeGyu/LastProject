@@ -206,6 +206,7 @@ public class MonsterCharacter : Character
 
         // 플레이어 맞는 소리
         SettingManager.Instance.PlaySound(GameManager.instance.BaseAttackClip);
+        Instantiate(GameManager.instance.hitEffect, GameManager.instance.player.transform.position, Quaternion.identity);
 
         GameManager.instance.player.TakeDamage(damage);
 
