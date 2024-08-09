@@ -79,6 +79,8 @@ public class DataManager : MonoBehaviour
     public int adjustedCurrentCoin { get; set; }
     public int adjustedClearTime { get; set; }
 
+    public int adjustedBossesDefeatedCount { get; set; }
+
     // 던전 진행 중 제거한 카드 수
     public int removeCardCount;
 
@@ -185,15 +187,16 @@ public class DataManager : MonoBehaviour
         // 반올림
         //int adjustedCoin = Mathf.RoundToInt(currentCoin / 100f);
         // 소수점 아래를 버림 (재화를 1개라도 덜 줌으로서 난이도 상승)
-        adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 100f);
+        adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 10f);
         adjustedClearTime = Mathf.Max(300 - ClearTotalClearTime, 0);
+        adjustedBossesDefeatedCount = ClearBossesDefeatedCount * 100;
 
         // TotalCrystal 계산
         ClearTotalCrystal = adjustedCurrentCoin
                      + ClearMonstersKilledCount
                      + ClearStageClearCount
                      + adjustedClearTime
-                     + ClearBossesDefeatedCount;
+                     + adjustedBossesDefeatedCount;
     }
 
     public void DefeatCalculateTotalCrystal()

@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
         SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.ClearMonstersKilledCount}");
         SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.ClearStageClearCount}");
         SetText(UIManager.instance.victoryTotalClearTimePointText, $"{DataManager.Instance.adjustedClearTime}");
-        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.ClearBossesDefeatedCount}");
+        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.adjustedBossesDefeatedCount}");
         SetText(UIManager.instance.victoryRemainingCoinCountPointText, $"{DataManager.Instance.adjustedCurrentCoin}");
     }
 
