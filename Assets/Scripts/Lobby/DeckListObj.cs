@@ -20,8 +20,6 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,I
     {
         rectTransform = GetComponent<RectTransform>();
         delaySetting();
-
-        Debug.Log("cardBasic" + cardBasic);
     }
     void Update()
     {

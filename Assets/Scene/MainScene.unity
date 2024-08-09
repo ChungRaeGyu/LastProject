@@ -3599,6 +3599,7 @@ GameObject:
   - component: {fileID: 706902554}
   - component: {fileID: 706902556}
   - component: {fileID: 706902553}
+  - component: {fileID: 706902557}
   m_Layer: 5
   m_Name: TurnEndButton
   m_TagString: Untagged
@@ -3737,6 +3738,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &706902557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706902551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67aed52b06fdf2841ae7545257d6c8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShakeAmount: 0
+  ShakeTime: 0
 --- !u!1 &757447476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,7 +3792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 120, y: -160}
+  m_AnchoredPosition: {x: 120.000244, y: -160}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &757447478
@@ -5072,6 +5087,7 @@ GameObject:
   - component: {fileID: 1031822520}
   - component: {fileID: 1031822519}
   - component: {fileID: 1031822522}
+  - component: {fileID: 1031822523}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5150,8 +5166,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1997481768}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1031822522
@@ -5198,6 +5213,20 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1031822523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031822518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67aed52b06fdf2841ae7545257d6c8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShakeAmount: 0.2
+  ShakeTime: 0
 --- !u!1 &1064311949
 GameObject:
   m_ObjectHideFlags: 0
@@ -8458,6 +8487,13 @@ MonoBehaviour:
   rewardCardClip: {fileID: 8300000, guid: 1b2b56f4e64be354f8c32e978867639a, type: 3}
   cardBasic: {fileID: 0}
   isPlayingCard: 0
+  ShakeObject:
+  - {fileID: 706902552}
+  - {fileID: 1031822521}
+  - {fileID: 2049345850}
+  - {fileID: 1829902783}
+  - {fileID: 757447477}
+  - {fileID: 6582673028265970159}
 --- !u!4 &1587527350
 Transform:
   m_ObjectHideFlags: 0
@@ -11281,11 +11317,11 @@ Transform:
   m_GameObject: {fileID: 1997481767}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1031822521}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1997481769
 SpriteRenderer:
@@ -13460,6 +13496,7 @@ Animator:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1997481768}
   - {fileID: 1031822521}
   - {fileID: 1086836119}
   - {fileID: 582510203}
