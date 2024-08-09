@@ -204,6 +204,9 @@ public class MonsterCharacter : Character
 
         yield return new WaitForSeconds(0.3f);
 
+        // 플레이어 맞는 소리
+        SettingManager.Instance.PlaySound(GameManager.instance.BaseAttackClip);
+
         GameManager.instance.player.TakeDamage(damage);
 
         //대기 시간

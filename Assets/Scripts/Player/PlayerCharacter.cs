@@ -53,7 +53,7 @@ public abstract class PlayerCharacter : Character
 
     public virtual void Heal(int amount)
     {
-        currenthealth = Mathf.Min(currenthealth + amount, playerStats.maxhealth);
+        currenthealth = Mathf.Min(currenthealth + amount, DataManager.Instance.maxHealth);
 
         SpawnDamageText(amount, transform.position);
     }

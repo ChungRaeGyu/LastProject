@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     public AudioClip turnClip;
     public AudioClip showRewardClip;
     public AudioClip rewardCardClip;
+    public AudioClip BaseAttackClip;
 
     public CardBasic cardBasic;
 

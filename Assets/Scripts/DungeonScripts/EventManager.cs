@@ -23,12 +23,15 @@ public class EventManager : MonoBehaviour
     [Header("MimicEvent")]
     public List<GameObject> boxes;
     public List<GameObject> mimicMonster;
+    public AudioClip OpenBoxClip;
 
     [Header("RandomCardEvent")]
     public List<CardBasic> randomCardList;
     public TMP_Text randomCardEventDescription;
-    public TMP_Text randomCardCoinText;
-    public GameObject randomCardEventSelectBtn;
+    public TMP_Text coinRandomCardCoinText;
+    public GameObject coinRandomCardEventSelectBtn;
+    public TMP_Text damageRandomCardCoinText;
+    public GameObject damageRandomCardEventSelectBtn;
     public TMP_Text closeRandomCardEventText;
     public GameObject randomCardEventImage;
 
@@ -39,7 +42,7 @@ public class EventManager : MonoBehaviour
     public TMP_Text closeHealEventText;
     public GameObject healEventImage;
 
-    [Header("AudioClip")]
+    [Header("MainAudioClip")]
     public AudioClip CoinClip;
 
     // 랜덤 값 변수 돌려쓰기
@@ -126,6 +129,7 @@ public class EventManager : MonoBehaviour
 
     public void GetCoin()
     {
+        SettingManager.Instance.PlaySound(OpenBoxClip);
         SettingManager.Instance.PlaySound(CoinClip);
 
         int randomCoin = Random.Range(30, 41);
@@ -190,15 +194,58 @@ public class EventManager : MonoBehaviour
         randomCoin = Random.Range(50, 61);
 
         // 현재 가진 코인을 체크하고 텍스트 색 결정
+        bool insufficientCoins1 = DataManager.Instance.currenthealth < 10;
+        string mainTextColor1 = insufficientCoins1 ? "#808080" : "#FFFFFF";
+        string healthTextColor = insufficientCoins1 ? "#808080" : "#F3847B";
+        string coinTextColor1 = insufficientCoins1 ? "#808080" : "#FFFF00";
+
         bool insufficientCoins = DataManager.Instance.currentCoin < randomCoin;
         string mainTextColor = insufficientCoins ? "#808080" : "#FFFFFF";
         string coinTextColor = insufficientCoins ? "#808080" : "#FFFF00";
         string cardTextColor = insufficientCoins ? "#808080" : "#ADD8E6";
 
         // 텍스트 설정
-        randomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>랜덤한 카드</color>를 받는다.</color>";
+        damageRandomCardCoinText.text = $"<color={mainTextColor1}>1. <color={healthTextColor}>체력 {10}</color>이 줄어드는 대신에 <color={coinTextColor1}>코인</color>를 얻는다.</color>";
+
+        coinRandomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>랜덤한 카드</color>를 받는다.</color>";
 
         yield return StartCoroutine(DecreaseAlpha());
+    }
+
+    public void PlunderGetCoin()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
+        if (DataManager.Instance.currenthealth < 10)
+        {
+            Debug.Log("체력이 부족합니다.");
+            return; // 체력이 부족할 때 아무 것도 하지 않고 메서드 종료
+        }
+
+        DataManager.Instance.currenthealth -= 10;
+        DungeonManager.Instance.currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
+
+        // 랜덤 코인 값 계산
+        randomCoin = Random.Range(30, 61);
+
+        DataManager.Instance.currentCoin += randomCoin;
+        DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
+
+        SettingManager.Instance.PlaySound(CoinClip);
+
+        randomCardEventDescription.text = $"노인을 공격하자, 노인의 신비한 저주가 너의 몸을 스치며, " +
+            $"체력이 약간 줄어드는 것을 느꼈다. \n" +
+            $"그는 비틀거리며 허겁지겁 도망치기 시작했다. \n" +
+            $"그의 주머니에서 {randomCoin}코인이 떨어졌고, \n" +
+            $"나는 그를 쫓지 않고 <color=#FFFF00>코인</color>을 챙겼다.";
+
+        closeRandomCardEventText.text = "던전을 계속 진행한다.";
+
+        coinRandomCardEventSelectBtn.SetActive(false);
+        damageRandomCardEventSelectBtn.SetActive(false);
+
+        // 이미지가 점점 사라지는 연출을 해야한다.
+        randomCardEventImage.SetActive(false);
     }
 
     // randomCardList에서 카드를 1장 랜덤으로 내 덱에 추가
@@ -226,7 +273,10 @@ public class EventManager : MonoBehaviour
 
         closeRandomCardEventText.text = "던전을 계속 진행한다.";
 
-        randomCardEventSelectBtn.SetActive(false);
+        coinRandomCardEventSelectBtn.SetActive(false);
+        damageRandomCardEventSelectBtn.SetActive(false);
+
+        // 이미지가 점점 사라지는 연출을 해야한다.
         randomCardEventImage.SetActive(false);
     }
 
@@ -260,10 +310,10 @@ public class EventManager : MonoBehaviour
         bool insufficientCoins = DataManager.Instance.currentCoin < randomCoin;
         string mainTextColor = insufficientCoins ? "#808080" : "#FFFFFF";
         string coinTextColor = insufficientCoins ? "#808080" : "#FFFF00";
-        string cardTextColor = insufficientCoins ? "#808080" : "#red";
+        string healthTextColor = insufficientCoins ? "#808080" : "#F3847B";
 
         // 텍스트 설정
-        healCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>체력 20%</color>를 회복한다.</color>";
+        healCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={healthTextColor}>체력 20%</color>를 회복한다.</color>";
 
         yield return StartCoroutine(DecreaseAlpha());
     }
@@ -293,6 +343,8 @@ public class EventManager : MonoBehaviour
         closeHealEventText.text = "던전을 계속 진행한다.";
 
         healEventSelectBtn.SetActive(false);
+
+        // 이미지가 점점 사라지는 연출을 해야한다.
         healEventImage.SetActive(false);
     }
 
