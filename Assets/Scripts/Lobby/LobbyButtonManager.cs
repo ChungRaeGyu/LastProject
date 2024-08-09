@@ -101,7 +101,8 @@ public class LobbyButtonManager : MonoBehaviour
     {
 
     }
-    public void GotoStageBoardBtn(){
+    public void GotoStageBoardBtn()
+    {
         if (DataManager.Instance.LobbyDeck.Count < 6)
         {
             Debug.Log("카드가 부족해요~ 6장을 채워 주세요");
@@ -110,6 +111,6 @@ public class LobbyButtonManager : MonoBehaviour
 
         SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         DataManager.Instance.SuffleDeckList();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 }

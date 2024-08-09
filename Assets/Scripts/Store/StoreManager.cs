@@ -209,7 +209,7 @@ public class StoreManager : MonoBehaviour
         SettingManager.Instance.PlaySound(SettingManager.Instance.CardPassClip);
 
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
-        SceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 
     public void ShowDeleteList()

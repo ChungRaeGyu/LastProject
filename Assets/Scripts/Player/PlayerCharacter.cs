@@ -18,9 +18,7 @@ public abstract class PlayerCharacter : Character
     protected virtual void Start()
     {
         currentAttack = playerStats.attack;
-        Debug.Log($"{playerStats.defense}");
         currentDefense = playerStats.defense;
-        Debug.Log($"{currentDefense}");
         currenthealth = playerStats.maxhealth;
     }
 
@@ -55,7 +53,7 @@ public abstract class PlayerCharacter : Character
 
     public virtual void Heal(int amount)
     {
-        currenthealth += amount;
+        currenthealth = Mathf.Min(currenthealth + amount, playerStats.maxhealth);
 
         SpawnDamageText(amount, transform.position);
     }

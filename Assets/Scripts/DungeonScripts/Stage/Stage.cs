@@ -23,7 +23,7 @@ public class Stage : MonoBehaviour
         SaveManager.Instance.playerPosition.z = 0;
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
-        LoadingSceneManager.LoadScene(3);
+        SceneFader.instance.LoadSceneWithFade(3);
         Debug.Log("전투를 개시합니다.");
     }
 
@@ -40,7 +40,7 @@ public class Stage : MonoBehaviour
             SaveManager.Instance.playerPosition = Dungeon.Instance.stage[0, ((Dungeon.Instance.y - 1) / 2)].transform.position;
         }
 
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 
     public void EventBtn()
@@ -59,7 +59,7 @@ public class Stage : MonoBehaviour
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
 
         SaveManager.Instance.playerPosition = stagePosition;
-        LoadingSceneManager.LoadScene(4);
+        SceneFader.instance.LoadSceneWithFade(4);
     }
 
     public void EliteMobBtn()
@@ -72,7 +72,7 @@ public class Stage : MonoBehaviour
         SaveManager.Instance.playerPosition = stagePosition;
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
-        LoadingSceneManager.LoadScene(3);
+        SceneFader.instance.LoadSceneWithFade(3);
         Debug.Log("전투를 개시합니다.");
     }
 
@@ -86,7 +86,7 @@ public class Stage : MonoBehaviour
         SaveManager.Instance.playerPosition = stagePosition;
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
-        LoadingSceneManager.LoadScene(3);
+        SceneFader.instance.LoadSceneWithFade(3);
         Debug.Log("전투를 개시합니다.");
     }
 }

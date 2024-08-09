@@ -521,6 +521,6 @@ public class UIManager : MonoBehaviour
 
         DataManager.Instance.currentCrystal += DataManager.Instance.DefeatTotalCrystal;
         SaveManager.Instance.accessDungeon = false;
-        SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
+        SceneFader.instance.LoadSceneWithFade(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
     }
 }
