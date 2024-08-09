@@ -201,7 +201,6 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("업");
         isClick = false;
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
@@ -245,10 +244,7 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             //로비에서 드래그 사용
             if (LobbyManager.instance.currentCanvas == LobbyManager.instance.deckCanvas)
             {
-                Debug.Log("Content에 넣음");
-
                 cardBasic.PlaySound(SettingManager.Instance.CardDrop);
-                Debug.Log("넣는 카드  : " + draggedCardPrefab.name);
 
                 LobbyManager.instance.deckControl.AddCardObj(draggedCardPrefab.GetComponent<CardBasic>().cardBasic);
             }

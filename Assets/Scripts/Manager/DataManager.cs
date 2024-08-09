@@ -91,6 +91,8 @@ public class DataManager : MonoBehaviour
     // public int currentCrystal { get; set; } = 0; // 일단 0으로 (임시)
     public int currentCrystal; // 테스트용으로 인스펙터에서 변경이 가능하게 해둠
 
+    public int[] initnum = { 3, 0 };
+
     string path;
     private void Start()
     {

@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.UI;
 
 public class Dungeon : MonoBehaviour
 {
@@ -72,6 +74,7 @@ public class Dungeon : MonoBehaviour
 
     public System.Random random = new System.Random();
 
+    int[] num = new int[2];
     // Start is called before the first frame update
     void Start()
     {
@@ -79,8 +82,6 @@ public class Dungeon : MonoBehaviour
 
         if (SaveManager.Instance.isStartPoint)
         {
-            SaveManager.Instance.playerPosition = stage[(x - 1) / 2, 0].transform.position;
-            DungeonManager.Instance.player.transform.position = DungeonManager.Instance.startPosition.transform.position;
             SaveManager.Instance.isStartPoint = false;
         }
 
@@ -88,6 +89,62 @@ public class Dungeon : MonoBehaviour
         
 
         ListUp();
+        StageOpen();
+        if (!SaveManager.Instance.isStartPoint)
+            DungeonManager.Instance.player.transform.position = returnPosition();// 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
+                                                                               // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
+    }
+   
+    private void StageOpen()
+    {
+        //초기값 3,0
+        //값이 >=0 , 값이 <x;
+        //기준 값 (1,1),(0,2),(-1,1)
+        num[0] = DataManager.Instance.initnum[0] + 1;
+        num[1] = DataManager.Instance.initnum[1] + 1;
+        StageControl(num[0], num[1],true);
+        num[0] = DataManager.Instance.initnum[0] + 0;
+        num[1] = DataManager.Instance.initnum[1] + 2;
+        StageControl(num[0], num[1], true);
+        num[0] = DataManager.Instance.initnum[0] - 1;
+        num[1] = DataManager.Instance.initnum[1] + 1;
+        StageControl(num[0], num[1], true);
+    }
+    public void StageClose()
+    {
+        num[0] = DataManager.Instance.initnum[0] + 1;
+        num[1] = DataManager.Instance.initnum[1] + 1;
+        StageControl(num[0], num[1], false);
+        num[0] = DataManager.Instance.initnum[0] + 0;
+        num[1] = DataManager.Instance.initnum[1] + 2;
+        StageControl(num[0], num[1], false);
+        num[0] = DataManager.Instance.initnum[0] - 1;
+        num[1] = DataManager.Instance.initnum[1] + 1;
+        StageControl(num[0], num[1], false);
+    }
+    private void StageControl(int numX,int numY,bool set)
+    {
+        if (0 <= numX && numX < x)
+        {
+            if (0 <= numY && numY < y)
+            {
+                Debug.Log($"{numX},{numY}");                
+                GameObject tempChild = stage[numX, numY].transform.GetChild(0).gameObject;
+                GameObject tempChild2 = stage[numX, numY].transform.GetChild(2).gameObject;
+
+                tempChild.SetActive(set);
+                tempChild2.GetComponent<Button>().enabled = set;
+                Debug.Log("실행");
+            }
+            else
+            {
+                Debug.Log(numY);
+            }
+        }
+        else
+        {
+            Debug.Log(numX);
+        }
     }
 
     public void DungeonMapping()
@@ -105,13 +162,26 @@ public class Dungeon : MonoBehaviour
                     {
                         //여기다가 생성 로직을 짜면 된다.
                         if (i == (x - 1) / 2 && j == 0)
+                        {
                             stage[i, j] = Instantiate(startStage, stageBoard);
-                        else if (i == (x - 1) / 2 && j == (y - 1))
+                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                            Debug.Log("실행");
+                        }
+                        else if (i == (x - 1) / 2 && j == (y - 1)){
                             stage[i, j] = Instantiate(bossStage, stageBoard);
+                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
+
+                        }
                         else if (i == 0 && j == (y - 1) / 2)
+                        {
                             stage[i, j] = Instantiate(warpStage, stageBoard);
+                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                        }
                         else if (i == (x - 1) && j == (y - 1) / 2)
+                        {
                             stage[i, j] = Instantiate(warpStage, stageBoard);
+                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                        }
                         else
                         {
                             switch (SaveManager.Instance.num[i, j])
@@ -119,11 +189,13 @@ public class Dungeon : MonoBehaviour
                                 case 0:
                                 case 1:
                                     stage[i, j] = Instantiate(eliteStage, stageBoard);
+                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
                                     break;
                                 case 2:
                                 case 3:
                                 case 4:
                                     stage[i, j] = Instantiate(storeStage, stageBoard);
+                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
                                     break;
                                 case 5:
                                 case 6:
@@ -132,9 +204,11 @@ public class Dungeon : MonoBehaviour
                                 case 9:
                                 case 10:
                                     stage[i, j] = Instantiate(eventStage, stageBoard);
+                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
                                     break;
                                 default:
                                     stage[i, j] = Instantiate(battleStage, stageBoard);
+                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
                                     break;
                             }
                         }
@@ -165,7 +239,7 @@ public class Dungeon : MonoBehaviour
 
     public void MonsterSet()
     {
-        dungeonProgress = (SaveManager.Instance.playerPosition.x - stage[((Dungeon.Instance.x - 1) / 2), 0].transform.position.x) / dungeonLength * 10;
+        dungeonProgress = (SaveManager.Instance.playerPosition.x - stage[((x - 1) / 2), 0].transform.position.x) / dungeonLength * 10;
         int rand = random.Next(0, 4);
         int mob;
 
@@ -208,5 +282,17 @@ public class Dungeon : MonoBehaviour
         MobList.Add(ThirdMob2);
         MobList.Add(ThirdMob3);
         MobList.Add(ThirdMob4);
+    }
+
+    public void GetValue(int numX, int numY)
+    {
+        DataManager.Instance.initnum[0] = numX;
+        DataManager.Instance.initnum[1] = numY;
+
+    }
+
+    public Vector2 returnPosition()
+    {
+        return stage[DataManager.Instance.initnum[0], DataManager.Instance.initnum[1]].transform.position;
     }
 }
