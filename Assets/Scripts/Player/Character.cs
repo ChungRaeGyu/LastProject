@@ -142,7 +142,7 @@ public class Character : MonoBehaviour
 
             // 화면 좌표에서 위로 이동
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            float yOffset = 200f; // 얼마나 위로 위치할지 설정
+            float yOffset = 100f; // 얼마나 위로 위치할지 설정
             Vector3 newScreenPosition = new Vector3(screenPosition.x, screenPosition.y + yOffset, 10f);
             textInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
         }

@@ -39,6 +39,12 @@ public class StoreManager : MonoBehaviour
 
     [SerializeField]
     List<GameObject> availableCards;
+
+    public TMP_Text dungeonHpText;
+
+    // 카드 제거를 이번 상점에서 구매했는지 확인
+    private bool purchased;
+
     private void Awake()
     {
         if (Instance == null)
@@ -49,6 +55,8 @@ public class StoreManager : MonoBehaviour
 
     private void Start()
     {
+        dungeonHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
+
         needCoinAmount = 65 + (DataManager.Instance.removeCardCount * 25);
         cardRemovePriceText.text = needCoinAmount.ToString();
 
@@ -214,8 +222,10 @@ public class StoreManager : MonoBehaviour
 
     public void ShowDeleteList()
     {
-        if (DataManager.Instance.currentCoin >= needCoinAmount)
+        if (DataManager.Instance.currentCoin >= needCoinAmount && !purchased)
         {
+            purchased = true; // 한 번만 구매가 가능하게 함
+
             DataManager.Instance.currentCoin -= needCoinAmount;
             dungeonCoin.text = DataManager.Instance.currentCoin.ToString();
             DataManager.Instance.removeCardCount++;
@@ -239,6 +249,7 @@ public class StoreManager : MonoBehaviour
             DataManager.Instance.currentCoin -= healthprice;
             dungeonCoin.text = DataManager.Instance.currentCoin.ToString();
             DataManager.Instance.currenthealth = DataManager.Instance.maxHealth;
+            dungeonHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
             SettingManager.Instance.PlaySound(StoreUseCoinClip);
             UpdateCoin();
         }
