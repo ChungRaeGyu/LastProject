@@ -7,6 +7,7 @@ public class DefenderSlime : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    // 턴이 끝나는 시점에 바뀌는 랜덤 값을 저장할 필드
     private int attackRandomValue;
 
     private new void Start()
@@ -21,9 +22,12 @@ public class DefenderSlime : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        attackRandomValue = random.Next(0, 10);
+        attackRandomValue = Random.Range(0, 100);
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
+        if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
@@ -69,14 +73,25 @@ public class DefenderSlime : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            yield return PerformAttack(attackRandomValue);
+            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
+            {
+                yield return PerformAttack(monsterStats.attackPower * 2);
+                Debug.Log(this.name + "이 강한공격!");
+            }
+            else
+            {
+                yield return PerformAttack(monsterStats.attackPower);
+            }
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        attackRandomValue = random.Next(0, 10);
+        attackRandomValue = Random.Range(0, 100);
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
+        if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
 
         GameManager.instance.EndMonsterTurn();
     }

@@ -1023,13 +1023,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339545659}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2119601906}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -10, y: 0}
@@ -5119,6 +5119,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleSortOrderAndSortDeck
       objectReference: {fileID: 0}
+    - target: {fileID: 3102354313485491057, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102354313485491057, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102354313485491057, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3339225459640140247, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
       propertyPath: m_Name
       value: DeckPanel
@@ -5979,7 +5991,7 @@ MonoBehaviour:
   healthItemPriceText: {fileID: 2115616778}
   removeListManager: {fileID: 1871122199}
   cardListManager: {fileID: 0}
-  deckPanel: {fileID: 0}
+  deckPanel: {fileID: 2090239066}
   removePanel: {fileID: 844274057}
   StoreUseCoinClip: {fileID: 8300000, guid: 1d6407a7073a4c64ebaa7464286ff57e, type: 3}
   availableCards: []
@@ -6227,6 +6239,11 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
+--- !u!1 &2090239066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3339225459640140247, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+  m_PrefabInstance: {fileID: 1585716275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2115616776
 GameObject:
   m_ObjectHideFlags: 0

@@ -2900,7 +2900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 300, y: -110}
+  m_AnchoredPosition: {x: 300.00003, y: -110}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &706902553
@@ -11288,6 +11288,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1587527353}
+    - target: {fileID: 3797625728933381477, guid: deb899a6690e8314b8a1c4872dc1b118, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797625728933381477, guid: deb899a6690e8314b8a1c4872dc1b118, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797625728933381477, guid: deb899a6690e8314b8a1c4872dc1b118, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 4024470027843472967, guid: deb899a6690e8314b8a1c4872dc1b118, type: 3}
       propertyPath: m_Name
       value: UnUsedScrollView

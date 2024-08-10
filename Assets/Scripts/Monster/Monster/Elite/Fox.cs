@@ -7,6 +7,7 @@ public class Fox : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private int monsterTurn = 0;
     private int attackRandomValue;
 
     private new void Start()
@@ -21,12 +22,14 @@ public class Fox : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        attackRandomValue = Random.Range(0, 100);
+        util1DescriptionText.text = $"<color=#FF7F50><size=30><b>발톱</b></size></color>\n <color=#FFFF00>2</color>턴마다 공격력이 <color=#FFFF00>1</color>씩 증가합니다.";
+
+        attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
     }
 
     protected override void Update()
@@ -72,25 +75,34 @@ public class Fox : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
+            if (monsterTurn % 2 == 0) // 2턴마다 공격력 1 상승
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
+                monsterStats.attackPower += 1;
+            }
+
+            if (attackRandomValue < 15) // 15% 확률로 공격력 3배 공격
+            {
+                yield return PerformAttack(monsterStats.attackPower * 3);
                 Debug.Log(this.name + "이 강한공격!");
+                yield return PerformAttack(5);
+                Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
             }
             else
             {
                 yield return PerformAttack(monsterStats.attackPower);
+                currenthealth += baseAttackPower;
             }
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        attackRandomValue = Random.Range(0, 100);
+        monsterTurn++;
+        attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
 
         GameManager.instance.EndMonsterTurn();
     }

@@ -74,7 +74,7 @@ public class BasicSlime : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        attackRandomValue = random.Next(0, 10);
+        attackRandomValue = random.Next(14, 18);
 
         attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
 

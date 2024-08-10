@@ -7,6 +7,7 @@ public class GiantTurtle : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private int monsterTurn = 0;
     private int attackRandomValue;
 
     private new void Start()
@@ -21,9 +22,14 @@ public class GiantTurtle : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        attackRandomValue = random.Next(0, 10);
+        util1DescriptionText.text = $"<color=#FF7F50><size=30><b>껍질</b></size></color>\n <color=#FFFF00>3</color>턴마다 방어력이 <color=#FFFF00>1</color>씩 증가합니다.";
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
+        attackRandomValue = random.Next(0, 100);
+
+        if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
@@ -69,14 +75,32 @@ public class GiantTurtle : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            yield return PerformAttack(attackRandomValue);
+            if (monsterTurn % 3 == 0) // 3턴마다 방어력 1 상승
+            {
+                monsterStats.defense += 1;
+            }
+
+            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
+            {
+                yield return PerformAttack(monsterStats.attackPower * 2);
+
+                Debug.Log(this.name + "이 강한공격!");
+            }
+            else
+            {
+                yield return PerformAttack(monsterStats.attackPower);
+            }
         }
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        attackRandomValue = random.Next(0, 10);
+        monsterTurn++;
+        attackRandomValue = random.Next(0, 100);
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
+        if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
 
         GameManager.instance.EndMonsterTurn();
     }

@@ -823,6 +823,7 @@ MonoBehaviour:
   attackDescriptionObject: {fileID: 0}
   defenseDescriptionObject: {fileID: 0}
   healDescriptionObject: {fileID: 0}
+  isDead: 0
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &3925794989829339413
 BoxCollider2D:
@@ -1152,7 +1153,7 @@ Transform:
   m_GameObject: {fileID: 4229613133896384893}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.7, z: 0}
+  m_LocalPosition: {x: 0, y: -1.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -7388,7 +7388,7 @@ MonoBehaviour:
   - {fileID: 7879342307325802439, guid: 2fe9da0005aa9f14d9b7ba23052390f2, type: 3}
   EliteMobList: []
   Boss:
-  - {fileID: 6810613311577540313, guid: 4f497290436aafd4583f0e202e202d58, type: 3}
+  - {fileID: 2437386297708738748, guid: ed4d0145f7b341f4a9e24fcb34af78eb, type: 3}
 --- !u!1 &1621201114
 GameObject:
   m_ObjectHideFlags: 0
@@ -10985,6 +10985,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1635272315}
+    - target: {fileID: 3102354313485491057, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102354313485491057, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102354313485491057, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3339225459640140247, guid: 2a19cfde4108bb84294ad752c01c4f3f, type: 3}
       propertyPath: m_Name
       value: DeckPanel
