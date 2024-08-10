@@ -5,16 +5,11 @@ using System.Collections.Generic;
 public class CardListManager : MonoBehaviour
 {
     public RectTransform deckContent; // 뽑을 카드 리스트의 스크롤 뷰 Content
-    public RectTransform usedCardsContent; // 버린 카드 리스트의 스크롤 뷰 Content
     public ContentHeightAdjuster unUsedCardsContentHeightAdjuster; // 뽑을 카드 리스트의 ContentHeightAdjuster
-    public ContentHeightAdjuster usedCardsContentHeightAdjuster; // 버린 카드 리스트의 ContentHeightAdjuster
     public Button sortDeckButton; // 뽑을 카드 리스트 정렬 버튼
-    public Button sortUsedCardsButton; // 버린 카드 리스트 정렬 버튼
     public Image unUsedCostSortImage; // UnUsedCostSort 화살표 이미지
-    public Image usedCostSortImage; // UsedCostSort 화살표 이미지
 
     private bool isDeckAscending = true; // 뽑을 카드 리스트 오름차순 정렬 여부
-    private bool isUsedCardsAscending = true; // 버린 카드 리스트 오름차순 정렬 여부
     private Color defaultButtonColor; // 기본 버튼 색
     private Color selectedButtonColor = Color.yellow; // 선택된 버튼 색
 
@@ -85,9 +80,19 @@ public class CardListManager : MonoBehaviour
     {
         // Stack을 List로 변환
         List<CardBasic> usedCardsList = new List<CardBasic>(DataManager.Instance.usedCards);
-        RefreshCardList(usedCardsContent, usedCardsList);
-        usedCardsContentHeightAdjuster.cardCount = DataManager.Instance.usedCards.Count;
-        usedCardsContentHeightAdjuster.AdjustContentHeight();
+        RefreshCardList(deckContent, usedCardsList);
+        unUsedCardsContentHeightAdjuster.cardCount = DataManager.Instance.usedCards.Count;
+        unUsedCardsContentHeightAdjuster.AdjustContentHeight();
+    }
+
+    // 뽑을 카드 리스트 갱신
+    public void UpdateDungeonDeckList()
+    {
+        // Stack을 List로 변환
+        List<CardBasic> deckList = new List<CardBasic>(DataManager.Instance.deckList);
+        RefreshCardList(deckContent, deckList);
+        unUsedCardsContentHeightAdjuster.cardCount = DataManager.Instance.deckList.Count;
+        unUsedCardsContentHeightAdjuster.AdjustContentHeight();
     }
 
     // 정렬 순서 변경 및 덱 정렬
@@ -99,15 +104,6 @@ public class CardListManager : MonoBehaviour
         SortDeckByCost();
     }
 
-    // 정렬 순서 변경 및 사용된 카드 리스트 정렬
-    public void ToggleSortOrderAndSortUsedCards()
-    {
-        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
-
-        isUsedCardsAscending = !isUsedCardsAscending;
-        SortUsedCardsByCost();
-    }
-
     // 덱을 코스트 기준으로 정렬
     private void SortDeckByCost()
     {
@@ -115,15 +111,6 @@ public class CardListManager : MonoBehaviour
         // 화살표 이미지 회전
         unUsedCostSortImage.transform.rotation = isDeckAscending ? Quaternion.Euler(180, 0, 0) : Quaternion.Euler(0, 0, 0);
         unUsedCardsContentHeightAdjuster.AdjustContentHeight();
-    }
-
-    // 사용된 카드 리스트를 코스트 기준으로 정렬
-    private void SortUsedCardsByCost()
-    {
-        SortCardsByCost(usedCardsContent, isUsedCardsAscending);
-        // 화살표 이미지 회전
-        usedCostSortImage.transform.rotation = isUsedCardsAscending ? Quaternion.Euler(180, 0, 0) : Quaternion.Euler(0, 0, 0);
-        usedCardsContentHeightAdjuster.AdjustContentHeight();
     }
 
     // 주어진 컨텐츠를 코스트 기준으로 정렬

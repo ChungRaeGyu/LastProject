@@ -15,6 +15,7 @@ public class HandManager : MonoBehaviour
 
     public TMP_Text cardCountText; // 덱의 남은 카드 수를 표시할 텍스트 UI
     public TMP_Text usedCardCountText; // 사용된 카드 개수를 표시할 텍스트 UI
+    public TMP_Text dungeonDeckCardCountText; // 사용중인 덱의 총 카드 개수를 표시할 텍스트 UI
     public Canvas handCanvas; // HandCanvas 참조
 
     private List<Transform> cards = new List<Transform>();

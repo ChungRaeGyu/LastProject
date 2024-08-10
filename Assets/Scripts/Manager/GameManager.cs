@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour
 
     [Header("ScrollView")]
     [SerializeField] private GameObject unUsedScrollView;
-    [SerializeField] private GameObject usedScrollView;
 
     [Header("CardUtil")]
     public int volumeUp = 0;
@@ -114,6 +113,8 @@ public class GameManager : MonoBehaviour
         }
 
         cardListManager = GetComponent<CardListManager>();
+
+        handManager.dungeonDeckCardCountText.text = DataManager.Instance.deckList.Count.ToString();
 
         // 몬스터 생성
         SpawnMonsters();
@@ -294,7 +295,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         // 보상 패널 켜질때
-        SettingManager.Instance.PlaySound(GameManager.instance.showRewardClip);
+        SettingManager.Instance.PlaySound(showRewardClip);
         UIManager.instance.UIClear(true, false, true, true, true);
     }
 
@@ -466,12 +467,26 @@ public class GameManager : MonoBehaviour
     {
         SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         ToggleScrollView(
-            usedScrollView,
+            unUsedScrollView,
             handManager.ShowAllCardsActive,  // 카드 표시
             handManager.HideAllCardsActive,  // 카드 숨기기
             UIManager.instance.UsedCardsResetUIPositions, // UI 위치 재설정
             true, // fadeRewardPanel 활성화
             cardListManager.UpdateUsedCardsList
+        );
+    }
+
+    // 덱 스크롤 뷰 활성화/비활성화 메서드
+    public void ToggleDungeonDeckScrollView()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        ToggleScrollView(
+            unUsedScrollView,
+            handManager.ShowAllCardsActive,  // 카드 표시
+            handManager.HideAllCardsActive,  // 카드 숨기기
+            UIManager.instance.dungeonDeckCardsResetUIPositions, // UI 위치 재설정
+            true, // fadeRewardPanel 활성화
+            cardListManager.UpdateDungeonDeckList
         );
     }
 

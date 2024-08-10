@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ public class UIManager : MonoBehaviour
     public Button turnEndButton;
     public Image UnUsedCards;
     public Image UsedCards;
+    public Image dungeonDeckCards;
 
     [Header("Reward")]
     public Image fadeRewardPanel;
@@ -92,6 +94,7 @@ public class UIManager : MonoBehaviour
     private Vector2 originalTurnEndButtonPosition;
     private Vector2 originalUnUsedCardsPosition;
     private Vector2 originalUsedCardsPosition;
+    private Vector2 originaldungeonDeckCardsPosition;
 
     // 임시로 카드를 저장할 변수들
     private GameObject centerCard;
@@ -106,6 +109,7 @@ public class UIManager : MonoBehaviour
         originalTurnEndButtonPosition = turnEndButtonRect.anchoredPosition;
         originalUnUsedCardsPosition = UnUsedCards.rectTransform.anchoredPosition;
         originalUsedCardsPosition = UsedCards.rectTransform.anchoredPosition;
+        originaldungeonDeckCardsPosition = dungeonDeckCards.rectTransform.anchoredPosition;
 
         victoryPanel.gameObject.SetActive(false);
         cardSelectPanel.SetActive(false);
@@ -299,34 +303,51 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // UI들의 위치를 전투 진행에 알맞는 위치로 옮기는 메서드
     public void MoveUIElementsToStartPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(200, costImage.rectTransform.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, new Vector2(-200, turnEndButtonRect.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, new Vector2(40, 40), 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, new Vector2(-40, 40), 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, new Vector2(-30, -150), 0.5f));
     }
 
+    // 모든 적을 처치시 모든 전투 진행 UI들을 안보이게 하는 메서드
     public void ResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, originaldungeonDeckCardsPosition, 0.5f));
     }
 
+    // 사용안한 덱 더미를 눌렀을 때 해당 덱 더미를 제외한 UI숨기기 메서드
     public void UnUsedCardsResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, originaldungeonDeckCardsPosition, 0.5f));
     }
 
+    // 사용한 덱 더미를 눌렀을 때 해당 덱 더미를 제외한 UI숨기기 메서드
     public void UsedCardsResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, originaldungeonDeckCardsPosition, 0.5f));
+    }
+
+    // 사용한 덱 더미를 눌렀을 때 해당 덱 더미를 제외한 UI숨기기 메서드
+    public void dungeonDeckCardsResetUIPositions()
+    {
+        StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
     }
 
     // 패배 시 호출될 메서드
