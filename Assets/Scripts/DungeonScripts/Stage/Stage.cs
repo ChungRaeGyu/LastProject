@@ -27,9 +27,7 @@ public class Stage : MonoBehaviour
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
         SceneFader.instance.LoadSceneWithFade(3);
-        Debug.Log("전투를 개시합니다.");
         Dungeon.Instance.GetValue(x, y);
-        Debug.Log($"{x},{y}");
     }
 
     public void WarpBtn()
@@ -86,7 +84,6 @@ public class Stage : MonoBehaviour
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
         SceneFader.instance.LoadSceneWithFade(3);
-        Debug.Log("전투를 개시합니다.");
         Dungeon.Instance.GetValue(x, y);
 
     }
@@ -102,7 +99,6 @@ public class Stage : MonoBehaviour
         Dungeon.Instance.MonsterSpawn();
         DataManager.Instance.SuffleDeckList();
         SceneFader.instance.LoadSceneWithFade(3);
-        Debug.Log("전투를 개시합니다.");
         Dungeon.Instance.GetValue(x, y);
 
     }
@@ -111,7 +107,6 @@ public class Stage : MonoBehaviour
     {
         this.x = x;
         this.y = y;
-        Debug.Log($"{x},{y}");
     }
 
 
