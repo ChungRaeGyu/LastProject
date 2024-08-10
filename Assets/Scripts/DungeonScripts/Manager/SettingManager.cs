@@ -92,31 +92,67 @@ public class SettingManager : MonoBehaviour
     private void SetBackgroundMusicForCurrentScene()
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        AudioClip newBGM = null;
 
         switch (sceneIndex)
         {
             case 1:
-                // Lobby 씬
-                BGMAudioSource.clip = LobbyBGM;
+                newBGM = LobbyBGM;
                 break;
             case 2:
-                // Dungeon 씬
-                BGMAudioSource.clip = DungeonBGM;
+                newBGM = DungeonBGM;
                 break;
             case 3:
-                // main 씬
-                BGMAudioSource.clip = MainBGM;
+                newBGM = MainBGM;
                 break;
             default:
-                // 기본 배경음악
-                BGMAudioSource.clip = null;
+                newBGM = null;
                 break;
         }
 
-        BGMAudioSource.loop = true;
-
-        BGMAudioSource.Play();
+        if (newBGM != BGMAudioSource.clip)
+        {
+            StartCoroutine(CrossfadeBGM(newBGM, 1.5f));
+        }
     }
+
+    private IEnumerator CrossfadeBGM(AudioClip newClip, float duration)
+    {
+        if (BGMAudioSource.isPlaying)
+        {
+            float currentTime = 0;
+            float startVolume = BGMAudioSource.volume;
+
+            // 현재 재생 중인 BGM의 볼륨 감소
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                BGMAudioSource.volume = Mathf.Lerp(startVolume, 0, currentTime / duration);
+                yield return null;
+            }
+
+            BGMAudioSource.Stop();
+            BGMAudioSource.volume = startVolume; // 볼륨을 원래 값으로 리셋
+        }
+
+        // 새 BGM 재생
+        BGMAudioSource.clip = newClip;
+        BGMAudioSource.Play();
+
+        // 새 BGM의 볼륨 증가
+        float targetVolume = musicBGMSlider.value;
+        float fadeInTime = 0;
+
+        while (fadeInTime < duration)
+        {
+            fadeInTime += Time.deltaTime;
+            BGMAudioSource.volume = Mathf.Lerp(0, targetVolume, fadeInTime / duration);
+            yield return null;
+        }
+
+        BGMAudioSource.volume = targetVolume; // 목표 볼륨으로 설정
+    }
+
 
     private void SetMasterVolume(float volume)
     {

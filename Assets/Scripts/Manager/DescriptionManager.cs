@@ -57,9 +57,11 @@ public class DescriptionManager : MonoBehaviour
     [SerializeField] GameObject MakingCardPanel;
     [SerializeField] TextMeshProUGUI CurrentpieceSubject;
 
-
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
+
+    [Header("Sound")]
+    [SerializeField] private AudioClip enhanceClip;
 
     [Header("Position")]
     [SerializeField] private GameObject targetEmptyObject;
@@ -198,6 +200,8 @@ public class DescriptionManager : MonoBehaviour
                     Debug.Log("크리스탈이 부족합니다.");
                     return;
                 }
+                SettingManager.Instance.PlaySound(enhanceClip);
+
                 DataManager.Instance.currentCrystal -= 300;
                 LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
                 currentCard.cardBasic.EnhanceCard();
@@ -209,6 +213,8 @@ public class DescriptionManager : MonoBehaviour
                     Debug.Log("크리스탈이 부족합니다.");
                     return;
                 }
+                SettingManager.Instance.PlaySound(enhanceClip);
+
                 DataManager.Instance.currentCrystal -= 500;
                 LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
                 currentCard.cardBasic.EnhanceCard();

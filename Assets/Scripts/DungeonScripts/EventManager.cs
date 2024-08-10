@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour
     public List<GameObject> boxes;
     public List<GameObject> mimicMonster;
     public AudioClip OpenBoxClip;
+    public AudioClip openMimicClip;
 
     [Header("RandomCardEvent")]
     public List<CardBasic> randomCardList;
@@ -120,6 +121,7 @@ public class EventManager : MonoBehaviour
     public void MimicSurprise()
     {
         SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        SettingManager.Instance.PlaySound(openMimicClip);
 
         DataManager.Instance.SuffleDeckList();
         // 전투에서 미믹이 나와야 함
