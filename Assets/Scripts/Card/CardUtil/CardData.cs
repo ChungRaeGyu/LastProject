@@ -52,11 +52,15 @@ public class CardData : MonoBehaviour
         tempCardBasic.descriptionText.gameObject.SetActive(check);
         if (check)
         {
-            image[1].sprite = cardBasic.image;
+            image[0].sprite = cardBasic.image;
         }
         else
         {
-            image[1].sprite = DataManager.Instance.cardBackImage;
+            image[0].sprite = DataManager.Instance.cardBackImage;
+        }
+        foreach(Image image in image)
+        {
+            Debug.Log("½ÇÇà : " + image.name);
         }
     }
     private float ConvertRange(float x, float length)

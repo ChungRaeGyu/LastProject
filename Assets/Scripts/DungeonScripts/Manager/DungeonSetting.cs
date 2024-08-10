@@ -115,5 +115,7 @@ public class DungeonSetting : MonoBehaviour
                 Debug.Log("5번째 던전에 입장하셨습니다.");
                 break;
         }
+        DataManager.Instance.initnum[0] = 3;
+        DataManager.Instance.initnum[1] = 0;
     }
 }

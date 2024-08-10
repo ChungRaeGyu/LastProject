@@ -130,7 +130,7 @@ public class Dungeon : MonoBehaviour
         {
             if (0 <= numY && numY < y)
             {
-                Debug.Log($"{numX},{numY}");                
+                if (stage[numX, numY] == null) return;
                 GameObject tempChild = stage[numX, numY].transform.GetChild(0).gameObject;
                 GameObject tempChild2 = stage[numX, numY].transform.GetChild(2).gameObject;
 
@@ -216,6 +216,7 @@ public class Dungeon : MonoBehaviour
                         }
                         
                         stage[i, j].transform.position = new Vector2(j * 0.75f - a, i * 1.3f - b);
+                        Debug.Log($"stage num : {i},{j}");
                     }
                 }
             }
