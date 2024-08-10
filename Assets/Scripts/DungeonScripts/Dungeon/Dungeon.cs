@@ -92,9 +92,11 @@ public class Dungeon : MonoBehaviour
         StageOpen();
         if (!SaveManager.Instance.isStartPoint)
             DungeonManager.Instance.player.transform.position = returnPosition();// 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
-                                                                               // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
+                                                                                 // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
+
+        DungeonManager.Instance.deckCountText.text = DataManager.Instance.deckList.Count.ToString();
     }
-   
+
     private void StageOpen()
     {
         //초기값 3,0

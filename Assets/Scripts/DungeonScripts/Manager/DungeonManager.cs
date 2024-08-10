@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -38,6 +39,7 @@ public class DungeonManager : MonoBehaviour
     [Header("TextUI")]
     public TMP_Text currentCoinText;
     public TMP_Text currentHpText;
+    public TMP_Text deckCountText;
 
     [Header("Info")]
     public GameObject DungeonCoin;
@@ -49,12 +51,15 @@ public class DungeonManager : MonoBehaviour
 
     [Header("Manager")]
     public EventManager eventManager;
+    public CardListManager cardListManager;
 
+    [Header("GameObject")]
+    public GameObject deckPanel;
 
-
-    
     void Start()
     {
+        deckPanel.SetActive(false);
+
         //던전에 입장했을 때
         if (SaveManager.Instance.accessDungeon == true)
         {
@@ -84,7 +89,36 @@ public class DungeonManager : MonoBehaviour
 
     }
 
+    // ScrollView의 활성화/비활성화 공통 메서드
+    private void ToggleScrollView(GameObject scrollView, Action updateList)
+    {
+        if (scrollView != null)
+        {
+            if (scrollView.activeSelf)
+            {
+                // 비활성화
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+            }
+            else
+            {
+                // 활성화
+                updateList?.Invoke();
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+            }
 
+            scrollView.SetActive(!scrollView.activeSelf);
+        }
+    }
+
+    // unUsedScrollView 활성화/비활성화 메서드
+    public void ToggleDungeonDeckScrollView()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        ToggleScrollView(
+            deckPanel,
+            cardListManager.UpdateDungeonDeckList
+        );
+    }
 
 
     // Update is called once per frame

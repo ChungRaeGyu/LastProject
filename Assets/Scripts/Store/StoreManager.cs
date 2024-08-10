@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
@@ -30,6 +30,10 @@ public class StoreManager : MonoBehaviour
 
     [Header("Manager")]
     public RemoveListManager removeListManager;
+    public CardListManager cardListManager;
+
+    [Header("GameObject")]
+    public GameObject deckPanel;
 
     [Header("DeletePanel")]
     public GameObject removePanel;
@@ -55,6 +59,8 @@ public class StoreManager : MonoBehaviour
 
     private void Start()
     {
+        deckPanel.SetActive(false);
+
         dungeonHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
         needCoinAmount = 65 + (DataManager.Instance.removeCardCount * 25);
@@ -84,7 +90,7 @@ public class StoreManager : MonoBehaviour
         // 무작위로 카드를 선택하여 CardParents의 자식으로 생성
         for (int i = 0; i < CardParents.Count; i++)
         {
-            int randomIndex = Random.Range(0, availableCards.Count);
+            int randomIndex = UnityEngine.Random.Range(0, availableCards.Count);
             GameObject selectedCard = Instantiate(availableCards[randomIndex], CardParents[i].transform);
             CardBasic tempcard = availableCards[randomIndex].GetComponent<CardBasic>();
             SetCardPrice(tempcard, CardParents[i]);
@@ -105,16 +111,16 @@ public class StoreManager : MonoBehaviour
         switch (cardBasic.rate)
         {
             case Rate.Normal:
-                price = Random.Range(35, 51);
+                price = UnityEngine.Random.Range(35, 51);
                 break;
             case Rate.Rarity:
-                price = Random.Range(65, 81);
+                price = UnityEngine.Random.Range(65, 81);
                 break;
             case Rate.Hero:
-                price = Random.Range(110, 131);
+                price = UnityEngine.Random.Range(110, 131);
                 break;
             case Rate.Legend:
-                price = Random.Range(150, 181);
+                price = UnityEngine.Random.Range(150, 181);
                 break;
         }
 
@@ -259,5 +265,36 @@ public class StoreManager : MonoBehaviour
 
             Debug.LogError("코인이 부족합니다!");
         }
+    }
+
+    // ScrollView의 활성화/비활성화 공통 메서드
+    private void ToggleScrollView(GameObject scrollView, Action updateList)
+    {
+        if (scrollView != null)
+        {
+            if (scrollView.activeSelf)
+            {
+                // 비활성화
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+            }
+            else
+            {
+                // 활성화
+                updateList?.Invoke();
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+            }
+
+            scrollView.SetActive(!scrollView.activeSelf);
+        }
+    }
+
+    // unUsedScrollView 활성화/비활성화 메서드
+    public void ToggleDungeonDeckScrollView()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        ToggleScrollView(
+            deckPanel,
+            cardListManager.UpdateDungeonDeckList
+        );
     }
 }
