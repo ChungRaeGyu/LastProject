@@ -2167,8 +2167,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -320}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: -250}
+  m_SizeDelta: {x: 100, y: 101.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &379209904
 GameObject:
@@ -3677,7 +3677,7 @@ MonoBehaviour:
   removeCardCount: 0
   accessDungeonNum: 0
   currentCoin: 0
-  currentCrystal: 0
+  currentCrystal: 10000
   initnum: 0300000000000000
 --- !u!4 &594298872
 Transform:
@@ -3863,7 +3863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 30, y: -51.999878}
+  m_AnchoredPosition: {x: 29.999939, y: -51.999878}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &626871888
@@ -4710,10 +4710,10 @@ RectTransform:
   - {fileID: 1923469090}
   m_Father: {fileID: 1202313862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 538, y: -37.999878}
-  m_SizeDelta: {x: -367.414, y: -487.0373}
+  m_SizeDelta: {x: 510, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &729623337
 MonoBehaviour:
@@ -7291,10 +7291,10 @@ RectTransform:
   - {fileID: 1106860387}
   m_Father: {fileID: 852295780}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.999023, y: -30.000458}
-  m_SizeDelta: {x: -1233.6614, y: -218.1293}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -26.084106, y: -30.032562}
+  m_SizeDelta: {x: 880, y: 730}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202313863
 MonoBehaviour:

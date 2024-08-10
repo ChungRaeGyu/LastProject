@@ -80,6 +80,7 @@ public class DescriptionManager : MonoBehaviour
 
     public void AddDeck()
     {
+        CardBasic cardBasic = new CardBasic();
         audioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
         //덱추가 버튼
         if (currentCard.cardBasic.currentCount <= 0) return;
@@ -94,7 +95,8 @@ public class DescriptionManager : MonoBehaviour
         currentCard = cardBasic;
         currentCard.cardBasic = cardBasic;
         tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
-        Destroy(tempCard.transform.GetChild(2).gameObject);
+        //tempCard.GetComponent<CardData>().enabled = false;
+        //Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
         tempCardRect.localScale = new Vector2(3, 4.5f);
 
@@ -102,14 +104,13 @@ public class DescriptionManager : MonoBehaviour
 
         tempCardRect.sizeDelta = new Vector2(90, 90);
         descriptionPanel.SetActive(true);
+        Debug.Log(tempCard.transform.GetChild(2).GetComponent<Image>().sprite.name);
+
     }
 
     public void DeCompositionPanelBtn()
     {
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
-
-        if (currentCard.cardBasic.currentCount <= 0) return;
-
         //분해창 오픈
         deCompositionPanel.SetActive(!deCompositionPanel.activeInHierarchy);
         num = 1;
@@ -139,6 +140,8 @@ public class DescriptionManager : MonoBehaviour
     public void DeCompositionBtn()
     {
         audioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+
+        if (currentCard.cardBasic.currentCount <= 0) return;
         currentCard.cardBasic.currentCount -= num;
         DataManager.Instance.CardPiece[(int)currentCard.rate] += num;
         if (currentCard.cardBasic.currentCount == 0)
