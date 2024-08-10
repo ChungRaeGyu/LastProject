@@ -11,8 +11,6 @@ public class AddCost : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         cardCollision = GetComponent<CardCollision>();
 
         SetDescription();

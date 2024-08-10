@@ -51,9 +51,9 @@ public class LobbyManager : MonoBehaviour
         int j = 0;
         for (int i = 0; i < DataManager.Instance.cardObjs.Count; i++)
         {
-            if (i!=0&&i % 9 == 0) j++;
+            if (i != 0 && i % 9 == 0) j++;
             GameObject temp = Instantiate(DataManager.Instance.cardObjs[i].gameObject, pages[j].transform);
-            temp.GetComponent<RectTransform>().localScale = new Vector3(1.7f, 2.55f,1);
+            temp.GetComponent<RectTransform>().localScale = new Vector3(1.7f, 2.55f, 1);
             CardBasic tempCardBasic = temp.GetComponent<CardBasic>();
             tempCardBasic.cardBasic = DataManager.Instance.cardObjs[i];
             Instantiate(num, temp.transform);

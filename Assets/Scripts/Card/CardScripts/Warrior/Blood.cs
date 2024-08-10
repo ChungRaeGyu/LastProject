@@ -17,8 +17,6 @@ public class Blood : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
         cardDrag = GetComponent<CardDrag>();
 

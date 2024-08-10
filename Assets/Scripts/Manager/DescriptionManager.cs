@@ -67,7 +67,7 @@ public class DescriptionManager : MonoBehaviour
     [Header("Manager")]
     [SerializeField] private LobbyButtonManager lobbyButtonManager;
 
-    GameObject tempCard;
+    public GameObject tempCard;
     int num = 1;
     public void ClosePanel()
     {
@@ -92,9 +92,13 @@ public class DescriptionManager : MonoBehaviour
     public void OpenPanel(CardBasic cardBasic)
     {
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
-        currentCard = cardBasic;
-        currentCard.cardBasic = cardBasic;
-        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
+        currentCard = cardBasic.cardBasic;
+        currentCard.cardBasic = cardBasic.cardBasic;
+        if (tempCard != null)
+        {
+            Destroy(tempCard);
+        }
+        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform.GetChild(0)); // 카드 정보 창의 보여줄 카드 생성
         //tempCard.GetComponent<CardData>().enabled = false;
         //Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
@@ -196,7 +200,7 @@ public class DescriptionManager : MonoBehaviour
                 }
                 DataManager.Instance.currentCrystal -= 300;
                 LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
-                currentCard.EnhanceCard();
+                currentCard.cardBasic.EnhanceCard();
                 UpdateCardUI();
                 break;
             case 1:
@@ -207,7 +211,7 @@ public class DescriptionManager : MonoBehaviour
                 }
                 DataManager.Instance.currentCrystal -= 500;
                 LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString();
-                currentCard.EnhanceCard();
+                currentCard.cardBasic.EnhanceCard();
                 UpdateCardUI();
                 break;
             case 2:
@@ -220,18 +224,19 @@ public class DescriptionManager : MonoBehaviour
 
     private void UpdateCardUI()
     {
-        // 기존에 표시된 카드를 파괴
-        Destroy(tempCard);
-
         // 강화된 카드 정보를 UI에 새로 표시
-        tempCard = Instantiate(currentCard.cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
+        if (tempCard != null)
+        {
+            Destroy(tempCard);
+        }
+        tempCard = Instantiate(currentCard.cardBasic.gameObject, descriptionPanel.transform.GetChild(0));
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
         tempCardRect.localScale = new Vector2(3, 4.5f);
-
-        tempCardRect.localPosition = targetEmptyObject.transform.localPosition; // 카드 위치 지정
-
+        tempCardRect.localPosition = targetEmptyObject.transform.localPosition;
         tempCardRect.sizeDelta = new Vector2(90, 90);
 
+        // 카드 UI 갱신
+        //currentCard.SetDescription(); // 강화된 상태에 맞게 카드 정보를 업데이트
         LobbyManager.instance.ReplaceCard(currentCard);
     }
 }

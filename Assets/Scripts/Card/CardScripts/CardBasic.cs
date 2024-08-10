@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum JOB
 {
@@ -147,24 +148,20 @@ public class CardBasic : MonoBehaviour
     // 강화 메서드
     public void EnhanceCard()
     {
-        cardBasic.enhancementLevel++;
+        enhancementLevel++;
     }
 
     // 강화 단계에 따른 능력치 적용
     public virtual void ApplyEnhancements()
     {
-        Image childImage = null;
+        Image childImage = transform.GetChild(1).GetComponent<Image>();
 
         switch (enhancementLevel)
         {
             case 1:
-                damageAbility += 3; // 데미지 증가
-                childImage = transform.GetChild(1).GetComponent<Image>();
                 if (childImage != null) childImage.sprite = firstEnhanceImage;
                 break;
             case 2:
-                damageAbility += 6; // 데미지 증가
-                childImage = transform.GetChild(1).GetComponent<Image>();
                 if (childImage != null) childImage.sprite = secondEnhanceImage;
                 break;
             default:

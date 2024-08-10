@@ -12,8 +12,6 @@ public class BasicAttack : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
@@ -103,7 +101,6 @@ public class BasicAttack : CardBasic
         {
             case 1:
                 damageAbility += 4; // 데미지 증가
-
                 break;
             case 2:
                 damageAbility += 8; // 데미지 증가

@@ -10,8 +10,6 @@ public class DefenceIncrease : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         SetDescription();
     }
 
