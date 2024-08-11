@@ -86,6 +86,7 @@ public class DataManager : MonoBehaviour
 
     //입장한 던전
     public int accessDungeonNum;
+    public int openDungeonNum;
 
     // 게임 재화
     //public int currentCoin { get; set; }
@@ -101,18 +102,18 @@ public class DataManager : MonoBehaviour
         Init();
     }
 
-    //private void OnApplicationQuit()
-    //{
-    //    //앱이 꺼질때 저장
-    //    Save();
-    //}
+    private void OnApplicationQuit()
+    {
+        //앱이 꺼질때 저장
+        Save();
+    }
 
     private void Init()
     {
         path = Path.Combine(Application.dataPath, "database.json");
-        Load();
         CardPiece = new int[(int)Rate.Count];
         RateSort();
+        Load();
         LobbyDeckRateCheckInit();
     }
 
@@ -229,12 +230,21 @@ public class DataManager : MonoBehaviour
     public void Save()
     {
         SaveData saveData = new SaveData();
-        saveData.cardObjs = cardObjs;
+
+        for(int i=0; i < cardObjs.Count;i++)
+        {
+            saveData.isFind[i] = cardObjs[i].isFind;
+            saveData.currentCount[i] = cardObjs[i].currentCount;
+            saveData.enhance[i] = cardObjs[i].enhancementLevel;
+        }
         saveData.LobbyDeck = LobbyDeck;
         saveData.currentCrystal = currentCrystal;
-        saveData.currentHealth = currenthealth;
-        saveData.maxHealth = maxHealth;
-        saveData.accessibleDungeonNum = accessDungeonNum;
+        saveData.openDungeonNum = openDungeonNum;
+
+        foreach(CardBasic cardBasic in cardObjs)
+        {
+
+        }
         //saveData.dataManager = DataManager.Instance;
         //PlayerCharacter
         /*
@@ -261,12 +271,15 @@ public class DataManager : MonoBehaviour
         saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
         //Todo: 로딩 씬 넣기
-        cardObjs = saveData.cardObjs;
+        for (int i = 0; i < cardObjs.Count; i++)
+        {
+            cardObjs[i].isFind = saveData.isFind[i];
+            cardObjs[i].currentCount = saveData.currentCount[i];
+            cardObjs[i].enhancementLevel = saveData.enhance[i];
+        }
         LobbyDeck = saveData.LobbyDeck;
         currentCrystal = saveData.currentCrystal;
-        currenthealth = saveData.currentHealth;
-        maxHealth = saveData.maxHealth;
-        accessDungeonNum = saveData.accessibleDungeonNum;
+        openDungeonNum = saveData.openDungeonNum;
         /*
         if (saveData.activeScenebuildindex == 3)
         {

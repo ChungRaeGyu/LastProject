@@ -22,6 +22,19 @@ public class SaveManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        accessDungeon = false;
+        isStartPoint = false;
+
+        accessibleDungeon[0] = true;
+        if (DataManager.Instance.openDungeonNum < accessibleDungeon.Length)
+        {
+            for (int i = 0; i <= DataManager.Instance.openDungeonNum; i++)
+            {
+                print("실행 : " + i);
+                accessibleDungeon[i] = true;
+            }
+        }
     }
 
     //던전에 입장 가능 여부
@@ -56,17 +69,10 @@ public class SaveManager : MonoBehaviour
 
 
     public System.Random random = new System.Random();
-
     void Start()
     {
-        accessDungeon = false;
-        isStartPoint = false;
 
-        accessibleDungeon[0] = true;
-        for(int i = 1; i< DataManager.Instance.accessDungeonNum; i++)
-        {
-            accessibleDungeon[i] = false;
-        }
+
 
         // Stopwatch 초기화
         if (stopwatch == null)
