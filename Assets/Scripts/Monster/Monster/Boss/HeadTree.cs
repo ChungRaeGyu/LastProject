@@ -88,7 +88,7 @@ public class HeadTree : MonsterCharacter
             {
                 yield return PerformAttack(monsterStats.attackPower * 3);
             }
-            else if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
+            else if (attackRandomValue < 10) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
             }
@@ -110,7 +110,7 @@ public class HeadTree : MonsterCharacter
         else if (attackRandomValue < 15)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
 
         // 공격 후에 다음 턴을 위해 GameManager에 알림
         GameManager.instance.EndMonsterTurn();
