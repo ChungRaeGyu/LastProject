@@ -63,6 +63,8 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,I
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= clickTime)
             {
+                SettingManager.Instance.PlaySound(SettingManager.Instance.CardSelect);
+
                 transform.SetParent(LobbyManager.instance.BookCanvas.transform);
                 transform.GetComponent<Image>().raycastTarget = false;
                 transform.SetAsLastSibling(); // 맨 위로 올리기
@@ -95,6 +97,8 @@ public class DeckListObj : MonoBehaviour,IPointerDownHandler,IPointerUpHandler,I
                 transform.GetComponent<Image>().raycastTarget = true;
 
             }
+
+            SettingManager.Instance.PlaySound(SettingManager.Instance.CardDrop);
         }
         isLongClick = false;
         isClick = false;
