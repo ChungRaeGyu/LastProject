@@ -10,12 +10,11 @@ public class CardData : MonoBehaviour
 {
     new RectTransform transform;
     CardBasic cardBasic;
-    Image[] image;
     Animator animator;
     Vector2 maxSize = new Vector2(5, 7.5f);
     Vector2 minSize = new Vector2(3, 4.5f);
     Coroutine coroutine;
-
+    Image[] image;
     private void Awake()
     {
         transform = GetComponent<RectTransform>();
@@ -25,42 +24,33 @@ public class CardData : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             animator.enabled = true;
+                        this.enabled = true;
+            if (!LobbyManager.instance.isDrawing)
+                CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
         }
         else
         {
             animator.enabled = false;
+            this.enabled = false;
         }
 
         // 변환된 값 계산
 
     }
-    private void Start()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            this.enabled = true;
-            if (cardBasic.cardBasic != null)
-                CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
-        }
-        else this.enabled = false;
-
-    }
     public void CardOpenControl(CardBasic tempCardBasic, bool check)
     {
+        image = GetComponentsInChildren<Image>();
+        Debug.Log("실행 : " + check);
         tempCardBasic.nameText.gameObject.SetActive(check);
         tempCardBasic.costText.gameObject.SetActive(check);
         tempCardBasic.descriptionText.gameObject.SetActive(check);
         if (check)
         {
-            image[0].sprite = cardBasic.image;
+            image[0].sprite = tempCardBasic.image;
         }
         else
         {
             image[0].sprite = DataManager.Instance.cardBackImage;
-        }
-        foreach(Image image in image)
-        {
-            Debug.Log("실행 : " + image.name);
         }
     }
     private float ConvertRange(float x, float length)
@@ -81,7 +71,7 @@ public class CardData : MonoBehaviour
 
         if (transform.localScale.x > 4.0f)
         {
-            if (coroutine == null && image[1].sprite == DataManager.Instance.cardBackImage)
+            if (coroutine == null && image[0].sprite == DataManager.Instance.cardBackImage)
             {
                 cardBasic.PlaySound(SettingManager.Instance.CardFlip);
                 animator.SetTrigger("Flip"); // 카드를 뒤집음
@@ -103,7 +93,7 @@ public class CardData : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        image[1].sprite = cardBasic.image;
+        image[0].sprite = cardBasic.image;
 
         // 텍스트가 보이게 한다
         SetTextVisibility(true);

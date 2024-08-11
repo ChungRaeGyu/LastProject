@@ -75,8 +75,8 @@ public class DrawSystem : MonoBehaviour
             GameObject tempObj = Instantiate(cardList[randomCard].gameObject, board.transform);
             
             Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
-            tempObjImage[1].sprite = DataManager.Instance.cardBackImage;
-            tempObjImage[1].raycastTarget = false;
+            tempObjImage[0].sprite = DataManager.Instance.cardBackImage;
+            tempObjImage[0].raycastTarget = false;
 
             // 텍스트들이 안보이게 한다
             tempObj.GetComponent<CardData>().SetTextVisibility(false);
@@ -95,6 +95,8 @@ public class DrawSystem : MonoBehaviour
             CardBasic temp = tempCardBasic.Dequeue();
             temp.currentCount++;
             temp.isFind = true;
+            Image[] tempImage = temp.GetComponentsInChildren<Image>();
+            temp.GetComponent<CardData>().CardOpenControl(temp, true);
             Destroy(cardObj);
         }
         LobbyManager.instance.InvokeCount();
@@ -107,8 +109,6 @@ public class DrawSystem : MonoBehaviour
     public void CloseCanvas()
     {
         SaveCardInBook();
-        Debug.Log("종료 : " + initTransform);
-        //boardtransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right,0,0);
     }
 
     public void OpenCard()
