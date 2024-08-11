@@ -22,6 +22,7 @@ public class StoreManager : MonoBehaviour
     public TMP_Text dungeonCoin; // 화면에 보여줄 던전코인의 개수
     public TMP_Text cardRemovePriceText; // 카드를 제거하는데에 드는 비용을 나타내는 TMP_Text
     public TMP_Text healthItemPriceText; // 카드를 제거하는데에 드는 비용을 나타내는 TMP_Text
+    public TMP_Text dungeonDeckCountText; // 카드를 제거하는데에 드는 비용을 나타내는 TMP_Text
 
     private Vector2 backButtonOriginalPos;
     private Vector2 lobbyButtonOriginalPos;
@@ -60,6 +61,8 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         deckPanel.SetActive(false);
+
+        dungeonDeckCountText.text = DataManager.Instance.deckList.Count.ToString();
 
         dungeonHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
@@ -154,6 +157,7 @@ public class StoreManager : MonoBehaviour
             // 동전 소리
             DataManager.Instance.currentCoin -= price;
             DataManager.Instance.AddCard(cardBasic); // 카드 추가
+            dungeonDeckCountText.text = DataManager.Instance.deckList.Count.ToString();
 
             // 구매한 카드 부모 오브젝트의 자식 카드들만 제거
             RemoveChildren(parent);

@@ -2546,10 +2546,14 @@ PrefabInstance:
     - target: {fileID: 2146374277994872979, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1871122196}
+      objectReference: {fileID: 1871122197}
     - target: {fileID: 2146374277994872979, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: ToggleDungeonDeckScrollView
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146374277994872979, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StoreManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5940854115335452340, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_Name
@@ -2645,6 +2649,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6390218137528365787, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
   m_PrefabInstance: {fileID: 789375441}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &789375443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6626358152686339122, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
+  m_PrefabInstance: {fileID: 789375441}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &844274057
 GameObject:
   m_ObjectHideFlags: 0
@@ -5989,6 +6004,7 @@ MonoBehaviour:
   dungeonCoin: {fileID: 398071307}
   cardRemovePriceText: {fileID: 1052915455}
   healthItemPriceText: {fileID: 2115616778}
+  dungeonDeckCountText: {fileID: 789375443}
   removeListManager: {fileID: 1871122199}
   cardListManager: {fileID: 1871122200}
   deckPanel: {fileID: 2090239066}
