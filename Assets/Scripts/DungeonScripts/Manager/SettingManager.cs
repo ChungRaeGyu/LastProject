@@ -193,6 +193,7 @@ public class SettingManager : MonoBehaviour
         UpdateButtonVisibility();
         DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
+        SaveManager.Instance.isBossStage = false;
         SceneFader.instance.LoadSceneWithFade(1);
     }
 
@@ -201,6 +202,7 @@ public class SettingManager : MonoBehaviour
         UpdateButtonVisibility();
         DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
+        SaveManager.Instance.isBossStage = false;
         SceneFader.instance.LoadSceneWithFade(2);
     }
 
