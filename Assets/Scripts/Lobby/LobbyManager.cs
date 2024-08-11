@@ -62,6 +62,23 @@ public class LobbyManager : MonoBehaviour
         DataManager.Instance.deckList.Clear();
     }
 
+    // 도감에 생성된 카드를 모두 삭제하고 다시 생성하는 메서드
+    public void ResetAndReinitialize()
+    {
+        // 모든 페이지에 있는 자식 오브젝트(카드)를 삭제
+        foreach (GameObject page in pages)
+        {
+            foreach (Transform child in page.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // 카드를 다시 생성
+        Init();
+    }
+
+
     public void InvokeCount()
     {
         OnCount?.Invoke();

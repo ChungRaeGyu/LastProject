@@ -96,14 +96,11 @@ public class DescriptionManager : MonoBehaviour
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
         currentCard = cardBasic.cardBasic;
         currentCard.cardBasic = cardBasic.cardBasic;
-        if (tempCard != null)
-        {
-            Destroy(tempCard);
-        }
         tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform.GetChild(0)); // 카드 정보 창의 보여줄 카드 생성
         //tempCard.GetComponent<CardData>().enabled = false;
         //Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
+
         tempCardRect.localScale = new Vector2(3, 4.5f);
 
         tempCardRect.localPosition = targetEmptyObject.transform.localPosition; // 카드 위치 지정
@@ -111,7 +108,6 @@ public class DescriptionManager : MonoBehaviour
         tempCardRect.sizeDelta = new Vector2(90, 90);
         descriptionPanel.SetActive(true);
         Debug.Log(tempCard.transform.GetChild(2).GetComponent<Image>().sprite.name);
-
     }
 
     public void DeCompositionPanelBtn()
@@ -240,6 +236,7 @@ public class DescriptionManager : MonoBehaviour
         tempCardRect.localScale = new Vector2(3, 4.5f);
         tempCardRect.localPosition = targetEmptyObject.transform.localPosition;
         tempCardRect.sizeDelta = new Vector2(90, 90);
+        Instantiate(LobbyManager.instance.num, tempCard.transform);
 
         // 카드 UI 갱신
         //currentCard.SetDescription(); // 강화된 상태에 맞게 카드 정보를 업데이트

@@ -154,6 +154,8 @@ public class CardBasic : MonoBehaviour
     // 강화 단계에 따른 능력치 적용
     public virtual void ApplyEnhancements()
     {
+        if (SceneManager.GetActiveScene().buildIndex != 1) return;
+
         Image childImage = transform.GetChild(1).GetComponent<Image>();
 
         switch (enhancementLevel)

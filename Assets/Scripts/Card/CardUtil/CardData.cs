@@ -10,16 +10,25 @@ public class CardData : MonoBehaviour
 {
     new RectTransform transform;
     CardBasic cardBasic;
+<<<<<<< Updated upstream
+=======
+    Image image;
+>>>>>>> Stashed changes
     Animator animator;
     Vector2 maxSize = new Vector2(5, 7.5f);
     Vector2 minSize = new Vector2(3, 4.5f);
     Coroutine coroutine;
+<<<<<<< Updated upstream
     Image[] image;
+=======
+    public bool isStartCompleted;
+
+>>>>>>> Stashed changes
     private void Awake()
     {
         transform = GetComponent<RectTransform>();
         cardBasic = GetComponent<CardBasic>();
-        image = GetComponentsInChildren<Image>();
+        image = transform.GetChild(1).GetComponent<Image>();
         animator = GetComponent<Animator>();
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -37,6 +46,7 @@ public class CardData : MonoBehaviour
         // 변환된 값 계산
 
     }
+<<<<<<< Updated upstream
     public void CardOpenControl(CardBasic tempCardBasic, bool check)
     {
         image = GetComponentsInChildren<Image>();
@@ -51,8 +61,47 @@ public class CardData : MonoBehaviour
         else
         {
             image[0].sprite = DataManager.Instance.cardBackImage;
+=======
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            this.enabled = true;
+            if (cardBasic.cardBasic != null)
+                CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
+        }
+        else this.enabled = false;
+
+        isStartCompleted = true;
+    }
+
+    public void CardOpenControl(CardBasic tempCardBasic, bool check)
+    {
+        SetTextVisibility(check, tempCardBasic);
+        if (check)
+        {
+            image.sprite = tempCardBasic.image;
+
+            switch (tempCardBasic.enhancementLevel)
+            {
+                case 1:
+                    image.sprite = tempCardBasic.firstEnhanceImage;
+                    break;
+                case 2:
+                    image.sprite = tempCardBasic.secondEnhanceImage;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            image.sprite = DataManager.Instance.cardBackImage;
+>>>>>>> Stashed changes
         }
     }
+
     private float ConvertRange(float x, float length)
     {
         float abs = Mathf.Abs(x - length/2) + length/2;
@@ -71,7 +120,11 @@ public class CardData : MonoBehaviour
 
         if (transform.localScale.x > 4.0f)
         {
+<<<<<<< Updated upstream
             if (coroutine == null && image[0].sprite == DataManager.Instance.cardBackImage)
+=======
+            if (coroutine == null && image.sprite == DataManager.Instance.cardBackImage)
+>>>>>>> Stashed changes
             {
                 cardBasic.PlaySound(SettingManager.Instance.CardFlip);
                 animator.SetTrigger("Flip"); // 카드를 뒤집음
@@ -83,20 +136,24 @@ public class CardData : MonoBehaviour
     }
 
     // 텍스트들을 보이거나 안보이게 하는 메서드
-    public void SetTextVisibility(bool isVisible)
+    public void SetTextVisibility(bool isVisible, CardBasic tempCardBasic)
     {
-        cardBasic.nameText.gameObject.SetActive(isVisible);
-        cardBasic.costText.gameObject.SetActive(isVisible);
-        cardBasic.descriptionText.gameObject.SetActive(isVisible);
+        tempCardBasic.nameText.gameObject.SetActive(isVisible);
+        tempCardBasic.costText.gameObject.SetActive(isVisible);
+        tempCardBasic.descriptionText.gameObject.SetActive(isVisible);
     }
 
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(0.2f);
+<<<<<<< Updated upstream
         image[0].sprite = cardBasic.image;
+=======
+        image.sprite = cardBasic.image;
+>>>>>>> Stashed changes
 
         // 텍스트가 보이게 한다
-        SetTextVisibility(true);
+        SetTextVisibility(true, cardBasic);
 
         coroutine = null;
     }
