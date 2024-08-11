@@ -7,7 +7,7 @@ public class DaggerGoblin : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
-    private int monsterTurn = 0;
+    //private int monsterTurn = 0;
     private int attackRandomValue;
 
     private new void Start()
