@@ -127,7 +127,7 @@ public class Demo : MonoBehaviour
     void NextPage()
     {
         if (isChangePage) return;
-        if (currentPage == 1)
+        if (currentPage == 0)
         {
             bookAnim.animator.SetBool("Open", true);
         }
