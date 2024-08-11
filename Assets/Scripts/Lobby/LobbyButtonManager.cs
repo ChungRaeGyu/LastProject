@@ -108,7 +108,7 @@ public class LobbyButtonManager : MonoBehaviour
             Debug.Log("카드가 부족해요~ 6장을 채워 주세요");
             return;
         }
-
+        DataManager.Instance.DungeonBoolSetting();//던전세팅
         SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         DataManager.Instance.SuffleDeckList();
         SceneFader.instance.LoadSceneWithFade(2);

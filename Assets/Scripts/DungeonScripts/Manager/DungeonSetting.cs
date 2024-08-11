@@ -10,26 +10,27 @@ public class DungeonSetting : MonoBehaviour
 
     void Start()
     {
-        if (gameObject.name == "02_Dungeon" && SaveManager.Instance.accessibleDungeon[1] == true)
+        Debug.Log("DungeonSetting");
+        if (gameObject.name == "02_Dungeon" && DataManager.Instance.accessibleDungeon[1] == true)
         {
 
             enterBtn.SetActive(true);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
-        else if (gameObject.name == "03_Dungeon" && SaveManager.Instance.accessibleDungeon[2] == true)
+        else if (gameObject.name == "03_Dungeon" && DataManager.Instance.accessibleDungeon[2] == true)
         {
             enterBtn.SetActive(true);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
-        else if (gameObject.name == "04_Dungeon" && SaveManager.Instance.accessibleDungeon[3] == true)
+        else if (gameObject.name == "04_Dungeon" && DataManager.Instance.accessibleDungeon[3] == true)
         {
             enterBtn.SetActive(true);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
-        else if (gameObject.name == "05_Dungeon" && SaveManager.Instance.accessibleDungeon[4] == true)
+        else if (gameObject.name == "05_Dungeon" && DataManager.Instance.accessibleDungeon[4] == true)
         {
             enterBtn.SetActive(true);
             lockDungeon.SetActive(false);

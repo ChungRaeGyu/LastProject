@@ -75,7 +75,6 @@ public class AllForOne : CardBasic
         SettingManager.Instance.PlaySound(CardClip1);
 
         List<CardBasic> tempCards = new List<CardBasic>();
-        targetMonster.TakeDamage(damageAbility);
         foreach(CardBasic temp in DataManager.Instance.usedCards)
         {
             if(temp.cost==0)

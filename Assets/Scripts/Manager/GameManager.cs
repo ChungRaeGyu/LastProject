@@ -384,7 +384,7 @@ public class GameManager : MonoBehaviour
         SaveManager.Instance.isBossStage = false;
         SaveManager.Instance.accessDungeon = false;
         DataManager.Instance.openDungeonNum++;
-        if (DataManager.Instance.openDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
+        if (DataManager.Instance.openDungeonNum < DataManager.Instance.accessibleDungeon.Length - 1)
         {
             if (DataManager.Instance.openDungeonNum == 4) return;
 

@@ -8,6 +8,7 @@ public class DaggerGoblin : MonsterCharacter
     private HpBar healthBarInstance;
 
     private int monsterTurn = 0;
+    private int attackRandomValue;
 
     private new void Start()
     {
@@ -21,7 +22,12 @@ public class DaggerGoblin : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+        attackRandomValue = random.Next(0, 100);
+
+        if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
@@ -67,7 +73,7 @@ public class DaggerGoblin : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (monsterTurn % 2 == 0) // 2턴 마다 공격력 2배 공격
+            if (attackRandomValue < 15) // 15% 확률로 출혈
             {
                 yield return PerformAttack(5);
                 GameManager.instance.player.BleedingForTunrs(2);
@@ -83,9 +89,9 @@ public class DaggerGoblin : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        monsterTurn++;
+        attackRandomValue = random.Next(0, 100);
 
-        if (monsterTurn % 2 == 0)
+        if (attackRandomValue < 15)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
