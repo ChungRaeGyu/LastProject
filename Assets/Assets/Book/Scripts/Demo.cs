@@ -73,11 +73,11 @@ public class Demo : MonoBehaviour
     }
     void CreditPage()
     {
-        if (currentPage == 4 || isChangePage) return;
+        if (currentPage == 5 || isChangePage) return;
         bookAnim.animator.SetBool("Open", false);
         isChangePage = true;
         audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
-        if (currentPage > 4)
+        if (currentPage > 5)
         {
             bookController.PreviousPage();
         }
@@ -85,14 +85,32 @@ public class Demo : MonoBehaviour
         {
             bookController.NextPage();
         }
-        currentPage = 4;
+        currentPage = 5;
         StartCoroutine(UpdatePageDelayed());
     }
     void GachaPage()
     {
-        if (currentPage == 1|| isChangePage) return;
+        if (currentPage == 0|| isChangePage) return;
         isChangePage = true;
         bookAnim.animator.SetBool("Open", false);
+        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
+        if (currentPage > 0)
+        {
+            bookController.PreviousPage();
+        }
+        else
+        {
+            bookController.NextPage();
+        }
+        currentPage = 0;
+        StartCoroutine(UpdatePageDelayed());
+    }
+
+    void BookPage()
+    {
+        if (currentPage == 1|| isChangePage) return;
+        isChangePage = true;
+        bookAnim.animator.SetBool("Open", true);
         audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
         if (currentPage > 1)
         {
@@ -103,24 +121,6 @@ public class Demo : MonoBehaviour
             bookController.NextPage();
         }
         currentPage = 1;
-        StartCoroutine(UpdatePageDelayed());
-    }
-
-    void BookPage()
-    {
-        if (currentPage == 2|| isChangePage) return;
-        isChangePage = true;
-        bookAnim.animator.SetBool("Open", true);
-        audioSource.PlayOneShot(pageTurnClip); // 페이지 넘기는 소리 재생
-        if (currentPage > 2)
-        {
-            bookController.PreviousPage();
-        }
-        else
-        {
-            bookController.NextPage();
-        }
-        currentPage = 2;
         StartCoroutine(UpdatePageDelayed());
     }
 
@@ -180,7 +180,8 @@ public class Demo : MonoBehaviour
     void UpdateButtonColors()
     {
         // 버튼 색상 설정
-        BookOpenButton.GetComponent<Image>().color = (currentPage == 2) ? highlightColor : defaultColor;
-        GaChaOpenButton.GetComponent<Image>().color = (currentPage == 1) ? highlightColor : defaultColor;
+        GaChaOpenButton.GetComponent<Image>().color = (currentPage == 0) ? highlightColor : defaultColor;
+        BookOpenButton.GetComponent<Image>().color = (currentPage >= 1 && currentPage <= 4) ? highlightColor : defaultColor;
+        CreditOpenButton.GetComponent<Image>().color = (currentPage == 5) ? highlightColor : defaultColor;
     }
 }

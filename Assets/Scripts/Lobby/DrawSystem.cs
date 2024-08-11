@@ -76,13 +76,6 @@ public class DrawSystem : MonoBehaviour
 
             int randomCard = Random.Range(0, cardList.Count);
             GameObject tempObj = Instantiate(cardList[randomCard].gameObject, board.transform);
-<<<<<<< Updated upstream
-            
-            Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
-            tempObjImage[0].sprite = DataManager.Instance.cardBackImage;
-            tempObjImage[0].raycastTarget = false;
-=======
->>>>>>> Stashed changes
 
             cardData = tempObj.GetComponent<CardData>();
 
@@ -119,8 +112,6 @@ public class DrawSystem : MonoBehaviour
             CardBasic temp = tempCardBasic.Dequeue();
             temp.currentCount++;
             temp.isFind = true;
-            Image[] tempImage = temp.GetComponentsInChildren<Image>();
-            temp.GetComponent<CardData>().CardOpenControl(temp, true);
             Destroy(cardObj);
         }
         LobbyManager.instance.InvokeCount();
@@ -133,12 +124,9 @@ public class DrawSystem : MonoBehaviour
     public void CloseCanvas()
     {
         SaveCardInBook();
-<<<<<<< Updated upstream
-=======
         LobbyManager.instance.ResetAndReinitialize();
 
         //boardtransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right,0,0);
->>>>>>> Stashed changes
     }
 
     public void OpenCard()

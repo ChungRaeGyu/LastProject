@@ -10,20 +10,13 @@ public class CardData : MonoBehaviour
 {
     new RectTransform transform;
     CardBasic cardBasic;
-<<<<<<< Updated upstream
-=======
     Image image;
->>>>>>> Stashed changes
     Animator animator;
     Vector2 maxSize = new Vector2(5, 7.5f);
     Vector2 minSize = new Vector2(3, 4.5f);
     Coroutine coroutine;
-<<<<<<< Updated upstream
-    Image[] image;
-=======
     public bool isStartCompleted;
 
->>>>>>> Stashed changes
     private void Awake()
     {
         transform = GetComponent<RectTransform>();
@@ -33,7 +26,7 @@ public class CardData : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             animator.enabled = true;
-                        this.enabled = true;
+            this.enabled = true;
             if (!LobbyManager.instance.isDrawing)
                 CardOpenControl(cardBasic, cardBasic.cardBasic.isFind);
         }
@@ -46,22 +39,6 @@ public class CardData : MonoBehaviour
         // 변환된 값 계산
 
     }
-<<<<<<< Updated upstream
-    public void CardOpenControl(CardBasic tempCardBasic, bool check)
-    {
-        image = GetComponentsInChildren<Image>();
-        Debug.Log("실행 : " + check);
-        tempCardBasic.nameText.gameObject.SetActive(check);
-        tempCardBasic.costText.gameObject.SetActive(check);
-        tempCardBasic.descriptionText.gameObject.SetActive(check);
-        if (check)
-        {
-            image[0].sprite = tempCardBasic.image;
-        }
-        else
-        {
-            image[0].sprite = DataManager.Instance.cardBackImage;
-=======
 
     private void Start()
     {
@@ -98,13 +75,12 @@ public class CardData : MonoBehaviour
         else
         {
             image.sprite = DataManager.Instance.cardBackImage;
->>>>>>> Stashed changes
         }
     }
 
     private float ConvertRange(float x, float length)
     {
-        float abs = Mathf.Abs(x - length/2) + length/2;
+        float abs = Mathf.Abs(x - length / 2) + length / 2;
 
         float xNorm = length / abs; //length전체 크기
 
@@ -120,11 +96,7 @@ public class CardData : MonoBehaviour
 
         if (transform.localScale.x > 4.0f)
         {
-<<<<<<< Updated upstream
-            if (coroutine == null && image[0].sprite == DataManager.Instance.cardBackImage)
-=======
             if (coroutine == null && image.sprite == DataManager.Instance.cardBackImage)
->>>>>>> Stashed changes
             {
                 cardBasic.PlaySound(SettingManager.Instance.CardFlip);
                 animator.SetTrigger("Flip"); // 카드를 뒤집음
@@ -146,11 +118,7 @@ public class CardData : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-<<<<<<< Updated upstream
-        image[0].sprite = cardBasic.image;
-=======
         image.sprite = cardBasic.image;
->>>>>>> Stashed changes
 
         // 텍스트가 보이게 한다
         SetTextVisibility(true, cardBasic);
