@@ -216,6 +216,7 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(DrawInitialHand(DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count));
             skip = true;
 
+            yield return new WaitUntil(() => playerTurn);
             foreach (MonsterCharacter monster in monsters)
             {
                 if (monster.monsterNextAction != null)
@@ -240,7 +241,7 @@ public class GameManager : MonoBehaviour
 
             if (volumeUp > 0) volumeUp = 0;
 
-           // Debug.Log("----- 몬스터들의 턴 시작 -----");
+            // Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
@@ -250,13 +251,11 @@ public class GameManager : MonoBehaviour
                 MonsterCharacter monster = monsters[i];
                 if (monster.currenthealth > 0)
                 {
-                   // Debug.Log($"----- 몬스터의 턴 시작 -----");
+                    // Debug.Log($"----- 몬스터의 턴 시작 -----");
                     yield return StartCoroutine(monster.Turn());
                     yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
             }
-
-
 
             turnCount++;
         }

@@ -57,6 +57,7 @@ public class RemoveListManager : MonoBehaviour
     {
         // DataManager.Instance.deckList에서 해당 카드 정보를 가진 카드 중 하나를 제거
         DataManager.Instance.deckList.Remove(cardData);
+        StoreManager.Instance.dungeonDeckCountText.text = DataManager.Instance.deckList.Count.ToString();
 
         // 패널 비활성화
         StoreManager.Instance.removePanel.SetActive(false);
