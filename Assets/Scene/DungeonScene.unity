@@ -7474,7 +7474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635272313}
-  - component: {fileID: 1635272314}
+  - component: {fileID: 1635272316}
   - component: {fileID: 1635272315}
   m_Layer: 0
   m_Name: DungeonManager
@@ -7498,7 +7498,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1635272314
+--- !u!114 &1635272315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7507,7 +7507,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1635272311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb2510136172e546a8b3d9654f99a7f, type: 3}
+  m_Script: {fileID: 11500000, guid: a3306e9dd5d37f346868ae9b14ce6375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckContent: {fileID: 836349895}
+  unUsedCardsContentHeightAdjuster: {fileID: 836349896}
+  sortDeckButton: {fileID: 836349894}
+  unUsedCostSortImage: {fileID: 836349893}
+--- !u!114 &1635272316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635272311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2b43e1202d3fd4a85044860d501cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonBoard: {fileID: 963368534}
@@ -7535,22 +7551,6 @@ MonoBehaviour:
   eventManager: {fileID: 433230344}
   cardListManager: {fileID: 1635272315}
   deckPanel: {fileID: 320541905}
---- !u!114 &1635272315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635272311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3306e9dd5d37f346868ae9b14ce6375, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deckContent: {fileID: 836349895}
-  unUsedCardsContentHeightAdjuster: {fileID: 836349896}
-  sortDeckButton: {fileID: 836349894}
-  unUsedCostSortImage: {fileID: 836349893}
 --- !u!1 &1653320623
 GameObject:
   m_ObjectHideFlags: 0
@@ -12067,7 +12067,7 @@ PrefabInstance:
     - target: {fileID: 2146374277994872979, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1635272314}
+      objectReference: {fileID: 0}
     - target: {fileID: 5940854115335452340, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_Name
       value: ShowDeckButton
