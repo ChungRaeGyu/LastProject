@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class CardData : MonoBehaviour
 {
@@ -34,13 +35,13 @@ public class CardData : MonoBehaviour
             this.enabled = false;
         }
 
+
         // 변환된 값 계산
 
     }
     public void CardOpenControl(CardBasic tempCardBasic, bool check)
     {
         image = GetComponentsInChildren<Image>();
-        Debug.Log("실행 : " + check);
         tempCardBasic.nameText.gameObject.SetActive(check);
         tempCardBasic.costText.gameObject.SetActive(check);
         tempCardBasic.descriptionText.gameObject.SetActive(check);

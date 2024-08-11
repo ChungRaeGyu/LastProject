@@ -95,7 +95,6 @@ public class DrawSystem : MonoBehaviour
             CardBasic temp = tempCardBasic.Dequeue();
             temp.currentCount++;
             temp.isFind = true;
-            Image[] tempImage = temp.GetComponentsInChildren<Image>();
             temp.GetComponent<CardData>().CardOpenControl(temp, true);
             Destroy(cardObj);
         }
