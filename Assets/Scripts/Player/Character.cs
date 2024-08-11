@@ -217,7 +217,7 @@ public class Character : MonoBehaviour
     public void PoisonForTunrs(int turns)
     {
         //µµÆ® µô
-        burnTurnsRemaining += turns;
+        poisonTurnsRemaining += turns;
         Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
         if (existingFrozenCondition != null)
         {
@@ -233,7 +233,7 @@ public class Character : MonoBehaviour
     {
         Debug.Log("¿©±â");
         //µµÆ® µô
-        burnTurnsRemaining += turns;
+        bleedingTurnsRemaining += turns;
         Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
         if (existingFrozenCondition != null)
         {

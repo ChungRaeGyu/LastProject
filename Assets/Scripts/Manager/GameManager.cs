@@ -385,7 +385,7 @@ public class GameManager : MonoBehaviour
         SaveManager.Instance.isBossStage = false;
         SaveManager.Instance.accessDungeon = false;
         DataManager.Instance.openDungeonNum++;
-        if (DataManager.Instance.openDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
+        if (DataManager.Instance.openDungeonNum < DataManager.Instance.accessibleDungeon.Length - 1)
         {
             if (DataManager.Instance.openDungeonNum == 4) return;
 
@@ -498,7 +498,7 @@ public class GameManager : MonoBehaviour
     {
         float shakeValue = 0.2f;
         float shaketime = 0.2f;
-        foreach(Transform pos in ShakeObject)
+        foreach (Transform pos in ShakeObject)
         {
             initialPosition.Add(pos.position);
         }

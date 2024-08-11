@@ -26,19 +26,12 @@ public class SaveManager : MonoBehaviour
         accessDungeon = false;
         isStartPoint = false;
 
-        accessibleDungeon[0] = true;
-        if (DataManager.Instance.openDungeonNum < accessibleDungeon.Length)
-        {
-            for (int i = 0; i <= DataManager.Instance.openDungeonNum; i++)
-            {
-                print("실행 : " + i);
-                accessibleDungeon[i] = true;
-            }
-        }
     }
 
+
+
     //던전에 입장 가능 여부
-    public bool[] accessibleDungeon = new bool[5];
+    
 
     //던전 입장 여부
     public bool accessDungeon;

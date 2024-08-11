@@ -96,6 +96,8 @@ public class DataManager : MonoBehaviour
 
     public int[] initnum = { 3, 0 };
 
+    public bool[] accessibleDungeon = new bool[5];
+
     string path;
     private void Start()
     {
@@ -111,6 +113,7 @@ public class DataManager : MonoBehaviour
     private void Init()
     {
         path = Path.Combine(Application.dataPath, "database.json");
+        accessibleDungeon[0] = true;
         CardPiece = new int[(int)Rate.Count];
         RateSort();
         Load();
@@ -226,6 +229,17 @@ public class DataManager : MonoBehaviour
     public void ResetPlayerHealth()
     {
         currenthealth = 0; // 일단 0으로 초기화 (0일때 최대값으로 들어가게 해놓은 로직이 player에 존재함)
+    }
+    public void DungeonBoolSetting()
+    {
+        if (openDungeonNum < accessibleDungeon.Length)
+        {
+            for (int i = 0; i <= openDungeonNum; i++)
+            {
+
+                accessibleDungeon[i] = true;
+            }
+        }
     }
     public void Save()
     {

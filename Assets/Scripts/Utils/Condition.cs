@@ -54,7 +54,7 @@ public class Condition : MonoBehaviour
     {
         stackCount -= amount;
         UpdateStackText();
-
+        Debug.Log("½ÇÇà : " + stackCount);
         if (stackCount <= 0)
         {
             character.conditionInstances.Remove(this);

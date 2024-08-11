@@ -136,16 +136,8 @@ public class Dungeon : MonoBehaviour
 
                 tempChild.SetActive(set);
                 tempChild2.GetComponent<Button>().enabled = set;
-                Debug.Log("실행");
             }
-            else
-            {
-                Debug.Log(numY);
-            }
-        }
-        else
-        {
-            Debug.Log(numX);
+
         }
     }
 
@@ -167,7 +159,6 @@ public class Dungeon : MonoBehaviour
                         {
                             stage[i, j] = Instantiate(startStage, stageBoard);
                             stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                            Debug.Log("실행");
                         }
                         else if (i == (x - 1) / 2 && j == (y - 1)){
                             stage[i, j] = Instantiate(bossStage, stageBoard);
@@ -216,7 +207,7 @@ public class Dungeon : MonoBehaviour
                         }
                         
                         stage[i, j].transform.position = new Vector2(j * 0.75f - a, i * 1.3f - b);
-                        Debug.Log($"stage num : {i},{j}");
+                        
                     }
                 }
             }
