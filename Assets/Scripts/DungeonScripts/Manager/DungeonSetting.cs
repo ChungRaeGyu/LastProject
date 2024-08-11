@@ -12,6 +12,7 @@ public class DungeonSetting : MonoBehaviour
     {
         if (gameObject.name == "02_Dungeon" && SaveManager.Instance.accessibleDungeon[1] == true)
         {
+
             enterBtn.SetActive(true);
             lockDungeon.SetActive(false);
             explain.SetActive(false);

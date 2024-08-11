@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using TMPro.EditorUtilities;
-using UnityEditor.Playables;
 using UnityEngine;
 
 public class MonsterCharacter : Character
