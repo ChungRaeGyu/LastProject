@@ -137,9 +137,10 @@ public class EffectManager : MonoBehaviour
     }
     IEnumerator Coroutine(CardBasic cardBasic)
     {
-        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
         for (int i = 0; i < cardBasic.utilAbility; i++)
         {
+            List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
+            if (monsters.Count == 0) yield break;
             int num = Random.Range(0, monsters.Count);
             GameObject tempPrefab = Instantiate(cardBasic.attackEffect, monsters[num].transform.position, cardBasic.attackEffect.transform.rotation);
             monsters[num].TakeDamage(cardBasic.damageAbility);

@@ -4008,17 +4008,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8549781734049411374, guid: 441c6d2d616d0784c802a76a5f497dfd, type: 3}
   m_PrefabInstance: {fileID: 1316361792}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &349414839 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9220730457061896070, guid: 28bd230078b50f1438973771a2325a0f, type: 3}
-  m_PrefabInstance: {fileID: 4030662632883150047}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf800b3abf46ab43a61baeeb87ff2c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &349414840 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6021093972899798978, guid: 28bd230078b50f1438973771a2325a0f, type: 3}
@@ -7140,13 +7129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battle: {fileID: 0}
-  eventStage: {fileID: 0}
-  store: {fileID: 0}
-  stageName: 
   stagePosition: {x: 0, y: 0, z: 0}
-  monsters:
-  - {fileID: 1251262228192278890, guid: 5072fe4041effa143b2029bb9f572a5f, type: 3}
+  x: 0
+  y: 0
 --- !u!224 &586289621 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5377127095403130929, guid: 9281e93df1961a8448237f32e33a1b93, type: 3}
@@ -12197,7 +12182,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -30013,7 +29998,7 @@ PrefabInstance:
     - target: {fileID: 1332323352209761507, guid: 28bd230078b50f1438973771a2325a0f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 349414839}
+      objectReference: {fileID: 0}
     - target: {fileID: 1332323352209761507, guid: 28bd230078b50f1438973771a2325a0f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -30177,13 +30162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323aa4c74e1be7045baa1ecb9e1c2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battle: {fileID: 0}
-  eventStage: {fileID: 0}
-  store: {fileID: 0}
-  stageName: 
   stagePosition: {x: 0, y: 0, z: 0}
-  monsters:
-  - {fileID: 1251262228192278890, guid: 5072fe4041effa143b2029bb9f572a5f, type: 3}
+  x: 0
+  y: 0
 --- !u!1001 &6718083752867416193
 PrefabInstance:
   m_ObjectHideFlags: 0
