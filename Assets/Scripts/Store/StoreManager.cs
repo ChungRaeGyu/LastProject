@@ -84,15 +84,13 @@ public class StoreManager : MonoBehaviour
 
         UpdateCoin();
 
-        if (CardParents.Count == 0 || Cards.Count == 0)
+        if (CardParents.Count == 0 || Cards.Count == 0) // 카드 부모 오브젝트 또는 카드 리스트가 비어 있습니다.
         {
-            Debug.LogError("카드 부모 오브젝트 또는 카드 리스트가 비어 있습니다.");
             return;
         }
 
-        if (Cards.Count < CardParents.Count)
+        if (Cards.Count < CardParents.Count) // 카드 부모 오브젝트의 수보다 카드의 수가 적습니다.
         {
-            Debug.LogError("카드 부모 오브젝트의 수보다 카드의 수가 적습니다.");
             return;
         }
 
@@ -160,15 +158,11 @@ public class StoreManager : MonoBehaviour
 
             button.onClick.AddListener(() => OnCardClicked(cardBasic, price, parent));
         }
-        else
-        {
-            Debug.LogError("가격을 표시할 TMP_Text 컴포넌트를 찾을 수 없습니다.");
-        }
+        // 가격을 표시할 TMP_Text 컴포넌트를 찾을 수 없습니다.
     }
 
     private void OnCardClicked(CardBasic cardBasic, int price, GameObject parent)
     {
-
         if (DataManager.Instance.currentCoin >= price)
         {
             SettingManager.Instance.PlaySound(StoreUseCoinClip);
@@ -183,11 +177,9 @@ public class StoreManager : MonoBehaviour
 
             UpdateCoin();
         }
-        else
+        else // 코인이 부족합니다!
         {
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
-
-            Debug.LogError("코인이 부족합니다!");
         }
     }
 
@@ -262,11 +254,9 @@ public class StoreManager : MonoBehaviour
             removePanel.SetActive(true);
             removeListManager.UpdateDeckList();
         }
-        else
+        else // 코인이 부족합니다!
         {
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
-
-            Debug.LogError("코인이 부족합니다!");
         }
     }
 
@@ -282,11 +272,9 @@ public class StoreManager : MonoBehaviour
             SettingManager.Instance.PlaySound(StoreUseCoinClip);
             UpdateCoin();
         }
-        else
+        else // 코인이 부족합니다!
         {
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
-
-            Debug.LogError("코인이 부족합니다!");
         }
     }
 
