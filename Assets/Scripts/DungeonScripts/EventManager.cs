@@ -266,12 +266,30 @@ public class EventManager : MonoBehaviour
 
         int randomIndex = Random.Range(0, randomCardList.Count);
         CardBasic selectedCard = randomCardList[randomIndex];
-
+        
         DataManager.Instance.deckList.Add(selectedCard);
+
+        string cardColor = "#FFFFFF"; // 흰색
+
+        switch (selectedCard.rate)
+        {
+            case Rate.Normal:
+                cardColor = "#8f8f8f";
+                break;
+            case Rate.Rarity:
+                cardColor = "#6866ff";
+                break;
+            case Rate.Hero:
+                cardColor = "#e766ff";
+                break;
+            case Rate.Legend:
+                cardColor = "#ffec00";
+                break;
+        }
 
         randomCardEventDescription.text = $"노인이 알 수 없는 표정을 지으며 카드를 건네줍니다. \n" +
             $"이 카드는 당신에게 도움이 될 것입니다. \n" +
-            $"<color=#8A2BE2>{selectedCard.cardName}</color>카드를 받았습니다.";
+            $"<color={cardColor}>{selectedCard.cardName}</color>카드를 받았습니다.";
 
         closeRandomCardEventText.text = "던전을 계속 진행한다.";
 

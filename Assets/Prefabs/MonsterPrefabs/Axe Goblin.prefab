@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4090704908121712260}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NamePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,6 +702,7 @@ MonoBehaviour:
   attackDescriptionObject: {fileID: 0}
   defenseDescriptionObject: {fileID: 0}
   healDescriptionObject: {fileID: 0}
+  isDead: 0
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &5702260185888998352
 BoxCollider2D:
@@ -2229,7 +2230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3334507297361079043}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NextActionPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}

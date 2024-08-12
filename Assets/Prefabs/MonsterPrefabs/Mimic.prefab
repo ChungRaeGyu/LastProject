@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2982275886279436249}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NamePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,6 +688,7 @@ MonoBehaviour:
   attackDescriptionObject: {fileID: 0}
   defenseDescriptionObject: {fileID: 0}
   healDescriptionObject: {fileID: 0}
+  isDead: 0
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!50 &-3910324011760169137
 Rigidbody2D:
@@ -832,7 +833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 374814737833453054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NextActionPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
