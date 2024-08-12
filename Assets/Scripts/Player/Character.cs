@@ -27,6 +27,8 @@ public class Character : MonoBehaviour
     }
     public virtual IEnumerator Turn()
     {
+        Debug.Log($"캐릭터 부모에서 턴 시작");
+
         if (frozenTurnsRemaining > 0)
         {
             frozenTurnsRemaining--;

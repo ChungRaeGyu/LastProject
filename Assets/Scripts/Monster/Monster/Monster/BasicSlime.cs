@@ -60,6 +60,8 @@ public class BasicSlime : MonsterCharacter
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.Turn();
 
+        Debug.Log($"끝나고 캐릭터 자식에서 턴 시작");
+
         if (!isFrozen)
         {
             if (isDead) yield break;
@@ -77,8 +79,6 @@ public class BasicSlime : MonsterCharacter
         attackRandomValue = random.Next(14, 18);
 
         attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
-
-        GameManager.instance.EndMonsterTurn();
     }
 
     protected override void Die()

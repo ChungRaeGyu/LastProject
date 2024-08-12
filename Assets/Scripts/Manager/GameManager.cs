@@ -235,15 +235,18 @@ public class GameManager : MonoBehaviour
                 yield return StartCoroutine(DrawInitialHand(DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count));
             skip = true;
 
-            yield return new WaitUntil(() => playerTurn);
             foreach (MonsterCharacter monster in monsters)
             {
                 if (monster.monsterNextAction != null)
                 {
+                    Debug.Log($"칼 모양 아직 있음");
+
                     if (monster.frozenTurnsRemaining < 1)
                         monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
                 }
             }
+
+            Debug.Log($"행동 가능함");
 
             while (playerTurn)
             {
@@ -272,7 +275,7 @@ public class GameManager : MonoBehaviour
                 {
                     // Debug.Log($"----- 몬스터의 턴 시작 -----");
                     yield return StartCoroutine(monster.Turn());
-                    yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
+                    //yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
             }
 
@@ -327,6 +330,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveMonsterDead(MonsterCharacter monster)
     {
+        Debug.Log("리스트에서 몬스터를 제거");
         monsters.Remove(monster);
         CheckAllMonstersDead();
     }
@@ -408,10 +412,6 @@ public class GameManager : MonoBehaviour
             if (DataManager.Instance.openDungeonNum == 4) return;
 
         }
-    }
-    public void EndMonsterTurn()
-    {
-        playerTurn = true;
     }
 
     public void EndPlayerTurn()
