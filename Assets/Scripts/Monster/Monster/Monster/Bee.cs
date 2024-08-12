@@ -73,7 +73,7 @@ public class Bee : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (attackRandomValue < 10) // 10% 확률로 공격력 1 / 2배 공격
+            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * (1 / 2));
                 Debug.Log(this.name + "이 강한공격!");

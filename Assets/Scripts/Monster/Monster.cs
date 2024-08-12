@@ -72,10 +72,6 @@ public class Monster : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        // 공격 후에 필요한 다른 동작
-
-        // 공격 후에 다음 턴을 위해 GameManager에 알림
-        GameManager.instance.EndMonsterTurn();
     }
 
     protected override void Die()
