@@ -275,7 +275,7 @@ public class UIManager : MonoBehaviour
         card.transform.localPosition = targetPosition;
     }
 
-    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.4f)
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.6f)
     {
         if (SaveManager.Instance.isEliteStage) openCardSelectionProbability = 1f;
 
