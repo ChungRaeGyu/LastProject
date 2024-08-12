@@ -921,7 +921,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3517258994809364458, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}
   m_PrefabInstance: {fileID: 622179444090228080}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 622179444090228081}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -5581,6 +5581,7 @@ MonoBehaviour:
   deckPanel: {fileID: 2090239066}
   removePanel: {fileID: 844274057}
   StoreUseCoinClip: {fileID: 8300000, guid: 1d6407a7073a4c64ebaa7464286ff57e, type: 3}
+  drinkClip: {fileID: 8300000, guid: 2e67986862f9ebd41a10565811f2b9b2, type: 3}
   availableCards: []
   dungeonHpText: {fileID: 1162097939}
   backgrounds:
@@ -6192,6 +6193,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2408548123827700964, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4240652100512747108, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}
       propertyPath: m_Name
       value: DungeonCoin
@@ -6199,8 +6204,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2408548123827700964, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 622179444090228082}
   m_SourcePrefab: {fileID: 100100000, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}
+--- !u!1 &622179444090228081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2408548123827700964, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}
+  m_PrefabInstance: {fileID: 622179444090228080}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &622179444090228082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622179444090228081}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8717528672ff1404b92670a6122973d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 398071307}
+  blinkDuration: 0.2
 --- !u!224 &6582673028265970159 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 598246211650543222, guid: 9394e04d32fb67d47af8dc7aa06fa495, type: 3}

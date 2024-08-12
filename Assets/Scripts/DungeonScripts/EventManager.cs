@@ -35,6 +35,7 @@ public class EventManager : MonoBehaviour
     public GameObject damageRandomCardEventSelectBtn;
     public TMP_Text closeRandomCardEventText;
     public GameObject randomCardEventImage;
+    public AudioClip runClip;
 
     [Header("HealEvent")]
     public TMP_Text healEventDescription;
@@ -224,6 +225,9 @@ public class EventManager : MonoBehaviour
             return; // 체력이 부족할 때 아무 것도 하지 않고 메서드 종료
         }
 
+        SettingManager.Instance.PlaySound(CoinClip);
+        SettingManager.Instance.PlaySound(runClip);
+
         DataManager.Instance.currenthealth -= 10;
         DungeonManager.Instance.currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
@@ -232,8 +236,6 @@ public class EventManager : MonoBehaviour
 
         DataManager.Instance.currentCoin += randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
-
-        SettingManager.Instance.PlaySound(CoinClip);
 
         randomCardEventDescription.text = $"노인을 공격하자, 노인의 신비한 저주가 너의 몸을 스치며, " +
             $"체력이 약간 줄어드는 것을 느꼈다. \n" +
@@ -260,6 +262,8 @@ public class EventManager : MonoBehaviour
             Debug.Log("코인이 부족합니다.");
             return; // 코인이 부족할 때 아무 것도 하지 않고 메서드 종료
         }
+
+        SettingManager.Instance.PlaySound(CoinClip);
 
         DataManager.Instance.currentCoin -= randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
@@ -347,6 +351,8 @@ public class EventManager : MonoBehaviour
             Debug.Log("코인이 부족합니다.");
             return; // 코인이 부족할 때 아무 것도 하지 않고 메서드 종료
         }
+
+        SettingManager.Instance.PlaySound(CoinClip);
 
         DataManager.Instance.currentCoin -= randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();

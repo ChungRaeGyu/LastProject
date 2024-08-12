@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class CardListManager : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class CardListManager : MonoBehaviour
         // 카드 프리팹을 사용하여 카드 생성
         GameObject newCard = Instantiate(cardData.gameObject, Vector3.zero, Quaternion.identity);
         newCard.GetComponent<CardBasic>().cardBasic = cardData;
+
+        // 메인씬에서 CardDrag 컴포넌트 제거
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+            Destroy(newCard.GetComponent<CardDrag>());
 
         ProcessCardObject(newCard);
 

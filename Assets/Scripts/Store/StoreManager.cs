@@ -41,6 +41,7 @@ public class StoreManager : MonoBehaviour
 
     [Header("AudioClip")]
     public AudioClip StoreUseCoinClip;
+    public AudioClip drinkClip;
 
     [SerializeField]
     List<GameObject> availableCards;
@@ -55,6 +56,7 @@ public class StoreManager : MonoBehaviour
 
     [Header("Dungeon Backgrounds")]
     [SerializeField] private SpriteRenderer currentBackgrounds;
+    private bool isRestoringColor;
 
     private void Awake()
     {
@@ -179,6 +181,7 @@ public class StoreManager : MonoBehaviour
         }
         else // 코인이 부족합니다!
         {
+            BlinkText(dungeonCoin, Color.red, 0.5f, 0.2f);
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         }
     }
@@ -256,6 +259,7 @@ public class StoreManager : MonoBehaviour
         }
         else // 코인이 부족합니다!
         {
+            BlinkText(dungeonCoin, Color.red, 0.5f, 0.2f);
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         }
     }
@@ -265,6 +269,7 @@ public class StoreManager : MonoBehaviour
     {
         if (DataManager.Instance.currentCoin >= healthprice)
         {
+            SettingManager.Instance.PlaySound(drinkClip);
             DataManager.Instance.currentCoin -= healthprice;
             dungeonCoin.text = DataManager.Instance.currentCoin.ToString();
             DataManager.Instance.currenthealth = DataManager.Instance.maxHealth;
@@ -274,6 +279,7 @@ public class StoreManager : MonoBehaviour
         }
         else // 코인이 부족합니다!
         {
+            BlinkText(dungeonCoin, Color.red, 0.5f, 0.2f);
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         }
     }
@@ -307,5 +313,36 @@ public class StoreManager : MonoBehaviour
             deckPanel,
             cardListManager.UpdateDungeonDeckList
         );
+    }
+
+    public void BlinkText(TMP_Text textComponent, Color blinkColor, float blinkDuration, float blinkInterval)
+    {
+        // 연속 클릭 방지
+        if (isRestoringColor) return;
+
+        StartCoroutine(BlinkTextCoroutine(textComponent, blinkColor, blinkDuration, blinkInterval));
+    }
+
+    private IEnumerator BlinkTextCoroutine(TMP_Text textComponent, Color blinkColor, float blinkDuration, float blinkInterval)
+    {
+        isRestoringColor = true;
+
+        Color originalColor = textComponent.color;
+        TextBlink blinkScript = textComponent.GetComponent<TextBlink>();
+        if (blinkScript == null)
+        {
+            blinkScript = textComponent.gameObject.AddComponent<TextBlink>();
+        }
+        blinkScript.blinkDuration = blinkInterval; // 깜빡임 주기 설정
+        blinkScript.enabled = true;
+
+        textComponent.color = blinkColor;
+
+        yield return new WaitForSeconds(blinkDuration);
+
+        blinkScript.enabled = false;
+        textComponent.color = originalColor;
+
+        isRestoringColor = false;
     }
 }
