@@ -9,7 +9,7 @@ public class SpierQueen : MonsterCharacter
 
     private int monsterTurn = 0;
     private int attackRandomValue;
-    private bool bossheal = false;
+    // private bool bossheal = false;
 
     private new void Start()
     {
