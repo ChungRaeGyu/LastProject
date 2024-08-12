@@ -36,6 +36,7 @@ public class DescriptionManager : MonoBehaviour
     #endregion
 
     [Header("descriptionPanel")]
+    public GameObject descriptionCanvas;
     public GameObject descriptionPanel;
 
     [Header("Deck")]
@@ -74,7 +75,7 @@ public class DescriptionManager : MonoBehaviour
     public void ClosePanel()
     {
         audioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
-        descriptionPanel.SetActive(false);
+        descriptionCanvas.SetActive(false);
         currentCard = null;
         Destroy(tempCard);
         SetClose();
@@ -94,9 +95,10 @@ public class DescriptionManager : MonoBehaviour
     public void OpenPanel(CardBasic cardBasic)
     {
         audioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+        descriptionCanvas.SetActive(true);
         currentCard = cardBasic.cardBasic;
         currentCard.cardBasic = cardBasic.cardBasic;
-        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform.GetChild(0)); // 카드 정보 창의 보여줄 카드 생성
+        tempCard = Instantiate(cardBasic.gameObject, descriptionPanel.transform); // 카드 정보 창의 보여줄 카드 생성
         //tempCard.GetComponent<CardData>().enabled = false;
         //Destroy(tempCard.transform.GetChild(2).gameObject);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
@@ -106,7 +108,6 @@ public class DescriptionManager : MonoBehaviour
         tempCardRect.localPosition = targetEmptyObject.transform.localPosition; // 카드 위치 지정
 
         tempCardRect.sizeDelta = new Vector2(90, 90);
-        descriptionPanel.SetActive(true);
         Debug.Log(tempCard.transform.GetChild(2).GetComponent<Image>().sprite.name);
     }
 
@@ -231,7 +232,7 @@ public class DescriptionManager : MonoBehaviour
         {
             Destroy(tempCard);
         }
-        tempCard = Instantiate(currentCard.cardBasic.gameObject, descriptionPanel.transform.GetChild(0));
+        tempCard = Instantiate(currentCard.cardBasic.gameObject, descriptionPanel.transform);
         RectTransform tempCardRect = tempCard.GetComponent<RectTransform>();
         tempCardRect.localScale = new Vector2(3, 4.5f);
         tempCardRect.localPosition = targetEmptyObject.transform.localPosition;

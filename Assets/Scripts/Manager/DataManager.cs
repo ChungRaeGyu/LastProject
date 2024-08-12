@@ -110,6 +110,15 @@ public class DataManager : MonoBehaviour
         Save();
     }
 
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            // 앱이 백그라운드로 전환될 때 데이터를 저장
+            Save();
+        }
+    }
+
     private void Init()
     {
         path = Path.Combine(Application.persistentDataPath, "database.json");

@@ -110,7 +110,6 @@ public class LobbyManager : MonoBehaviour
         // 지정한 카드를 찾지 못한 경우
         if (pageIndex == -1)
         {
-            Debug.LogError("지정한 카드를 찾을 수 없습니다.");
             return;
         }
 
