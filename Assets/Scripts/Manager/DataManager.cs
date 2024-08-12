@@ -104,10 +104,19 @@ public class DataManager : MonoBehaviour
         Init();
     }
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
         //앱이 꺼질때 저장
         Save();
+    }
+
+    public void OnGameExitButtonClick()
+    {
+        // 데이터 저장
+        Save();
+
+        // 데이터가 완전히 저장된 후에 앱 종료
+        Application.Quit();
     }
 
     private void OnApplicationPause(bool pauseStatus)
