@@ -101,7 +101,7 @@ public class FireBall : CardBasic
                 damageAbility += 3; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 3; // 데미지 증가
+                damageAbility += 4; // 데미지 증가
                 utilAbility += 1;
                 break;
             default:

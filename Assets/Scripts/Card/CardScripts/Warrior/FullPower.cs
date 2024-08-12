@@ -101,10 +101,10 @@ public class FullPower: CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                damageAbility += 2; // 데미지 증가
+                damageAbility += 3; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 4; // 데미지 증가
+                damageAbility += 6; // 데미지 증가
                 break;
             default:
                 break;

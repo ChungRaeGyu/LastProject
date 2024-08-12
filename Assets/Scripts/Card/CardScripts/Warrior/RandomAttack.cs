@@ -107,7 +107,7 @@ public class RandomAttack : CardBasic
                 damageAbility += 2; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 3; // 데미지 증가
+                damageAbility += 5; // 데미지 증가
                 break;
             default:
                 break;

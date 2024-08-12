@@ -109,8 +109,8 @@ public class Blood : CardBasic
                 damageAbility += 5; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 5; // 데미지 증가
-                utilAbility += 5; // 흡혈량 증가
+                damageAbility += 7; // 데미지 증가
+                utilAbility += 7; // 흡혈량 증가
                 break;
             default:
                 break;
