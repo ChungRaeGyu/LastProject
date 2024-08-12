@@ -87,12 +87,18 @@ public class GameManager : MonoBehaviour
     public Queue<CardBasic> cardQueue = new Queue<CardBasic>();
     public bool isPlayingCard = false;
 
-
     [Header("ShakeObject")]
     float ShakeAmount = 0.2f;
     float ShakeTime;
     List<Vector3> initialPosition = new List<Vector3>();
     public List<Transform> ShakeObject = new List<Transform>();
+
+    [Header("Backgrounds")]
+    [SerializeField] private List<Sprite> backgrounds = new List<Sprite>();
+
+    [Header("Dungeon Backgrounds")]
+    [SerializeField] private SpriteRenderer battleBG;  // BattleBG에 해당하는 배경
+
     private void Awake()
     {
         if (instance == null)
@@ -104,6 +110,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        SetBackgroundBasedOnDungeonNum();
 
         // 플레이어 생성
         if (playerPrefab != null)
@@ -118,6 +126,17 @@ public class GameManager : MonoBehaviour
 
         // 몬스터 생성
         SpawnMonsters();
+    }
+
+    private void SetBackgroundBasedOnDungeonNum()
+    {
+        int dungeonNum = DataManager.Instance.accessDungeonNum;
+
+        // dungeonNum이 리스트 범위 내에 있는 경우 해당 배경 선택
+        if (dungeonNum >= 0 && dungeonNum < backgrounds.Count)
+        {
+            battleBG.sprite = backgrounds[dungeonNum];
+        }
     }
 
     private void Start()

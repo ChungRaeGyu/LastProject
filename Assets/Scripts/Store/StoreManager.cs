@@ -50,6 +50,12 @@ public class StoreManager : MonoBehaviour
     // 카드 제거를 이번 상점에서 구매했는지 확인
     private bool purchased;
 
+    [Header("Backgrounds")]
+    [SerializeField] private List<Sprite> backgrounds = new List<Sprite>();
+
+    [Header("Dungeon Backgrounds")]
+    [SerializeField] private SpriteRenderer currentBackgrounds;
+
     private void Awake()
     {
         if (Instance == null)
@@ -60,6 +66,8 @@ public class StoreManager : MonoBehaviour
 
     private void Start()
     {
+        SetBackgroundBasedOnDungeonNum();
+
         deckPanel.SetActive(false);
 
         dungeonDeckCountText.text = DataManager.Instance.deckList.Count.ToString();
@@ -100,6 +108,17 @@ public class StoreManager : MonoBehaviour
 
             // 선택된 카드를 리스트에서 제거 (중복 방지용)
             availableCards.RemoveAt(randomIndex);
+        }
+    }
+
+    private void SetBackgroundBasedOnDungeonNum()
+    {
+        int dungeonNum = DataManager.Instance.accessDungeonNum;
+
+        // dungeonNum이 리스트 범위 내에 있는 경우 해당 배경 선택
+        if (dungeonNum >= 0 && dungeonNum < backgrounds.Count)
+        {
+            currentBackgrounds.sprite = backgrounds[dungeonNum];
         }
     }
 
