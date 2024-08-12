@@ -686,6 +686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a206e0a6663c454fbd340fe1d8d133e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 99862699}
 --- !u!1 &105229452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: f34c3ef094155435e98e4481af08299b, type: 3}
@@ -3885,12 +3886,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LobbyDeck:
-  - {fileID: 7783122066741445201, guid: be8db2c4f8b45904e8b22df7492b6b60, type: 3}
-  - {fileID: 1885444001074144362, guid: 71b0b5bc1d022d4449f214428a15bc82, type: 3}
   - {fileID: 1516393449248830274, guid: 8b2bff841566bcf4c92619e84c1dea51, type: 3}
   - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
   - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
   - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
+  - {fileID: 466525330112612856, guid: ffb64d0379fbdd24b83e0e93dcc8fe5c, type: 3}
+  - {fileID: 1516393449248830274, guid: 8b2bff841566bcf4c92619e84c1dea51, type: 3}
   LobbyDeckRateCheck: 00000000000000000000000000000000
   deckList: []
   usedCards: []
@@ -3922,7 +3923,7 @@ MonoBehaviour:
   accessDungeonNum: 1
   openDungeonNum: 0
   currentCoin: 0
-  currentCrystal: 999999
+  currentCrystal: 700
   initnum: 0300000000000000
   accessibleDungeon: 0000000000
 --- !u!4 &594298872

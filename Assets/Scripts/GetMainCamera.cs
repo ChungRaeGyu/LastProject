@@ -8,13 +8,16 @@ public class GetMainCamera : MonoBehaviour
     Canvas canvas;
     private void Awake()
     {
-        canvas = GetComponent<Canvas>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        canvas = GetComponent<Canvas>();
     }
 
     void OnSceneLoaded(Scene scene,LoadSceneMode mode)
     {
-        Debug.Log("½ÇÇà");    
+        if (canvas == null)
+        {
+            return;
+        }
         canvas.worldCamera = Camera.main;
     }
 }
