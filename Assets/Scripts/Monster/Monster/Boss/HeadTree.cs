@@ -86,7 +86,7 @@ public class HeadTree : MonsterCharacter
             {
                 yield return PerformAttack(monsterStats.attackPower * 3);
             }
-            else if (attackRandomValue < 10) // 15% 확률로 공격력 2배 공격
+            else if (attackRandomValue < 10) // 10% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
             }

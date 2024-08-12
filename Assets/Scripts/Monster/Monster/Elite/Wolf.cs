@@ -82,9 +82,10 @@ public class Wolf : MonsterCharacter
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 3배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 3);
+                yield return PerformAttack(monsterStats.attackPower * 3 + 5);
+                GameManager.instance.player.BleedingForTunrs(2);
+
                 Debug.Log(this.name + "이 강한공격!");
-                yield return PerformAttack(5);
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
             }
             else

@@ -24,7 +24,7 @@ public class AxeGoblin : MonsterCharacter
 
         attackRandomValue = random.Next(0, 100);
 
-        if (attackRandomValue < 15)
+        if (attackRandomValue < 10)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
@@ -74,7 +74,7 @@ public class AxeGoblin : MonsterCharacter
 
             yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-            if (attackRandomValue < 15) // 15% 확률로 출혈
+            if (attackRandomValue < 10) // 10% 확률로 출혈
             {
                 yield return PerformAttack(5);
                 GameManager.instance.player.BleedingForTunrs(2);
@@ -92,7 +92,7 @@ public class AxeGoblin : MonsterCharacter
 
         attackRandomValue = random.Next(0, 100);
 
-        if (attackRandomValue < 15)
+        if (attackRandomValue < 10)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
