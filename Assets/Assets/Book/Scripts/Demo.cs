@@ -146,11 +146,11 @@ public class Demo : MonoBehaviour
     {
         if (isChangePage) return;
         isChangePage = true;
-        if (currentPage == 2)
+        if (currentPage == 1)
         {
             bookAnim.animator.SetBool("Open", false);
         }
-        if (currentPage == 4)
+        if (currentPage == 3)
         {
             bookAnim.animator.SetBool("Open", true);
         }
