@@ -230,7 +230,6 @@ public class UIManager : MonoBehaviour
 
     private void OnClickRewardCard(int cardIndex)
     {
-        Debug.Log($"클릭된 카드의 인덱스 {cardIndex}");
 
         // 클릭한 보상 카드를 DataManager에 추가
         if (DataManager.Instance != null)

@@ -121,7 +121,7 @@ public class DataManager : MonoBehaviour
 
     private void Init()
     {
-        path = Path.Combine(Application.dataPath, "database.json");
+        path = Path.Combine(Application.persistentDataPath, "database.json");
         accessibleDungeon[0] = true;
         CardPiece = new int[(int)Rate.Count];
         RateSort();

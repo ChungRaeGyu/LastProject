@@ -10,7 +10,6 @@ public class DungeonSetting : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("DungeonSetting");
         if (gameObject.name == "02_Dungeon" && DataManager.Instance.accessibleDungeon[1] == true)
         {
 
@@ -86,35 +85,30 @@ public class DungeonSetting : MonoBehaviour
                 DungeonManager.Instance.dungeonNum[0].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 0;
-                Debug.Log("1번째 던전에 입장하셨습니다.");
                 break;
 
             case "02_Dungeon":
                 DungeonManager.Instance.dungeonNum[1].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 1;
-                Debug.Log("2번째 던전에 입장하셨습니다.");
                 break;
 
             case "03_Dungeon":
                 DungeonManager.Instance.dungeonNum[2].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 2;
-                Debug.Log("3번째 던전에 입장하셨습니다.");
                 break;
 
             case "04_Dungeon":
                 DungeonManager.Instance.dungeonNum[3].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 3;
-                Debug.Log("4번째 던전에 입장하셨습니다.");
                 break;
 
             case "05_Dungeon":
                 DungeonManager.Instance.dungeonNum[4].SetActive(true);
                 SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 4;
-                Debug.Log("5번째 던전에 입장하셨습니다.");
                 break;
         }
         DataManager.Instance.initnum[0] = 3;
