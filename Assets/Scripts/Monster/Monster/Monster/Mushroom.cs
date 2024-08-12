@@ -75,7 +75,6 @@ public class Mushroom : MonsterCharacter
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
-                Debug.Log(this.name + "이 강한공격!");
             }
             else
             {

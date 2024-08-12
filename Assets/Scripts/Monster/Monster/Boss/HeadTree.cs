@@ -61,8 +61,6 @@ public class HeadTree : MonsterCharacter
     public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
-
-        Debug.Log("----- 보스의 " + monsterTurn + "턴 째 -----");
         yield return base.Turn();
 
         if (!isFrozen)
