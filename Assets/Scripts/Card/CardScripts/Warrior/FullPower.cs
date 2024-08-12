@@ -104,8 +104,7 @@ public class FullPower: CardBasic
                 damageAbility += 2; // 데미지 증가
                 break;
             case 2:
-                damageAbility += 3; // 데미지 증가
-                cost -= 1; // 코스트 감소
+                damageAbility += 4; // 데미지 증가
                 break;
             default:
                 break;
