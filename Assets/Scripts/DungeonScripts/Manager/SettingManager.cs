@@ -137,6 +137,7 @@ public class SettingManager : MonoBehaviour
 
         // 새 BGM 재생
         BGMAudioSource.clip = newClip;
+        BGMAudioSource.loop = true;
         BGMAudioSource.Play();
 
         // 새 BGM의 볼륨 증가
