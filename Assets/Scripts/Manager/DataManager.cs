@@ -269,14 +269,12 @@ public class DataManager : MonoBehaviour
             saveData.currentCount[i] = cardObjs[i].currentCount;
             saveData.enhance[i] = cardObjs[i].enhancementLevel;
         }
+        saveData.cardPiece = CardPiece;
         saveData.LobbyDeck = LobbyDeck;
         saveData.currentCrystal = currentCrystal;
         saveData.openDungeonNum = openDungeonNum;
 
-        foreach(CardBasic cardBasic in cardObjs)
-        {
 
-        }
         //saveData.dataManager = DataManager.Instance;
         //PlayerCharacter
         /*
@@ -302,6 +300,7 @@ public class DataManager : MonoBehaviour
         string loadJson = File.ReadAllText(path);
         saveData = JsonUtility.FromJson<SaveData>(loadJson);
 
+        
         //Todo: ·Îµù ¾À ³Ö±â
         for (int i = 0; i < cardObjs.Count; i++)
         {
@@ -309,9 +308,14 @@ public class DataManager : MonoBehaviour
             cardObjs[i].currentCount = saveData.currentCount[i];
             cardObjs[i].enhancementLevel = saveData.enhance[i];
         }
+       ;
+        CardPiece = saveData.cardPiece;
         LobbyDeck = saveData.LobbyDeck;
         currentCrystal = saveData.currentCrystal;
         openDungeonNum = saveData.openDungeonNum;
+
+
+
         /*
         if (saveData.activeScenebuildindex == 3)
         {
