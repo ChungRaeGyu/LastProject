@@ -35,12 +35,6 @@ public class GiantTurtle : MonsterCharacter
     protected override void Update()
     {
         base.Update();
-
-        // 얼면 아무것도 띄우지 않는다.
-        if (isFrozen)
-        {
-            attackDescriptionText.text = "";
-        }
     }
 
     public override void TakeDamage(int damage)

@@ -30,12 +30,6 @@ public class KingSlime : MonsterCharacter
     {
         base.Update();
 
-        // 얼면 아무것도 띄우지 않는다.
-        if (isFrozen)
-        {
-            attackDescriptionText.text = "";
-        }
-
         if (currenthealth < monsterStats.maxhealth / 2 && !bossheal)
             util1DescriptionText.text = $"<color=#FF7F50><size=30><b>재생</b></size></color>\n <color=#FFFF00>{30}</color>의 체력을 회복합니다.";
         else

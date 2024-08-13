@@ -47,6 +47,7 @@ public class MonsterCharacter : Character
     public GameObject defenseDescriptionObject;
     public GameObject healDescriptionObject;
     public bool isDead;
+    public bool showActionFrozenAction;
 
     public void Start()
     {
@@ -107,6 +108,13 @@ public class MonsterCharacter : Character
         monsterName.position = monsterNamePos.position;
         monsterNextActionList.position = transform.position;
         MonsterCondition.position = conditionPos.position;
+
+        //// 얼면 아무것도 띄우지 않는다.
+        //if (isFrozen && showActionFrozenAction)
+        //{
+        //    showActionFrozenAction = false;
+        //    attackDescriptionText.text = "";
+        //}
     }
 
     public virtual void TakeDamage(int damage)
