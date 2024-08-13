@@ -19,5 +19,6 @@ public class GetMainCamera : MonoBehaviour
             return;
         }
         canvas.worldCamera = Camera.main;
+        canvas.planeDistance = 0.4f;
     }
 }
