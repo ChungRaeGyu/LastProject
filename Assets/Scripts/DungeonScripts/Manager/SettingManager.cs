@@ -195,6 +195,7 @@ public class SettingManager : MonoBehaviour
         DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
         SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
         SceneFader.instance.LoadSceneWithFade(1);
     }
 
@@ -204,6 +205,7 @@ public class SettingManager : MonoBehaviour
         DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
         SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
         SceneFader.instance.LoadSceneWithFade(2);
     }
 
