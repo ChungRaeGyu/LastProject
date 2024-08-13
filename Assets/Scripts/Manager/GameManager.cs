@@ -409,7 +409,7 @@ public class GameManager : MonoBehaviour
         DataManager.Instance.openDungeonNum++;
         if (DataManager.Instance.openDungeonNum < DataManager.Instance.accessibleDungeon.Length - 1)
         {
-            if (DataManager.Instance.openDungeonNum == 4) return;
+            if (DataManager.Instance.openDungeonNum >= 4) return;
 
         }
     }
