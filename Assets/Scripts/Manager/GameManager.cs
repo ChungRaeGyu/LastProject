@@ -530,23 +530,20 @@ public class GameManager : MonoBehaviour
         {
             if (ShakeTime > 0)
             {
-                ShakeObject[0].position = Random.insideUnitSphere * ShakeAmount + initialPosition[0];
-                ShakeObject[1].position = Random.insideUnitSphere * ShakeAmount + initialPosition[1];
-                ShakeObject[2].position = Random.insideUnitSphere * ShakeAmount + initialPosition[2];
-                ShakeObject[3].position = Random.insideUnitSphere * ShakeAmount + initialPosition[3];
-                ShakeObject[4].position = Random.insideUnitSphere * ShakeAmount + initialPosition[4];
-                ShakeObject[5].position = Random.insideUnitSphere * ShakeAmount + initialPosition[5];
+                for(int i=0; i < ShakeObject.Count; i++)
+                {
+                    ShakeObject[i].position = Random.insideUnitSphere * ShakeAmount + initialPosition[i];
+
+                }
                 ShakeTime -= Time.deltaTime;
                 yield return null;
             }
             else
             {
-                ShakeObject[0].position = initialPosition[0];
-                ShakeObject[1].position = initialPosition[1];
-                ShakeObject[2].position = initialPosition[2];
-                ShakeObject[3].position = initialPosition[3];
-                ShakeObject[4].position = initialPosition[4];
-                ShakeObject[5].position = initialPosition[5];
+                for (int i = 0; i < ShakeObject.Count; i++)
+                {
+                    ShakeObject[i].position = initialPosition[i];
+                }
 
                 break;
             }
