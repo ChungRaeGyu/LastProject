@@ -25,13 +25,13 @@ public class DungeonSetting : MonoBehaviour
         }
         else if (gameObject.name == "04_Dungeon" && DataManager.Instance.accessibleDungeon[3] == true)
         {
-            enterBtn.SetActive(true);
+            enterBtn.SetActive(false);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
         else if (gameObject.name == "05_Dungeon" && DataManager.Instance.accessibleDungeon[4] == true)
         {
-            enterBtn.SetActive(true);
+            enterBtn.SetActive(false);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
