@@ -540,6 +540,8 @@ public class UIManager : MonoBehaviour
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
 
+        SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
         DataManager.Instance.currentCrystal += DataManager.Instance.DefeatTotalCrystal;
         SaveManager.Instance.accessDungeon = false;
         SceneFader.instance.LoadSceneWithFade(1); // 로비 씬의 빌드 인덱스를 사용하여 로드

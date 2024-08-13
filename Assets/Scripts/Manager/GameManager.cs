@@ -343,6 +343,8 @@ public class GameManager : MonoBehaviour
         // 보스 클리어 확인
         if (SaveManager.Instance.isBossStage)
         {
+            SaveManager.Instance.isBossStage = false;
+            SaveManager.Instance.isEliteStage = false;
             DataManager.Instance.ClearBossesDefeatedCount++;
             SaveManager.Instance.StopTrackingTime();
             DataManager.Instance.ClearTotalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
@@ -363,7 +365,8 @@ public class GameManager : MonoBehaviour
         else
         {
             SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
-            SaveManager.Instance.isEliteStage = false; //엘리트몹 잡았을 시 초기화
+            SaveManager.Instance.isBossStage = false;
+            SaveManager.Instance.isEliteStage = false;
             SceneFader.instance.LoadSceneWithFade(2);
         }
     }
@@ -405,6 +408,7 @@ public class GameManager : MonoBehaviour
     private void StageCheck()
     {
         SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
         SaveManager.Instance.accessDungeon = false;
         DataManager.Instance.openDungeonNum++;
         if (DataManager.Instance.openDungeonNum < DataManager.Instance.accessibleDungeon.Length - 1)
