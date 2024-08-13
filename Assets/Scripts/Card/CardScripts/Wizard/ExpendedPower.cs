@@ -15,6 +15,12 @@ public class ExpendedPower : CardBasic
         SetDescription();
     }
 
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+            descriptionText.text = $"사용되지 않은 카드 수 <color=#00FF00><b>{DataManager.Instance.usedCards.Count}</b></color> X 3 만큼 피해를 줍니다.";
+    }
+
     public override void SetDescription()
     {
         base.SetDescription();
