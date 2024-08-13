@@ -65,12 +65,14 @@ public class DungeonSetting : MonoBehaviour
         // 스탯 초기화 메서드 호출 예정
         DataManager.Instance.maxHealth = DungeonManager.Instance.Player.playerStats.maxhealth;
         DataManager.Instance.currenthealth = DungeonManager.Instance.Player.playerStats.maxhealth;
-
         DungeonManager.Instance.currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
         // 기록 초기화 메서드
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
+
+        // 코인 UI 업데이트
+        DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
         // 제거한 카드 수 초기화
         DataManager.Instance.removeCardCount = 0;

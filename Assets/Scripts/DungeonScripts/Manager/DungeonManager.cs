@@ -86,7 +86,6 @@ public class DungeonManager : MonoBehaviour
 
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
         currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
-
     }
 
     // ScrollView의 활성화/비활성화 공통 메서드
