@@ -34,7 +34,7 @@ public class ExpendedPower : CardBasic
                 cardCountText = "X"; // 카드 수를 대신하는 X
             }
 
-            descriptionText.text = $"버려진 카드 수 <color={color}><b>{cardCountText}</b></color> 만큼 피해를 줍니다.";
+            descriptionText.text = $"버려진 카드 수 <color={color}><b>{cardCountText}</b></color> X 3 만큼 피해를 줍니다.";
         }
     }
 
@@ -68,8 +68,10 @@ public class ExpendedPower : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
         SettingManager.Instance.PlaySound(CardClip1);
+
+        damageAbility = DataManager.Instance.usedCards.Count * 3;
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
 
         PlayPlayerAttackAnimation();
     }
