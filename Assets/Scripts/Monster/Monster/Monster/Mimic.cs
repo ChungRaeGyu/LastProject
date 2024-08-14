@@ -115,10 +115,4 @@ public class Mimic : MonsterCharacter
         }
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 }

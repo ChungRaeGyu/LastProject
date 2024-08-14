@@ -177,6 +177,7 @@ public class MonsterCharacter : Character
 
         isDead = true;
         gameObject.SetActive(false);
+        GameManager.instance.CheckAllMonstersDead();
     }
     protected override void TakedamageCharacter(int damage)
     {

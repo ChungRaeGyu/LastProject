@@ -339,12 +339,6 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void RemoveMonsterDead(MonsterCharacter monster)
-    {
-        //monsters.Remove(monster);
-        CheckAllMonstersDead();
-    }
-
     public void OnLobbyButtonClick()
     {
         DataManager.Instance.ClearStageClearCount++;

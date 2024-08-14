@@ -74,11 +74,5 @@ public class Monster : MonsterCharacter
 
     }
 
-    protected override void Die()
-    {
-        base.Die();
-        GameManager.instance.RemoveMonsterDead(this);
-
-    }
 
 }
