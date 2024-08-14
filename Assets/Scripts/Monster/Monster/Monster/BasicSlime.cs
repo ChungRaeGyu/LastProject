@@ -54,7 +54,6 @@ public class BasicSlime : MonsterCharacter
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
         yield return base.Turn();
 
-        Debug.Log($"끝나고 캐릭터 자식에서 턴 시작");
 
         if (!isFrozen)
         {

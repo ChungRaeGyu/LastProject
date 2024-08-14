@@ -27,13 +27,9 @@ public class Character : MonoBehaviour
     }
     public virtual IEnumerator Turn()
     {
-        Debug.Log($"캐릭터 부모에서 턴 시작");
-
         if (frozenTurnsRemaining > 0)
         {
             frozenTurnsRemaining--;
-            Debug.Log($"{gameObject.name}는 얼어있습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
-
             // SpawnDamageText로 "빙결" 텍스트 띄우도록 개조
             SpawnConditionText("빙결", transform.position);
 
@@ -48,7 +44,6 @@ public class Character : MonoBehaviour
                 animator.StopPlayback();
                 GameManager.instance.DestroyDeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
             }
-            yield break;
         }
         else
         {
@@ -62,7 +57,6 @@ public class Character : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            yield break;
         }
         else
         {
@@ -76,7 +70,6 @@ public class Character : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            yield break;
         }
         else
         {
@@ -105,7 +98,6 @@ public class Character : MonoBehaviour
         if (bleedingTurnsRemaining > 0)
         {
             bleedingTurnsRemaining--;
-            Debug.Log("출혈중");
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
             if (existingFrozenCondition != null)
             {
@@ -113,8 +105,6 @@ public class Character : MonoBehaviour
             }
             TakedamageCharacter(5);
         }
-
-        yield return null;
     }
 
     private void SpawnConditionText(string conditionText, Vector3 position)
@@ -165,7 +155,6 @@ public class Character : MonoBehaviour
         {
             AddCondition(GetConditionPos(), turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
         }
-        Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
     }
     public void WeakForTurns(int turns, float ability)
     {
@@ -233,7 +222,6 @@ public class Character : MonoBehaviour
     }
     public void BleedingForTunrs(int turns)
     {
-        Debug.Log("여기");
         //도트 딜
         bleedingTurnsRemaining += turns;
         Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);

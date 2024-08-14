@@ -12,8 +12,10 @@ public class Condition : MonoBehaviour
 
     private void Update()
     {
-        if (conditionPos == null)
+        if (!conditionPos.gameObject.activeInHierarchy)
+        {
             Destroy(gameObject);
+        }
     }
 
     // 위치와 초기 스택 수 및 타입 설정
@@ -54,7 +56,6 @@ public class Condition : MonoBehaviour
     {
         stackCount -= amount;
         UpdateStackText();
-        Debug.Log("실행 : " + stackCount);
         if (stackCount <= 0)
         {
             character.conditionInstances.Remove(this);

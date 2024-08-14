@@ -41,7 +41,6 @@ public class EffectManager : MonoBehaviour
 
         tempCardInfo = cardBasic;
         StartCoroutine(MagicAttack(targetMonster));
-        Debug.Log("targetMonster : " + targetMonster);
     }
     IEnumerator MagicAttack(MonsterCharacter targetMonster = null)
     {
@@ -61,8 +60,6 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("targetMonster : " + targetMonster);
-
             //단일공격
             AttackEffectMethod(targetMonster.transform.position);
             targetMonster.TakeDamage(tempCardInfo.damageAbility);
