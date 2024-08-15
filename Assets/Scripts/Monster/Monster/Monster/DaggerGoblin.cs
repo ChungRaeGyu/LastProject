@@ -70,7 +70,7 @@ public class DaggerGoblin : MonsterCharacter
             if (attackRandomValue < 10) // 10% 확률로 출혈
             {
                 yield return PerformAttack(5);
-                GameManager.instance.player.BleedingForTunrs(2);
+                GameManager.instance.player.BleedingForTurns(2);
 
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 //attackDescriptionObject.SetActive(false);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour
-{    
+{
     //디버프관련변수
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
     public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
@@ -190,7 +190,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void burnForTunrs(int turns)
+    public void burnForTurns(int turns)
     {
         //도트 딜
         burnTurnsRemaining += turns;
@@ -205,7 +205,7 @@ public class Character : MonoBehaviour
         }
 
     }
-    public void PoisonForTunrs(int turns)
+    public void PoisonForTurns(int turns)
     {
         //도트 딜
         poisonTurnsRemaining += turns;
@@ -220,7 +220,7 @@ public class Character : MonoBehaviour
         }
 
     }
-    public void BleedingForTunrs(int turns)
+    public void BleedingForTurns(int turns)
     {
         //도트 딜
         bleedingTurnsRemaining += turns;
@@ -237,7 +237,6 @@ public class Character : MonoBehaviour
     }
 
     #endregion
-
 
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
     public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
