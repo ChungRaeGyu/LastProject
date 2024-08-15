@@ -216,11 +216,19 @@ public class GameManager : MonoBehaviour
     private IEnumerator Battle()
     {
         int turnCount = 1;
-
         while (true)
         {
             //Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
+            if (player.currentDefense > 0) player.currentDefense--;
+            foreach (var condition in player.conditionInstances)
+            {
+                if (condition.conditionType == ConditionType.Defense)
+                {
+                    condition.DecrementStackCount(player);
+                    break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
+                }
+            }
             StartCoroutine(player.Turn());
             UIManager.instance.UpdatePlayerTurnCount(turnCount);
             UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
@@ -239,14 +247,12 @@ public class GameManager : MonoBehaviour
             {
                 if (monster.monsterNextAction != null)
                 {
-                    Debug.Log($"칼 모양 아직 있음");
 
-                    if (monster.frozenTurnsRemaining < 1)
+                    if (monster.frozenTurnsRemaining < 1&&monster.currenthealth>0)
                         monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
                 }
             }
 
-            Debug.Log($"행동 가능함");
 
             while (playerTurn)
             {
@@ -268,6 +274,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
             // 모든 몬스터의 턴 순차적으로 진행
+            //이게 지금 몬스터
             for (int i = 0; i < monsters.Count; i++)
             {
                 MonsterCharacter monster = monsters[i];
@@ -275,8 +282,8 @@ public class GameManager : MonoBehaviour
                 {
                     // Debug.Log($"----- 몬스터의 턴 시작 -----");
                     yield return StartCoroutine(monster.Turn());
-                    //yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
                 }
+
             }
 
             turnCount++;
@@ -304,6 +311,7 @@ public class GameManager : MonoBehaviour
         if (AllMonstersDead())
         {
             StartCoroutine(WaitAndClearUI());
+
         }
     }
 
@@ -322,17 +330,22 @@ public class GameManager : MonoBehaviour
 
     private bool AllMonstersDead()
     {
-        if (monsters.Count == 0)
+        int count = monsters.Count;
+        foreach(MonsterCharacter monster in monsters)
+        {
+            if (!monster.gameObject.activeInHierarchy) count--;
+            else
+            {
+                Debug.Log("Monster이름 : " + monster.name);
+            }
+        }
+        if (count == 0)
+        {
+            monsters.Clear();
             return true;
+        }
 
         return false;
-    }
-
-    public void RemoveMonsterDead(MonsterCharacter monster)
-    {
-        Debug.Log("리스트에서 몬스터를 제거");
-        monsters.Remove(monster);
-        CheckAllMonstersDead();
     }
 
     public void OnLobbyButtonClick()

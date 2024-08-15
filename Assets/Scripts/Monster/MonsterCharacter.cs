@@ -130,27 +130,7 @@ public class MonsterCharacter : Character
 
         DieAction();
     }
-    protected override void TakedamageCharacter(int damage)
-    {
-        TakeDamage(damage);
-    }
 
-    protected override void BaseWeakerMethod()
-    {
-        monsterStats.attackPower = baseAttackPower;
-    }
-    protected override void WeakingMethod(float ability)
-    {
-        monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
-    }
-    protected override void BasedefMethod()
-    {
-        defDownValue = 0;
-    }
-    protected override void DefDownValue(float ability)
-    {
-        defDownValue = ability;
-    }
 
     public void DieAction()
     {
@@ -178,25 +158,48 @@ public class MonsterCharacter : Character
         if (isFrozen)
             GameManager.instance.DestroyDeBuffAnim(deBuff);
 
+        //이름, 다음행동 액션 사라짐
         if (monsterNextAction != null)
         {
-            Destroy(monsterNextAction.gameObject);
+            monsterNextAction.gameObject.SetActive(false);
         }
 
         if (monsterName != null)
         {
-            Destroy(monsterName.gameObject);
+            monsterName.gameObject.SetActive(false);
         }
 
         if (monsterNextActionList != null)
         {
-            Destroy(monsterNextActionList.gameObject);
+            monsterNextActionList.gameObject.SetActive(false);
         }
 
         isDead = true;
-
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        GameManager.instance.CheckAllMonstersDead();
     }
+    protected override void TakedamageCharacter(int damage)
+    {
+        TakeDamage(damage);
+    }
+
+    protected override void BaseWeakerMethod()
+    {
+        monsterStats.attackPower = baseAttackPower;
+    }
+    protected override void WeakingMethod(float ability)
+    {
+        monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
+    }
+    protected override void BasedefMethod()
+    {
+        defDownValue = 0;
+    }
+    protected override void DefDownValue(float ability)
+    {
+        defDownValue = ability;
+    }
+
 
     protected IEnumerator PerformAttack(int damage, float attackDelay = 1.2f)
     {

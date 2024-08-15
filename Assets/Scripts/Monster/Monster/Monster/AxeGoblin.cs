@@ -71,7 +71,7 @@ public class AxeGoblin : MonsterCharacter
             if (attackRandomValue < 10) // 10% 확률로 출혈
             {
                 yield return PerformAttack(5);
-                GameManager.instance.player.BleedingForTunrs(2);
+                GameManager.instance.player.BleedingForTurns(2);
 
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 //attackDescriptionObject.SetActive(false);
@@ -92,10 +92,4 @@ public class AxeGoblin : MonsterCharacter
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 }

@@ -77,10 +77,10 @@ public class Mimic : MonsterCharacter
 
             yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-            if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
+            if (monsterTurn == 7) // 7턴 안에 잡지못하면 피0 딜30을 넣고 자폭
             {
-                monsterStats.maxhealth = 0;
                 yield return PerformAttack(30);
+                monsterStats.maxhealth = 0;
             }
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
@@ -115,10 +115,4 @@ public class Mimic : MonsterCharacter
         }
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 }

@@ -77,7 +77,7 @@ public class Fox : MonsterCharacter
             if (attackRandomValue < 15) // 15% 확률로 공격력 3배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 3 + 5);
-                GameManager.instance.player.BleedingForTunrs(2);
+                GameManager.instance.player.BleedingForTurns(2);
 
                 Debug.Log(this.name + "이 강한공격!");
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
@@ -100,10 +100,4 @@ public class Fox : MonsterCharacter
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 }

@@ -23,7 +23,7 @@ public class HpBar : MonoBehaviour
 
     private void Update()
     {
-        if (hpBarPos != null)
+        if (hpBarPos.gameObject.activeInHierarchy)
             transform.position = hpBarPos.position;
         else
             Destroy(gameObject);
