@@ -95,7 +95,7 @@ public class CardDrag : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     private IEnumerator OnClickDetect()
     {
-        float clickTime = 1f; // 클릭 감지 시간 설정 (1초)
+        float clickTime = 0.3f; // 클릭 감지 시간 설정 (1초)
         float elapsedTime = 0f;
 
         isClick = true;

@@ -220,6 +220,7 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
+            if (player.currentDefense > 0) player.currentDefense--;
             StartCoroutine(player.Turn());
             UIManager.instance.UpdatePlayerTurnCount(turnCount);
             UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
