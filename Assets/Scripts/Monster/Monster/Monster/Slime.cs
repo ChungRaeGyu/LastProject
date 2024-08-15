@@ -61,12 +61,12 @@ public class Slime : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
             yield return PerformAttack(attackRandomValue);
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
         attackRandomValue = random.Next(0, 10);
 

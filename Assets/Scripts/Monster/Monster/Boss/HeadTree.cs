@@ -64,7 +64,7 @@ public class HeadTree : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
             //if (currenthealth < monsterStats.maxhealth / 2 && !bossheal) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
             //{
@@ -90,7 +90,7 @@ public class HeadTree : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);

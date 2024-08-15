@@ -65,7 +65,7 @@ public class Bat : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
@@ -78,7 +78,7 @@ public class Bat : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
         attackRandomValue = Random.Range(0, 100);
 
