@@ -31,13 +31,12 @@ public class MonsterCharacter : Character
     private AdjustHeightBasedOnText util2DescriptionAdjustHeight;
     protected TMP_Text util2DescriptionText;
     private float defDownValue;
-   
+
+    public float monsterTurnDelay = 0.5f;
 
     public bool boss;
 
     public System.Random random = new System.Random();
-
-
 
     public Action deBuffAnim;
 

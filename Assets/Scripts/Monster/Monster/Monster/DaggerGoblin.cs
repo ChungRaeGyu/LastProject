@@ -65,7 +65,7 @@ public class DaggerGoblin : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
             if (attackRandomValue < 10) // 10% 확률로 출혈
             {
@@ -81,7 +81,7 @@ public class DaggerGoblin : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
         attackRandomValue = random.Next(0, 100);
 

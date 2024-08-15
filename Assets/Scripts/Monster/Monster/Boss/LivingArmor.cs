@@ -60,7 +60,7 @@ public class LivingArmor : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
             if (monsterTurn < 3) // 3턴동안 공격력 2배 공격
             {
@@ -84,7 +84,7 @@ public class LivingArmor : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);

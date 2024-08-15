@@ -69,6 +69,7 @@ public class DefensiveStrike : CardBasic
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        damageAbility = GameManager.instance.player.currentDefense;
         GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
         SettingManager.Instance.PlaySound(CardClip1);
 

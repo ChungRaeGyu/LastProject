@@ -67,7 +67,7 @@ public class FlameGolem : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
             if (monsterTurn % 2 == 0) // 2턴마다 공격력 1 상승
             {
@@ -86,7 +86,7 @@ public class FlameGolem : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);
