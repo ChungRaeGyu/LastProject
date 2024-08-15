@@ -150,13 +150,15 @@ public class Player : PlayerCharacter
     // 방어력 Condition의 스택 수를 증가
     public void IncrementDefenseConditionStack(int amount)
     {
-        foreach (var condition in conditionInstances)
+
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Defense);
+        if (existingFrozenCondition != null)
         {
-            if (condition.conditionType == ConditionType.Defense)
-            {
-                condition.IncrementStackCount(amount); 
-                break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
-            }
+            existingFrozenCondition.IncrementStackCount(amount);
+        }
+        else
+        {
+            AddCondition(GetConditionPos(), amount, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
         }
     }
 
