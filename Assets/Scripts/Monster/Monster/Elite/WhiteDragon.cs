@@ -29,7 +29,7 @@ public class WhiteDragon : MonsterCharacter
         if (attackRandomValue < 15)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";// <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower / 4}만큼 체력이 증가합니다.";
     }
 
     protected override void Update()
@@ -67,7 +67,7 @@ public class WhiteDragon : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
             if (monsterTurn % 2 == 0) // 2턴마다 공격력 1 상승
             {
@@ -82,11 +82,11 @@ public class WhiteDragon : MonsterCharacter
             else
             {
                 yield return PerformAttack(monsterStats.attackPower);
-                currenthealth += baseAttackPower;
+                currenthealth += baseAttackPower / 4;
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);
@@ -94,7 +94,7 @@ public class WhiteDragon : MonsterCharacter
         if (attackRandomValue < 15)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다."; // <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower / 4}만큼 체력이 증가합니다.";
     }
 
     protected override void Die()

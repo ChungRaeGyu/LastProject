@@ -26,10 +26,10 @@ public class Wolf : MonsterCharacter
 
         attackRandomValue = random.Next(0, 100);
 
-        if (attackRandomValue < 15)
+        if (attackRandomValue < 10)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다."; //, {baseAttackPower}만큼 체력이 증가합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고 , {baseAttackPower / 4}만큼 체력이 증가합니다.";
     }
 
     protected override void Update()
@@ -74,7 +74,7 @@ public class Wolf : MonsterCharacter
                 monsterStats.attackPower += 1;
             }
 
-            if (attackRandomValue < 15) // 15% 확률로 공격력 3배 공격
+            if (attackRandomValue < 10) // 10% 확률로 공격력 3배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 3 + 5);
                 GameManager.instance.player.BleedingForTunrs(2);
@@ -82,10 +82,10 @@ public class Wolf : MonsterCharacter
                 Debug.Log(this.name + "이 강한공격!");
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
             }
-            else
+            else // 공격력 만큼 피가 회복이 됨
             {
                 yield return PerformAttack(monsterStats.attackPower);
-                currenthealth += baseAttackPower;
+                currenthealth += baseAttackPower / 4;
             }
         }
 
@@ -94,10 +94,10 @@ public class Wolf : MonsterCharacter
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);
 
-        if (attackRandomValue < 15)
+        if (attackRandomValue < 10)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다."; //, {baseAttackPower}만큼 체력이 증가합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고 , {baseAttackPower / 4}만큼 체력이 증가합니다.";
     }
 
     protected override void Die()

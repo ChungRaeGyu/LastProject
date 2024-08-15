@@ -75,12 +75,12 @@ public class Mimic : MonsterCharacter
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
-            if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
+            if (monsterTurn == 7) // 7턴 안에 잡지못하면 피0 딜30을 넣고 자폭
             {
-                monsterStats.maxhealth = 0;
                 yield return PerformAttack(30);
+                monsterStats.maxhealth = 0;
             }
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
@@ -94,7 +94,7 @@ public class Mimic : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(0.5f); // 연출을 위한 대기
 
         monsterTurn++;
         selfdestructionCount -= 1;
