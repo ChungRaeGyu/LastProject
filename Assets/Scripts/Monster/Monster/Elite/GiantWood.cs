@@ -64,6 +64,7 @@ public class GiantWood : MonsterCharacter
         if (!isFrozen)
         {
             if (isDead) yield break;
+            monsterStats.defense = 0;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
