@@ -60,16 +60,18 @@ https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
 4. **전투 기능**: 카드 드래그 사용, 전투 승리 시 카드 획득.
 
 ## ⚙ 사용된 기술 스택
-![Unity](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/e5739c18-b863-449d-a135-b88fc5cc8ebc/Unity.png)
-![C#](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/53023e76-23a9-468a-a2c1-e73ca291e19a/C.png)
+![Unity](https://github.com/user-attachments/assets/2f872732-43e8-42c9-b894-e074f9a1284a)
+![C#](https://github.com/user-attachments/assets/74a9f971-0b8a-46a6-b311-2031c50473d0)
 
 ## 🍀 클라이언트 구조
 
 ### 🧐 캐릭터 (몬스터 및 플레이어)
-![몬스터 및 플레이어](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/aa50a29e-5a7d-46b3-8767-6708916721f8/image.png)
+![image (12)](https://github.com/user-attachments/assets/bd2717f8-01bd-40c1-a490-f9b59552381f)![image (13)](https://github.com/user-attachments/assets/a9c839ee-e958-4d18-82d2-92904958538d)
+![image (14)](https://github.com/user-attachments/assets/d41896e0-e3b9-4876-9080-9731b2182eff)
 
 ### 🎟 카드
-![카드](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/be0746ec-0363-4b82-a339-52d866dd12b0/image.png)
+![image (15)](https://github.com/user-attachments/assets/5382cb8e-cf95-493a-b1ab-77e53628a349)
+![image (16)](https://github.com/user-attachments/assets/a9b9941f-4dd0-4390-9b95-d4237b91e070)
 
 ## 📌 사용자 개선 사항
 - 테스트에 도움을 주신 여러분께 감사드립니다!
