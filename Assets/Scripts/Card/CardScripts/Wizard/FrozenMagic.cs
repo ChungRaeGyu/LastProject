@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
 public class FrozenMagic : CardBasic
 {
     private BezierDragLine bezierDragLine;
@@ -38,8 +36,8 @@ public class FrozenMagic : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"적을 <b>{utilAbility}</b> 턴 동안 얼립니다."
-                : $"적을 <color={color}><b>{utilAbility}</b></color> 턴 동안 얼립니다.";
+                ? $"적을 <b>{damageAbility}</b>만큼 데미지를 추고 20퍼센트 확률로 <b>{utilAbility}</b> 턴 동안 얼립니다."
+                : $"적을 <color={color}><b>{damageAbility}</b>만큼 데미지를 추고 20퍼센트 확률로<b>{utilAbility}</b></color> 턴 동안 얼립니다.";
         }
     }
 
@@ -74,8 +72,9 @@ public class FrozenMagic : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         SettingManager.Instance.PlaySound(CardClip1);
-
-        targetMonster.FreezeForTurns(utilAbility);
+        int rand = Random.Range(1, 11);
+        if(rand<=3)
+            targetMonster.FreezeForTurns(utilAbility);
         GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
         targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
         //targetMonster.monsterNextAction.gameObject.SetActive(false);
