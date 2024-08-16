@@ -34,7 +34,7 @@
 [YouTube 트레일러](https://www.youtube.com/watch?v=nVaE1ML3XvI)
 
 ## 🎮 GemOfCard
-![GemOfCardImage2](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c75a39-3aba-4ba4-a792-7aefe4b07895/348a5058-2424-4905-a3e9-d7bac09b1761/GemOfCardImage2.png)
+![GemOfCardImage2](https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed)
 
 ### 🔍 지원 플랫폼
 **아래 플랫폼을 클릭하여 플레이 링크로 이동하세요:**
