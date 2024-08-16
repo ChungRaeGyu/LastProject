@@ -1,10 +1,8 @@
 <div align="center">
 <h1>GemOfCard</h1>
-[https://github.com/user-attachments/assets/391fee9b-2e3a-4c0e-a1a4-6b67de70e3cc
-![GemOfCardImage2](https://github.com/user-attachments/assets/5ba24ce9-a2d9-40b0-a5f7-d163b43ff9e7)](https://github.com/user-attachments/assets/391fee9b-2e3a-4c0e-a1a4-6b67de70e3cc
-
+(https://github.com/user-attachments/assets/391fee9b-2e3a-4c0e-a1a4-6b67de70e3cc)
+  
 ![GemOfCardImage2](https://github.com/user-attachments/assets/5ba24ce9-a2d9-40b0-a5f7-d163b43ff9e7)
-)
 </div>
 
 ## 목차
