@@ -99,7 +99,7 @@ public class LobbyButtonManager : MonoBehaviour
     #endregion
     public void GotoStageBoardBtn()
     {
-        if (DataManager.Instance.LobbyDeck.Count < 12)
+        if (DataManager.Instance.LobbyDeck.Count < 10)
         {
             Debug.Log("카드가 부족해요~ 12장을 채워 주세요");
             return;

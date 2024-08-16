@@ -73,10 +73,13 @@ public class FrozenMagic : CardBasic
     {
         SettingManager.Instance.PlaySound(CardClip1);
         int rand = Random.Range(1, 11);
-        if(rand<=3)
+        if (rand <= 3)
+        {
             targetMonster.FreezeForTurns(utilAbility);
-        GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
-        targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
+            GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
+            targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
+        }
+        targetMonster.TakeDamage(damageAbility);
         //targetMonster.monsterNextAction.gameObject.SetActive(false);
         PlayPlayerAttackAnimation();
     }

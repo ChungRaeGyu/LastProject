@@ -83,7 +83,7 @@ public class Character : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            TakedamageCharacter(3);
+            TakedamageCharacter(burnTurnsRemaining);
         }
         if (poisonTurnsRemaining > 0)
         {
