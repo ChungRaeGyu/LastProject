@@ -1,9 +1,14 @@
 <div align="center">
 <h1>GemOfCard</h1>
-## 🎬 게임 소개
-[YouTube 트레일러](https://www.youtube.com/watch?v=nVaE1ML3XvI)
-https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
-<img src="https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed" alt="GemOfCardImage2"/>
+  ## 🎬 게임 소개
+  [YouTube 트레일러](https://www.youtube.com/watch?v=nVaE1ML3XvI)
+  <a href="https://www.youtube.com/watch?v=nVaE1ML3XvI" target="_blank">
+    <img src="https://img.youtube.com/vi/nVaE1ML3XvI/maxresdefault.jpg" alt="YouTube Trailer" />
+  </a>
+  <br>
+  <a href="https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c" target="_blank">
+    [GitHub 비디오 링크]
+  </a>
 </div>
 
 ## 목차
