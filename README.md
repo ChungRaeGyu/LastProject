@@ -1,6 +1,5 @@
 <div align="center">
 <h1>GemOfCard</h1>
-## 🎬 비디오 소개
 https://github.com/user-attachments/assets/a49ada5d-dbac-4335-80e6-0f65b2e7fc48
 ![GemOfCardImage2](https://github.com/user-attachments/assets/ead7b585-75c8-4544-b32f-37dbb421bc07)
 </div>
