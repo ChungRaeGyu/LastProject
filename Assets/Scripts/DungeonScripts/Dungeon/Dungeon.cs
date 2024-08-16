@@ -1,10 +1,10 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Diagnostics.Tracing;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 using UnityEngine.UI;
 
 public class Dungeon : MonoBehaviour
@@ -74,12 +74,14 @@ public class Dungeon : MonoBehaviour
 
     public System.Random random = new System.Random();
 
+
+
     int[] num = new int[2];
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("시작");
         DungeonMapping();
-
         if (SaveManager.Instance.isStartPoint)
         {
             SaveManager.Instance.isStartPoint = false;
@@ -96,7 +98,6 @@ public class Dungeon : MonoBehaviour
 
         DungeonManager.Instance.deckCountText.text = DataManager.Instance.deckList.Count.ToString();
     }
-
     private void StageOpen()
     {
         //초기값 3,0
@@ -141,74 +142,109 @@ public class Dungeon : MonoBehaviour
         }
     }
 
+    private int RandomStageInput(GameObject gameObject)
+    {
+        int num = 0;
+        for (int j = 0; j < random.Next(1, y / x + 1); j++)
+        {
+            //store
+            SaveManager.Instance.stageList.Add(gameObject);
+            num++;
+        }
+        return num;
+    }
+    public void SetStage()
+    {
+        SaveManager.Instance.stageList.Clear();
+        int stageCount = (x * (y / 2 - 1) + 2)-4;
+        int i = 0;
+        i += RandomStageInput(storeStage);
+        i += RandomStageInput(eliteStage);
+        i += RandomStageInput(eventStage);
+        while (i < stageCount) {
+            SaveManager.Instance.stageList.Add(battleStage);
+            i++;
+        }
+        SaveManager.Instance.stageList = SaveManager.Instance.stageList.OrderBy(_ => UnityEngine.Random.Range(0, SaveManager.Instance.stageList.Count)).ToList(); //섞기
+    }
+    private bool MakingDiamond(int i, int j)
+    {
+        if (Mathf.Abs(i - (int)(x / 2)) <= j && j <= MathF.Abs(MathF.Abs(i - (int)(x / 2)) - (y - 1)))
+        {
+            if (i % 2 != j % 2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public void DungeonMapping()
     {
+        int stageCount = 0;
         stage = new GameObject[x, y];
         isStage = new bool[x, y];
-
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
-                if (Mathf.Abs(i - (int)(x / 2)) <= j && j <= MathF.Abs(MathF.Abs(i - (int)(x / 2)) - (y - 1)))
+                if(MakingDiamond(i, j))
                 {
-                    if (i % 2 != j % 2)
+                    //여기다가 생성 로직을 짜면 된다.
+                    if (i == (x - 1) / 2 && j == 0)
                     {
-                        //여기다가 생성 로직을 짜면 된다.
-                        if (i == (x - 1) / 2 && j == 0)
-                        {
-                            stage[i, j] = Instantiate(startStage, stageBoard);
-                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                        }
-                        else if (i == (x - 1) / 2 && j == (y - 1)){
-                            stage[i, j] = Instantiate(bossStage, stageBoard);
-                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
-
-                        }
-                        else if (i == 0 && j == (y - 1) / 2)
-                        {
-                            stage[i, j] = Instantiate(warpStage, stageBoard);
-                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                        }
-                        else if (i == (x - 1) && j == (y - 1) / 2)
-                        {
-                            stage[i, j] = Instantiate(warpStage, stageBoard);
-                            stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                        }
-                        else
-                        {
-                            switch (SaveManager.Instance.num[i, j])
-                            {
-                                case 0:
-                                case 1:
-                                    stage[i, j] = Instantiate(eliteStage, stageBoard);
-                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                    break;
-                                case 2:
-                                case 3:
-                                case 4:
-                                    stage[i, j] = Instantiate(storeStage, stageBoard);
-                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                    break;
-                                case 5:
-                                case 6:
-                                case 7:
-                                case 8:
-                                case 9:
-                                case 10:
-                                    stage[i, j] = Instantiate(eventStage, stageBoard);
-                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                    break;
-                                default:
-                                    stage[i, j] = Instantiate(battleStage, stageBoard);
-                                    stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                    break;
-                            }
-                        }
-                        
-                        stage[i, j].transform.position = new Vector2(j * 0.75f - a, i * 1.3f - b);
-                        
+                        stage[i, j] = Instantiate(startStage, stageBoard);
+                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
                     }
+                    else if (i == (x - 1) / 2 && j == (y - 1)){
+                        stage[i, j] = Instantiate(bossStage, stageBoard);
+                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+
+                    }
+                    else if (i == 0 && j == (y - 1) / 2)
+                    {
+                        stage[i, j] = Instantiate(warpStage, stageBoard);
+                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                    }
+                    else if (i == (x - 1) && j == (y - 1) / 2)
+                    {
+                        stage[i, j] = Instantiate(warpStage, stageBoard);
+                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                    }
+                    else
+                    {
+                        Debug.Log("stageCount" + stageCount);
+                        stage[i, j] = Instantiate(SaveManager.Instance.stageList[stageCount], stageBoard);
+                        stageCount++;
+                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                        /*                        switch (SaveManager.Instance.num[i, j])
+                                                {
+                                                    case 0:
+                                                    case 1:
+                                                        stage[i, j] = Instantiate(eliteStage, stageBoard);
+                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                                                        break;
+                                                    case 2:
+                                                    case 3:
+                                                    case 4:
+                                                        stage[i, j] = Instantiate(storeStage, stageBoard);
+                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                                                        break;
+                                                    case 5:
+                                                    case 6:
+                                                    case 7:
+                                                    case 8:
+                                                    case 9:
+                                                    case 10:
+                                                        stage[i, j] = Instantiate(eventStage, stageBoard);
+                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                                                        break;
+                                                    default:
+                                                        stage[i, j] = Instantiate(battleStage, stageBoard);
+                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
+                                                        break;
+                                                }*/
+                    }
+                    stage[i, j].transform.position = new Vector2(j * 0.75f - a, i * 1.3f - b);
                 }
             }
         }

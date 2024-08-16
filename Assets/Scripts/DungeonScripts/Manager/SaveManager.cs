@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
@@ -53,6 +54,7 @@ public class SaveManager : MonoBehaviour
 
     //스테이지 랜덤 생성
     public int[,] num;
+    public List<GameObject> stageList = new List<GameObject>(); //stage임시저장소
 
     [Header("UI")]
     public TMP_Text timeText; // UI 텍스트 컴포넌트
@@ -122,7 +124,7 @@ public class SaveManager : MonoBehaviour
     }
     
     //던전 스테이지 랜덤 생성
-    public void RandomStageNum()
+/*    public void RandomStageNum()
     {
         num = new int[Dungeon.Instance.x, Dungeon.Instance.y];
 
@@ -134,5 +136,5 @@ public class SaveManager : MonoBehaviour
                 num[i, j] = rand;
             }
         }
-    }
+    }*/
 }
