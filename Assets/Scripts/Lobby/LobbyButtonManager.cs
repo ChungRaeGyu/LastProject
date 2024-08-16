@@ -97,15 +97,11 @@ public class LobbyButtonManager : MonoBehaviour
         drawSystem.OpenCard();
     }
     #endregion
-    public void AddDeckBtn()
-    {
-
-    }
     public void GotoStageBoardBtn()
     {
-        if (DataManager.Instance.LobbyDeck.Count < 6)
+        if (DataManager.Instance.LobbyDeck.Count < 12)
         {
-            Debug.Log("카드가 부족해요~ 6장을 채워 주세요");
+            Debug.Log("카드가 부족해요~ 12장을 채워 주세요");
             return;
         }
         DataManager.Instance.DungeonBoolSetting();//던전세팅
