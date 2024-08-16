@@ -278,8 +278,8 @@ public class UIManager : MonoBehaviour
     public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.6f)
     {
         if (SaveManager.Instance.isEliteStage) openCardSelectionProbability = 1f;
-        if(!SaveManager.Instance.isBossStage)
-            SetActive(lobbyButton?.gameObject, lobbyBtn);
+
+        SetActive(lobbyButton?.gameObject, lobbyBtn);
         SetActive(turnEndButton?.gameObject, turnEndBtn);
         SetActive(rewardPanel, setRewardPanel);
         rewardCoinAmountText.text = $"던전코인 {GameManager.instance.monsterTotalRewardCoin}개";
