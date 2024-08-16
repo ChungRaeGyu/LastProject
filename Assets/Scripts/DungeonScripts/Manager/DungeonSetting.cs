@@ -7,7 +7,7 @@ public class DungeonSetting : MonoBehaviour
     public GameObject enterBtn;
     public GameObject lockDungeon;
     public GameObject explain;
-
+    public GameObject[] dungeon;
     void Start()
     {
         if (gameObject.name == "02_Dungeon" && DataManager.Instance.accessibleDungeon[1] == true)
@@ -84,32 +84,32 @@ public class DungeonSetting : MonoBehaviour
         switch (gameObject.name)
         {
             case "01_Start_Dungeon":
+                dungeon[0].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[0].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 0;
                 break;
 
             case "02_Dungeon":
+                dungeon[1].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[1].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 1;
                 break;
 
             case "03_Dungeon":
+                dungeon[2].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[2].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 2;
                 break;
 
             case "04_Dungeon":
+                dungeon[3].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[3].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 3;
                 break;
 
             case "05_Dungeon":
+                dungeon[4].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[4].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
                 DataManager.Instance.accessDungeonNum = 4;
                 break;
         }
