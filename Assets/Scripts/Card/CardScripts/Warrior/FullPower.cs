@@ -15,6 +15,8 @@ public class FullPower: CardBasic
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
+
+        costText.text = "X";
     }
 
     public override void SetDescription()
