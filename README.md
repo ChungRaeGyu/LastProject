@@ -1,7 +1,10 @@
 <div align="center">
 <h1>GemOfCard</h1>
-https://github.com/user-attachments/assets/1f7a246d-cc75-4c32-a24f-9bf3d6fb8e8a
-https://github.com/user-attachments/assets/c1849b08-89bd-47bc-9448-92d196116bb2
+## 🎬 비디오 소개
+[비디오 다운로드 링크](https://github.com/user-attachments/assets/raw/main/1f7a246d-cc75-4c32-a24f-9bf3d6fb8e8a)
+
+## 🖼 이미지
+![GemOfCardImage](https://github.com/user-attachments/assets/raw/main/c1849b08-89bd-47bc-9448-92d196116bb2)
 </div>
 
 ## 목차
