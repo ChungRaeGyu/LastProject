@@ -2,7 +2,7 @@
 <h1>GemOfCard</h1>
   ## 🎬 게임 소개
 https://github.com/user-attachments/assets/1f7a246d-cc75-4c32-a24f-9bf3d6fb8e8a
-  <a href="https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c" target="_blank">
+![GemOfCardImage2](https://github.com/user-attachments/assets/c1849b08-89bd-47bc-9448-92d196116bb2)
 </div>
 
 ## 목차
