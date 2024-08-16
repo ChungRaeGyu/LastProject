@@ -79,10 +79,10 @@ public class Heal : CardBasic
         switch (enhancementLevel)
         {
             case 1:
-                utilAbility += 3; // 회복량 증가
+                utilAbility += 2; // 회복량 증가
                 break;
             case 2:
-                utilAbility += 6; // 회복량 증가
+                utilAbility += 4; // 회복량 증가
                 break;
             default:
                 break;

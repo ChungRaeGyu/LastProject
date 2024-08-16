@@ -138,11 +138,27 @@ public class EffectManager : MonoBehaviour
         {
             List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // º¹Á¦
             if (monsters.Count == 0) yield break;
-            int num = Random.Range(0, monsters.Count);
+            int num = CatchNum(monsters);
+            
             GameObject tempPrefab = Instantiate(cardBasic.attackEffect, monsters[num].transform.position, cardBasic.attackEffect.transform.rotation);
             monsters[num].TakeDamage(cardBasic.damageAbility);
             yield return new WaitForSecondsRealtime(0.2f);
         }
 
+    }
+    private int CatchNum(List<MonsterCharacter> monsters)
+    {
+        int returnNum = 0;
+        while (true)
+        {
+            int num = Random.Range(0, monsters.Count);
+            if (monsters[num].currenthealth > 0)
+            {
+                returnNum = num;
+                break;
+            }
+        }
+
+        return returnNum;
     }
 }
