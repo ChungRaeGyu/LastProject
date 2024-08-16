@@ -1,6 +1,6 @@
 <div align="center">
 <h1>GemOfCard</h1>
-  ## 🎬 게임 소개
+## 🎬 게임 소개
 https://github.com/user-attachments/assets/1f7a246d-cc75-4c32-a24f-9bf3d6fb8e8a
 https://github.com/user-attachments/assets/c1849b08-89bd-47bc-9448-92d196116bb2
 </div>
