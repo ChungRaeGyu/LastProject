@@ -38,6 +38,8 @@ public class SettingManager : MonoBehaviour
     [SerializeField] private GameObject lobbyReturnBtn;
     [SerializeField] private GameObject dungeonReturnBtn;
     [SerializeField] private GameObject settingCanvas;
+    public GameObject ReCheckPanel;
+    public bool goToRobby;
 
     private void Awake()
     {
@@ -53,6 +55,7 @@ public class SettingManager : MonoBehaviour
 
         lobbyReturnBtn.SetActive(false);
         dungeonReturnBtn.SetActive(false);
+        ReCheckPanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -191,22 +194,36 @@ public class SettingManager : MonoBehaviour
 
     public void LobbyReturnBtn()
     {
-        UpdateButtonVisibility();
-        DataManager.Instance.deckList.Clear();
-        SaveManager.Instance.accessDungeon = false;
-        SaveManager.Instance.isBossStage = false;
-        SaveManager.Instance.isEliteStage = false;
-        SceneFader.instance.LoadSceneWithFade(1);
+        SoundPanel.SetActive(false);
+        ReCheckPanel.SetActive(true);
+        goToRobby = true;
     }
 
     public void DungeonReturnBtn()
     {
+        SoundPanel.SetActive(false);
+        ReCheckPanel.SetActive(true);
+        goToRobby = false;
+    }
+
+    public void ReCheckYesBtn()
+    {
+        ReCheckPanel.SetActive(false);
         UpdateButtonVisibility();
         DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
         SaveManager.Instance.isBossStage = false;
         SaveManager.Instance.isEliteStage = false;
-        SceneFader.instance.LoadSceneWithFade(2);
+        if(goToRobby == true)
+            SceneFader.instance.LoadSceneWithFade(1);
+        else
+            SceneFader.instance.LoadSceneWithFade(2);
+    }
+
+    public void ReCheckNoBtn()
+    {
+        ReCheckPanel.SetActive(false);
+        SoundPanel.SetActive(true);
     }
 
     public void UpdateButtonVisibility()

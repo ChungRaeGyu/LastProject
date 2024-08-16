@@ -23,7 +23,7 @@ public class Turtle : MonsterCharacter
         }
 
         if (monsterTurn % 4 == 0)
-            util1DescriptionText.text = $"<color=#FF7F50><size=30><b>껍질</b></size></color>\n <color=#FFFF00>4</color>턴마다 방어력이 <color=#FFFF00>{monsterStats.defense += 1}</color>씩 증가합니다.";
+            util1DescriptionText.text = $"<color=#FF7F50><size=30><b>껍질</b></size></color>\n <color=#FFFF00>5</color>턴마다 방어력이 <color=#FFFF00>{monsterStats.defense += 1}</color>씩 증가합니다.";
 
         attackRandomValue = random.Next(0, 100);
 
@@ -66,13 +66,14 @@ public class Turtle : MonsterCharacter
         if (!isFrozen)
         {
             if (isDead) yield break;
+            monsterStats.defense = 0;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 
             yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-            if (monsterTurn % 4 == 0) // 4턴마다 방어력 1 상승
+            if (monsterTurn % 5 == 0) // 5턴마다 방어력 1 상승
             {
                 monsterStats.defense += 1;
             }

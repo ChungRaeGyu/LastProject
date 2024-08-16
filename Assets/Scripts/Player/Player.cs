@@ -80,7 +80,7 @@ public class Player : PlayerCharacter
 
     public void UseCost(int amount)
     {
-        currentCost = Mathf.Clamp(currentCost - amount, 0, maxCost);
+        currentCost = Mathf.Clamp(currentCost - amount, 0, currentCost);
         UpdateCostText();
     }
 
