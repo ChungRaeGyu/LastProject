@@ -56,7 +56,7 @@ https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
 3. **몬스터 기능**: 몬스터 세분화, 애니메이션, 스텟 설정.
 4. **전투 기능**: 카드 드래그 사용, 전투 승리 시 카드 획득.
 
-## ⚙ 사용된 기술 스택
+## 사용된 기술 스택
 ![Unity](https://github.com/user-attachments/assets/2f872732-43e8-42c9-b894-e074f9a1284a)
 ![C#](https://github.com/user-attachments/assets/74a9f971-0b8a-46a6-b311-2031c50473d0)
 
