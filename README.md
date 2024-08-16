@@ -1,6 +1,6 @@
 <div align="center">
-<h2>LastProject</h2>
-스파르타내일배움캠프 최종프로젝트입니다. _ 수집형 카드게임을 만들어봤습니다.
+<h2>GemOfCard</h2>
+https://www.youtube.com/watch?v=nVaE1ML3XvI
 </div>
 
 ## 목차
