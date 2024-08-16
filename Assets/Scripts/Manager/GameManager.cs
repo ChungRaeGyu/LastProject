@@ -363,6 +363,7 @@ public class GameManager : MonoBehaviour
 
             // 클리어 패널을 띄워 줌
             UIManager.instance.victoryPanel.gameObject.SetActive(true);
+            UIManager.instance.ClearPanelFade.SetActive(true);
 
             // 텍스트 업데이트
             UpdateVictoryTexts();

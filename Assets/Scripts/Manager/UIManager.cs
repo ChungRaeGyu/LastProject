@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
     public Image UsedCards;
     public Image dungeonDeckCards;
 
+    [Header("FadePanel")]
+    public GameObject ClearPanelFade;
+
     [Header("Reward")]
     public Image fadeRewardPanel;
     public GameObject rewardPanel;
@@ -112,6 +115,7 @@ public class UIManager : MonoBehaviour
         originaldungeonDeckCardsPosition = dungeonDeckCards.rectTransform.anchoredPosition;
 
         victoryPanel.gameObject.SetActive(false);
+        ClearPanelFade.SetActive(false);
         cardSelectPanel.SetActive(false);
         UIClear(false, true, false, false, false);
 
@@ -279,6 +283,7 @@ public class UIManager : MonoBehaviour
     {
         if (SaveManager.Instance.isEliteStage) openCardSelectionProbability = 1f;
 
+        //SetActive(ClearPanelFade?.gameObject, ); // 패널들과 같음
         SetActive(lobbyButton?.gameObject, lobbyBtn);
         SetActive(turnEndButton?.gameObject, turnEndBtn);
         SetActive(rewardPanel, setRewardPanel);
@@ -355,6 +360,7 @@ public class UIManager : MonoBehaviour
         if (defeatPanel != null)
         {
             defeatPanel.SetActive(true);
+            ClearPanelFade.SetActive(true);
 
             // 텍스트 업데이트
             UpdateDefeatTexts();
