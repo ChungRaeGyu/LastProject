@@ -1,9 +1,6 @@
 <div align="center">
 <h1>GemOfCard</h1>
-<video width="320" height="240" controls>
-  <source src="https://github.com/user-attachments/assets/067689ef-53c4-485b-9a99-e31637ec2985" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
 ![GemOfCardImage2](https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed)
 </div>
 
