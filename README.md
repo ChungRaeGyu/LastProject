@@ -23,8 +23,8 @@ https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
 - **개발 엔진 및 언어**: Unity & C#
 - **개발자**: 정래규, 황승준, 위명선, 김경찬
 
-## 게임 목표
-자신만의 덱을 구성하며 던전을 클리어한다.
+## 🧩 게임 설명
+다양한 카드를 수집하고 나만의 덱을 구성하여 승리를 쟁취하세요. 몬스터와의 전투에서 자신의 전략을 시험하고, 성장하며 강력한 덱을 완성해보세요.
 
 ## 게임 플레이 방식
 - **로비**: 원하는 카드로 덱을 구성하고 도감에서 소유한 카드를 확인할 수 있습니다. 카드 뽑기와 제작 기능도 제공됩니다.
@@ -37,9 +37,6 @@ https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
 - [**Android**](https://drive.google.com/file/d/1FxGCLCYHLZzB_ymO26xLcslgttrvR0OX/view)
 - [**Windows**](https://drive.google.com/file/d/1NcAe2WxzjjX8Hji39JvzqqkxwCZSleJp/view)
 - [**itch.io**](https://chungraegyu.itch.io/gemcard)
-
-### 🧩 게임 설명
-다양한 카드를 수집하고 나만의 덱을 구성하여 승리를 쟁취하세요. 몬스터와의 전투에서 자신의 전략을 시험하고, 성장하며 강력한 덱을 완성해보세요.
 
 ## 🎞 프로젝트 개요 및 목표
 
