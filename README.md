@@ -1,13 +1,22 @@
 <div align="center">
 <h1>GemOfCard</h1>
-https://github.com/user-attachments/assets/067689ef-53c4-485b-9a99-e31637ec2985
+<video width="320" height="240" controls>
+  <source src="https://github.com/user-attachments/assets/067689ef-53c4-485b-9a99-e31637ec2985" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 ![GemOfCardImage2](https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed)
 </div>
 
 ## 목차
-  - [개요](#개요) 
-  - [게임 설명](#게임-설명)
-  - [게임 플레이 방식](#게임-플레이-방식)
+- [개요](#개요) 
+- [게임 목표](#게임-목표)
+- [게임 플레이 방식](#게임-플레이-방식)
+- [기술적인 도전 과제](#기술적인-도전-과제)
+- [사용된 기술 스택](#사용된-기술-스택)
+- [클라이언트 구조](#클라이언트-구조)
+- [사용자 개선 사항](#사용자-개선-사항)
+- [프로젝트 결과 및 성과](#프로젝트-결과-및-성과)
+- [팀원 구성 및 연락처](#팀원-구성-및-연락처)
 
 ## 개요
 - 프로젝트 이름: GemCard 🏠
