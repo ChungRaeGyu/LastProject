@@ -215,8 +215,8 @@ public class DataManager : MonoBehaviour
 
         // TotalCrystal 계산
         ClearTotalCrystal = adjustedCurrentCoin
-                     + ClearMonstersKilledCount * 2
-                     + ClearStageClearCount * 2
+                     + ClearMonstersKilledCount * 3
+                     + ClearStageClearCount * 3
                      + adjustedClearTime
                      + adjustedBossesDefeatedCount;
     }
@@ -224,8 +224,8 @@ public class DataManager : MonoBehaviour
     public void DefeatCalculateTotalCrystal()
     {
         // TotalCrystal 계산
-        DefeatTotalCrystal = DefeatMonstersKilledCount * 2
-                     + DefeatStageClearCount * 2;
+        DefeatTotalCrystal = DefeatMonstersKilledCount * 3
+                     + DefeatStageClearCount * 3;
     }
 
     // 기록 초기화
