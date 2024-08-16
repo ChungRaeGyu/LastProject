@@ -1,6 +1,8 @@
 <div align="center">
 <h1>GemOfCard</h1>
-[영상 보기](https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c)
+  ## 🎬 게임 소개
+[YouTube 트레일러](https://www.youtube.com/watch?v=nVaE1ML3XvI)
+https://github.com/user-attachments/assets/b6531a2c-f1f5-49e8-8a0d-4f40b7542a7c
 <img src="https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed" alt="GemOfCardImage2"/>
 </div>
 
@@ -29,12 +31,6 @@
 - **던전**: 진행할 던전을 선택합니다.
 - **스테이지**: 던전 내에서 진행하고 싶은 방향을 선택합니다.
 - **전투**: 카드를 드래그하여 사용하며, 사용된 카드는 사용한 카드 더미로 이동합니다. 덱이 모두 소모되면 사용한 카드 더미를 다시 섞어 덱으로 만듭니다. 전투 종료 시 클리어 패널이 나타납니다.
-
-## 🎬 게임 소개
-[YouTube 트레일러](https://www.youtube.com/watch?v=nVaE1ML3XvI)
-
-## 🎮 GemOfCard
-![GemOfCardImage2](https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed)
 
 ### 🔍 지원 플랫폼
 **아래 플랫폼을 클릭하여 플레이 링크로 이동하세요:**
