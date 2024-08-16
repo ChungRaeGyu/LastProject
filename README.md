@@ -1,5 +1,5 @@
 <div align="center">
-#<h2>GemOfCard</h2>
+# <h2>GemOfCard</h2>
 https://github.com/user-attachments/assets/067689ef-53c4-485b-9a99-e31637ec2985
 ![GemOfCardImage2](https://github.com/user-attachments/assets/c785deaf-0b0b-4e81-a897-cce14d7187ed)
 </div>
