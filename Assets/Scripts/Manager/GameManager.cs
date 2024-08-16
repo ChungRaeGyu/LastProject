@@ -236,6 +236,7 @@ public class GameManager : MonoBehaviour
             player.InitializeCost();
 
             skip = false;
+            if (volumeUp > 0) volumeUp = 0;
             if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count >= 5)
                 // 덱에서 카드 드로우
                 yield return StartCoroutine(DrawInitialHand(5));
@@ -266,8 +267,6 @@ public class GameManager : MonoBehaviour
                 }
                 yield return null; // 매 프레임 대기
             }
-
-            if (volumeUp > 0) volumeUp = 0;
 
             // Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);
