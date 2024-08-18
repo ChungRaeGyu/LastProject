@@ -38,8 +38,8 @@ public class HammerAttack : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다.카드를 한장 획득합니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.카드를 한장 획득합니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다. 카드를 1장 뽑습니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 카드를 1장 뽑습니다.";
         }
     }
 

@@ -46,8 +46,8 @@ public class BloodFlow : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다.{utilAbility}의 피를 사용합니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.{utilAbility}의 피를 사용합니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다. {utilAbility}만큼 체력을 잃습니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. {utilAbility}만큼 체력을 잃습니다.";
         }
     }
 

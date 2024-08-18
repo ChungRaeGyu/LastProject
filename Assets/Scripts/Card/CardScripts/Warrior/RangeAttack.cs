@@ -34,8 +34,8 @@ public class RangeAttack : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"전체 적에게 <b>{damageAbility}</b> 만큼 피해를 줍니다."
-                : $"전체 적에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
+                ? $"적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다."
+                : $"적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
         }
     }
 

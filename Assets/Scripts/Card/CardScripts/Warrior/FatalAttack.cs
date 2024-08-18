@@ -40,8 +40,8 @@ public class FatalAttack : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다.2턴동안 취약과 약화를 줍니다. "
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.2턴동안 취약과 약화를 줍니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 줍니다. 2턴 동안 취약과 약화를 줍니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 2턴 동안 취약과 약화를 줍니다.";
         }
     }
 
