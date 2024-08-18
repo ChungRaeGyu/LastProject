@@ -11,6 +11,9 @@ public class LobbyButtonManager : MonoBehaviour
     [SerializeField] GameObject DeckCanvas;
     [SerializeField] GameObject DrawCanvas;
 
+    [Header("Panel")]
+    [SerializeField] GameObject helpPanel;
+
     [Header("Sound")]
     [SerializeField] private AudioSource AudioSource;
     [SerializeField] private AudioClip GachaClip;
@@ -23,6 +26,29 @@ public class LobbyButtonManager : MonoBehaviour
     {
         drawSystem = DrawCanvas.GetComponentInParent<DrawSystem>();
     }
+
+    // helpPanel을 껐다 켜는 메서드
+    public void ToggleHelpPanel()
+    {
+        if (helpPanel != null)
+        {
+            bool isActive = helpPanel.activeInHierarchy;
+
+            helpPanel.SetActive(!isActive);
+
+            if (isActive)
+            {
+                // 패널이 비활성화될 때
+                SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+            }
+            else
+            {
+                // 패널이 활성화될 때
+                SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+            }
+        }
+    }
+
     public void ControlBookCanvas()
     {
         BookCanvas.SetActive(!BookCanvas.activeInHierarchy);
