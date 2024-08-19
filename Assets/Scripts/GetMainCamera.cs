@@ -10,6 +10,12 @@ public class GetMainCamera : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         canvas = GetComponent<Canvas>();
+
+        // Sorting Layer를 Setting으로 변경
+        if (canvas != null)
+        {
+            canvas.sortingLayerName = "Setting";
+        }
     }
 
     void OnSceneLoaded(Scene scene,LoadSceneMode mode)
@@ -18,7 +24,11 @@ public class GetMainCamera : MonoBehaviour
         {
             return;
         }
+
         canvas.worldCamera = Camera.main;
         canvas.planeDistance = 0.4f;
+
+        // Scene이 로드된 후 Sorting Layer를 Setting으로 변경
+        canvas.sortingLayerName = "Setting";
     }
 }
