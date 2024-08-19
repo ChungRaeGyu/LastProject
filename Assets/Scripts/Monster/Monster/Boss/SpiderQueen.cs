@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpierQueen : MonsterCharacter
+public class SpiderQueen : MonsterCharacter
 {
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;

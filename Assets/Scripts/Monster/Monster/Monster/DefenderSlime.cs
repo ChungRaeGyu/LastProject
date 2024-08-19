@@ -7,6 +7,8 @@ public class DefenderSlime : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private int monsterTurn = 0;
+    private bool monsterPowerAttack = false;
     // 턴이 끝나는 시점에 바뀌는 랜덤 값을 저장할 필드
     private int attackRandomValue;
 
@@ -22,10 +24,15 @@ public class DefenderSlime : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
+        if (monsterTurn % 5 == 0)
+            util1DescriptionText.text = $"<color=#FF7F50><size=30><b>방패</b></size></color>\n <color=#FFFF00>5</color>턴마다 방어력이 <color=#FFFF00>{monsterStats.defense += 1}</color>씩 증가합니다.";
+
         attackRandomValue = Random.Range(0, 100);
 
-        if (attackRandomValue < 15)
+        if (attackRandomValue < 10)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else if (currenthealth < 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 현재 방어력을 모두 소모해 <color=#FFFF00>{monsterStats.attackPower += monsterStats.defense * 3}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
@@ -61,16 +68,27 @@ public class DefenderSlime : MonsterCharacter
         if (!isFrozen)
         {
             if (isDead) yield break;
+            monsterStats.defense = 0;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 
             yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
+            if (monsterTurn % 5 == 0) // 5턴마다 방어력 1 상승
+            {
+                monsterStats.defense += 1;
+            }
 
-            if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
+            if (attackRandomValue < 10) // 10% 확률로 공격력 2배 공격
             {
                 yield return PerformAttack(monsterStats.attackPower * 2);
                 Debug.Log(this.name + "이 강한공격!");
+            }
+            else if (currenthealth < 10 && !monsterPowerAttack) // 쌓인 방어도 만큼 기본 공격력을 곱해 공격한다 (최후의 발악 느낌)
+            {
+                yield return PerformAttack(monsterStats.attackPower += monsterStats.defense * 3);
+                monsterPowerAttack = true;
+                monsterStats.defense = 0;
             }
             else
             {
@@ -80,10 +98,13 @@ public class DefenderSlime : MonsterCharacter
 
         yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
+        monsterTurn++;
         attackRandomValue = Random.Range(0, 100);
 
-        if (attackRandomValue < 15)
+        if (attackRandomValue < 10)
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        else if (currenthealth < 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 현재 방어력을 모두 소모해 <color=#FFFF00>{monsterStats.attackPower += monsterStats.defense * 3}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
