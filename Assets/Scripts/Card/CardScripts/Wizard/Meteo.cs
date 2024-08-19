@@ -68,7 +68,7 @@ public class Meteo : CardBasic
         SettingManager.Instance.PlaySound(CardClip1);
 
         GameManager.instance.effectManager.MagicAttack(cardBasic);
-        //TODO : 애니메이션 넣어주기
+        //TODO : 애니메이션 넣어주기 
     }
 
     #region 특수카드 사용

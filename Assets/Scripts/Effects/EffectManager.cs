@@ -56,7 +56,8 @@ public class EffectManager : MonoBehaviour
             RangeAttack.AttackAnim(tempCardInfo);
             foreach (MonsterCharacter monster in monsters)
             {
-                monster.TakeDamage(tempCardInfo.damageAbility);
+                if(monster.currenthealth>0)
+                    monster.TakeDamage(tempCardInfo.damageAbility);
             }
         }
         else
