@@ -38,9 +38,8 @@ public class DeckControl : MonoBehaviour
     //드래그 앤 드랍으로 넣기
     public void AddCardObj(CardBasic cardBasic)
     {
-        if (DataManager.Instance.LobbyDeck.Count == 6)
+        if (DataManager.Instance.LobbyDeck.Count == 10)
         {
-            Debug.Log("6장이 가득 찼습니다.");
             return;
         }
         if (RateCheck(cardBasic)) return;
