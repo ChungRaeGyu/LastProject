@@ -34,8 +34,8 @@ public class Meteo : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다.2턴동안 화상을 입힙니다."
-                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 2턴동안 화상을 입힙니다.";
+                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다. 2만큼 화상을 입힙니다."
+                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 2만큼 화상을 입힙니다.";
         }
     }
 

@@ -39,8 +39,8 @@ public class FireBall : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 주고 {utilAbility}턴 만큼 화상을 입힙니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 주고 {utilAbility}턴 만큼 화상을 입힙니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 주고 {utilAbility}만큼 화상을 입힙니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 주고 {utilAbility}만큼 화상을 입힙니다.";
         }
     }
 
