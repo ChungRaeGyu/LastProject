@@ -66,9 +66,9 @@ public class LobbyButtonManager : MonoBehaviour
         }
         else
         {
-            if (DataManager.Instance.currentCrystal >= 500)
+            if (DataManager.Instance.currentCrystal >= 300)
             {
-                DataManager.Instance.currentCrystal -= 500;
+                DataManager.Instance.currentCrystal -= 300;
                 LobbyManager.instance.currentCrystal.text = DataManager.Instance.currentCrystal.ToString(); // 나중에 메서드로 정리해서 호출해야함 (임시)
 
                 AudioSource.PlayOneShot(GachaClip);

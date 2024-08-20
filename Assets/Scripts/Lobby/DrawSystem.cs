@@ -65,7 +65,7 @@ public class DrawSystem : MonoBehaviour
             {
                 cardList = rarityCards;
             }
-            else if(random<97)
+            else if (random < 97)
             {
                 cardList = heroCards;
             }
