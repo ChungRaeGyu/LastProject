@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class DeckControl : MonoBehaviour
     List<CardBasic> cardObj = new List<CardBasic>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
     [SerializeField]GameObject prefab;
     [SerializeField] GameObject Canvas;
-    [SerializeField] Text deckCount;
+    [SerializeField] TextMeshProUGUI deckCount;
 
     #region 로비
     //Book to Deck

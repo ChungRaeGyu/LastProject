@@ -291,7 +291,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5636970527103086563}
-  - {fileID: 1900286917}
   m_Father: {fileID: 6531274978397061833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &71214319
@@ -3798,8 +3797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.2600021, y: -15.769989}
-  m_SizeDelta: {x: -2.8, y: -35.06}
+  m_AnchoredPosition: {x: -2.65, y: -15.769989}
+  m_SizeDelta: {x: 0.3, y: -35.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &500274605
 GameObject:
@@ -7843,7 +7842,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 20
+    m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 30
@@ -15021,16 +15020,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900286916}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 55.300007, y: 55.300007, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 63842144}
+  m_Father: {fileID: 5636970527103086563}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.02, y: 3.89}
+  m_AnchoredPosition: {x: -1.25, y: 204}
   m_SizeDelta: {x: 2.5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1900286918
@@ -15053,12 +15052,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1/0
-
-'
+  m_text: 10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 69842bf1241052d4a9e99564070da842, type: 2}
+  m_sharedMaterial: {fileID: -5010619485028044458, guid: 69842bf1241052d4a9e99564070da842, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15082,8 +15079,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 0.7
+  m_fontSizeBase: 0.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17433,7 +17430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 3136015016114371348, guid: 49bb36907b264b949b4f9521c3c6bef7, type: 3}
   Canvas: {fileID: 885540489}
-  deckCount: {fileID: 0}
+  deckCount: {fileID: 1900286918}
 --- !u!1 &408253377279565145
 GameObject:
   m_ObjectHideFlags: 0
@@ -21097,6 +21094,7 @@ RectTransform:
   m_LocalScale: {x: 0.018083181, y: 0.018083181, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1900286917}
   - {fileID: 476560832}
   m_Father: {fileID: 63842144}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
