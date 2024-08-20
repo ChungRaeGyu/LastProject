@@ -29,7 +29,7 @@ public class Mimic : MonsterCharacter
 
         if (monsterTurn <= 5)
         {
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n {selfdestructionCount}턴 후에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
+            util1DescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n {selfdestructionCount}턴 후에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
         }
 
         if (attackRandomValue < 15)
@@ -82,7 +82,7 @@ public class Mimic : MonsterCharacter
             if (monsterTurn == 5) // 5턴 안에 잡지못하면 피0 딜30을 넣고 자폭
             {
                 yield return PerformAttack(30);
-                monsterStats.maxhealth = 0;
+                TakeDamage(100);
             }
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
@@ -104,7 +104,7 @@ public class Mimic : MonsterCharacter
 
         if (monsterTurn <= 5)
         {
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n {selfdestructionCount}턴 후에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
+            util1DescriptionText.text = $"<color=#FF7F50><size=30><b>자폭</b></size></color>\n {selfdestructionCount}턴 후에 이 적은 <color=#FFFF00>{30}</color>의 피해로 공격하고 사라집니다.";
         }
 
         if (attackRandomValue < 15)
