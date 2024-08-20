@@ -2895,6 +2895,7 @@ MonoBehaviour:
   playerPosition: {x: 0, y: 0, z: 0}
   isEliteStage: 0
   isBossStage: 0
+  stageList: []
   timeText: {fileID: 4208368720465747226}
   dungeonTimer: {fileID: 3381384542263269755}
 --- !u!4 &569416015
@@ -12187,7 +12188,7 @@ PrefabInstance:
     - target: {fileID: 2146374277994872979, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1635272316}
     - target: {fileID: 2146374277994872979, guid: 5d8f65aae50937045ad2befe5c7f76fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleDungeonDeckScrollView

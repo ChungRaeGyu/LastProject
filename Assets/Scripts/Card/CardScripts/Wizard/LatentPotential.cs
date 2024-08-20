@@ -38,6 +38,7 @@ public class LatentPotential : CardBasic
             }
             else
             {
+                color = "#00FF00"; // 초록색
                 cardCountText = "X"; // 카드 수를 대신하는 X
             }
 

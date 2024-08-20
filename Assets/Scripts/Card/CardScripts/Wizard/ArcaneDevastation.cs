@@ -57,18 +57,18 @@ public class ArcaneDevastation : CardBasic
             {
                 GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
                 // 몬스터가 죽었는지 확인
                 if (targetMonster.IsDead())
                 {
                     RecoverCost();
                 }
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(.5f);
             }
 
             CardUse(targetMonster);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             // 몬스터가 죽었는지 확인
             if (targetMonster.IsDead())
             {
