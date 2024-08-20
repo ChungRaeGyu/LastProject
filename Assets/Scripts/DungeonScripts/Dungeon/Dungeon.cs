@@ -142,10 +142,14 @@ public class Dungeon : MonoBehaviour
         }
     }
 
-    private int RandomStageInput(GameObject gameObject)
+    private int RandomStageInput(GameObject gameObject,int randomNum=0)
     {
         int num = 0;
-        for (int j = 0; j < random.Next(2, y / x + 2); j++)
+        if(randomNum == 0)
+        {
+            randomNum = random.Next(3, y / x + 3);
+        }
+        for (int j = 0; j < randomNum; j++)
         {
             //store
             SaveManager.Instance.stageList.Add(gameObject);
@@ -159,7 +163,7 @@ public class Dungeon : MonoBehaviour
         int stageCount = (x * (y / 2 - 1) + 2)-4;
         int i = 0;
         i += RandomStageInput(storeStage);
-        i += RandomStageInput(eliteStage);
+        i += RandomStageInput(eliteStage,2);
         i += RandomStageInput(eventStage);
         while (i < stageCount) {
             SaveManager.Instance.stageList.Add(battleStage);

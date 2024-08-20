@@ -23,8 +23,11 @@ public class EffectManager : MonoBehaviour
             List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters);
             foreach (MonsterCharacter monster in monsters)
             {
-                if(monster.currenthealth>0)
+                if (monster.currenthealth > 0)
+                {
                     monster.TakeDamage(tempCardInfo.damageAbility);
+                    AttackEffectMethod(monster.transform.position);
+                }
             }
         }
         else
