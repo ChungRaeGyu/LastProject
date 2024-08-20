@@ -39,8 +39,8 @@ public class ThunderBolt : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 번개 피해를 줍니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 번개 피해를 줍니다.";
+                ? $"<b>{damageAbility}</b> 만큼 번개 피해를 줍니다.2턴동안 화상을 입힙니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 번개 피해를 줍니다.2턴동안 화상을 입힙니다.";
         }
     }
 
@@ -73,7 +73,7 @@ public class ThunderBolt : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         SettingManager.Instance.PlaySound(CardClip1);
-
+        targetMonster.burnForTurns(utilAbility);
         GameManager.instance.effectManager.MagicAttack(cardBasic,targetMonster);
         PlayPlayerAttackAnimation();
     }

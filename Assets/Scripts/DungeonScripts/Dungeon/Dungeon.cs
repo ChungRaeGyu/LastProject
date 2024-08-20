@@ -145,7 +145,7 @@ public class Dungeon : MonoBehaviour
     private int RandomStageInput(GameObject gameObject)
     {
         int num = 0;
-        for (int j = 0; j < random.Next(1, y / x + 1); j++)
+        for (int j = 0; j < random.Next(2, y / x + 2); j++)
         {
             //store
             SaveManager.Instance.stageList.Add(gameObject);

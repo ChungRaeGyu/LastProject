@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckControl : MonoBehaviour
 {
@@ -12,6 +11,7 @@ public class DeckControl : MonoBehaviour
     List<CardBasic> cardObj = new List<CardBasic>(); //Queue를 받아서 임시 저장해 놓는 곳이다.
     [SerializeField]GameObject prefab;
     [SerializeField] GameObject Canvas;
+    [SerializeField] TextMeshProUGUI deckCount;
 
     #region 로비
     //Book to Deck
@@ -44,13 +44,15 @@ public class DeckControl : MonoBehaviour
         DataManager.Instance.LobbyDeck.Add(cardBasic);
         DataManager.Instance.LobbyDeckRateCheck[(int)cardBasic.rate]++;
         GameObject obj = Instantiate(cardBasic.deckCardImage, Canvas.transform);
-        obj.SetActive(true); 
+        obj.SetActive(true);
+        DeckTextUpdate();
     }
     public void RemoveCardObj(CardBasic cardBasic)
     {
         cardBasic.currentCount++;
         LobbyManager.instance.InvokeCount();
         DataManager.Instance.LobbyDeck.Remove(cardBasic);
+        DeckTextUpdate();
     }
 
     private bool RateCheck(CardBasic cardBasic)
@@ -74,6 +76,11 @@ public class DeckControl : MonoBehaviour
         {
             return false;
         }
+    }
+    private void DeckTextUpdate()
+    {
+        deckCount.text = $"{DataManager.Instance.LobbyDeck.Count.ToString()}";
+        deckCount.color = DataManager.Instance.LobbyDeck.Count<10?Color.red: Color.white;
     }
     #endregion
 }
