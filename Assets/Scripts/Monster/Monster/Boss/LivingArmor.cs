@@ -21,7 +21,18 @@ public class LivingArmor : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+        attackRandomValue = random.Next(0, 100);
+
+        if (monsterTurn < 3)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
+        else if (currenthealth < monsterStats.maxhealth / 2)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.5f)}</color>의 피해로 공격하려고 합니다.";
+        else if (monsterTurn > 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.5f)}</color>의 피해로 공격하려고 합니다.";
+        else if (attackRandomValue < 15)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
@@ -64,19 +75,19 @@ public class LivingArmor : MonsterCharacter
 
             if (monsterTurn < 3) // 3턴동안 공격력 2배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.2f));
             }
             else if (currenthealth < monsterStats.maxhealth / 2) // 반의 반의 체력이 남으면 강해진다
             {
-                yield return PerformAttack(monsterStats.attackPower * 3);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.5f));
             }
             else if (monsterTurn > 10) // 10턴 뒤 공격력 3배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 3);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.5f));
             }
             else if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.2f));
             }
             else // 기본공격
             {
@@ -90,15 +101,14 @@ public class LivingArmor : MonsterCharacter
         attackRandomValue = random.Next(0, 100);
 
         if (monsterTurn < 3)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
         else if (currenthealth < monsterStats.maxhealth / 2)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.5f)}</color>의 피해로 공격하려고 합니다.";
         else if (monsterTurn > 10)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.5f)}</color>의 피해로 공격하려고 합니다.";
         else if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
-
 }

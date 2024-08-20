@@ -15,6 +15,8 @@ public class Mimic : MonsterCharacter
     {
         base.Start();
 
+        monsterTurn = 0;
+
         Canvas canvas = UIManager.instance.healthBarCanvas;
         if (canvas != null && healthBarPrefab != null)
         {
@@ -32,7 +34,7 @@ public class Mimic : MonsterCharacter
 
         if (attackRandomValue < 15)
         {
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
         }
         else
         {
@@ -85,7 +87,7 @@ public class Mimic : MonsterCharacter
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.2f));
                 Debug.Log(this.name + "이 강한공격!");
             }
             else
@@ -107,7 +109,7 @@ public class Mimic : MonsterCharacter
 
         if (attackRandomValue < 15)
         {
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
         }
         else
         {

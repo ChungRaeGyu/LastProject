@@ -27,7 +27,7 @@ public class Fox : MonsterCharacter
         attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.5f)}</color>의 피해로 공격하고, <color=#FFFF00>{2}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
     }
@@ -76,7 +76,7 @@ public class Fox : MonsterCharacter
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 3배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 3 + 5);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.5f));
                 GameManager.instance.player.BleedingForTurns(2);
 
                 Debug.Log(this.name + "이 강한공격!");
@@ -95,7 +95,7 @@ public class Fox : MonsterCharacter
         attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 3}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.5f)}</color>의 피해로 공격하고, <color=#FFFF00>{2}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
     }

@@ -26,7 +26,7 @@ public class CasterSlime : MonsterCharacter
         attackRandomValue = Random.Range(0, 100);
 
         if (monsterTurn % 4 == 0)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n이 적은 </color> 기를 모으고 있습니다.";
         //else
@@ -72,7 +72,7 @@ public class CasterSlime : MonsterCharacter
 
             if (monsterTurn % 4 == 0)
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.2f));
             }
             else
             {
@@ -86,7 +86,7 @@ public class CasterSlime : MonsterCharacter
         attackRandomValue = Random.Range(0, 100);
 
         if (monsterTurn % 4 == 0)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n이 적은 </color> 기를 모으고 있습니다.";
         //else
