@@ -43,6 +43,9 @@ public class StoreManager : MonoBehaviour
     public AudioClip StoreUseCoinClip;
     public AudioClip drinkClip;
 
+    [Header("Image")]
+    public Image CardDeleteImage;
+
     [SerializeField]
     List<GameObject> availableCards;
 
@@ -69,6 +72,10 @@ public class StoreManager : MonoBehaviour
     private void Start()
     {
         SetBackgroundBasedOnDungeonNum();
+
+        purchased = false;
+
+        CardDeleteImage.gameObject.SetActive(false);
 
         deckPanel.SetActive(false);
 
@@ -250,6 +257,9 @@ public class StoreManager : MonoBehaviour
         {
             purchased = true; // 한 번만 구매가 가능하게 함
 
+            // 카드 버튼 이미지에 구매를 이미 했다는 효과를 준다.
+            CardDeleteImage.gameObject.SetActive(true);
+
             DataManager.Instance.currentCoin -= needCoinAmount;
             dungeonCoin.text = DataManager.Instance.currentCoin.ToString();
             DataManager.Instance.removeCardCount++;
@@ -259,6 +269,8 @@ public class StoreManager : MonoBehaviour
         }
         else // 코인이 부족합니다!
         {
+            if (purchased) return;
+
             BlinkText(dungeonCoin, Color.red, 0.5f, 0.2f);
             SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         }
