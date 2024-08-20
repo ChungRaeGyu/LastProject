@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Meteo : CardBasic
@@ -33,8 +34,8 @@ public class Meteo : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다."
-                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
+                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다.2턴동안 화상을 입힙니다."
+                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 2턴동안 화상을 입힙니다.";
         }
     }
 
@@ -68,6 +69,13 @@ public class Meteo : CardBasic
         SettingManager.Instance.PlaySound(CardClip1);
 
         GameManager.instance.effectManager.MagicAttack(cardBasic);
+
+        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
+        foreach (MonsterCharacter monster in monsters)
+        {
+            if (monster.currenthealth > 0)
+                monster.burnForTurns(utilAbility);
+        }
         //TODO : 애니메이션 넣어주기 
     }
 

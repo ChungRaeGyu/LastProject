@@ -51,7 +51,6 @@ public class SaveManager : MonoBehaviour
     //현재 보스던전인지 체크
     public bool isBossStage;
 
-
     //스테이지 랜덤 생성
     public int[,] num;
     public List<GameObject> stageList = new List<GameObject>(); //stage임시저장소
@@ -66,9 +65,6 @@ public class SaveManager : MonoBehaviour
     public System.Random random = new System.Random();
     void Start()
     {
-
-
-
         // Stopwatch 초기화
         if (stopwatch == null)
         {
@@ -122,19 +118,4 @@ public class SaveManager : MonoBehaviour
     {
         stopwatch.Stop(); // 시간 측정 중지
     }
-    
-    //던전 스테이지 랜덤 생성
-/*    public void RandomStageNum()
-    {
-        num = new int[Dungeon.Instance.x, Dungeon.Instance.y];
-
-        for(int i =0; i < Dungeon.Instance.x; i++)
-        {
-            for(int j = 0; j < Dungeon.Instance.y; j++)
-            {
-                int rand = random.Next(0, 50);
-                num[i, j] = rand;
-            }
-        }
-    }*/
 }
