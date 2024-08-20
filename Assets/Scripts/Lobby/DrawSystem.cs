@@ -55,17 +55,17 @@ public class DrawSystem : MonoBehaviour
         LobbyManager.instance.isDrawing = true;
         for (int i = 0; i < count; i++)
         {
-            int random = Random.Range(1, 100);
+            int random = Random.Range(1, 101);
             List<CardBasic> cardList;
-            if (random < 80)
+            if (random < 65)
             {
                 cardList = normalCards;
             }
-            else if (random < 95)
+            else if (random < 90)
             {
                 cardList = rarityCards;
             }
-            else if(random<99)
+            else if(random<97)
             {
                 cardList = heroCards;
             }
