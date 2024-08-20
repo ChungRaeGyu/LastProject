@@ -54,7 +54,7 @@ public class MonsterCharacter : Character
         // 몬스터에 랜덤한
         if (!boss)
         {
-            int hpUp = random.Next(0, 10);
+            int hpUp = random.Next(-3, 3);
             currenthealth += hpUp;
         }
         baseAttackPower = monsterStats.attackPower;
