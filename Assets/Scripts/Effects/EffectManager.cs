@@ -80,12 +80,10 @@ public class EffectManager : MonoBehaviour
     public void Debuff(MonsterCharacter targetMonster, CardBasic cardBasic)
     {
         //호출될 메소드
-
-        tempCardInfo = cardBasic;
-        StartCoroutine(DeBuffCoroutine(false, targetMonster));
+        StartCoroutine(DeBuffCoroutine(false, cardBasic, targetMonster));
     }
 
-    IEnumerator DeBuffCoroutine(bool isRange, MonsterCharacter targetMonster = null)
+    IEnumerator DeBuffCoroutine(bool isRange, CardBasic cardBasic, MonsterCharacter targetMonster = null)
     {
         PlayerEffectMethod(GetPos());
         yield return new WaitForSeconds(1f);
@@ -102,14 +100,13 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
-            DebuffEffectMethod(targetMonster);
+            DebuffEffectMethod(targetMonster, cardBasic);
         }
     }
-    private void DebuffEffectMethod(MonsterCharacter monster)
+    private void DebuffEffectMethod(MonsterCharacter monster,CardBasic cardBasic)
     {
-        GameObject prefab = tempCardInfo.debuffEffectPrefab;
         if (monster.deBuff == null)
-            monster.deBuff = Instantiate(prefab, monster.transform.position, prefab.transform.rotation);
+            monster.deBuff = Instantiate(cardBasic.debuffEffectPrefab, monster.transform.position, cardBasic.debuffEffectPrefab.transform.rotation);
     }
 
     private void PlayerEffectMethod(Vector2 position)
