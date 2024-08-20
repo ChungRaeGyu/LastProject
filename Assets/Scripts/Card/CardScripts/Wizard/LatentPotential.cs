@@ -19,7 +19,7 @@ public class LatentPotential : CardBasic
     private void Update()
     {
         if (SceneManager.GetActiveScene().buildIndex == 3)
-            descriptionText.text = $"뽑을 카드 수 <color=#00FF00><b>{DataManager.Instance.deck.Count}</b></color> X 3 만큼 피해를 줍니다.";
+            descriptionText.text = $"뽑을 카드 수 <color=#00FF00><b>{DataManager.Instance.deck.Count}</b></color> X 5 만큼 피해를 줍니다.";
     }
 
     public override void SetDescription()
@@ -41,7 +41,7 @@ public class LatentPotential : CardBasic
                 cardCountText = "X"; // 카드 수를 대신하는 X
             }
 
-            descriptionText.text = $"뽑을 카드 수 <color={color}><b>{cardCountText}</b></color> X 3 만큼 피해를 줍니다.";
+            descriptionText.text = $"뽑을 카드 수 <color={color}><b>{cardCountText}</b></color> X 5 만큼 피해를 줍니다.";
         }
     }
 
@@ -77,7 +77,7 @@ public class LatentPotential : CardBasic
     {
         SettingManager.Instance.PlaySound(CardClip1);
 
-        damageAbility = DataManager.Instance.deck.Count * 3;
+        damageAbility = DataManager.Instance.deck.Count * 5;
         GameManager.instance.effectManager.MagicAttack(this, targetMonster);
 
         PlayPlayerAttackAnimation();

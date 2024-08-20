@@ -365,15 +365,14 @@ public class GameManager : MonoBehaviour
             UIManager.instance.victoryPanel.gameObject.SetActive(true);
             UIManager.instance.ClearPanelFade.SetActive(true);
 
-            // 텍스트 업데이트
-            UpdateVictoryTexts();
-
             // 획득한 크리스탈 계산 및 표시
             DataManager.Instance.ClearCalculateTotalCrystal();
             if (UIManager.instance.victoryTotalCrystal != null)
             {
                 UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.ClearTotalCrystal}";
             }
+            // 텍스트 업데이트
+            UpdateVictoryTexts();
         }
         else
         {
@@ -395,8 +394,8 @@ public class GameManager : MonoBehaviour
         SetText(UIManager.instance.victoryBossesDefeatedCountText, $"보스 처치 ({DataManager.Instance.ClearBossesDefeatedCount})");
         SetText(UIManager.instance.victoryRemainingCoinCountText, $"잔여 코인 ({DataManager.Instance.currentCoin})");
 
-        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.ClearMonstersKilledCount}");
-        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.ClearStageClearCount}");
+        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.adjustedClearMonstersKilledCount}");
+        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.adjustedClearStageClearCount}");
         SetText(UIManager.instance.victoryTotalClearTimePointText, $"{DataManager.Instance.adjustedClearTime}");
         SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.adjustedBossesDefeatedCount}");
         SetText(UIManager.instance.victoryRemainingCoinCountPointText, $"{DataManager.Instance.adjustedCurrentCoin}");

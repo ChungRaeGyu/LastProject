@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text defeatMnstersKilledText; // 처치한 몬스터 수
     public TMP_Text defeatStageClearCountText; // 클리어한 스테이지 수
     [Header("DefeatPoint")]
-    public TMP_Text defeatMnstersKilledPointText; // 처치한 몬스터 점수
+    public TMP_Text defeatMonstersKilledPointText; // 처치한 몬스터 점수
     public TMP_Text defeatStageClearCountPointText; // 클리어한 스테이지 점수
     public TMP_Text defeatTotalCrystalText; // 획득한 크리스탈
     [Header("Victory")]
@@ -362,14 +362,14 @@ public class UIManager : MonoBehaviour
             defeatPanel.SetActive(true);
             ClearPanelFade.SetActive(true);
 
-            // 텍스트 업데이트
-            UpdateDefeatTexts();
-
             DataManager.Instance.DefeatCalculateTotalCrystal();
             if (defeatTotalCrystalText != null)
             {
                 defeatTotalCrystalText.text = $"{DataManager.Instance.DefeatTotalCrystal}";
             }
+            // 텍스트 업데이트
+            UpdateDefeatTexts();
+
         }
 
         if (fadeRewardPanel != null)
@@ -383,10 +383,10 @@ public class UIManager : MonoBehaviour
         SetText(defeatMnstersKilledText, $"처치한 몬스터 ({DataManager.Instance.ClearMonstersKilledCount})");
         SetText(defeatStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.ClearStageClearCount})");
 
-        SetText(defeatMnstersKilledPointText, $"{DataManager.Instance.ClearMonstersKilledCount}");
-        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.ClearStageClearCount}");
+        SetText(defeatMonstersKilledPointText, $"{DataManager.Instance.adjustedDefeatMonstersKilledCount}");
+        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.adjustedDefeatStageClearCount}");
 
-        SetText(defeatTotalCrystalText, $"{DataManager.Instance.ClearMonstersKilledCount}");
+        SetText(defeatTotalCrystalText, $"{DataManager.Instance.DefeatTotalCrystal}");
     }
 
     private void SetText(TMP_Text textComponent, string text)
