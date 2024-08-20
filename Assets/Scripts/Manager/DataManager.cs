@@ -75,11 +75,18 @@ public class DataManager : MonoBehaviour
     public int DefeatStageClearCount { get; set; }
     public int DefeatTotalCrystal { get; set; }
 
-    // 점수 계산 변수들
+    // 승리 점수 계산 변수들
     public int adjustedCurrentCoin { get; set; }
+    public int adjustedClearMonstersKilledCount { get; set; }
+    public int adjustedClearStageClearCount { get; set; }
     public int adjustedClearTime { get; set; }
 
     public int adjustedBossesDefeatedCount { get; set; }
+
+
+    // 패배 점수 계산 변수들
+    public int adjustedDefeatMonstersKilledCount { get; set; }
+    public int adjustedDefeatStageClearCount { get; set; }
 
     // 던전 진행 중 제거한 카드 수
     public int removeCardCount;
@@ -99,6 +106,7 @@ public class DataManager : MonoBehaviour
     public bool[] accessibleDungeon = new bool[5];
 
     string path;
+
     private void Start()
     {
         Init();
@@ -210,22 +218,27 @@ public class DataManager : MonoBehaviour
         //int adjustedCoin = Mathf.RoundToInt(currentCoin / 100f);
         // 소수점 아래를 버림 (재화를 1개라도 덜 줌으로서 난이도 상승)
         adjustedCurrentCoin = Mathf.FloorToInt(currentCoin / 10f);
+        adjustedClearMonstersKilledCount = ClearMonstersKilledCount * 5;
+        adjustedClearStageClearCount = ClearStageClearCount * 5;
         adjustedClearTime = Mathf.Max(300 - ClearTotalClearTime, 0);
-        adjustedBossesDefeatedCount = ClearBossesDefeatedCount * 100;
+        adjustedBossesDefeatedCount = ClearBossesDefeatedCount * 300;
 
         // TotalCrystal 계산
         ClearTotalCrystal = adjustedCurrentCoin
-                     + ClearMonstersKilledCount * 3
-                     + ClearStageClearCount * 3
+                     + adjustedClearMonstersKilledCount
+                     + adjustedClearStageClearCount
                      + adjustedClearTime
                      + adjustedBossesDefeatedCount;
     }
 
     public void DefeatCalculateTotalCrystal()
     {
+        adjustedDefeatMonstersKilledCount = DefeatMonstersKilledCount * 5;
+        adjustedDefeatStageClearCount = DefeatStageClearCount * 5;
+
         // TotalCrystal 계산
-        DefeatTotalCrystal = DefeatMonstersKilledCount * 3
-                     + DefeatStageClearCount * 3;
+        DefeatTotalCrystal = adjustedDefeatMonstersKilledCount
+                     + adjustedDefeatStageClearCount;
     }
 
     // 기록 초기화
