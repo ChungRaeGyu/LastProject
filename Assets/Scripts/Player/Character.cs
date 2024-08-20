@@ -77,33 +77,33 @@ public class Character : MonoBehaviour
         }
         if (burnTurnsRemaining > 0)
         {
+            TakedamageCharacter(burnTurnsRemaining);
             burnTurnsRemaining--;
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
             if (existingFrozenCondition != null)
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            TakedamageCharacter(burnTurnsRemaining);
         }
         if (poisonTurnsRemaining > 0)
         {
+            TakedamageCharacter(poisonTurnsRemaining);
             poisonTurnsRemaining--;
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
             if (existingFrozenCondition != null)
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            TakedamageCharacter(5);
         }
         if (bleedingTurnsRemaining > 0)
         {
+            TakedamageCharacter(bleedingTurnsRemaining);
             bleedingTurnsRemaining--;
             Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
             if (existingFrozenCondition != null)
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-            TakedamageCharacter(5);
         }
     }
 
