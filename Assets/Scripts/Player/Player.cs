@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+[Serializable]
 public class Player : PlayerCharacter
 {
     public HpBar healthBarPrefab;
@@ -10,15 +11,16 @@ public class Player : PlayerCharacter
 
     public int currentCost { get; private set; }
     private HpBar healthBarInstance;
-    private List<Condition> conditionInstances = new List<Condition>();
 
     private Transform hpBarPos;
     private Transform conditionPos;
 
     public Transform playerCondition;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         InitializeCost();
 
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
@@ -49,7 +51,12 @@ public class Player : PlayerCharacter
     {
         playerCondition.position = conditionPos.position;
     }
-
+    /*
+    protected override Transform GetConditionTransfrom()
+    {
+        return conditionPos;
+    }
+    */
     public override void InitializeStats(int currenthealthData)
     {
         base.InitializeStats(currenthealthData);
@@ -73,7 +80,8 @@ public class Player : PlayerCharacter
 
     public void UseCost(int amount)
     {
-        currentCost = Mathf.Clamp(currentCost - amount, 0, maxCost);
+        currentCost -= amount;
+
         UpdateCostText();
     }
 
@@ -109,6 +117,7 @@ public class Player : PlayerCharacter
     }
 
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
+    /*
     public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
     {
         if (conditionPrefab != null)
@@ -118,7 +127,7 @@ public class Player : PlayerCharacter
             //UpdateConditionPositions();
             newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
         }
-    }
+    }*/
 
     // 리스트에서 Condition 인스턴스를 제거하고 위치를 업데이트
     public void RemoveCondition(Condition condition)
@@ -142,13 +151,24 @@ public class Player : PlayerCharacter
     // 방어력 Condition의 스택 수를 증가
     public void IncrementDefenseConditionStack(int amount)
     {
-        foreach (var condition in conditionInstances)
+
+        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Defense);
+        if (existingFrozenCondition != null)
         {
-            if (condition.conditionType == ConditionType.Defense)
-            {
-                condition.IncrementStackCount(amount);
-                break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
-            }
+            existingFrozenCondition.IncrementStackCount(amount);
         }
+        else
+        {
+            AddCondition(GetConditionPos(), amount, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
+        }
+    }
+
+    protected override Transform GetConditionPos()
+    {
+        return playerCondition;
+    }
+    protected override Transform GetConditionTransfrom()
+    {
+        return conditionPos;
     }
 }

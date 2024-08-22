@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 using System;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
     public GameObject monsterNextActionListPrefab;
     public GameObject actionDescriptionPrefab;
     public GameObject monsterNamePrefab;
-    
+
     [Header("Condition")]
     public GameObject conditionBoxPrefab;
     public Condition defenseconditionPrefab;
@@ -62,10 +61,9 @@ public class GameManager : MonoBehaviour
 
     [Header("ScrollView")]
     [SerializeField] private GameObject unUsedScrollView;
-    [SerializeField] private GameObject usedScrollView;
 
     [Header("CardUtil")]
-    public bool volumeUp = false;
+    public int volumeUp = 0;
 
     // 몬스터에 대한 보상 코인 합산
     public int monsterTotalRewardCoin;
@@ -74,6 +72,32 @@ public class GameManager : MonoBehaviour
 
     // 카드 드래그나 버튼작동을 멈추는 딜레이를 스킵하게 하는 값
     public bool skip;
+
+    [Header("Effect")]
+    public GameObject hitEffect;
+
+    [Header("AudioClip")]
+    public AudioClip turnClip;
+    public AudioClip showRewardClip;
+    public AudioClip rewardCardClip;
+    public AudioClip BaseAttackClip;
+
+    public CardBasic cardBasic;
+
+    public Queue<CardBasic> cardQueue = new Queue<CardBasic>();
+    public bool isPlayingCard = false;
+
+    [Header("ShakeObject")]
+    float ShakeAmount = 0.2f;
+    float ShakeTime;
+    List<Vector3> initialPosition = new List<Vector3>();
+    public List<Transform> ShakeObject = new List<Transform>();
+
+    [Header("Backgrounds")]
+    [SerializeField] private List<Sprite> backgrounds = new List<Sprite>();
+
+    [Header("Dungeon Backgrounds")]
+    [SerializeField] private SpriteRenderer battleBG;  // BattleBG에 해당하는 배경
 
     private void Awake()
     {
@@ -87,18 +111,32 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        SetBackgroundBasedOnDungeonNum();
+
         // 플레이어 생성
         if (playerPrefab != null)
         {
             GameObject playerObject = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
             player = playerObject.GetComponent<Player>();
-            Debug.Log($"{player}");
         }
 
         cardListManager = GetComponent<CardListManager>();
 
+        handManager.dungeonDeckCardCountText.text = DataManager.Instance.deckList.Count.ToString();
+
         // 몬스터 생성
         SpawnMonsters();
+    }
+
+    private void SetBackgroundBasedOnDungeonNum()
+    {
+        int dungeonNum = DataManager.Instance.accessDungeonNum;
+
+        // dungeonNum이 리스트 범위 내에 있는 경우 해당 배경 선택
+        if (dungeonNum >= 0 && dungeonNum < backgrounds.Count)
+        {
+            battleBG.sprite = backgrounds[dungeonNum];
+        }
     }
 
     private void Start()
@@ -163,20 +201,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayCardCoroutine()
+    {
+        while (cardQueue.Count > 0)
+        {
+            CardBasic card = cardQueue.Dequeue();
+
+            StartCoroutine(card.PlayCard());
+
+            yield return new WaitUntil(() => card.playCardCompleted); // 카드 플레이 완료 대기
+        }
+    }
+
     private IEnumerator Battle()
     {
         int turnCount = 1;
-
         while (true)
         {
-            Debug.Log("----- 플레이어 턴 시작 -----");
+            //Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
+            if (player.currentDefense > 0) player.currentDefense--;
+            foreach (var condition in player.conditionInstances)
+            {
+                if (condition.conditionType == ConditionType.Defense)
+                {
+                    condition.DecrementStackCount(player);
+                    break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
+                }
+            }
+            StartCoroutine(player.Turn());
             UIManager.instance.UpdatePlayerTurnCount(turnCount);
             UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
 
             player.InitializeCost();
 
             skip = false;
+            if (volumeUp > 0) volumeUp = 0;
             if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count >= 5)
                 // 덱에서 카드 드로우
                 yield return StartCoroutine(DrawInitialHand(5));
@@ -188,31 +248,42 @@ public class GameManager : MonoBehaviour
             {
                 if (monster.monsterNextAction != null)
                 {
-                    if (monster.frozenTurnsRemaining < 1)
-                    monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
+
+                    if (monster.frozenTurnsRemaining < 1&&monster.currenthealth>0)
+                        monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
                 }
             }
 
-            yield return new WaitUntil(() => !playerTurn); // 플레이어가 턴을 마칠 때까지 대기
-            if (volumeUp) volumeUp = false;
 
-            Debug.Log("----- 몬스터들의 턴 시작 -----");
+            while (playerTurn)
+            {
+                if (!isPlayingCard)
+                {
+                    isPlayingCard = true;
+
+                    StartCoroutine(PlayCardCoroutine());
+
+                    isPlayingCard = false;
+                }
+                yield return null; // 매 프레임 대기
+            }
+
+            // Debug.Log("----- 몬스터들의 턴 시작 -----");
             UIManager.instance.UpdateMonsterTurnCount(turnCount);
             UIManager.instance.TurnText.text = ENEMY_TURN_TEXT; // 적 턴 텍스트 설정
 
             // 모든 몬스터의 턴 순차적으로 진행
+            //이게 지금 몬스터
             for (int i = 0; i < monsters.Count; i++)
             {
                 MonsterCharacter monster = monsters[i];
                 if (monster.currenthealth > 0)
                 {
-                    Debug.Log($"----- 몬스터의 턴 시작 -----");
-                    yield return StartCoroutine(monster.MonsterTurn());
-                    yield return new WaitUntil(() => playerTurn); // 플레이어 턴이 되기 전까지 대기
+                    // Debug.Log($"----- 몬스터의 턴 시작 -----");
+                    yield return StartCoroutine(monster.Turn());
                 }
-            }
 
-            Debug.Log("----- 몬스터들의 턴 종료 -----");
+            }
 
             turnCount++;
         }
@@ -220,6 +291,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DrawCardFromDeck()
     {
+        if (DataManager.Instance.deck.Count + DataManager.Instance.usedCards.Count == 0) yield break;
+
         CardBasic cardBasic = DataManager.Instance.PopCard();
         AddCard(cardBasic);
         yield return null;
@@ -237,6 +310,7 @@ public class GameManager : MonoBehaviour
         if (AllMonstersDead())
         {
             StartCoroutine(WaitAndClearUI());
+
         }
     }
 
@@ -248,70 +322,82 @@ public class GameManager : MonoBehaviour
         // 잠깐 기다림
         yield return new WaitForSeconds(1.0f);
 
+        // 보상 패널 켜질때
+        SettingManager.Instance.PlaySound(showRewardClip);
         UIManager.instance.UIClear(true, false, true, true, true);
     }
 
     private bool AllMonstersDead()
     {
-        if (monsters.Count == 0)
+        int count = monsters.Count;
+        foreach(MonsterCharacter monster in monsters)
+        {
+            if (!monster.gameObject.activeInHierarchy) count--;
+            else
+            {
+                Debug.Log("Monster이름 : " + monster.name);
+            }
+        }
+        if (count == 0)
+        {
+            monsters.Clear();
             return true;
+        }
 
-        Debug.Log($"몬스터 수: {monsters.Count}");
         return false;
-    }
-
-    public void RemoveMonsterDead(MonsterCharacter monster)
-    {
-        monsters.Remove(monster);
-        CheckAllMonstersDead();
     }
 
     public void OnLobbyButtonClick()
     {
-        DataManager.Instance.stageClearCount++;
+        DataManager.Instance.ClearStageClearCount++;
+        DataManager.Instance.DefeatStageClearCount++;
 
         // 보스 클리어 확인
         if (SaveManager.Instance.isBossStage)
         {
-            DataManager.Instance.bossesDefeatedCount++;
+            SaveManager.Instance.isBossStage = false;
+            SaveManager.Instance.isEliteStage = false;
+            DataManager.Instance.ClearBossesDefeatedCount++;
             SaveManager.Instance.StopTrackingTime();
-            DataManager.Instance.totalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
+            DataManager.Instance.ClearTotalClearTime = (int)Math.Floor(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds);
 
             // 클리어 패널을 띄워 줌
             UIManager.instance.victoryPanel.gameObject.SetActive(true);
-
-            // 텍스트 업데이트
-            UpdateVictoryTexts();
+            UIManager.instance.ClearPanelFade.SetActive(true);
 
             // 획득한 크리스탈 계산 및 표시
-            DataManager.Instance.CalculateTotalCrystal();
+            DataManager.Instance.ClearCalculateTotalCrystal();
             if (UIManager.instance.victoryTotalCrystal != null)
             {
-                UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.totalCrystal}";
+                UIManager.instance.victoryTotalCrystal.text = $"{DataManager.Instance.ClearTotalCrystal}";
             }
+            // 텍스트 업데이트
+            UpdateVictoryTexts();
         }
         else
         {
             SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardSelect);
-            SceneManager.LoadScene(2);
+            SaveManager.Instance.isBossStage = false;
+            SaveManager.Instance.isEliteStage = false;
+            SceneFader.instance.LoadSceneWithFade(2);
         }
     }
 
     private void UpdateVictoryTexts()
     {
         DataManager.Instance.adjustedCurrentCoin = Mathf.FloorToInt(DataManager.Instance.currentCoin / 100f);
-        DataManager.Instance.adjustedClearTime = Mathf.Max(300 - DataManager.Instance.totalClearTime, 0);
+        DataManager.Instance.adjustedClearTime = Mathf.Max(300 - DataManager.Instance.ClearTotalClearTime, 0);
 
-        SetText(UIManager.instance.victoryMonstersKilledText, $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})");
-        SetText(UIManager.instance.victoryStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.stageClearCount})");
+        SetText(UIManager.instance.victoryMonstersKilledText, $"처치한 몬스터 ({DataManager.Instance.ClearMonstersKilledCount})");
+        SetText(UIManager.instance.victoryStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.ClearStageClearCount})");
         SetText(UIManager.instance.victoryTotalClearTimeText, $"던전 클리어 시간 ({SaveManager.Instance.FormatTime(SaveManager.Instance.stopwatch.Elapsed.TotalSeconds)})");
-        SetText(UIManager.instance.victoryBossesDefeatedCountText, $"보스 처치 ({DataManager.Instance.bossesDefeatedCount})");
+        SetText(UIManager.instance.victoryBossesDefeatedCountText, $"보스 처치 ({DataManager.Instance.ClearBossesDefeatedCount})");
         SetText(UIManager.instance.victoryRemainingCoinCountText, $"잔여 코인 ({DataManager.Instance.currentCoin})");
 
-        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.monstersKilledCount}");
-        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.stageClearCount}");
+        SetText(UIManager.instance.victoryMonstersKilledPointText, $"{DataManager.Instance.adjustedClearMonstersKilledCount}");
+        SetText(UIManager.instance.victoryStageClearCountPointText, $"{DataManager.Instance.adjustedClearStageClearCount}");
         SetText(UIManager.instance.victoryTotalClearTimePointText, $"{DataManager.Instance.adjustedClearTime}");
-        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.bossesDefeatedCount}");
+        SetText(UIManager.instance.victoryBossesDefeatedCountPointText, $"{DataManager.Instance.adjustedBossesDefeatedCount}");
         SetText(UIManager.instance.victoryRemainingCoinCountPointText, $"{DataManager.Instance.adjustedCurrentCoin}");
     }
 
@@ -326,23 +412,22 @@ public class GameManager : MonoBehaviour
     // 다음 스테이지 해금과 씬로드, 클리어 했을 때 하단의 진행 버튼
     public void ClearGoToLobbyScene()
     {
-        DataManager.Instance.currentCrystal += DataManager.Instance.totalCrystal;
+        DataManager.Instance.currentCrystal += DataManager.Instance.ClearTotalCrystal;
         StageCheck();
-        SceneManager.LoadScene(1);
+        SceneFader.instance.LoadSceneWithFade(1);
     }
 
     private void StageCheck()
     {
         SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
         SaveManager.Instance.accessDungeon = false;
-        if (SaveManager.Instance.accessDungeonNum < SaveManager.Instance.accessibleDungeon.Length - 1)
+        DataManager.Instance.openDungeonNum++;
+        if (DataManager.Instance.openDungeonNum < DataManager.Instance.accessibleDungeon.Length - 1)
         {
-            SaveManager.Instance.accessibleDungeon[SaveManager.Instance.accessDungeonNum + 1] = true;
+            if (DataManager.Instance.openDungeonNum >= 4) return;
+
         }
-    }
-    public void EndMonsterTurn()
-    {
-        playerTurn = true;
     }
 
     public void EndPlayerTurn()
@@ -400,6 +485,7 @@ public class GameManager : MonoBehaviour
     // unUsedScrollView 활성화/비활성화 메서드
     public void ToggleUnUsedScrollView()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         ToggleScrollView(
             unUsedScrollView,
             handManager.ShowAllCardsActive,  // 카드 표시
@@ -413,8 +499,9 @@ public class GameManager : MonoBehaviour
     // usedScrollView 활성화/비활성화 메서드
     public void ToggleUsedScrollView()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
         ToggleScrollView(
-            usedScrollView,
+            unUsedScrollView,
             handManager.ShowAllCardsActive,  // 카드 표시
             handManager.HideAllCardsActive,  // 카드 숨기기
             UIManager.instance.UsedCardsResetUIPositions, // UI 위치 재설정
@@ -423,4 +510,56 @@ public class GameManager : MonoBehaviour
         );
     }
 
+    // 덱 스크롤 뷰 활성화/비활성화 메서드
+    public void ToggleDungeonDeckScrollView()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        ToggleScrollView(
+            unUsedScrollView,
+            handManager.ShowAllCardsActive,  // 카드 표시
+            handManager.HideAllCardsActive,  // 카드 숨기기
+            UIManager.instance.dungeonDeckCardsResetUIPositions, // UI 위치 재설정
+            true, // fadeRewardPanel 활성화
+            cardListManager.UpdateDungeonDeckList
+        );
+    }
+
+    public void ShakeCamera()
+    {
+        StartCoroutine(ShakeCameraCoroutine());
+    }
+    IEnumerator ShakeCameraCoroutine()
+    {
+        float shakeValue = 0.2f;
+        float shaketime = 0.2f;
+        foreach (Transform pos in ShakeObject)
+        {
+            initialPosition.Add(pos.position);
+        }
+        ShakeAmount = shakeValue;
+        ShakeTime = shaketime;
+        while (true)
+        {
+            if (ShakeTime > 0)
+            {
+                for(int i=0; i < ShakeObject.Count; i++)
+                {
+                    ShakeObject[i].position = Random.insideUnitSphere * ShakeAmount + initialPosition[i];
+
+                }
+                ShakeTime -= Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+                for (int i = 0; i < ShakeObject.Count; i++)
+                {
+                    ShakeObject[i].position = initialPosition[i];
+                }
+
+                break;
+            }
+        }
+        initialPosition.Clear();
+    }
 }

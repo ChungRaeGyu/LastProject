@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7655292736309154891}
   - component: {fileID: 4346861700216458144}
   - component: {fileID: 799897747936752743}
+  - component: {fileID: 455174408137645604}
   m_Layer: 0
   m_Name: BitingEffectPrefab
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: -1814550199, guid: 6f686c7ef4407ac4db75d24307de5cf1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -106,3 +107,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &455174408137645604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7624113014711943935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001027af4cd1fb6429fcf434d9c3325c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyDelay: 2

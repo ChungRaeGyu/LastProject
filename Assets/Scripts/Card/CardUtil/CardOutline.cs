@@ -14,11 +14,8 @@ public class CardOutline : MonoBehaviour
 
     protected void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 3)
-        {
-            cardImage.gameObject.SetActive(false);
-        }
-
+        bool active = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
+        cardImage.gameObject.SetActive(active);
         if (cardImage != null)
         {
             cardMaterial = cardImage.material;

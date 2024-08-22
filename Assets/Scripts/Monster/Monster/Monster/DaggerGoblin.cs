@@ -7,7 +7,8 @@ public class DaggerGoblin : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
-    private int monsterTurn = 0;
+    //private int monsterTurn = 0;
+    private int attackRandomValue;
 
     private new void Start()
     {
@@ -21,18 +22,17 @@ public class DaggerGoblin : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+        attackRandomValue = random.Next(0, 100);
+
+        if (attackRandomValue < 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 5의 피해로 공격하고 <color=#FFFF00>{2}</color>의 출혈 피해를 주려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
     {
         base.Update();
-
-        // 얼면 아무것도 띄우지 않는다.
-        if (isFrozen)
-        {
-            attackDescriptionText.text = "";
-        }
     }
 
     public override void TakeDamage(int damage)
@@ -48,29 +48,30 @@ public class DaggerGoblin : MonsterCharacter
 
     public void StartMonsterTurn()
     {
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
-        yield return base.MonsterTurn();
+        yield return base.Turn();
 
         if (!isFrozen)
         {
+            if (isDead) yield break;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-            if (monsterTurn % 2 == 0) // 2턴 마다 공격력 2배 공격
+            if (attackRandomValue < 10) // 10% 확률로 출혈
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
-                Debug.Log(this.name + "이 강한공격!");
                 yield return PerformAttack(5);
+                GameManager.instance.player.BleedingForTurns(2);
+
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");
                 //attackDescriptionObject.SetActive(false);
             }
@@ -80,22 +81,14 @@ public class DaggerGoblin : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-        monsterTurn++;
+        attackRandomValue = random.Next(0, 100);
 
-        if (monsterTurn % 2 == 0)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
+        if (attackRandomValue < 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 5의 피해로 공격하고 <color=#FFFF00>{2}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
-
-        GameManager.instance.EndMonsterTurn();
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 }

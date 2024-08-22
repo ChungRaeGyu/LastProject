@@ -15,7 +15,6 @@ public class DrawSystem : MonoBehaviour
     Queue<CardBasic> tempCardBasic = new Queue<CardBasic>();
     List<GameObject> tempCardObj = new List<GameObject>();
 
-    public Button drawButton;
     //등급, 몇번째인지
     [SerializeField] GameObject board;
     [SerializeField] int count;
@@ -23,6 +22,9 @@ public class DrawSystem : MonoBehaviour
     RectTransform boardtransform;
     Vector3 initTransform;
     //나중에 switch를 없앨 방법을 생각해 보자
+
+    public CardData cardData;
+
     private void Start()
     {
         //boardtransform = board.GetComponent<RectTransform>();
@@ -53,17 +55,17 @@ public class DrawSystem : MonoBehaviour
         LobbyManager.instance.isDrawing = true;
         for (int i = 0; i < count; i++)
         {
-            int random = Random.Range(1, 100);
+            int random = Random.Range(1, 101);
             List<CardBasic> cardList;
-            if (random < 80)
+            if (random < 65)
             {
                 cardList = normalCards;
             }
-            else if (random < 95)
+            else if (random < 90)
             {
                 cardList = rarityCards;
             }
-            else if(random<99)
+            else if (random < 97)
             {
                 cardList = heroCards;
             }
@@ -74,15 +76,31 @@ public class DrawSystem : MonoBehaviour
 
             int randomCard = Random.Range(0, cardList.Count);
             GameObject tempObj = Instantiate(cardList[randomCard].gameObject, board.transform);
-            Image[] tempObjImage = tempObj.GetComponentsInChildren<Image>();
-            tempObjImage[1].sprite = DataManager.Instance.cardBackImage;
 
-            // 텍스트들이 안보이게 한다
-            tempObj.GetComponent<CardData>().SetTextVisibility(false);
+            cardData = tempObj.GetComponent<CardData>();
 
             tempCardBasic.Enqueue(cardList[randomCard]);
             tempCardObj.Add(tempObj);
+
+            StartCoroutine(SetCardBackImageWhenReady(cardData, tempObj));
         }
+    }
+
+    private IEnumerator SetCardBackImageWhenReady(CardData cardData, GameObject tempObj)
+    {
+        // Start가 완료될 때까지 대기
+        yield return new WaitUntil(() => cardData.isStartCompleted);
+
+        // Start가 완료된 후 뒷면 이미지로 설정
+        Image tempObjImage = tempObj.transform.GetChild(1).GetComponent<Image>();
+        tempObjImage.sprite = DataManager.Instance.cardBackImage;
+        tempObjImage.raycastTarget = false;
+
+        // 텍스트들이 안보이게 한다
+        cardData.SetTextVisibility(false, tempObj.GetComponent<CardBasic>());
+
+        tempCardBasic.Enqueue(cardData.GetComponent<CardBasic>());
+        tempCardObj.Add(tempObj);
     }
 
     //Book(도감)으로 넣어준다. 그리고 카드를 다 초기화 시켜주기
@@ -93,7 +111,7 @@ public class DrawSystem : MonoBehaviour
         {
             CardBasic temp = tempCardBasic.Dequeue();
             temp.currentCount++;
-            temp.cardBasic.isFind = true;
+            temp.isFind = true;
             Destroy(cardObj);
         }
         LobbyManager.instance.InvokeCount();
@@ -106,7 +124,8 @@ public class DrawSystem : MonoBehaviour
     public void CloseCanvas()
     {
         SaveCardInBook();
-        Debug.Log("종료 : " + initTransform);
+        LobbyManager.instance.ResetAndReinitialize();
+
         //boardtransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right,0,0);
     }
 

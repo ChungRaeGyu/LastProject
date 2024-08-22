@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class RandomAttack : CardBasic
 {
@@ -25,8 +26,10 @@ public class RandomAttack : CardBasic
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -46,23 +49,26 @@ public class RandomAttack : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"무작위 적들에게 <b>{damageAbility}</b> 만큼 {initialUtilAbility}번 피해를 줍니다."
-                : $"무작위 적들에게 <color={color}><b>{damageAbility}</b></color> 만큼 {initialUtilAbility}번 피해를 줍니다.";
+                ? $"무작위 적들에게 <b>{damageAbility}</b> 만큼 {utilAbility}번 피해를 줍니다."
+                : $"무작위 적들에게 <color={color}><b>{damageAbility}</b></color> 만큼 {utilAbility}번 피해를 줍니다.";
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -71,21 +77,15 @@ public class RandomAttack : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster=null)
     {
-        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
-        for(int i=0; i< initialUtilAbility; i++)
-        {
-            int num = Random.Range(0, monsters.Count);
-            monsters[num].TakeDamage(damageAbility);
-        }
+        GameManager.instance.effectManager.RandomAttackCoroutine(this);
+        SettingManager.Instance.PlaySound(CardClip1);
+
         PlayPlayerAttackAnimation();
     }
-
     #region 특수카드 사용
 
     #endregion
@@ -95,5 +95,24 @@ public class RandomAttack : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 2; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 5; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

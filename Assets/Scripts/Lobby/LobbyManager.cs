@@ -46,14 +46,14 @@ public class LobbyManager : MonoBehaviour
     }
 
     // 도감에 카드를 생성하는 메서드
-    private void Init()
+    public void Init()
     {
         int j = 0;
         for (int i = 0; i < DataManager.Instance.cardObjs.Count; i++)
         {
-            if (i!=0&&i % 9 == 0) j++;
+            if (i != 0 && i % 9 == 0) j++;
             GameObject temp = Instantiate(DataManager.Instance.cardObjs[i].gameObject, pages[j].transform);
-            temp.GetComponent<RectTransform>().localScale = new Vector3(1.7f, 2.55f,1);
+            temp.GetComponent<RectTransform>().localScale = new Vector3(1.7f, 2.55f, 1);
             CardBasic tempCardBasic = temp.GetComponent<CardBasic>();
             tempCardBasic.cardBasic = DataManager.Instance.cardObjs[i];
             Instantiate(num, temp.transform);
@@ -62,9 +62,68 @@ public class LobbyManager : MonoBehaviour
         DataManager.Instance.deckList.Clear();
     }
 
+    // 도감에 생성된 카드를 모두 삭제하고 다시 생성하는 메서드
+    public void ResetAndReinitialize()
+    {
+        // 모든 페이지에 있는 자식 오브젝트(카드)를 삭제
+        foreach (GameObject page in pages)
+        {
+            foreach (Transform child in page.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // 카드를 다시 생성
+        Init();
+    }
+
+
     public void InvokeCount()
     {
         OnCount?.Invoke();
+    }
+
+    public void ReplaceCard(CardBasic card)
+    {
+        // 카드가 위치한 페이지를 찾기 위한 인덱스
+        int pageIndex = -1;
+        int cardIndex = -1;
+
+        // 페이지와 카드 인덱스를 찾기 위한 루프
+        for (int i = 0; i < pages.Count; i++)
+        {
+            Transform pageTransform = pages[i].transform;
+            for (int j = 0; j < pageTransform.childCount; j++)
+            {
+                CardBasic existingCard = pageTransform.GetChild(j).GetComponent<CardBasic>();
+                if (existingCard.cardName == card.cardName)
+                {
+                    pageIndex = i;
+                    cardIndex = j;
+                    break;
+                }
+            }
+            if (pageIndex != -1) break; // 카드 위치를 찾으면 루프 종료
+        }
+
+        // 지정한 카드를 찾지 못한 경우
+        if (pageIndex == -1)
+        {
+            return;
+        }
+
+        // 기존 카드를 삭제
+        Destroy(pages[pageIndex].transform.GetChild(cardIndex).gameObject);
+
+        // 같은 위치에 카드 재생성
+        GameObject newCard = Instantiate(card.cardBasic.gameObject, pages[pageIndex].transform);
+        newCard.transform.SetSiblingIndex(cardIndex);
+        newCard.GetComponent<RectTransform>().localScale = new Vector3(1.7f, 2.55f, 1);
+        CardBasic newCardBasic = newCard.GetComponent<CardBasic>();
+        newCardBasic.cardBasic = card.cardBasic;
+
+        Instantiate(num, newCard.transform);
     }
 
 }

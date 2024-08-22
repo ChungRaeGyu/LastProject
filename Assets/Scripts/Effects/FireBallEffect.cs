@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class FireBallEffect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-           
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    [SerializeField] GameObject explosion;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
+            Vector2 position = new Vector2(transform.position.x, transform.position.y+4.5f);
             Destroy(gameObject);
+            Instantiate(explosion, position, explosion.transform.rotation);
             //터지는 이펙트 생성하기.. 
         }
     }

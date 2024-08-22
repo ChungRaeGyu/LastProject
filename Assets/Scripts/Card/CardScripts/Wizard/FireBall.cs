@@ -11,15 +11,15 @@ public class FireBall : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -39,12 +39,12 @@ public class FireBall : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해를 주고 3턴동안 3의피해를 입힙니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 주고 3턴동안 3의피해를 입힙니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해를 주고 {utilAbility}만큼 화상을 입힙니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해를 주고 {utilAbility}만큼 화상을 입힙니다.";
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -53,25 +53,29 @@ public class FireBall : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
+
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.burnForTunrs(utilAbility);
+        SettingManager.Instance.PlaySound(CardClip1);
+
+        targetMonster.burnForTurns(utilAbility);
         GameManager.instance.effectManager.MagicAttack(cardBasic,targetMonster);
         PlayPlayerAttackAnimation();
     }
@@ -85,5 +89,25 @@ public class FireBall : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 4; // 데미지 증가
+                utilAbility += 1;
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

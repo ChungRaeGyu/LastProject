@@ -89,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 309144289341893455}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 1.2, z: 0}
+  m_LocalPosition: {x: -1, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -500,7 +500,7 @@ Transform:
   m_GameObject: {fileID: 2170212759944949662}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 2.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -524,7 +524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6352286582446973686
 Transform:
   m_ObjectHideFlags: 0
@@ -557,15 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b7a127113c26445be3b41cc12dbb7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: 773442bb19668d34f877b09f4a2b7d44, type: 2}
-  baseAttackPower: 0
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 7493057315519867760}
-  conditionPos: {fileID: 6670170484919434238}
-  monsterNextActionPos: {fileID: 1614628238519333868}
-  monsterNamePos: {fileID: 4476696629304865510}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -573,12 +564,22 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 0
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: 773442bb19668d34f877b09f4a2b7d44, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 6670170484919434238}
+  hpBarPos: {fileID: 7493057315519867760}
+  monsterNextActionPos: {fileID: 1614628238519333868}
+  monsterNamePos: {fileID: 4476696629304865510}
+  boss: 0
   descriptionTransform: {fileID: 0}
   attackDescriptionObject: {fileID: 0}
   defenseDescriptionObject: {fileID: 0}
   healDescriptionObject: {fileID: 0}
+  isDead: 0
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!61 &8200471015649658678
 BoxCollider2D:
@@ -623,7 +624,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.84, y: 1.15}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &3461378994224906882
 Rigidbody2D:
@@ -651,7 +652,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &2331094292753901402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,7 +1276,7 @@ Transform:
   m_GameObject: {fileID: 3976907164134641255}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1443,7 +1444,7 @@ Transform:
   m_GameObject: {fileID: 7357590865325494186}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

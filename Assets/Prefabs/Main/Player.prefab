@@ -215,10 +215,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f216fc83ff83924388c30d19078e3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frozenTurnsRemaining: 0
+  weakerTurnsRemaining: 0
+  defDownTurnsRemaining: 0
+  burnTurnsRemaining: 0
+  poisonTurnsRemaining: 0
+  bleedingTurnsRemaining: 0
+  isFrozen: 0
+  conditionInstances: []
+  animator: {fileID: 0}
+  deBuff: {fileID: 0}
   playerStats: {fileID: 11400000, guid: 1e1616e852d7d47469268ecf744c1bad, type: 2}
   currenthealth: 100
   currentDefense: 0
-  animator: {fileID: 0}
+  currentAttack: 0
+  defdown: 0
+  damagedEffect: {fileID: 7196586892533426777, guid: b7f9cdca53f3652439e9db86e4e81bd3, type: 3}
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
   maxCost: 3
   playerCondition: {fileID: 0}

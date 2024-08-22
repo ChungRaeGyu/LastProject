@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2240560405180098425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 2512758669009610182}
   - component: {fileID: 5414954641935988896}
   - component: {fileID: 8724276154479585217}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4904221500225778353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5477263698717611198}
   - component: {fileID: 1151750019558168383}
   - component: {fileID: 3797885734123093951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 2386815753892546746}
   - component: {fileID: 1163154124464389308}
   - component: {fileID: 3142215047365634494}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 2481116060537354615}
   - component: {fileID: 5144021376417148537}
   - component: {fileID: 2828199172017994792}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LivingArmor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ Transform:
   m_GameObject: {fileID: 2166753996895193809}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9685943, y: -0.47463465, z: -0.04488455}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -435,14 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5fcb91fea26354aa0ceca6dcf1905e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: b8fd53c1c6bd3614f8e9bc5a333d43d5, type: 2}
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 6460770937837798883}
-  conditionPos: {fileID: 3759383315835030030}
-  monsterNextActionPos: {fileID: 1883919001382873243}
-  monsterNamePos: {fileID: 2226022646024242362}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -450,8 +442,22 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 1
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: b8fd53c1c6bd3614f8e9bc5a333d43d5, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 3759383315835030030}
+  hpBarPos: {fileID: 6460770937837798883}
+  monsterNextActionPos: {fileID: 1883919001382873243}
+  monsterNamePos: {fileID: 2226022646024242362}
+  boss: 1
+  descriptionTransform: {fileID: 0}
+  attackDescriptionObject: {fileID: 0}
+  defenseDescriptionObject: {fileID: 0}
+  healDescriptionObject: {fileID: 0}
+  isDead: 0
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!50 &5144021376417148537
 Rigidbody2D:
@@ -479,7 +485,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!61 &2828199172017994792
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -512,7 +518,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05, y: 2.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -523,7 +529,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.5, y: 4.5}
+  m_Size: {x: 3.5, y: 3.5}
   m_EdgeRadius: 0
 --- !u!1 &2634028533735732767
 GameObject:
@@ -534,7 +540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8391279899389640178}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1883919001382873243}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NextActionPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +588,7 @@ Transform:
   m_GameObject: {fileID: 3224358883234293280}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.4, z: 0}
+  m_LocalPosition: {x: 0, y: 3.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -599,7 +605,7 @@ GameObject:
   - component: {fileID: 6898305204209740679}
   - component: {fileID: 8698089652671995352}
   - component: {fileID: 7393290612444892067}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +712,7 @@ GameObject:
   - component: {fileID: 6849292860380976809}
   - component: {fileID: 2704168173713567487}
   - component: {fileID: 6647218039306549606}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -809,7 +815,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6737785731066340298}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2391189214728737916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3759383315835030030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ConditionPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +893,7 @@ Transform:
   m_GameObject: {fileID: 4977920238360311056}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 5, z: 0}
+  m_LocalPosition: {x: -1, y: 2.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -902,7 +908,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4042263075786603269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +942,7 @@ GameObject:
   - component: {fileID: 1789279763707446922}
   - component: {fileID: 4565908540432279594}
   - component: {fileID: 7740176504245226996}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1041,7 +1047,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5157316810676136774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1094,7 @@ Transform:
   m_GameObject: {fileID: 5624990209647946604}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.6, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1105,7 +1111,7 @@ GameObject:
   - component: {fileID: 2251185223384862303}
   - component: {fileID: 5421739542081206271}
   - component: {fileID: 4590393597807767415}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1210,7 +1216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1350458574135298570}
   - component: {fileID: 1308629541872955047}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Living Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1232,7 @@ Transform:
   m_GameObject: {fileID: 6582094339987196506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5, y: -1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1275,7 +1281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3350766551321473801}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1307,7 +1313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 319588016286393867}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1341,7 +1347,7 @@ GameObject:
   - component: {fileID: 2136473502824958993}
   - component: {fileID: 5959889656650899358}
   - component: {fileID: 8250875491579424718}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1444,7 +1450,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2226022646024242362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NamePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1460,7 +1466,7 @@ Transform:
   m_GameObject: {fileID: 8838351107391600594}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1475,7 +1481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9203057823999520948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bone_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

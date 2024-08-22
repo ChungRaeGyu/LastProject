@@ -10,13 +10,13 @@ public class DefenceIncrease : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -41,18 +41,21 @@ public class DefenceIncrease : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -61,16 +64,38 @@ public class DefenceIncrease : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
+        //이펙트
+        GameManager.instance.effectManager.Buff(this);
         // 방어력이 일시적(?)으로 증가
         GameManager.instance.player.currentDefense += utilAbility;
 
         // 방어력 Condition의 스택을 증가시킵니다.
         GameManager.instance.player.IncrementDefenseConditionStack(utilAbility);
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 1; // 증가 방어력 증가
+                break;
+            case 2:
+                utilAbility += 1; // 증가 방어력 증가
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

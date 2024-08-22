@@ -6,10 +6,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class EventManager : MonoBehaviour
 {
     public GameObject Dungeon;
+
+    [Header("FadeImage")]
+    public Image fadeImage;
 
     [Header("Event")]
     public GameObject mimicEvent;
@@ -19,22 +23,40 @@ public class EventManager : MonoBehaviour
     [Header("MimicEvent")]
     public List<GameObject> boxes;
     public List<GameObject> mimicMonster;
+    public AudioClip OpenBoxClip;
+    public AudioClip openMimicClip;
 
     [Header("RandomCardEvent")]
     public List<CardBasic> randomCardList;
     public TMP_Text randomCardEventDescription;
-    public TMP_Text randomCardCoinText;
-    public GameObject randomCardEventSelectBtn;
+    public TMP_Text coinRandomCardCoinText;
+    public GameObject coinRandomCardEventSelectBtn;
+    public TMP_Text damageRandomCardCoinText;
+    public GameObject damageRandomCardEventSelectBtn;
     public TMP_Text closeRandomCardEventText;
+    public GameObject randomCardEventImage;
+    public AudioClip runClip;
 
     [Header("HealEvent")]
     public TMP_Text healEventDescription;
     public TMP_Text healCoinText;
     public GameObject healEventSelectBtn;
     public TMP_Text closeHealEventText;
+    public GameObject healEventImage;
+
+    [Header("MainAudioClip")]
+    public AudioClip CoinClip;
 
     // 랜덤 값 변수 돌려쓰기
     private int randomCoin;
+
+    // 페이드 스피드
+    private float fadeSpeed = 1f;
+
+    private void Start()
+    {
+        fadeImage.gameObject.SetActive(false);
+    }
 
     public void ShowRandomEvent()
     {
@@ -53,14 +75,29 @@ public class EventManager : MonoBehaviour
             case 2:
                 ShowHealEvent();
                 break;
+            default:
+                break;
         }
     }
 
     public void ShowMimicEvent()
     {
+        StartCoroutine(ShowMimicEventCoroutine());
+    }
+
+    private IEnumerator ShowMimicEventCoroutine()
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        // IncreaseAlpha가 완료될 때까지 기다림
+        yield return StartCoroutine(IncreaseAlpha());
+
         HideDungeon();
         ShuffleBoxes();
         mimicEvent.SetActive(true);
+
+        // DecreaseAlpha가 완료될 때까지 기다림
+        yield return StartCoroutine(DecreaseAlpha());
     }
 
     private void ShuffleBoxes()
@@ -84,33 +121,75 @@ public class EventManager : MonoBehaviour
 
     public void MimicSurprise()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        SettingManager.Instance.PlaySound(openMimicClip);
+
         DataManager.Instance.SuffleDeckList();
         // 전투에서 미믹이 나와야 함
         DataManager.Instance.Monsters = mimicMonster;
-        LoadingSceneManager.LoadScene(3);
+        SceneFader.instance.LoadSceneWithFade(3);
     }
 
     public void GetCoin()
     {
-        int randomCoin = Random.Range(20, 41);
+        SettingManager.Instance.PlaySound(OpenBoxClip);
+        SettingManager.Instance.PlaySound(CoinClip);
+
+        int randomCoin = Random.Range(30, 41);
         DataManager.Instance.currentCoin += randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
         // 이 메서드가 호출된 버튼이 있는 오브젝트가 제거됨
         GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
         if (clickedButton != null)
-            Destroy(clickedButton);
+        {
+            StartCoroutine(FadeOutAndDestroy(clickedButton));
+        }
+    }
+
+    private IEnumerator FadeOutAndDestroy(GameObject buttonObject)
+    {
+        Transform childTransform = buttonObject.transform.GetChild(0);
+        Image childImage = childTransform.GetComponent<Image>();
+
+        if (childImage != null)
+        {
+            Color originalColor = childImage.color;
+            float duration = 0.5f; // 페이드 아웃 시간
+            float elapsed = 0.0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float alpha = Mathf.Lerp(1, 0, elapsed / duration);
+                childImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+                yield return null;
+            }
+        }
+
+        Destroy(buttonObject);
     }
 
     public void HideMimicEvent()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         mimicEvent.SetActive(false);
         ShowDungeon();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 
     public void ShowRandomCardEvent()
     {
+        StartCoroutine(ShowRandomCardEventCoroutine());
+    }
+
+    private IEnumerator ShowRandomCardEventCoroutine()
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        yield return StartCoroutine(IncreaseAlpha());
+
         HideDungeon();
         randomCardEvent.SetActive(true);
 
@@ -118,50 +197,133 @@ public class EventManager : MonoBehaviour
         randomCoin = Random.Range(50, 61);
 
         // 현재 가진 코인을 체크하고 텍스트 색 결정
+        bool insufficientCoins1 = DataManager.Instance.currenthealth < 10;
+        string mainTextColor1 = insufficientCoins1 ? "#808080" : "#FFFFFF";
+        string healthTextColor = insufficientCoins1 ? "#808080" : "#F3847B";
+        string coinTextColor1 = insufficientCoins1 ? "#808080" : "#FFFF00";
+
         bool insufficientCoins = DataManager.Instance.currentCoin < randomCoin;
         string mainTextColor = insufficientCoins ? "#808080" : "#FFFFFF";
         string coinTextColor = insufficientCoins ? "#808080" : "#FFFF00";
         string cardTextColor = insufficientCoins ? "#808080" : "#ADD8E6";
 
         // 텍스트 설정
-        randomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>랜덤한 카드</color>를 받는다.</color>";
+        damageRandomCardCoinText.text = $"<color={mainTextColor1}>1. <color={healthTextColor}>체력 {10}</color>이 줄어드는 대신에 <color={coinTextColor1}>코인</color>를 얻는다.</color>";
+
+        coinRandomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>랜덤한 카드</color>를 받는다.</color>";
+
+        yield return StartCoroutine(DecreaseAlpha());
+    }
+
+    public void PlunderGetCoin()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
+        if (DataManager.Instance.currenthealth < 10)
+        {
+            Debug.Log("체력이 부족합니다.");
+            return; // 체력이 부족할 때 아무 것도 하지 않고 메서드 종료
+        }
+
+        SettingManager.Instance.PlaySound(CoinClip);
+        SettingManager.Instance.PlaySound(runClip);
+
+        DataManager.Instance.currenthealth -= 10;
+        DungeonManager.Instance.currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
+
+        // 랜덤 코인 값 계산
+        randomCoin = Random.Range(30, 61);
+
+        DataManager.Instance.currentCoin += randomCoin;
+        DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
+
+        randomCardEventDescription.text = $"노인을 공격하자, 노인의 신비한 저주가 너의 몸을 스치며, " +
+            $"체력이 약간 줄어드는 것을 느꼈다. \n" +
+            $"그는 비틀거리며 허겁지겁 도망치기 시작했다. \n" +
+            $"그의 주머니에서 {randomCoin}코인이 떨어졌고, \n" +
+            $"나는 그를 쫓지 않고 <color=#FFFF00>코인</color>을 챙겼다.";
+
+        closeRandomCardEventText.text = "던전을 계속 진행한다.";
+
+        coinRandomCardEventSelectBtn.SetActive(false);
+        damageRandomCardEventSelectBtn.SetActive(false);
+
+        // 이미지가 점점 사라지는 연출을 해야한다.
+        randomCardEventImage.SetActive(false);
     }
 
     // randomCardList에서 카드를 1장 랜덤으로 내 덱에 추가
     public void GetRandomCard()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         if (DataManager.Instance.currentCoin < randomCoin)
         {
             Debug.Log("코인이 부족합니다.");
             return; // 코인이 부족할 때 아무 것도 하지 않고 메서드 종료
         }
 
+        SettingManager.Instance.PlaySound(CoinClip);
+
         DataManager.Instance.currentCoin -= randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
         int randomIndex = Random.Range(0, randomCardList.Count);
         CardBasic selectedCard = randomCardList[randomIndex];
-
+        
         DataManager.Instance.deckList.Add(selectedCard);
+
+        string cardColor = "#FFFFFF"; // 흰색
+
+        switch (selectedCard.rate)
+        {
+            case Rate.Normal:
+                cardColor = "#8f8f8f";
+                break;
+            case Rate.Rarity:
+                cardColor = "#6866ff";
+                break;
+            case Rate.Hero:
+                cardColor = "#e766ff";
+                break;
+            case Rate.Legend:
+                cardColor = "#ffec00";
+                break;
+        }
 
         randomCardEventDescription.text = $"노인이 알 수 없는 표정을 지으며 카드를 건네줍니다. \n" +
             $"이 카드는 당신에게 도움이 될 것입니다. \n" +
-            $"<color=#8A2BE2>{selectedCard.name}</color>카드를 받았습니다.";
+            $"<color={cardColor}>{selectedCard.cardName}</color>카드를 받았습니다.";
 
         closeRandomCardEventText.text = "던전을 계속 진행한다.";
 
-        randomCardEventSelectBtn.SetActive(false);
+        coinRandomCardEventSelectBtn.SetActive(false);
+        damageRandomCardEventSelectBtn.SetActive(false);
+
+        // 이미지가 점점 사라지는 연출을 해야한다.
+        randomCardEventImage.SetActive(false);
     }
 
     public void HideRandomCardEvent()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         randomCardEvent.SetActive(false);
         ShowDungeon();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
     }
 
     public void ShowHealEvent()
     {
+        StartCoroutine(ShowHealEventCoroutine());
+    }
+
+    private IEnumerator ShowHealEventCoroutine()
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        yield return StartCoroutine(IncreaseAlpha());
+
         HideDungeon();
         healEvent.SetActive(true);
 
@@ -172,19 +334,25 @@ public class EventManager : MonoBehaviour
         bool insufficientCoins = DataManager.Instance.currentCoin < randomCoin;
         string mainTextColor = insufficientCoins ? "#808080" : "#FFFFFF";
         string coinTextColor = insufficientCoins ? "#808080" : "#FFFF00";
-        string cardTextColor = insufficientCoins ? "#808080" : "#red";
+        string healthTextColor = insufficientCoins ? "#808080" : "#F3847B";
 
         // 텍스트 설정
-        randomCardCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={cardTextColor}>체력 20%</color>를 회복한다.</color>";
+        healCoinText.text = $"<color={mainTextColor}>1. <color={coinTextColor}>{randomCoin}코인</color>을 지불하고 <color={healthTextColor}>체력 20%</color>를 회복한다.</color>";
+
+        yield return StartCoroutine(DecreaseAlpha());
     }
 
     public void HealAndUseCoin()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+
         if (DataManager.Instance.currentCoin < randomCoin)
         {
             Debug.Log("코인이 부족합니다.");
             return; // 코인이 부족할 때 아무 것도 하지 않고 메서드 종료
         }
+
+        SettingManager.Instance.PlaySound(CoinClip);
 
         DataManager.Instance.currentCoin -= randomCoin;
         DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
@@ -201,13 +369,20 @@ public class EventManager : MonoBehaviour
         closeHealEventText.text = "던전을 계속 진행한다.";
 
         healEventSelectBtn.SetActive(false);
+
+        // 이미지가 점점 사라지는 연출을 해야한다.
+        healEventImage.SetActive(false);
     }
 
     public void HideHealEvent()
     {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip2);
+
         healEvent.SetActive(false);
         ShowDungeon();
-        LoadingSceneManager.LoadScene(2);
+        SceneFader.instance.LoadSceneWithFade(2);
+
+        DecreaseAlpha();
     }
 
     // 던전패널 비활성화
@@ -219,5 +394,41 @@ public class EventManager : MonoBehaviour
     public void ShowDungeon()
     {
         Dungeon.SetActive(true);
+    }
+
+    // 알파값을 천천히 올리는 메서드
+    public IEnumerator IncreaseAlpha()
+    {
+        yield return StartCoroutine(FadeIn());
+    }
+
+    private IEnumerator FadeIn()
+    {
+        while (fadeImage.color.a < 1f)
+        {
+            Color color = fadeImage.color;
+            color.a += Time.deltaTime * fadeSpeed;
+            fadeImage.color = color;
+            yield return null;
+        }
+    }
+
+    // 알파값을 천천히 줄이는 메서드
+    public IEnumerator DecreaseAlpha()
+    {
+        yield return StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeOut()
+    {
+        while (fadeImage.color.a > 0f)
+        {
+            Color color = fadeImage.color;
+            color.a -= Time.deltaTime * fadeSpeed;
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        fadeImage.gameObject.SetActive(false);
     }
 }

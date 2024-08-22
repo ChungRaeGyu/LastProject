@@ -12,15 +12,15 @@ public class BasicAttack : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -45,7 +45,7 @@ public class BasicAttack : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -54,12 +54,15 @@ public class BasicAttack : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -68,13 +71,12 @@ public class BasicAttack : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(damageAbility);
+        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
+        SettingManager.Instance.PlaySound(CardClip1);
         PlayPlayerAttackAnimation();
     }
 
@@ -88,5 +90,25 @@ public class BasicAttack : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    // 강화 단계에 따른 능력치 적용
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 4; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 8; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

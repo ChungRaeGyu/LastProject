@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2982275886279436249}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NamePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,14 +666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c35dcda0db85b5459fcf7f0b64c7b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterStats: {fileID: 11400000, guid: b65ae85652e7996469d8fc37babe4ed2, type: 2}
-  currenthealth: 0
-  animator: {fileID: 0}
-  conditionInstances: []
-  hpBarPos: {fileID: 478231869822727817}
-  conditionPos: {fileID: 6426580939579117890}
-  monsterNextActionPos: {fileID: 374814737833453054}
-  monsterNamePos: {fileID: 2982275886279436249}
   frozenTurnsRemaining: 0
   weakerTurnsRemaining: 0
   defDownTurnsRemaining: 0
@@ -681,8 +673,22 @@ MonoBehaviour:
   poisonTurnsRemaining: 0
   bleedingTurnsRemaining: 0
   isFrozen: 0
-  boss: 0
+  conditionInstances: []
+  animator: {fileID: 0}
   deBuff: {fileID: 0}
+  monsterStats: {fileID: 11400000, guid: b65ae85652e7996469d8fc37babe4ed2, type: 2}
+  baseAttackPower: 0
+  currenthealth: 0
+  conditionPos: {fileID: 6426580939579117890}
+  hpBarPos: {fileID: 478231869822727817}
+  monsterNextActionPos: {fileID: 374814737833453054}
+  monsterNamePos: {fileID: 2982275886279436249}
+  boss: 0
+  descriptionTransform: {fileID: 0}
+  attackDescriptionObject: {fileID: 0}
+  defenseDescriptionObject: {fileID: 0}
+  healDescriptionObject: {fileID: 0}
+  isDead: 0
   healthBarPrefab: {fileID: 7134115664999698403, guid: 98a32e12ee9724f49b6dabd691f719f3, type: 3}
 --- !u!50 &-3910324011760169137
 Rigidbody2D:
@@ -710,7 +716,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!61 &522078118248536542
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -827,7 +833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 374814737833453054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NextActionPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum JOB
 {
@@ -36,7 +37,6 @@ public enum Rate
 }
 public class CardBasic : MonoBehaviour
 {
-    [HideInInspector]
     public CardBasic cardBasic;
 
     [Header("BasicData")]
@@ -46,11 +46,13 @@ public class CardBasic : MonoBehaviour
     public int damageAbility;
     public int utilAbility;
     public int currentCount;
-    public Sprite image;
     public JOB job;
     public Rate rate;
     public bool dragLineCard;
     public GameObject deckCardImage;
+    public Sprite image;
+    public Sprite firstEnhanceImage;
+    public Sprite secondEnhanceImage;
 
     [Header("FindCheck")]
     public bool isFind = false;
@@ -68,17 +70,36 @@ public class CardBasic : MonoBehaviour
     [Header("UI Components")]
     public AudioSource audioSource;
 
+    [Header("AudioClip")]
+    public AudioClip CardClip1;
+    public AudioClip CardClip2;
+
     // 초기 ability 값 저장
     protected int initialDamageAbility;
     protected int initialUtilAbility;
+    protected int initialCost;
+
+    // 강화 단계
+    public int enhancementLevel = 0;
+
+    // 카드 사용 완료
+    public bool playCardCompleted;
 
     public virtual void CardUse(Monster targetMonster, Player player)
     {
         Debug.Log("CardBasic");
     }
-    public virtual bool TryUseCard()
+
+    public IEnumerator PlayCard()
     {
-        return false;
+        playCardCompleted = false; // 초기화
+        yield return StartCoroutine(TryUseCard());
+        playCardCompleted = true; // 완료 설정
+    }
+
+    public virtual IEnumerator TryUseCard()
+    {
+        yield return null;
     }
 
     protected virtual void Start()
@@ -88,6 +109,9 @@ public class CardBasic : MonoBehaviour
         // 초기 ability 값 저장
         initialDamageAbility = damageAbility;
         initialUtilAbility = utilAbility;
+        initialCost = cost;
+
+        ApplyEnhancements();
 
         if (costText != null)
         {
@@ -100,9 +124,17 @@ public class CardBasic : MonoBehaviour
     }
 
     // 설명을 설정하는 메서드
-    protected virtual void SetDescription()
+    public virtual void SetDescription()
     {
+        if (costText != null)
+        {
+            costText.text = cost.ToString();
+        }
 
+        if (enhancementLevel > 0)
+        {
+            nameText.text = $"{cardName} +{enhancementLevel}";
+        }
     }
 
     public void PlaySound(AudioClip clip)
@@ -110,6 +142,32 @@ public class CardBasic : MonoBehaviour
         if (audioSource != null && audioSource.enabled)
         {
             audioSource.PlayOneShot(clip);
+        }
+    }
+
+    // 강화 메서드
+    public void EnhanceCard()
+    {
+        enhancementLevel++;
+    }
+
+    // 강화 단계에 따른 능력치 적용
+    public virtual void ApplyEnhancements()
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 1) return;
+
+        Image childImage = transform.GetChild(1).GetComponent<Image>();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                if (childImage != null) childImage.sprite = firstEnhanceImage;
+                break;
+            case 2:
+                if (childImage != null) childImage.sprite = secondEnhanceImage;
+                break;
+            default:
+                break;
         }
     }
 }

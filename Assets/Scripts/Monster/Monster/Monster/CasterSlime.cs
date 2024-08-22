@@ -7,6 +7,8 @@ public class CasterSlime : MonsterCharacter
     public HpBar healthBarPrefab;
     private HpBar healthBarInstance;
 
+    private int monsterTurn = 0;
+    // 턴이 끝나는 시점에 바뀌는 랜덤 값을 저장할 필드
     private int attackRandomValue;
 
     private new void Start()
@@ -20,21 +22,20 @@ public class CasterSlime : MonsterCharacter
             healthBarInstance = Instantiate(healthBarPrefab, canvas.transform);
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
+        monsterTurn++;
+        attackRandomValue = Random.Range(0, 100);
 
-        attackRandomValue = random.Next(0, 10);
-
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
+        if (monsterTurn % 4 == 0)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n이 적은 </color> 기를 모으고 있습니다.";
+        //else
+        //    attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
     protected override void Update()
     {
         base.Update();
-
-        // 얼면 아무것도 띄우지 않는다.
-        if (isFrozen)
-        {
-            attackDescriptionText.text = "";
-        }
     }
 
     public override void TakeDamage(int damage)
@@ -50,40 +51,47 @@ public class CasterSlime : MonsterCharacter
 
     public void StartMonsterTurn()
     {
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
-        yield return base.MonsterTurn();
+        yield return base.Turn();
 
         if (!isFrozen)
         {
+            if (isDead) yield break;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-            yield return PerformAttack(attackRandomValue);
+            if (monsterTurn % 4 == 0)
+            {
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.2f));
+            }
+            else
+            {
+                yield return PerformAttack(0);
+            }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-        attackRandomValue = random.Next(0, 10);
+        monsterTurn++;
+        attackRandomValue = Random.Range(0, 100);
 
-        attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{attackRandomValue}</color>의 피해로 공격하려고 합니다.";
-
-        GameManager.instance.EndMonsterTurn();
+        if (monsterTurn % 4 == 0)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
+        else
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n이 적은 </color> 기를 모으고 있습니다.";
+        //else
+        //    attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
+ 
 }

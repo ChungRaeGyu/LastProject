@@ -1,28 +1,23 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MonsterCharacter : MonoBehaviour
+public class MonsterCharacter : Character
 {
     public MonsterStats monsterStats;
     public int baseAttackPower;
     public int currenthealth;
 
-    public Animator animator;
-
     private static readonly int takeDamage = Animator.StringToHash("TakeDamage");
     public static readonly int Attack = Animator.StringToHash("Attack");
 
-    public List<Condition> conditionInstances = new List<Condition>();
-
+    public Transform conditionPos;
     public Transform hpBarPos; // HP 바 위치
-    public Transform conditionPos; // 컨디션 위치
     public Transform monsterNextActionPos; // 다음 행동을 나타낼 위치
     public Transform monsterNamePos; // 이름 위치
 
-    private Transform MonsterCondition;
+    private Transform MonsterCondition; //이건 또 뭘까
     public Transform monsterNextAction { get; set; }
     private Transform monsterName;
     private Transform monsterNextActionList;
@@ -35,24 +30,13 @@ public class MonsterCharacter : MonoBehaviour
 
     private AdjustHeightBasedOnText util2DescriptionAdjustHeight;
     protected TMP_Text util2DescriptionText;
-
-    //디버프관련변수
-    public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
-    public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
-    public int defDownTurnsRemaining = 0; //방깍 상태가 유지될 턴 수 
-    public int burnTurnsRemaining = 0; //화상
-    public int poisonTurnsRemaining = 0; //중독 
-    public int bleedingTurnsRemaining = 0; //출혈
-
     private float defDownValue;
-    public bool isFrozen; // 얼었는지 확인하는 용도
+
+    public float monsterTurnDelay = 0.5f;
 
     public bool boss;
 
     public System.Random random = new System.Random();
-
-    [Header("DeBuff_InputScript")]
-    public GameObject deBuff;
 
     public Action deBuffAnim;
 
@@ -61,10 +45,8 @@ public class MonsterCharacter : MonoBehaviour
     public GameObject attackDescriptionObject;
     public GameObject defenseDescriptionObject;
     public GameObject healDescriptionObject;
-    private void Awake()
-    {
-        animator = GetComponentInChildren<Animator>();
-    }
+    public bool isDead;
+    public bool showActionFrozenAction;
 
     public void Start()
     {
@@ -72,7 +54,7 @@ public class MonsterCharacter : MonoBehaviour
         // 몬스터에 랜덤한
         if (!boss)
         {
-            int hpUp = random.Next(0, 10);
+            int hpUp = random.Next(-3, 3);
             currenthealth += hpUp;
         }
         baseAttackPower = monsterStats.attackPower;
@@ -121,10 +103,17 @@ public class MonsterCharacter : MonoBehaviour
 
     protected virtual void Update()
     {
-        MonsterCondition.position = conditionPos.position;
         monsterNextAction.position = monsterNextActionPos.position;
         monsterName.position = monsterNamePos.position;
         monsterNextActionList.position = transform.position;
+        MonsterCondition.position = conditionPos.position;
+
+        //// 얼면 아무것도 띄우지 않는다.
+        //if (isFrozen && showActionFrozenAction)
+        //{
+        //    showActionFrozenAction = false;
+        //    attackDescriptionText.text = "";
+        //}
     }
 
     public virtual void TakeDamage(int damage)
@@ -132,7 +121,6 @@ public class MonsterCharacter : MonoBehaviour
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
         actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
         currenthealth -= actualDamage;
-
         if (animator != null)
         {
             animator.SetTrigger(takeDamage);
@@ -143,40 +131,23 @@ public class MonsterCharacter : MonoBehaviour
         DieAction();
     }
 
-    private void SpawnText(string text, Vector3 position, Color? color = null)
+
+    public void DieAction()
     {
-        if (GameManager.instance.damageTextPrefab != null)
+        if (IsDead())
         {
-            GameObject textInstance = Instantiate(GameManager.instance.damageTextPrefab, position, Quaternion.identity);
-            DamageText damageText = textInstance.GetComponent<DamageText>();
-            damageText.SetText(text);
+            monsterStats.attackPower = baseAttackPower;
+            Die();
+            DataManager.Instance.ClearMonstersKilledCount++; // DataManager에서 몬스터 카운트 증가
+            DataManager.Instance.DefeatMonstersKilledCount++; // DataManager에서 몬스터 카운트 증가
 
-            // 색상 설정
-            if (color.HasValue)
-            {
-                damageText.currentColor = color.Value;
-            }
+            // 몬스터가 가진 코인에 -2에서 2 사이의 랜덤 값을 추가
+            int randomCoinAdjustment = UnityEngine.Random.Range(-2, 3); // -2에서 2까지의 값 (3은 포함되지 않음)
+            int rewardCoin = monsterStats.Coin + randomCoinAdjustment;
 
-            // 화면 좌표에서 위로 이동
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(position);
-            float yOffset = 200f; // 얼마나 위로 위치할지 설정
-            Vector3 newScreenPosition = new Vector3(screenPosition.x, screenPosition.y + yOffset, 10f);
-            textInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
+            GameManager.instance.monsterTotalRewardCoin += rewardCoin; // 랜덤하게 수정된 보상 코인을 추가
         }
     }
-
-    private void SpawnDamageText(int damageAmount, Vector3 position)
-    {
-        SpawnText(damageAmount.ToString(), position);
-    }
-
-    private void SpawnConditionText(string conditionText, Vector3 position)
-    {
-        Color? textColor = conditionText == "빙결" ? new Color(0.53f, 0.81f, 0.92f) : (Color?)null;
-        SpawnText(conditionText, position, textColor);
-    }
-
-
     public bool IsDead()
     {
         return currenthealth <= 0;
@@ -187,109 +158,48 @@ public class MonsterCharacter : MonoBehaviour
         if (isFrozen)
             GameManager.instance.DestroyDeBuffAnim(deBuff);
 
+        //이름, 다음행동 액션 사라짐
         if (monsterNextAction != null)
         {
-            Destroy(monsterNextAction.gameObject);
+            monsterNextAction.gameObject.SetActive(false);
         }
 
         if (monsterName != null)
         {
-            Destroy(monsterName.gameObject);
+            monsterName.gameObject.SetActive(false);
         }
 
-        if (monsterNextActionList = null)
+        if (monsterNextActionList != null)
         {
-            Destroy(monsterNextActionList.gameObject);
+            monsterNextActionList.gameObject.SetActive(false);
         }
 
-        Destroy(gameObject);
+        isDead = true;
+        gameObject.SetActive(false);
+        GameManager.instance.CheckAllMonstersDead();
     }
-
-    public virtual IEnumerator MonsterTurn()
+    protected override void TakedamageCharacter(int damage)
     {
-        if (GameManager.instance.player?.IsDead() == true) yield break;
-
-        if (frozenTurnsRemaining > 0)
-        {
-            frozenTurnsRemaining--;
-            Debug.Log($"{gameObject.name}는 얼어있습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
-
-            // SpawnDamageText로 "빙결" 텍스트 띄우도록 개조
-            SpawnConditionText("빙결", transform.position);
-
-            yield return new WaitForSeconds(2f); // 연출을 위한 대기
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-            if (frozenTurnsRemaining == 0)
-            {
-                animator.StopPlayback();
-                GameManager.instance.DestroyDeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
-            }
-            yield break;
-        }
-        else
-        {
-            isFrozen = false;
-        }
-        if (weakerTurnsRemaining > 0)
-        {
-            weakerTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Weaker);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-            yield break;
-        }
-        else
-        {
-            monsterStats.attackPower = baseAttackPower;
-        }
-        if (defDownTurnsRemaining > 0)
-        {
-            weakerTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-            yield break;
-        }
-        if (burnTurnsRemaining > 0)
-        {
-            burnTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-            TakeDamage(3);
-        }
-        if (poisonTurnsRemaining > 0)
-        {
-            poisonTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-            TakeDamage(5);
-        }
-        if (bleedingTurnsRemaining > 0)
-        {
-            bleedingTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-            TakeDamage(5);
-        }
-        yield return null;
+        TakeDamage(damage);
     }
+
+    protected override void BaseWeakerMethod()
+    {
+        monsterStats.attackPower = baseAttackPower;
+    }
+    protected override void WeakingMethod(float ability)
+    {
+        monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
+    }
+    protected override void BasedefMethod()
+    {
+        defDownValue = 0;
+    }
+    protected override void DefDownValue(float ability)
+    {
+        defDownValue = ability;
+    }
+
 
     protected IEnumerator PerformAttack(int damage, float attackDelay = 1.2f)
     {
@@ -301,122 +211,22 @@ public class MonsterCharacter : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
+        // 플레이어 맞는 소리
+        SettingManager.Instance.PlaySound(GameManager.instance.BaseAttackClip);
+        Instantiate(GameManager.instance.hitEffect, GameManager.instance.player.transform.position, Quaternion.identity);
+
         GameManager.instance.player.TakeDamage(damage);
 
         //대기 시간
         yield return new WaitForSeconds(attackDelay);
     }
-
-    #region 디버프
-    public virtual void FreezeForTurns(int turns)
+    protected override Transform GetConditionPos()
     {
-        isFrozen = true;
-        frozenTurnsRemaining += turns;
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(MonsterCondition, turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
-        }
-        Debug.Log($"{gameObject.name}가 {turns}턴 동안 얼렸습니다. 남은 얼린 턴 수: {frozenTurnsRemaining}");
+        return MonsterCondition;
     }
-    public void WeakForTurns(int turns, float ability)
+    protected override Transform GetConditionTransfrom()
     {
-        //약화 : 몬스터의 공격력이 약해진다.
-        weakerTurnsRemaining += turns;
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Weaker);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(MonsterCondition, turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
-            //약화 
-            monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
-        }
-    }
-    public void DefDownForTurns(int turns, float ability)
-    {
-        //취약 : 몬스터의 방어력이 약해진다.
-        defDownTurnsRemaining += turns;
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(MonsterCondition, turns, GameManager.instance.defDownConditionPrefab, ConditionType.DefDown);
-            defDownValue = ability;
-        }
-    }
-
-    public void burnForTunrs(int turns)
-    {
-        //도트 딜
-        burnTurnsRemaining += turns;
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(MonsterCondition, turns, GameManager.instance.burnConditionPrefab, ConditionType.Burn);
-        }
-
-    }
-    public void PoisonForTunrs(int turns)
-    {
-        //도트 딜
-        burnTurnsRemaining += turns;
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(MonsterCondition, turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Poison);
-        }
-
-    }
-    public void BleedingForTunrs(int turns)
-    {
-        //도트 딜
-        burnTurnsRemaining += turns;
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(MonsterCondition, turns, GameManager.instance.poisonConditionPrefab, ConditionType.Bleeding);
-        }
-
-    }
-
-    #endregion
-
-
-    // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
-    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
-    {
-        if (conditionPrefab != null)
-        {
-            Condition newCondition = Instantiate(conditionPrefab, parent);
-            conditionInstances.Add(newCondition);
-            //UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
-        }
+        return conditionPos;
     }
 
     #region 안쓰는 것
@@ -450,19 +260,4 @@ public class MonsterCharacter : MonoBehaviour
         }
     }
     #endregion
-    public void DieAction()
-    {
-        if (IsDead())
-        {
-            monsterStats.attackPower = baseAttackPower;
-            Die();
-            DataManager.Instance.monstersKilledCount++; // DataManager에서 몬스터 카운트 증가
-
-            // 몬스터가 가진 코인에 -2에서 2 사이의 랜덤 값을 추가
-            int randomCoinAdjustment = UnityEngine.Random.Range(-2, 3); // -2에서 2까지의 값 (3은 포함되지 않음)
-            int rewardCoin = monsterStats.Coin + randomCoinAdjustment;
-
-            GameManager.instance.monsterTotalRewardCoin += rewardCoin; // 랜덤하게 수정된 보상 코인을 추가
-        }
-    }
 }

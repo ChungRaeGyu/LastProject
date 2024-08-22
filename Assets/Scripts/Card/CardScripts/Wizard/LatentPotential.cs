@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,15 +11,21 @@ public class LatentPotential : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
     }
 
-    protected override void SetDescription()
+    private void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+            descriptionText.text = $"뽑을 카드 수 <color=#00FF00><b>{DataManager.Instance.deck.Count}</b></color> X 5 만큼 피해를 줍니다.";
+    }
+
+    public override void SetDescription()
+    {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color = "#FFFFFF";
@@ -31,14 +38,15 @@ public class LatentPotential : CardBasic
             }
             else
             {
+                color = "#00FF00"; // 초록색
                 cardCountText = "X"; // 카드 수를 대신하는 X
             }
 
-            descriptionText.text = $"사용되지 않은 카드 수 <color={color}><b>{cardCountText}</b></color> 만큼 피해를 줍니다.";
+            descriptionText.text = $"뽑을 카드 수 <color={color}><b>{cardCountText}</b></color> X 5 만큼 피해를 줍니다.";
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -47,12 +55,15 @@ public class LatentPotential : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -61,13 +72,15 @@ public class LatentPotential : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(DataManager.Instance.deck.Count);
+        SettingManager.Instance.PlaySound(CardClip1);
+
+        damageAbility = DataManager.Instance.deck.Count * 5;
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
+
         PlayPlayerAttackAnimation();
     }
 
@@ -77,6 +90,25 @@ public class LatentPotential : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                cost -= 1; // 코스트 감소
+                break;
+            case 2:
+                cost -= 2; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }
 

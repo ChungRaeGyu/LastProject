@@ -7,30 +7,31 @@ public class DungeonSetting : MonoBehaviour
     public GameObject enterBtn;
     public GameObject lockDungeon;
     public GameObject explain;
-
+    public GameObject[] dungeon;
     void Start()
     {
-        if (gameObject.name == "02_Dungeon" && SaveManager.Instance.accessibleDungeon[1] == true)
+        if (gameObject.name == "02_Dungeon" && DataManager.Instance.accessibleDungeon[1] == true)
+        {
+
+            enterBtn.SetActive(true);
+            lockDungeon.SetActive(false);
+            explain.SetActive(false);
+        }
+        else if (gameObject.name == "03_Dungeon" && DataManager.Instance.accessibleDungeon[2] == true)
         {
             enterBtn.SetActive(true);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
-        else if (gameObject.name == "03_Dungeon" && SaveManager.Instance.accessibleDungeon[2] == true)
+        else if (gameObject.name == "04_Dungeon" && DataManager.Instance.accessibleDungeon[3] == true)
         {
-            enterBtn.SetActive(true);
+            enterBtn.SetActive(false);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
-        else if (gameObject.name == "04_Dungeon" && SaveManager.Instance.accessibleDungeon[3] == true)
+        else if (gameObject.name == "05_Dungeon" && DataManager.Instance.accessibleDungeon[4] == true)
         {
-            enterBtn.SetActive(true);
-            lockDungeon.SetActive(false);
-            explain.SetActive(false);
-        }
-        else if (gameObject.name == "05_Dungeon" && SaveManager.Instance.accessibleDungeon[4] == true)
-        {
-            enterBtn.SetActive(true);
+            enterBtn.SetActive(false);
             lockDungeon.SetActive(false);
             explain.SetActive(false);
         }
@@ -58,16 +59,23 @@ public class DungeonSetting : MonoBehaviour
         SaveManager.Instance.accessDungeon = true;
         SaveManager.Instance.isStartPoint = true;
         SettingManager.Instance.UpdateButtonVisibility();
+        DungeonManager.Instance.DungeonCoin.SetActive(true);
+        DungeonManager.Instance.DungeonHp.SetActive(true);
 
         // 스탯 초기화 메서드 호출 예정
         DataManager.Instance.maxHealth = DungeonManager.Instance.Player.playerStats.maxhealth;
         DataManager.Instance.currenthealth = DungeonManager.Instance.Player.playerStats.maxhealth;
-
         DungeonManager.Instance.currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
 
         // 기록 초기화 메서드
         DataManager.Instance.ResetRecord();
         SaveManager.Instance.StartTrackingTime();
+
+        // 코인 UI 업데이트
+        DungeonManager.Instance.currentCoinText.text = DataManager.Instance.currentCoin.ToString();
+
+        // 제거한 카드 수 초기화
+        DataManager.Instance.removeCardCount = 0;
 
         foreach (var card in DataManager.Instance.LobbyDeck)
         {
@@ -76,39 +84,36 @@ public class DungeonSetting : MonoBehaviour
         switch (gameObject.name)
         {
             case "01_Start_Dungeon":
+                dungeon[0].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[0].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 0;
-                Debug.Log("1번째 던전에 입장하셨습니다.");
+                DataManager.Instance.accessDungeonNum = 0;
                 break;
 
             case "02_Dungeon":
+                dungeon[1].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[1].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 1;
-                Debug.Log("2번째 던전에 입장하셨습니다.");
+                DataManager.Instance.accessDungeonNum = 1;
                 break;
 
             case "03_Dungeon":
+                dungeon[2].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[2].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 2;
-                Debug.Log("3번째 던전에 입장하셨습니다.");
+                DataManager.Instance.accessDungeonNum = 2;
                 break;
 
             case "04_Dungeon":
+                dungeon[3].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[3].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 3;
-                Debug.Log("4번째 던전에 입장하셨습니다.");
+                DataManager.Instance.accessDungeonNum = 3;
                 break;
 
             case "05_Dungeon":
+                dungeon[4].GetComponent<Dungeon>().SetStage();
                 DungeonManager.Instance.dungeonNum[4].SetActive(true);
-                SaveManager.Instance.RandomStageNum();
-                SaveManager.Instance.accessDungeonNum = 4;
-                Debug.Log("5번째 던전에 입장하셨습니다.");
+                DataManager.Instance.accessDungeonNum = 4;
                 break;
         }
+        DataManager.Instance.initnum[0] = 3;
+        DataManager.Instance.initnum[1] = 0;
     }
 }

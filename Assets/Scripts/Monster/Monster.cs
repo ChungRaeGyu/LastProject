@@ -37,10 +37,10 @@ public class Monster : MonsterCharacter
         //지워도 되는 건가?
         Debug.Log("StartMonsterTurn실행 : " + IsDead());
 
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
@@ -72,17 +72,7 @@ public class Monster : MonsterCharacter
 
         yield return new WaitForSeconds(1f); // 연출을 위한 대기
 
-        // 공격 후에 필요한 다른 동작
-
-        // 공격 후에 다음 턴을 위해 GameManager에 알림
-        GameManager.instance.EndMonsterTurn();
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 
 }

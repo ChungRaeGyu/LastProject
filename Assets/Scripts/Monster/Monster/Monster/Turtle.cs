@@ -22,12 +22,16 @@ public class Turtle : MonsterCharacter
             healthBarInstance.Initialized(currenthealth, currenthealth, hpBarPos);
         }
 
-        util1DescriptionText.text = $"<color=#FF7F50><size=30><b>껍질</b></size></color>\n <color=#FFFF00>3</color>턴마다 방어력이 <color=#FFFF00>1</color>씩 증가합니다.";
+        monsterTurn++;
+        if (monsterTurn % 4 == 0)
+            util1DescriptionText.text = $"<color=#FF7F50><size=30><b>껍질</b></size></color>\n <color=#FFFF00>5</color>턴마다 방어력이 <color=#FFFF00>1</color>씩 증가합니다.";
 
         attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
+        else if (currenthealth < 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 현재 방어력을 모두 소모해 <color=#FFFF00>{monsterStats.attackPower += monsterStats.defense * 3}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
     }
@@ -35,12 +39,6 @@ public class Turtle : MonsterCharacter
     protected override void Update()
     {
         base.Update();
-
-        // 얼면 아무것도 띄우지 않는다.
-        if (isFrozen)
-        {
-            attackDescriptionText.text = "";
-        }
     }
 
     public override void TakeDamage(int damage)
@@ -56,34 +54,41 @@ public class Turtle : MonsterCharacter
 
     public void StartMonsterTurn()
     {
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         // 부모 클래스의 MonsterTurn을 호출하여 얼리는 효과 적용
-        yield return base.MonsterTurn();
+        yield return base.Turn();
 
         if (!isFrozen)
         {
+            if (isDead) yield break;
+            monsterStats.defense = 0;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
-            if (monsterTurn % 3 == 0) // 3턴마다 방어력 1 상승
+            if (monsterTurn % 4 == 0) // 4턴마다 방어력 1 상승
             {
                 monsterStats.defense += 1;
             }
 
             if (attackRandomValue < 15) // 15% 확률로 공격력 2배 공격
             {
-                yield return PerformAttack(monsterStats.attackPower * 2);
+                yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.2f));
 
                 Debug.Log(this.name + "이 강한공격!");
+            }
+            else if (currenthealth < 10) // 쌓인 방어도 만큼 기본 공격력을 곱해 공격한다 (최후의 발악 느낌)
+            {
+                yield return PerformAttack(monsterStats.attackPower += monsterStats.defense * 3);
+                monsterStats.defense = 0;
             }
             else
             {
@@ -91,23 +96,17 @@ public class Turtle : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);
 
         if (attackRandomValue < 15)
-            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하려고 합니다.";
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{Mathf.FloorToInt(monsterStats.attackPower * 1.2f)}</color>의 피해로 공격하려고 합니다.";
+        else if (currenthealth < 10)
+            attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 현재 방어력을 모두 소모해 <color=#FFFF00>{monsterStats.attackPower += monsterStats.defense * 3}</color>의 피해로 공격하려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하려고 합니다.";
-
-        GameManager.instance.EndMonsterTurn();
     }
 
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
-    }
 }

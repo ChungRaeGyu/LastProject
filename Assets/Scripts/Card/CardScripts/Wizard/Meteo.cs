@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Meteo : CardBasic
 {
@@ -9,13 +8,13 @@ public class Meteo : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -35,23 +34,26 @@ public class Meteo : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다."
-                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다.";
+                ? $"운석을 떨어트려 적 전체에게 <b>{damageAbility}</b> 만큼 피해를 줍니다. 2만큼 화상을 입힙니다."
+                : $"운석을 떨어트려 적 전체에게 <color={color}><b>{damageAbility}</b></color> 만큼 피해를 줍니다. 2만큼 화상을 입힙니다.";
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse();
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse();
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse();
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -60,14 +62,21 @@ public class Meteo : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
+        SettingManager.Instance.PlaySound(CardClip1);
+
         GameManager.instance.effectManager.MagicAttack(cardBasic);
-        //TODO : 애니메이션 넣어주기
+
+        List<MonsterCharacter> monsters = new List<MonsterCharacter>(GameManager.instance.monsters); // 복제
+        foreach (MonsterCharacter monster in monsters)
+        {
+            if (monster.currenthealth > 0)
+                monster.burnForTurns(utilAbility);
+        }
+        //TODO : 애니메이션 넣어주기 
     }
 
     #region 특수카드 사용
@@ -79,5 +88,25 @@ public class Meteo : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 4; // 데미지 증가
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

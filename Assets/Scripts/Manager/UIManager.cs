@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -32,6 +33,10 @@ public class UIManager : MonoBehaviour
     public Button turnEndButton;
     public Image UnUsedCards;
     public Image UsedCards;
+    public Image dungeonDeckCards;
+
+    [Header("FadePanel")]
+    public GameObject ClearPanelFade;
 
     [Header("Reward")]
     public Image fadeRewardPanel;
@@ -64,7 +69,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text defeatMnstersKilledText; // 처치한 몬스터 수
     public TMP_Text defeatStageClearCountText; // 클리어한 스테이지 수
     [Header("DefeatPoint")]
-    public TMP_Text defeatMnstersKilledPointText; // 처치한 몬스터 점수
+    public TMP_Text defeatMonstersKilledPointText; // 처치한 몬스터 점수
     public TMP_Text defeatStageClearCountPointText; // 클리어한 스테이지 점수
     public TMP_Text defeatTotalCrystalText; // 획득한 크리스탈
     [Header("Victory")]
@@ -92,6 +97,7 @@ public class UIManager : MonoBehaviour
     private Vector2 originalTurnEndButtonPosition;
     private Vector2 originalUnUsedCardsPosition;
     private Vector2 originalUsedCardsPosition;
+    private Vector2 originaldungeonDeckCardsPosition;
 
     // 임시로 카드를 저장할 변수들
     private GameObject centerCard;
@@ -106,8 +112,10 @@ public class UIManager : MonoBehaviour
         originalTurnEndButtonPosition = turnEndButtonRect.anchoredPosition;
         originalUnUsedCardsPosition = UnUsedCards.rectTransform.anchoredPosition;
         originalUsedCardsPosition = UsedCards.rectTransform.anchoredPosition;
+        originaldungeonDeckCardsPosition = dungeonDeckCards.rectTransform.anchoredPosition;
 
         victoryPanel.gameObject.SetActive(false);
+        ClearPanelFade.SetActive(false);
         cardSelectPanel.SetActive(false);
         UIClear(false, true, false, false, false);
 
@@ -137,7 +145,6 @@ public class UIManager : MonoBehaviour
     {
         DataManager.Instance.currentCoin += GameManager.instance.monsterTotalRewardCoin;
 
-        // 동전소리? 같은거 나게함
         SFXAudioSource.PlayOneShot(CoinClip);
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
 
@@ -147,6 +154,7 @@ public class UIManager : MonoBehaviour
     public void SpawnRewardCards()
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip1);
+        SettingManager.Instance.SFXAudioSource.PlayOneShot(GameManager.instance.rewardCardClip);
 
         cardSelectPanel.SetActive(true);
 
@@ -156,24 +164,37 @@ public class UIManager : MonoBehaviour
         centerCard = Instantiate(rewardCardPrefabs[chosenIndexes[0]], CardSelectPanelCanvas);
         SetCardScale(centerCard);
         centerCard.transform.localPosition = Vector3.zero;
-        AddClickEvent(centerCard, chosenIndexes[0]);
         Destroy(centerCard.transform.GetChild(0).gameObject);
+        Destroy(centerCard.GetComponent<CardDrag>());
 
         // 왼쪽 카드 생성
         leftCard = Instantiate(rewardCardPrefabs[chosenIndexes[1]], CardSelectPanelCanvas);
         SetCardScale(leftCard);
         leftCard.transform.localPosition = Vector3.zero;
-        AddClickEvent(leftCard, chosenIndexes[1]);
         StartCoroutine(MoveCard(leftCard, new Vector3(-400, 0, 0)));
         Destroy(leftCard.transform.GetChild(0).gameObject);
+        Destroy(leftCard.GetComponent<CardDrag>());
 
         // 오른쪽 카드 생성
         rightCard = Instantiate(rewardCardPrefabs[chosenIndexes[2]], CardSelectPanelCanvas);
         SetCardScale(rightCard);
-        rightCard.transform.localPosition = Vector3.zero;
-        AddClickEvent(rightCard, chosenIndexes[2]);
         StartCoroutine(MoveCard(rightCard, new Vector3(400, 0, 0)));
+        rightCard.transform.localPosition = Vector3.zero;
         Destroy(rightCard.transform.GetChild(0).gameObject);
+        Destroy(rightCard.GetComponent<CardDrag>());
+
+        // 코루틴 실행 및 모든 코루틴이 완료된 후 AddClickEvent 실행
+        StartCoroutine(HandleCardMoveAndAddClickEvent(chosenIndexes));
+    }
+
+    private IEnumerator HandleCardMoveAndAddClickEvent(List<int> chosenIndexes)
+    {
+        yield return new WaitForSeconds(0.7f);
+
+        // 모든 카드의 이동이 끝난 후 클릭 이벤트 추가
+        AddClickEvent(centerCard, chosenIndexes[0]);
+        AddClickEvent(leftCard, chosenIndexes[1]);
+        AddClickEvent(rightCard, chosenIndexes[2]);
     }
 
     private List<int> GetRandomIndexes(int count, int numberOfIndexes)
@@ -213,7 +234,6 @@ public class UIManager : MonoBehaviour
 
     private void OnClickRewardCard(int cardIndex)
     {
-        Debug.Log($"클릭된 카드의 인덱스 {cardIndex}");
 
         // 클릭한 보상 카드를 DataManager에 추가
         if (DataManager.Instance != null)
@@ -259,8 +279,11 @@ public class UIManager : MonoBehaviour
         card.transform.localPosition = targetPosition;
     }
 
-    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.5f)
+    public void UIClear(bool lobbyBtn, bool turnEndBtn, bool setRewardPanel, bool setFadeRewardPanel, bool setAddCoinButton, float openCardSelectionProbability = 0.6f)
     {
+        if (SaveManager.Instance.isEliteStage) openCardSelectionProbability = 1f;
+
+        //SetActive(ClearPanelFade?.gameObject, ); // 패널들과 같음
         SetActive(lobbyButton?.gameObject, lobbyBtn);
         SetActive(turnEndButton?.gameObject, turnEndBtn);
         SetActive(rewardPanel, setRewardPanel);
@@ -284,34 +307,51 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // UI들의 위치를 전투 진행에 알맞는 위치로 옮기는 메서드
     public void MoveUIElementsToStartPositions()
     {
-        StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(-725, costImage.rectTransform.anchoredPosition.y), 0.5f));
+        StartCoroutine(MoveUIElement(costImage.rectTransform, new Vector2(200, costImage.rectTransform.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, new Vector2(-200, turnEndButtonRect.anchoredPosition.y), 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, new Vector2(40, 40), 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, new Vector2(-40, 40), 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, new Vector2(-30, -150), 0.5f));
     }
 
+    // 모든 적을 처치시 모든 전투 진행 UI들을 안보이게 하는 메서드
     public void ResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, originaldungeonDeckCardsPosition, 0.5f));
     }
 
+    // 사용안한 덱 더미를 눌렀을 때 해당 덱 더미를 제외한 UI숨기기 메서드
     public void UnUsedCardsResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, originaldungeonDeckCardsPosition, 0.5f));
     }
 
+    // 사용한 덱 더미를 눌렀을 때 해당 덱 더미를 제외한 UI숨기기 메서드
     public void UsedCardsResetUIPositions()
     {
         StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
         StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
         StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(dungeonDeckCards.rectTransform, originaldungeonDeckCardsPosition, 0.5f));
+    }
+
+    // 사용한 덱 더미를 눌렀을 때 해당 덱 더미를 제외한 UI숨기기 메서드
+    public void dungeonDeckCardsResetUIPositions()
+    {
+        StartCoroutine(MoveUIElement(costImage.rectTransform, originalCostImagePosition, 0.5f));
+        StartCoroutine(MoveUIElement(turnEndButtonRect, originalTurnEndButtonPosition, 0.5f));
+        StartCoroutine(MoveUIElement(UnUsedCards.rectTransform, originalUnUsedCardsPosition, 0.5f));
+        StartCoroutine(MoveUIElement(UsedCards.rectTransform, originalUsedCardsPosition, 0.5f));
     }
 
     // 패배 시 호출될 메서드
@@ -320,9 +360,16 @@ public class UIManager : MonoBehaviour
         if (defeatPanel != null)
         {
             defeatPanel.SetActive(true);
+            ClearPanelFade.SetActive(true);
 
+            DataManager.Instance.DefeatCalculateTotalCrystal();
+            if (defeatTotalCrystalText != null)
+            {
+                defeatTotalCrystalText.text = $"{DataManager.Instance.DefeatTotalCrystal}";
+            }
             // 텍스트 업데이트
             UpdateDefeatTexts();
+
         }
 
         if (fadeRewardPanel != null)
@@ -333,13 +380,13 @@ public class UIManager : MonoBehaviour
 
     private void UpdateDefeatTexts()
     {
-        SetText(defeatMnstersKilledText, $"처치한 몬스터 ({DataManager.Instance.monstersKilledCount})");
-        SetText(defeatStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.stageClearCount})");
+        SetText(defeatMnstersKilledText, $"처치한 몬스터 ({DataManager.Instance.ClearMonstersKilledCount})");
+        SetText(defeatStageClearCountText, $"클리어한 스테이지 ({DataManager.Instance.ClearStageClearCount})");
 
-        SetText(defeatMnstersKilledPointText, $"{DataManager.Instance.monstersKilledCount}");
-        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.stageClearCount}");
+        SetText(defeatMonstersKilledPointText, $"{DataManager.Instance.adjustedDefeatMonstersKilledCount}");
+        SetText(defeatStageClearCountPointText, $"{DataManager.Instance.adjustedDefeatStageClearCount}");
 
-        SetText(defeatTotalCrystalText, $"{DataManager.Instance.monstersKilledCount}");
+        SetText(defeatTotalCrystalText, $"{DataManager.Instance.DefeatTotalCrystal}");
     }
 
     private void SetText(TMP_Text textComponent, string text)
@@ -401,7 +448,6 @@ public class UIManager : MonoBehaviour
         removedCardObj.transform.localScale = new Vector3(4f, 6f, 1f); // 2배 크기로 설정
     }
 
-
     private IEnumerator FadeOutAndDestroy(Image cardImage, TMP_Text[] textComponents)
     {
         float fadeDuration = 2.0f;
@@ -446,6 +492,7 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.instance.player?.IsDead() == true) return;
 
+        SettingManager.Instance.PlaySound(GameManager.instance.turnClip);
         StartCoroutine(AnimateTurnCount(PlayerTurnCountText, $"플레이어 {turnNumber}번째 턴"));
     }
 
@@ -499,7 +546,10 @@ public class UIManager : MonoBehaviour
     {
         SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
 
+        SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
+        DataManager.Instance.currentCrystal += DataManager.Instance.DefeatTotalCrystal;
         SaveManager.Instance.accessDungeon = false;
-        SceneManager.LoadScene(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
+        SceneFader.instance.LoadSceneWithFade(1); // 로비 씬의 빌드 인덱스를 사용하여 로드
     }
 }

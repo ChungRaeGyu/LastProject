@@ -30,12 +30,6 @@ public class KingSlime : MonsterCharacter
     {
         base.Update();
 
-        // 얼면 아무것도 띄우지 않는다.
-        if (isFrozen)
-        {
-            attackDescriptionText.text = "";
-        }
-
         if (currenthealth < monsterStats.maxhealth / 2 && !bossheal)
             util1DescriptionText.text = $"<color=#FF7F50><size=30><b>재생</b></size></color>\n <color=#FFFF00>{30}</color>의 체력을 회복합니다.";
         else
@@ -55,23 +49,24 @@ public class KingSlime : MonsterCharacter
 
     public void StartMonsterTurn()
     {
-        StartCoroutine(MonsterTurn());
+        StartCoroutine(Turn());
     }
 
-    public override IEnumerator MonsterTurn()
+    public override IEnumerator Turn()
     {
         if (GameManager.instance.player?.IsDead() == true) yield break;
 
         Debug.Log("----- 보스의 " + monsterTurn + "턴 째 -----");
-        yield return base.MonsterTurn();
+        yield return base.Turn();
 
         if (!isFrozen)
         {
+            if (isDead) yield break;
             monsterNextAction.gameObject.SetActive(false);
 
             // 행동 이미지에 연출을 줌
 
-            yield return new WaitForSeconds(1f); // 연출을 위한 대기
+            yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
             if (currenthealth < monsterStats.maxhealth / 2 && !bossheal) // 피 반 이하로 떨어질 때 30 회복 '한 번'만 하기
             {
@@ -97,7 +92,7 @@ public class KingSlime : MonsterCharacter
             }
         }
 
-        yield return new WaitForSeconds(1f); // 연출을 위한 대기
+        yield return new WaitForSeconds(monsterTurnDelay); // 연출을 위한 대기
 
         monsterTurn++;
         attackRandomValue = random.Next(0, 100);
@@ -110,15 +105,5 @@ public class KingSlime : MonsterCharacter
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower * 2}</color>의 피해로 공격하고, <color=#FFFF00>{5}</color>의 출혈 피해를 주려고 합니다.";
         else
             attackDescriptionText.text = $"<color=#FF7F50><size=30><b>공격</b></size></color>\n 이 적은 <color=#FFFF00>{monsterStats.attackPower}</color>의 피해로 공격하고, {baseAttackPower}만큼 체력이 증가합니다.";
-
-        // 공격 후에 다음 턴을 위해 GameManager에 알림
-        GameManager.instance.EndMonsterTurn();
-    }
-
-    protected override void Die()
-    {
-        GameManager.instance.RemoveMonsterDead(this);
-
-        base.Die();
     }
 }

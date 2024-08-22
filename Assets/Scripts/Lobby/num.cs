@@ -14,7 +14,7 @@ public class num : MonoBehaviour
         LobbyManager.instance.OnCount += CountUpdate;
         text = GetComponentInChildren<TextMeshProUGUI>();
         cardBasic = GetComponentInParent<CardBasic>();
-        text.text = cardBasic.currentCount.ToString();
+        text.text = cardBasic.cardBasic.currentCount.ToString();
     }
 
     public void CountUpdate()

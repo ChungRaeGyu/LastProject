@@ -12,15 +12,17 @@ public class FullPower: CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
+
+        costText.text = "X";
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -45,22 +47,24 @@ public class FullPower: CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
         {
             bezierDragLine.DestroyAimingImage();
 
-            GameManager.instance.player.UseCost(cost);
-
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
 
+            CardUse(targetMonster);
+
+            GameManager.instance.player.UseCost(GameManager.instance.player.currentCost);
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
@@ -68,13 +72,15 @@ public class FullPower: CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(damageAbility*GameManager.instance.player.currentCost);
+        //이게 아마도 근본을 바꾸는게 아니라서 괜찮을 것이다. 일회용으로 늘어나는 느낌?
+        damageAbility *= GameManager.instance.player.currentCost;
+        GameManager.instance.effectManager.MagicAttack(this, targetMonster);
+        SettingManager.Instance.PlaySound(CardClip1);
+
         PlayPlayerAttackAnimation();
     }
 
@@ -88,5 +94,24 @@ public class FullPower: CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                damageAbility += 3; // 데미지 증가
+                break;
+            case 2:
+                damageAbility += 6; // 데미지 증가
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

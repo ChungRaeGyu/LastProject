@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -26,9 +28,7 @@ public class DungeonManager : MonoBehaviour
     public GameObject dungeon;
 
     [Header("DungeonBoard")]
-    public GameObject dungeonBoardBackground;
     public GameObject[] dungeonEntrance = new GameObject[5];
-    //public int accessDungeon = 1;
 
     [Header("Dungeon")]
     public GameObject[] dungeonNum = new GameObject[5];
@@ -39,6 +39,7 @@ public class DungeonManager : MonoBehaviour
     [Header("TextUI")]
     public TMP_Text currentCoinText;
     public TMP_Text currentHpText;
+    public TMP_Text deckCountText;
 
     [Header("Info")]
     public GameObject DungeonCoin;
@@ -50,17 +51,22 @@ public class DungeonManager : MonoBehaviour
 
     [Header("Manager")]
     public EventManager eventManager;
+    public CardListManager cardListManager;
 
+    [Header("GameObject")]
+    public GameObject deckPanel;
 
     void Start()
     {
+        deckPanel.SetActive(false);
+
         //던전에 입장했을 때
         if (SaveManager.Instance.accessDungeon == true)
         {
             dungeonBoard.SetActive(false); //던전 보드 비활성화
             dungeon.SetActive(true); //던전 활성화
 
-            int num = SaveManager.Instance.accessDungeonNum;
+            int num =   DataManager.Instance.accessDungeonNum;
             dungeonNum[num].SetActive(true);
             DungeonCoin.SetActive(true);
             DungeonHp.SetActive(true);
@@ -76,11 +82,44 @@ public class DungeonManager : MonoBehaviour
         }
 
         //플레이어가 스타트 지점에서 벗어났을 경우
-        if (!SaveManager.Instance.isStartPoint) 
-            player.transform.position = SaveManager.Instance.playerPosition;// 이렇게 하면 현재 보는 화면의 좌표를 기준으로 플레이어가 이동된다.
-                                                                            // 방금 클리어 및 눌렀던 스테이지의 위치에 이동시켜줘야한다.
+        
 
         currentCoinText.text = DataManager.Instance.currentCoin.ToString();
         currentHpText.text = $"{DataManager.Instance.currenthealth} / {DataManager.Instance.maxHealth}";
     }
+
+    // ScrollView의 활성화/비활성화 공통 메서드
+    private void ToggleScrollView(GameObject scrollView, Action updateList)
+    {
+        if (scrollView != null)
+        {
+            if (scrollView.activeSelf)
+            {
+                // 비활성화
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.BtnClip2);
+            }
+            else
+            {
+                // 활성화
+                updateList?.Invoke();
+                SettingManager.Instance.SFXAudioSource.PlayOneShot(SettingManager.Instance.CardPassClip);
+            }
+
+            scrollView.SetActive(!scrollView.activeSelf);
+        }
+    }
+
+    // unUsedScrollView 활성화/비활성화 메서드
+    public void ToggleDungeonDeckScrollView()
+    {
+        SettingManager.Instance.PlaySound(SettingManager.Instance.BtnClip1);
+        ToggleScrollView(
+            deckPanel,
+            cardListManager.UpdateDungeonDeckList
+        );
+    }
+
+
+    // Update is called once per frame
+
 }

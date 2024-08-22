@@ -11,15 +11,15 @@ public class DefensiveStrike : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         bezierDragLine = GetComponent<BezierDragLine>();
 
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color = "#FFFFFF";
@@ -39,7 +39,7 @@ public class DefensiveStrike : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         MonsterCharacter targetMonster = bezierDragLine.detectedMonster;
         if (targetMonster != null && GameManager.instance.player != null)
@@ -48,12 +48,15 @@ public class DefensiveStrike : CardBasic
 
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -62,13 +65,14 @@ public class DefensiveStrike : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
     {
-        targetMonster.TakeDamage(GameManager.instance.player.currentDefense);
+        damageAbility = GameManager.instance.player.currentDefense;
+        GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
+        SettingManager.Instance.PlaySound(CardClip1);
+
         PlayPlayerAttackAnimation();
     }
 
@@ -78,5 +82,24 @@ public class DefensiveStrike : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                cost -= 1; // 코스트 감소
+                break;
+            case 2:
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

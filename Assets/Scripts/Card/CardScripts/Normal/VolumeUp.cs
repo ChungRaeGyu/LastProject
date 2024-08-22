@@ -9,13 +9,13 @@ public class VolumeUp : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -40,7 +40,7 @@ public class VolumeUp : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         if (GameManager.instance.player != null)
         {
@@ -54,12 +54,15 @@ public class VolumeUp : CardBasic
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
         }
 
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
+        yield return null;
     }
 
     public void CardUse(MonsterCharacter targetMonster = null)
     {
-        GameManager.instance.volumeUp = true;
+        SettingManager.Instance.PlaySound(CardClip1);
+
+        GameManager.instance.volumeUp += utilAbility;
+        GameManager.instance.effectManager.Buff(this);
         PlayPlayerAttackAnimation();
     }
 
@@ -72,5 +75,25 @@ public class VolumeUp : CardBasic
         {
             GameManager.instance.player.animator.SetTrigger("Attack");
         }
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 1; // 잔여 횟수 증가
+                break;
+            case 2:
+                utilAbility += 1; // 잔여 횟수 증가
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }

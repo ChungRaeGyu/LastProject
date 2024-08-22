@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -36,6 +37,9 @@ public class SettingManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject lobbyReturnBtn;
     [SerializeField] private GameObject dungeonReturnBtn;
+    [SerializeField] private GameObject settingCanvas;
+    public GameObject ReCheckPanel;
+    public bool goToRobby;
 
     private void Awake()
     {
@@ -51,6 +55,7 @@ public class SettingManager : MonoBehaviour
 
         lobbyReturnBtn.SetActive(false);
         dungeonReturnBtn.SetActive(false);
+        ReCheckPanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -65,6 +70,11 @@ public class SettingManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (SceneManager.GetActiveScene().buildIndex == 5)
+            settingCanvas.SetActive(false);
+        else
+            settingCanvas.SetActive(true);
+
         SoundPanel.gameObject.SetActive(false);
         SetBackgroundMusicForCurrentScene();
         UpdateButtonVisibility();
@@ -85,31 +95,68 @@ public class SettingManager : MonoBehaviour
     private void SetBackgroundMusicForCurrentScene()
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        AudioClip newBGM = null;
 
         switch (sceneIndex)
         {
             case 1:
-                // Lobby 씬
-                BGMAudioSource.clip = LobbyBGM;
+                newBGM = LobbyBGM;
                 break;
             case 2:
-                // Dungeon 씬
-                BGMAudioSource.clip = DungeonBGM;
+                newBGM = DungeonBGM;
                 break;
             case 3:
-                // main 씬
-                BGMAudioSource.clip = MainBGM;
+                newBGM = MainBGM;
                 break;
             default:
-                // 기본 배경음악
-                BGMAudioSource.clip = null;
+                newBGM = null;
                 break;
         }
 
-        BGMAudioSource.loop = true;
-
-        BGMAudioSource.Play();
+        if (newBGM != BGMAudioSource.clip)
+        {
+            StartCoroutine(CrossfadeBGM(newBGM, 1.5f));
+        }
     }
+
+    private IEnumerator CrossfadeBGM(AudioClip newClip, float duration)
+    {
+        if (BGMAudioSource.isPlaying)
+        {
+            float currentTime = 0;
+            float startVolume = BGMAudioSource.volume;
+
+            // 현재 재생 중인 BGM의 볼륨 감소
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                BGMAudioSource.volume = Mathf.Lerp(startVolume, 0, currentTime / duration);
+                yield return null;
+            }
+
+            BGMAudioSource.Stop();
+            BGMAudioSource.volume = startVolume; // 볼륨을 원래 값으로 리셋
+        }
+
+        // 새 BGM 재생
+        BGMAudioSource.clip = newClip;
+        BGMAudioSource.loop = true;
+        BGMAudioSource.Play();
+
+        // 새 BGM의 볼륨 증가
+        float targetVolume = musicBGMSlider.value;
+        float fadeInTime = 0;
+
+        while (fadeInTime < duration)
+        {
+            fadeInTime += Time.deltaTime;
+            BGMAudioSource.volume = Mathf.Lerp(0, targetVolume, fadeInTime / duration);
+            yield return null;
+        }
+
+        BGMAudioSource.volume = targetVolume; // 목표 볼륨으로 설정
+    }
+
 
     private void SetMasterVolume(float volume)
     {
@@ -147,18 +194,36 @@ public class SettingManager : MonoBehaviour
 
     public void LobbyReturnBtn()
     {
-        UpdateButtonVisibility();
-        DataManager.Instance.deckList.Clear();
-        SaveManager.Instance.accessDungeon = false;
-        LoadingSceneManager.LoadScene(1);
+        SoundPanel.SetActive(false);
+        ReCheckPanel.SetActive(true);
+        goToRobby = true;
     }
 
     public void DungeonReturnBtn()
     {
+        SoundPanel.SetActive(false);
+        ReCheckPanel.SetActive(true);
+        goToRobby = false;
+    }
+
+    public void ReCheckYesBtn()
+    {
+        ReCheckPanel.SetActive(false);
         UpdateButtonVisibility();
         DataManager.Instance.deckList.Clear();
         SaveManager.Instance.accessDungeon = false;
-        LoadingSceneManager.LoadScene(2);
+        SaveManager.Instance.isBossStage = false;
+        SaveManager.Instance.isEliteStage = false;
+        if(goToRobby == true)
+            SceneFader.instance.LoadSceneWithFade(1);
+        else
+            SceneFader.instance.LoadSceneWithFade(2);
+    }
+
+    public void ReCheckNoBtn()
+    {
+        ReCheckPanel.SetActive(false);
+        SoundPanel.SetActive(true);
     }
 
     public void UpdateButtonVisibility()
@@ -174,5 +239,20 @@ public class SettingManager : MonoBehaviour
 
         // Lobby 씬이 아닌 경우에만 lobbyReturnBtn 활성화
         lobbyReturnBtn.SetActive(sceneIndex != 1);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        AudioSource audioSource = AudioSourcePool.Instance.GetAudioSource();
+        audioSource.clip = clip;
+        audioSource.Play();
+
+        StartCoroutine(ReturnToPoolAfterPlay(audioSource, clip.length));
+    }
+
+    private IEnumerator ReturnToPoolAfterPlay(AudioSource audioSource, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        AudioSourcePool.Instance.ReturnAudioSource(audioSource);
     }
 }

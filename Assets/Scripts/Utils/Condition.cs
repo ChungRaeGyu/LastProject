@@ -12,8 +12,10 @@ public class Condition : MonoBehaviour
 
     private void Update()
     {
-        if (conditionPos == null)
+        if (!conditionPos.gameObject.activeInHierarchy)
+        {
             Destroy(gameObject);
+        }
     }
 
     // 위치와 초기 스택 수 및 타입 설정
@@ -50,14 +52,13 @@ public class Condition : MonoBehaviour
     }
 
     // 스택 수를 감소시키고, 스택이 0 이하이면 객체를 파괴
-    public void DecrementStackCount(MonsterCharacter monsterCharacter, int amount = 1) // 기본값은 1
+    public void DecrementStackCount(Character character, int amount = 1) // 기본값은 1
     {
         stackCount -= amount;
         UpdateStackText();
-
         if (stackCount <= 0)
         {
-            monsterCharacter.conditionInstances.Remove(this);
+            character.conditionInstances.Remove(this);
             Destroy(gameObject);
         }
     }

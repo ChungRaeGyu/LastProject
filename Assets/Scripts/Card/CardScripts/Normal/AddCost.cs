@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class AddCost : CardBasic
 {
@@ -11,15 +9,15 @@ public class AddCost : CardBasic
     {
         base.Start();
 
-        this.enabled = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
-
         cardCollision = GetComponent<CardCollision>();
 
         SetDescription();
     }
 
-    protected override void SetDescription()
+    public override void SetDescription()
     {
+        base.SetDescription();
+
         if (descriptionText != null)
         {
             string color;
@@ -44,19 +42,22 @@ public class AddCost : CardBasic
         }
     }
 
-    public override bool TryUseCard()
+    public override IEnumerator TryUseCard()
     {
         Monster targetMonster = cardCollision.currentMonster;
         if (GameManager.instance.player != null)
         {
             GameManager.instance.player.UseCost(cost);
 
-            CardUse(targetMonster);
-            if (GameManager.instance.volumeUp)
+            if (GameManager.instance.volumeUp > 0)
             {
+                GameManager.instance.volumeUp -= 1;
                 CardUse(targetMonster);
-                GameManager.instance.volumeUp = false;
+
+                yield return new WaitForSeconds(1f);
             }
+
+            CardUse(targetMonster);
 
             DataManager.Instance.AddUsedCard(cardBasic);
 
@@ -65,13 +66,33 @@ public class AddCost : CardBasic
 
             GameManager.instance.CheckAllMonstersDead();
         }
-
-        return true; // 카드 사용이 실패한 경우 시도했음을 반환
     }
 
     public void CardUse(MonsterCharacter targetMonster)
     {
+        //SettingManager.Instance.PlaySound(CardClip1); // 소리 없는게 나음
+
         GameManager.instance.effectManager.Buff(cardBasic);
         GameManager.instance.player.AddCost(utilAbility);
+    }
+
+    public override void ApplyEnhancements()
+    {
+        base.ApplyEnhancements();
+
+        switch (enhancementLevel)
+        {
+            case 1:
+                utilAbility += 1; // 코스트 증가량 증가
+                break;
+            case 2:
+                utilAbility += 1; // 코스트 증가량 증가
+                cost -= 1; // 코스트 감소
+                break;
+            default:
+                break;
+        }
+
+        SetDescription();
     }
 }
