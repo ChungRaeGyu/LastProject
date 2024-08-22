@@ -10,14 +10,10 @@ public class Condition : MonoBehaviour
     public int stackCount;
     public ConditionType conditionType;
 
-    private void Update()
+    private void OnDisable()
     {
-        if (!conditionPos.gameObject.activeInHierarchy)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
-
     // 위치와 초기 스택 수 및 타입 설정
     public void Initialized(int initialStackCount, Transform transform, ConditionType type)
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     //디버프관련변수
     public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
@@ -250,33 +250,13 @@ public class Character : MonoBehaviour
         }
     }
     #region 상속을 위한 메소드들
-    protected virtual Transform GetConditionPos()
-    {
-        return null;
-    }
-    protected virtual Transform GetConditionTransfrom()
-    {
-        return null;
-    }
-    protected virtual void BaseWeakerMethod()
-    {
+    protected abstract Transform GetConditionPos();
+    protected abstract Transform GetConditionTransfrom();
+    protected abstract void BaseWeakerMethod();
+    protected abstract void WeakingMethod(float ability);
+    protected abstract void BasedefMethod();
 
-    }
-    protected virtual void WeakingMethod(float ability)
-    {
-
-    }
-    protected virtual void BasedefMethod()
-    {
-
-    }
-    protected virtual void DefDownValue(float ability)
-    {
-
-    }
-    protected virtual void TakedamageCharacter(int damage)
-    {
-
-    }
+    protected abstract void DefDownValue(float ability);
+    protected abstract void TakedamageCharacter(int damage);
     #endregion
 }
