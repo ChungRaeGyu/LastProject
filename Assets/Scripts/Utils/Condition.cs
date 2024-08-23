@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
+
 
 public abstract class Condition : MonoBehaviour
 {
@@ -19,11 +17,14 @@ public abstract class Condition : MonoBehaviour
     public TMP_Text stackText;
     public int stackCount;
     public ConditionType conditionType;
-    /*
-    private void OnDisable()
+    private void Update()
     {
-        Destroy(gameObject);
-    }*/
+        if (!conditionPos.gameObject.activeInHierarchy)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void Initialized(int initialStackCount, Transform transform)
     {
         conditionPos = transform;

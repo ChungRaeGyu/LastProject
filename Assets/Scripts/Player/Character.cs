@@ -162,8 +162,8 @@ public abstract class Character : MonoBehaviour
         }
         else
         {
-            AddCondition(GetConditionPos(), turns, conditionPrefab);
             conditionPrefab.Utility(this);
+            AddCondition(GetConditionPos(), turns, conditionPrefab);
         }
     }
     private bool CheckCondition(Condition conditionPrefab)
