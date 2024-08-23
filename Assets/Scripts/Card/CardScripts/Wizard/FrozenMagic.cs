@@ -75,7 +75,7 @@ public class FrozenMagic : CardBasic
         int rand = Random.Range(1, 11);
         if (rand <= 3)
         {
-            targetMonster.FreezeForTurns(utilAbility);
+            targetMonster.AddConditions(GameManager.instance.frozenConditionPrefab,utilAbility);
             GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
             targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
         }

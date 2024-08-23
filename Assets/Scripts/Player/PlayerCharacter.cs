@@ -36,7 +36,7 @@ public abstract class PlayerCharacter : Character
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - currentDefense, 0);
-        actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defdown) : actualDamage);
+        actualDamage = (int)(defdown > 0 ? actualDamage * (1 + defdown) : actualDamage);
         currenthealth -= actualDamage;
 
         GameManager.instance.ShakeCamera();
@@ -84,25 +84,25 @@ public abstract class PlayerCharacter : Character
         //덱 초기화는 LobbyManager에 있습니다.
     }
 
-    protected override void TakedamageCharacter(int damage)
+    public override void TakedamageCharacter(int damage)
     {
         //지속 딜을 위한
         TakeDamage(damage);
     }
 
-    protected override void BaseWeakerMethod()
+    public override void BaseWeakerMethod()
     {
         currentAttack = playerStats.attack;
     }
-    protected override void WeakingMethod(float ability)
+    public override void WeakingMethod(float ability)
     {
         currentAttack = (int)(playerStats.attack * (1 - ability));
     }
-    protected override void BasedefMethod()
+    public override void BasedefMethod()
     {
         defdown = 0;
     }
-    protected override void DefDownValue(float ability)
+    public override void DefDownValue(float ability)
     {
         defdown = ability;
     }

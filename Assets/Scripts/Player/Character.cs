@@ -6,12 +6,12 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     //디버프관련변수
-    public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
+/*    public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
     public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
     public int defDownTurnsRemaining = 0; //방깍 상태가 유지될 턴 수 
     public int burnTurnsRemaining = 0; //화상
     public int poisonTurnsRemaining = 0; //중독 
-    public int bleedingTurnsRemaining = 0; //출혈
+    public int bleedingTurnsRemaining = 0; //출혈*/
 
     public bool isFrozen; // 얼었는지 확인하는 용도
 
@@ -19,6 +19,7 @@ public abstract class Character : MonoBehaviour
 
     public Animator animator;
 
+    private Condition tempCondition;
     [Header("DeBuff_InputScript")]
     public GameObject deBuff;
     public void Awake()
@@ -27,7 +28,21 @@ public abstract class Character : MonoBehaviour
     }
     public virtual IEnumerator Turn()
     {
-        if (frozenTurnsRemaining > 0)
+        for(int i=0; i < conditionInstances.Count; i++)
+        {
+            conditionInstances[i].Turn(this); // stackCount 감소로직과 각 컨디션별 로직
+            //condition이 0이면 삭제 
+            if (conditionInstances[i].stackCount <= 0)
+            {
+                Destroy(conditionInstances[i].gameObject);
+                conditionInstances.Remove(conditionInstances[i]);
+                i--;
+            }
+            yield return null;
+        }
+
+        //-----------------------------------------------------------------------------------------------
+/*        if (frozenTurnsRemaining > 0)
         {
             frozenTurnsRemaining--;
             // SpawnDamageText로 "빙결" 텍스트 띄우도록 개조
@@ -104,7 +119,7 @@ public abstract class Character : MonoBehaviour
             {
                 existingFrozenCondition.DecrementStackCount(this);
             }
-        }
+        }*/
     }
 
     private void SpawnConditionText(string conditionText, Vector3 position)
@@ -139,9 +154,38 @@ public abstract class Character : MonoBehaviour
             textInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
         }
     }
+    public void AddConditions(Condition conditionPrefab,int turns)
+    {
+        if (CheckCondition(conditionPrefab))
+        {
+            tempCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            AddCondition(GetConditionPos(), turns, conditionPrefab);
+            conditionPrefab.Utility(this);
+        }
+    }
+    private bool CheckCondition(Condition conditionPrefab)
+    {
+        foreach(Condition condition in conditionInstances)
+        {
+            if (condition.conditionType == conditionPrefab.conditionType)
+            {
+                tempCondition = condition;
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public void AnimationStop()
+    {
+        animator.StopPlayback();
+        GameManager.instance.DestroyDeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
+    }
     #region 디버프
-    public virtual void FreezeForTurns(int turns)
+    /*public virtual void FreezeForTurns(int turns)
     {
         isFrozen = true;
         frozenTurnsRemaining += turns;
@@ -234,29 +278,39 @@ public abstract class Character : MonoBehaviour
             AddCondition(GetConditionPos(), turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Bleeding);
         }
 
-    }
+    }*/
 
     #endregion
 
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
-    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
+    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab)
     {
         if (conditionPrefab != null)
         {
             Condition newCondition = Instantiate(conditionPrefab, parent);
             conditionInstances.Add(newCondition);
             //UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, GetConditionTransfrom(), type); // 위치 초기화 후에 스택 값 설정
+            newCondition.Initialized(initialStackCount, GetConditionTransfrom()); // 위치 초기화 후에 스택 값 설정
         }
     }
+    /*    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
+        {
+            if (conditionPrefab != null)
+            {
+                Condition newCondition = Instantiate(conditionPrefab, parent);
+                conditionInstances.Add(newCondition);
+                //UpdateConditionPositions();
+                newCondition.Initialized(initialStackCount, GetConditionTransfrom(), type); // 위치 초기화 후에 스택 값 설정
+            }
+        }*/
     #region 상속을 위한 메소드들
     protected abstract Transform GetConditionPos();
     protected abstract Transform GetConditionTransfrom();
-    protected abstract void BaseWeakerMethod();
-    protected abstract void WeakingMethod(float ability);
-    protected abstract void BasedefMethod();
+    public abstract void BaseWeakerMethod();
+    public abstract void WeakingMethod(float ability);
+    public abstract void BasedefMethod();
 
-    protected abstract void DefDownValue(float ability);
-    protected abstract void TakedamageCharacter(int damage);
+    public abstract void DefDownValue(float ability);
+    public abstract void TakedamageCharacter(int damage);
     #endregion
 }

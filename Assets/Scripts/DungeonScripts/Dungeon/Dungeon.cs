@@ -213,37 +213,9 @@ public class Dungeon : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("stageCount" + stageCount);
                         stage[i, j] = Instantiate(SaveManager.Instance.stageList[stageCount], stageBoard);
                         stageCount++;
                         stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                        /*                        switch (SaveManager.Instance.num[i, j])
-                                                {
-                                                    case 0:
-                                                    case 1:
-                                                        stage[i, j] = Instantiate(eliteStage, stageBoard);
-                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                                        break;
-                                                    case 2:
-                                                    case 3:
-                                                    case 4:
-                                                        stage[i, j] = Instantiate(storeStage, stageBoard);
-                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                                        break;
-                                                    case 5:
-                                                    case 6:
-                                                    case 7:
-                                                    case 8:
-                                                    case 9:
-                                                    case 10:
-                                                        stage[i, j] = Instantiate(eventStage, stageBoard);
-                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                                        break;
-                                                    default:
-                                                        stage[i, j] = Instantiate(battleStage, stageBoard);
-                                                        stage[i, j].GetComponent<Stage>().SetValue(i, j);
-                                                        break;
-                                                }*/
                     }
                     stage[i, j].transform.position = new Vector2(j * 0.75f - a, i * 1.3f - b);
                 }

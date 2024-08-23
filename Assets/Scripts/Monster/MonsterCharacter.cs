@@ -61,7 +61,7 @@ public class MonsterCharacter : Character
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
         MonsterCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
-        AddCondition(MonsterCondition, monsterStats.defense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
+        AddCondition(MonsterCondition, monsterStats.defense, GameManager.instance.defenseconditionPrefab);
 
         monsterNextAction = Instantiate(GameManager.instance.attackActionPrefab, UIManager.instance.nextActionIconCanvas.transform).transform;
         monsterNextAction.gameObject.SetActive(false);
@@ -119,7 +119,7 @@ public class MonsterCharacter : Character
     public virtual void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - monsterStats.defense, 0);
-        actualDamage = (int)(defDownTurnsRemaining > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
+        actualDamage = (int)(defDownValue > 0 ? actualDamage * (1 + defDownValue) : actualDamage);
         currenthealth -= actualDamage;
         if (animator != null)
         {
@@ -178,25 +178,27 @@ public class MonsterCharacter : Character
         gameObject.SetActive(false);
         GameManager.instance.CheckAllMonstersDead();
     }
-    protected override void TakedamageCharacter(int damage)
+    public override void TakedamageCharacter(int damage)
     {
         TakeDamage(damage);
     }
 
-    protected override void BaseWeakerMethod()
+    public override void BaseWeakerMethod()
     {
         monsterStats.attackPower = baseAttackPower;
     }
-    protected override void WeakingMethod(float ability)
+    public override void WeakingMethod(float ability)
     {
+        Debug.Log("약화");
         monsterStats.attackPower = (int)(monsterStats.attackPower * (1 - ability));
     }
-    protected override void BasedefMethod()
+    public override void BasedefMethod()
     {
         defDownValue = 0;
     }
-    protected override void DefDownValue(float ability)
+    public override void DefDownValue(float ability)
     {
+        Debug.Log("방깍");
         defDownValue = ability;
     }
 

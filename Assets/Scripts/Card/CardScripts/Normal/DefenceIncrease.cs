@@ -76,7 +76,7 @@ public class DefenceIncrease : CardBasic
         GameManager.instance.player.currentDefense += utilAbility;
 
         // 방어력 Condition의 스택을 증가시킵니다.
-        GameManager.instance.player.IncrementDefenseConditionStack(utilAbility);
+        GameManager.instance.player.AddConditions(GameManager.instance.defenseconditionPrefab,utilAbility);
     }
 
     public override void ApplyEnhancements()
