@@ -94,7 +94,7 @@ public class MonsterCharacter : Character
             util1DescriptionText.text = $"";
 
             // 회복 설명 프리팹
-            GameObject healDescriptionObject = Instantiate(GameManager.instance.actionDescriptionPrefab, descriptionTransform);
+            healDescriptionObject = Instantiate(GameManager.instance.actionDescriptionPrefab, descriptionTransform);
             util2DescriptionAdjustHeight = healDescriptionObject.GetComponent<AdjustHeightBasedOnText>();
             util2DescriptionText = util2DescriptionAdjustHeight.childText;
             util2DescriptionText.text = $"";

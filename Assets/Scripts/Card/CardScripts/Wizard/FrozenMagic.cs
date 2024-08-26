@@ -57,15 +57,15 @@ public class FrozenMagic : CardBasic
 
                 yield return new WaitForSeconds(1f);
             }
-
-            CardUse(targetMonster);
-
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
 
             GameManager.instance.CheckAllMonstersDead();
+
             Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+            CardUse(targetMonster);
+
         }
     }
     public void CardUse(MonsterCharacter targetMonster)

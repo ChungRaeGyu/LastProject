@@ -116,18 +116,6 @@ public class Player : PlayerCharacter
         UpdateCostText();
     }
 
-    // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
-    /*
-    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
-    {
-        if (conditionPrefab != null)
-        {
-            Condition newCondition = Instantiate(conditionPrefab, parent);
-            conditionInstances.Add(newCondition);
-            //UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
-        }
-    }*/
 
     // 리스트에서 Condition 인스턴스를 제거하고 위치를 업데이트
     public void RemoveCondition(Condition condition)
