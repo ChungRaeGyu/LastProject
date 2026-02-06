@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
 using System;
@@ -221,14 +219,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log("----- 플레이어 턴 시작 -----");
             playerTurn = true; // 플레이어 턴 시작
             if (player.currentDefense > 0) player.currentDefense--;
-            foreach (var condition in player.conditionInstances)
-            {
-                if (condition.conditionType == ConditionType.Defense)
-                {
-                    condition.DecrementStackCount(player);
-                    break; // Defense Condition이 하나만 있어야 하기 때문에 루프를 종료
-                }
-            }
+
             StartCoroutine(player.Turn());
             UIManager.instance.UpdatePlayerTurnCount(turnCount);
             UIManager.instance.TurnText.text = PLAYER_TURN_TEXT; // 플레이어 턴 텍스트 설정
@@ -248,8 +239,7 @@ public class GameManager : MonoBehaviour
             {
                 if (monster.monsterNextAction != null)
                 {
-
-                    if (monster.frozenTurnsRemaining < 1&&monster.currenthealth>0)
+                    if (monster.isFrozen==false&&monster.currenthealth>0)
                         monster.monsterNextAction.gameObject.SetActive(true); // 모든 몬스터의 다음 액션 오브젝트 활성화
                 }
             }
@@ -333,10 +323,6 @@ public class GameManager : MonoBehaviour
         foreach(MonsterCharacter monster in monsters)
         {
             if (!monster.gameObject.activeInHierarchy) count--;
-            else
-            {
-                Debug.Log("Monster이름 : " + monster.name);
-            }
         }
         if (count == 0)
         {

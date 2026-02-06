@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5059549730470208264}
-  - component: {fileID: 2555176015284709196}
+  - component: {fileID: 709272978292672541}
   m_Layer: 5
   m_Name: DefDownCondition
   m_TagString: Untagged
@@ -113,7 +113,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2555176015284709196
+--- !u!114 &709272978292672541
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,12 +122,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6725220558243635193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4572e5bbe5958474db03e39c3797082f, type: 3}
+  m_Script: {fileID: 11500000, guid: 07878a0f41582944da6117c8de6d7489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stackText: {fileID: 2603961233143157077}
   stackCount: 0
-  conditionType: 0
+  conditionType: 3
 --- !u!1 &7200637445152843380
 GameObject:
   m_ObjectHideFlags: 0

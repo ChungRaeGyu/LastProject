@@ -77,7 +77,7 @@ public class Fox : MonsterCharacter
             if (attackRandomValue < 15) // 15% 확률로 공격력 3배 공격
             {
                 yield return PerformAttack(Mathf.FloorToInt(monsterStats.attackPower * 1.5f));
-                GameManager.instance.player.BleedingForTurns(2);
+                GameManager.instance.player.AddConditions(GameManager.instance.bleedingConditioinPrefab,2);
 
                 Debug.Log(this.name + "이 강한공격!");
                 Debug.Log(this.name + " 디버프를 걸었다! " + 5 + " 의 출혈 데미지를 입었다!");

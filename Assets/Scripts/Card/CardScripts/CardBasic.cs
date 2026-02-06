@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public enum JOB
@@ -87,7 +85,7 @@ public class CardBasic : MonoBehaviour
 
     public virtual void CardUse(Monster targetMonster, Player player)
     {
-        Debug.Log("CardBasic");
+       
     }
 
     public IEnumerator PlayCard()

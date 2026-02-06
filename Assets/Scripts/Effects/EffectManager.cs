@@ -79,6 +79,7 @@ public class EffectManager : MonoBehaviour
     }
     public void Debuff(MonsterCharacter targetMonster, CardBasic cardBasic)
     {
+        tempCardInfo = cardBasic;
         //호출될 메소드
         StartCoroutine(DeBuffCoroutine(false, cardBasic, targetMonster));
     }
@@ -105,6 +106,7 @@ public class EffectManager : MonoBehaviour
     }
     private void DebuffEffectMethod(MonsterCharacter monster,CardBasic cardBasic)
     {
+        Debug.Log("얼음");
         if (monster.deBuff == null)
             monster.deBuff = Instantiate(cardBasic.debuffEffectPrefab, monster.transform.position, cardBasic.debuffEffectPrefab.transform.rotation);
     }

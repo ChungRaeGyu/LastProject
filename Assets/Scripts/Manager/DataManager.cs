@@ -287,19 +287,6 @@ public class DataManager : MonoBehaviour
         saveData.currentCrystal = currentCrystal;
         saveData.openDungeonNum = openDungeonNum;
 
-
-        //saveData.dataManager = DataManager.Instance;
-        //PlayerCharacter
-        /*
-        if (saveData.activeScenebuildindex == 3)
-        {
-            saveData.activeScenebuildindex = SceneManager.GetActiveScene().buildIndex;
-            saveData.currenthealth = GameManager.instance.player.currenthealth;
-            saveData.currentAttack = GameManager.instance.player.currentAttack;
-            saveData.currentDefense = GameManager.instance.player.currentDefense;
-            saveData.defdown = GameManager.instance.player.defdown;
-            saveData.playerStat = GameManager.instance.player.playerStats;
-        }*/
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(path, json);
         Debug.Log("저장");
@@ -321,25 +308,11 @@ public class DataManager : MonoBehaviour
             cardObjs[i].currentCount = saveData.currentCount[i];
             cardObjs[i].enhancementLevel = saveData.enhance[i];
         }
-       ;
         CardPiece = saveData.cardPiece;
         LobbyDeck = saveData.LobbyDeck;
         currentCrystal = saveData.currentCrystal;
         openDungeonNum = saveData.openDungeonNum;
 
-
-
-        /*
-        if (saveData.activeScenebuildindex == 3)
-        {
-            SceneManager.LoadScene(saveData.activeScenebuildindex);
-            GameManager.instance.player.currenthealth = saveData.currenthealth;
-            GameManager.instance.player.currentAttack = saveData.currentAttack;
-            GameManager.instance.player.currentDefense = saveData.currentDefense;
-            GameManager.instance.player.defdown = saveData.defdown;
-            GameManager.instance.player.playerStats = saveData.playerStat;
-            //Todo : 상태이상 넣기 언젠간 해봐야지....
-        }*/
         Debug.Log("로드완료");
     }
 

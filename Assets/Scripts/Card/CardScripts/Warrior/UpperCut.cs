@@ -40,8 +40,8 @@ public class UpperCut : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"<b>{damageAbility}</b> 만큼 피해주고 취약을 2턴 부여합니다."
-                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해주고 취약을 2턴 부여합니다.";
+                ? $"<b>{damageAbility}</b> 만큼 피해주고 취약을 {utilAbility}턴 부여합니다."
+                : $"<color={color}><b>{damageAbility}</b></color> 만큼 피해주고 취약을 {utilAbility}턴 부여합니다.";
         }
     }
 
@@ -77,7 +77,7 @@ public class UpperCut : CardBasic
     {
         SettingManager.Instance.PlaySound(CardClip1);
 
-        targetMonster.WeakForTurns(utilAbility, 0.25f);
+        targetMonster.AddConditions(GameManager.instance.weakerConditionPrefab,utilAbility);
         GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
         PlayPlayerAttackAnimation();
     }

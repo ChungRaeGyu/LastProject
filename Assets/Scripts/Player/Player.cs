@@ -44,7 +44,7 @@ public class Player : PlayerCharacter
         // ConditionBox 프리팹을 conditionCanvas의 자식으로 생성하고 playerCondition에 할당
         playerCondition = Instantiate(GameManager.instance.conditionBoxPrefab, UIManager.instance.conditionCanvas.transform).transform;
 
-        AddCondition(playerCondition, currentDefense, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
+        AddCondition(playerCondition, currentDefense, GameManager.instance.defenseconditionPrefab);
     }
 
     private void Update()
@@ -116,18 +116,6 @@ public class Player : PlayerCharacter
         UpdateCostText();
     }
 
-    // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
-    /*
-    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
-    {
-        if (conditionPrefab != null)
-        {
-            Condition newCondition = Instantiate(conditionPrefab, parent);
-            conditionInstances.Add(newCondition);
-            //UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, conditionPos, type); // 위치 초기화 후에 스택 값 설정
-        }
-    }*/
 
     // 리스트에서 Condition 인스턴스를 제거하고 위치를 업데이트
     public void RemoveCondition(Condition condition)
@@ -148,20 +136,6 @@ public class Player : PlayerCharacter
         }
     }
 
-    // 방어력 Condition의 스택 수를 증가
-    public void IncrementDefenseConditionStack(int amount)
-    {
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Defense);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(amount);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), amount, GameManager.instance.defenseconditionPrefab, ConditionType.Defense);
-        }
-    }
 
     protected override Transform GetConditionPos()
     {

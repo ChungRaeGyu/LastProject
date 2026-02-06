@@ -75,7 +75,7 @@ public class FireBall : CardBasic
     {
         SettingManager.Instance.PlaySound(CardClip1);
 
-        targetMonster.burnForTurns(utilAbility);
+        targetMonster.AddConditions(GameManager.instance.burnConditionPrefab,utilAbility);
         GameManager.instance.effectManager.MagicAttack(cardBasic,targetMonster);
         PlayPlayerAttackAnimation();
     }

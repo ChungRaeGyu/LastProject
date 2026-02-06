@@ -74,7 +74,7 @@ public class Meteo : CardBasic
         foreach (MonsterCharacter monster in monsters)
         {
             if (monster.currenthealth > 0)
-                monster.burnForTurns(utilAbility);
+                monster.AddConditions(GameManager.instance.burnConditionPrefab,utilAbility);
         }
         //TODO : 애니메이션 넣어주기 
     }

@@ -76,8 +76,8 @@ public class FatalAttack : CardBasic
     public void CardUse(MonsterCharacter targetMonster)
     {
         GameManager.instance.effectManager.PhysicalAttack(this, targetMonster);
-        targetMonster.WeakForTurns(utilAbility, 0.25f);
-        targetMonster.DefDownForTurns(utilAbility,0.5f);
+        targetMonster.AddConditions(GameManager.instance.weakerConditionPrefab,utilAbility);
+        targetMonster.AddConditions(GameManager.instance.defDownConditionPrefab,utilAbility);
 
         SettingManager.Instance.PlaySound(CardClip1);
         PlayPlayerAttackAnimation();

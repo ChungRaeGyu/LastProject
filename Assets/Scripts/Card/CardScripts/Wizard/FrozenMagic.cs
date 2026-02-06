@@ -36,7 +36,7 @@ public class FrozenMagic : CardBasic
             }
 
             descriptionText.text = color == ""
-                ? $"적을 <b>{damageAbility}</b>만큼 데미지를 추고 20퍼센트 확률로 <b>{utilAbility}</b> 턴 동안 얼립니다."
+                ? $"적을 <b>{damageAbility}</b>만큼 데미지를 추고 30퍼센트 확률로 <b>{utilAbility}</b> 턴 동안 얼립니다."
                 : $"적을 <color={color}><b>{damageAbility}</b>만큼 데미지를 추고 20퍼센트 확률로<b>{utilAbility}</b></color> 턴 동안 얼립니다.";
         }
     }
@@ -57,33 +57,34 @@ public class FrozenMagic : CardBasic
 
                 yield return new WaitForSeconds(1f);
             }
-
-            CardUse(targetMonster);
-
             DataManager.Instance.AddUsedCard(cardBasic);
 
             GameManager.instance.handManager.RemoveCard(transform);
-            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
             GameManager.instance.CheckAllMonstersDead();
+
+            Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+            CardUse(targetMonster);
+
         }
     }
-
     public void CardUse(MonsterCharacter targetMonster)
     {
         SettingManager.Instance.PlaySound(CardClip1);
         int rand = Random.Range(1, 11);
         if (rand <= 3)
         {
-            targetMonster.FreezeForTurns(utilAbility);
-            GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
-            targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
+            if (targetMonster.currenthealth > damageAbility)
+            {
+                targetMonster.AddConditions(GameManager.instance.frozenConditionPrefab,utilAbility);
+                GameManager.instance.effectManager.Debuff(targetMonster,cardBasic);
+                targetMonster.animator.StartPlayback(); //몬스터의 애니메이션이 멈춘다.
+            }
         }
         targetMonster.TakeDamage(damageAbility);
         //targetMonster.monsterNextAction.gameObject.SetActive(false);
         PlayPlayerAttackAnimation();
     }
-
     #region 특수카드 사용
 
     #endregion

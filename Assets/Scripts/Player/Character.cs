@@ -3,22 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
-    //디버프관련변수
-    public int frozenTurnsRemaining = 0; // 얼린 상태가 유지될 턴 수
-    public int weakerTurnsRemaining = 0; // 약화 상태가 유지될 턴 수
-    public int defDownTurnsRemaining = 0; //방깍 상태가 유지될 턴 수 
-    public int burnTurnsRemaining = 0; //화상
-    public int poisonTurnsRemaining = 0; //중독 
-    public int bleedingTurnsRemaining = 0; //출혈
-
     public bool isFrozen; // 얼었는지 확인하는 용도
 
     public List<Condition> conditionInstances = new List<Condition>();
 
     public Animator animator;
 
+    private Condition tempCondition;
     [Header("DeBuff_InputScript")]
     public GameObject deBuff;
     public void Awake()
@@ -27,83 +20,22 @@ public class Character : MonoBehaviour
     }
     public virtual IEnumerator Turn()
     {
-        if (frozenTurnsRemaining > 0)
+        for (int i = conditionInstances.Count - 1; i >= 0; i--)
         {
-            frozenTurnsRemaining--;
-            // SpawnDamageText로 "빙결" 텍스트 띄우도록 개조
-            SpawnConditionText("빙결", transform.position);
+            Condition currentCondition = conditionInstances[i];
 
-            yield return new WaitForSeconds(2f); // 연출을 위한 대기
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
-            if (existingFrozenCondition != null)
+            // 각 컨디션 로직 실행 (데미지 계산, 스택 감소 등)
+            currentCondition.Turn(this);
+
+            // 스택이 0 이하가 되면 삭제 처리
+            if (currentCondition.stackCount <= 0)
             {
-                existingFrozenCondition.DecrementStackCount(this);
+                conditionInstances.RemoveAt(i); // 인덱스로 직접 삭제하여 효율성 증대
+                Destroy(currentCondition.gameObject);
             }
-            if (frozenTurnsRemaining == 0)
-            {
-                animator.StopPlayback();
-                GameManager.instance.DestroyDeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
-            }
-        }
-        else
-        {
-            isFrozen = false;
-        }
-        if (weakerTurnsRemaining > 0)
-        {
-            weakerTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Weaker);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-        }
-        else
-        {
-            BaseWeakerMethod();
-        }
-        if (defDownTurnsRemaining > 0)
-        {
-            defDownTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-        }
-        else
-        {
-            BasedefMethod();
-        }
-        if (burnTurnsRemaining > 0)
-        {
-            TakedamageCharacter(burnTurnsRemaining);
-            burnTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-        }
-        if (poisonTurnsRemaining > 0)
-        {
-            TakedamageCharacter(poisonTurnsRemaining);
-            poisonTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
-        }
-        if (bleedingTurnsRemaining > 0)
-        {
-            TakedamageCharacter(bleedingTurnsRemaining);
-            bleedingTurnsRemaining--;
-            Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
-            if (existingFrozenCondition != null)
-            {
-                existingFrozenCondition.DecrementStackCount(this);
-            }
+
+            // 매 루프마다 한 프레임씩 대기 (시각적 효과를 위해 유지)
+            yield return null;
         }
     }
 
@@ -139,144 +71,59 @@ public class Character : MonoBehaviour
             textInstance.transform.position = Camera.main.ScreenToWorldPoint(newScreenPosition);
         }
     }
+    public void AddConditions(Condition conditionPrefab,int turns)
+    {
+        if (CheckCondition(conditionPrefab))
+        {
+            tempCondition.IncrementStackCount(turns);
+        }
+        else
+        {
+            conditionPrefab.Utility(this);
+            AddCondition(GetConditionPos(), turns, conditionPrefab);
+        }
+    }
+    private bool CheckCondition(Condition conditionPrefab)
+    {
+        foreach(Condition condition in conditionInstances)
+        {
+            if (condition.conditionType == conditionPrefab.conditionType)
+            {
+                tempCondition = condition;
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public void AnimationStop()
+    {
+        animator.StopPlayback();
+        GameManager.instance.DestroyDeBuffAnim(deBuff); //얼음오브젝트 삭제 하는 곳
+    }
     #region 디버프
-    public virtual void FreezeForTurns(int turns)
-    {
-        isFrozen = true;
-        frozenTurnsRemaining += turns;
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Frozen);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.frozenConditionPrefab, ConditionType.Frozen);
-        }
-    }
-    public void WeakForTurns(int turns, float ability)
-    {
-        //약화 : 몬스터의 공격력이 약해진다.
-        weakerTurnsRemaining += turns;
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Weaker);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.weakerConditionPrefab, ConditionType.Weaker);
-            //약화 
-            WeakingMethod(ability);
-        }
-    }
-    public void DefDownForTurns(int turns, float ability)
-    {
-        //취약 : 몬스터의 방어력이 약해진다.
-        defDownTurnsRemaining += turns;
-
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.DefDown);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.defDownConditionPrefab, ConditionType.DefDown);
-            DefDownValue(ability);
-        }
-    }
-
-    public void burnForTurns(int turns)
-    {
-        //도트 딜
-        burnTurnsRemaining += turns;
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Burn);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.burnConditionPrefab, ConditionType.Burn);
-        }
-
-    }
-    public void PoisonForTurns(int turns)
-    {
-        //도트 딜
-        poisonTurnsRemaining += turns;
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Poison);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.poisonConditionPrefab, ConditionType.Poison);
-        }
-
-    }
-    public void BleedingForTurns(int turns)
-    {
-        //도트 딜
-        bleedingTurnsRemaining += turns;
-        Condition existingFrozenCondition = conditionInstances.Find(condition => condition.conditionType == ConditionType.Bleeding);
-        if (existingFrozenCondition != null)
-        {
-            existingFrozenCondition.IncrementStackCount(turns);
-        }
-        else
-        {
-            AddCondition(GetConditionPos(), turns, GameManager.instance.bleedingConditioinPrefab, ConditionType.Bleeding);
-        }
-
-    }
 
     #endregion
 
     // 새로운 Condition 인스턴스를 생성하고 리스트에 추가한 후, 위치를 업데이트
-    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab, ConditionType type)
+    public void AddCondition(Transform parent, int initialStackCount, Condition conditionPrefab)
     {
         if (conditionPrefab != null)
         {
             Condition newCondition = Instantiate(conditionPrefab, parent);
             conditionInstances.Add(newCondition);
             //UpdateConditionPositions();
-            newCondition.Initialized(initialStackCount, GetConditionTransfrom(), type); // 위치 초기화 후에 스택 값 설정
+            newCondition.Initialized(initialStackCount, GetConditionTransfrom()); // 위치 초기화 후에 스택 값 설정
         }
     }
     #region 상속을 위한 메소드들
-    protected virtual Transform GetConditionPos()
-    {
-        return null;
-    }
-    protected virtual Transform GetConditionTransfrom()
-    {
-        return null;
-    }
-    protected virtual void BaseWeakerMethod()
-    {
+    protected abstract Transform GetConditionPos();
+    protected abstract Transform GetConditionTransfrom();
+    public abstract void BaseWeakerMethod();
+    public abstract void WeakingMethod(float ability);
+    public abstract void BasedefMethod();
 
-    }
-    protected virtual void WeakingMethod(float ability)
-    {
-
-    }
-    protected virtual void BasedefMethod()
-    {
-
-    }
-    protected virtual void DefDownValue(float ability)
-    {
-
-    }
-    protected virtual void TakedamageCharacter(int damage)
-    {
-
-    }
+    public abstract void DefDownValue(float ability);
+    public abstract void TakedamageCharacter(int damage);
     #endregion
 }

@@ -51,14 +51,14 @@ public class RangeAttack : CardBasic
             yield return new WaitForSeconds(1f);
         }
 
-        CardUse();
 
         DataManager.Instance.AddUsedCard(cardBasic);
 
         GameManager.instance.handManager.RemoveCard(transform);
-        Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
 
         GameManager.instance.CheckAllMonstersDead();
+        Destroy(gameObject);// 카드를 사용했으므로 카드를 제거
+        CardUse();
     }
 
     public void CardUse(MonsterCharacter targetMonster=null)
