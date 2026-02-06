@@ -20,16 +20,21 @@ public abstract class Character : MonoBehaviour
     }
     public virtual IEnumerator Turn()
     {
-        for(int i=0; i < conditionInstances.Count; i++)
+        for (int i = conditionInstances.Count - 1; i >= 0; i--)
         {
-            conditionInstances[i].Turn(this); // stackCount 감소로직과 각 컨디션별 로직
-            //condition이 0이면 삭제 
-            if (conditionInstances[i].stackCount <= 0)
+            Condition currentCondition = conditionInstances[i];
+
+            // 각 컨디션 로직 실행 (데미지 계산, 스택 감소 등)
+            currentCondition.Turn(this);
+
+            // 스택이 0 이하가 되면 삭제 처리
+            if (currentCondition.stackCount <= 0)
             {
-                Destroy(conditionInstances[i].gameObject);
-                conditionInstances.Remove(conditionInstances[i]);
-                i--;
+                conditionInstances.RemoveAt(i); // 인덱스로 직접 삭제하여 효율성 증대
+                Destroy(currentCondition.gameObject);
             }
+
+            // 매 루프마다 한 프레임씩 대기 (시각적 효과를 위해 유지)
             yield return null;
         }
     }

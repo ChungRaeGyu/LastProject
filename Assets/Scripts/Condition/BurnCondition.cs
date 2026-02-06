@@ -1,5 +1,4 @@
-using UnityEditor.Playables;
-using UnityEngine;
+
 
 public class BurnCondition : Condition
 {
